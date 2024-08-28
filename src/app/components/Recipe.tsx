@@ -4,6 +4,63 @@ import Image from 'next/image';
 import { Libre_Bodoni, Roboto } from 'next/font/google';
 import styled from 'styled-components';
 
+const libre = Libre_Bodoni({
+  subsets: ['latin'],
+  style: ['italic', 'normal'],
+  weight: ['700'],
+});
+
+const roboto = Roboto({
+  subsets: ['latin'],
+  weight: ['100', '300', '400', '500'],
+});
+
+interface Props {
+  idx: number;
+}
+
+function Recipe({ idx }: Props) {
+  return (
+    <StyledContainer idx={idx} className={roboto.className}>
+      <StyledHoverContent>
+        <StyledHoverContentImgBox>
+          <Image src={'/img/img1.png'} fill alt='Picture of the author' />
+        </StyledHoverContentImgBox>
+        <StyledHoverContentH2 className={libre.className}>
+          Bibimbab
+        </StyledHoverContentH2>
+      </StyledHoverContent>
+      <StyledImgOuterBox>
+        <StyledImgInnerBox idx={idx}>
+          <Image src={'/img/img1.png'} fill alt='Picture of the author' />
+        </StyledImgInnerBox>
+      </StyledImgOuterBox>
+      <StyledInformation>
+        <StyledInformationHeader>
+          <StyledTitle>Bibimbab</StyledTitle>
+          <StyledChip>Vege</StyledChip>
+        </StyledInformationHeader>
+
+        <StyledText>Spaghetti Carbonara</StyledText>
+      </StyledInformation>
+    </StyledContainer>
+  );
+}
+
+export default Recipe;
+
+const StyledChip = styled('span')({
+  padding: '0.25rem 0.7rem',
+  borderRadius: '15px',
+  backgroundColor: '#f5f5f5',
+  fontSize: '0.8rem',
+  fontWeight: 400,
+
+  '&:hover': {
+    backgroundColor: '#ddd',
+  },
+});
+
 const StyledContainer = styled('div')<{
   idx: number;
 }>(({ idx }) => ({
@@ -24,24 +81,15 @@ const StyledHoverContent = styled('div')({
 
   opacity: 0,
 
-  ':hover': {
+  [`${StyledContainer}:hover &`]: {
     opacity: 1,
 
     img: {
-      animation: 'borderAnimation 1s forwards',
+      animation: `1s showBorderAnimation forwards`,
     },
 
     h2: {
-      animation: 'leftToRightAnimation 3.5s infinite linear',
-    },
-  },
-
-  '@keyframes borderAnimation': {
-    '0%': {
-      borderRadius: '0px',
-    },
-    '100%': {
-      borderRadius: '40px',
+      animation: `3.5s leftToRightAnimation infinite linear`,
     },
   },
 
@@ -51,6 +99,15 @@ const StyledHoverContent = styled('div')({
     },
     '100%': {
       transform: 'translateX(-100%) translateY(-50%)',
+    },
+  },
+
+  '@keyframes showBorderAnimation': {
+    '0%': {
+      borderRadius: '0px',
+    },
+    '100%': {
+      borderRadius: '40px',
     },
   },
 });
@@ -116,58 +173,3 @@ const StyledText = styled('p')({
   padding: '0.5rem 0',
   textAlign: 'center',
 });
-
-const libre = Libre_Bodoni({
-  subsets: ['latin'],
-  style: ['italic', 'normal'],
-  weight: ['700'],
-});
-
-const roboto = Roboto({
-  subsets: ['latin'],
-  weight: ['100', '300', '400', '500'],
-});
-
-interface Props {
-  idx: number;
-}
-
-function Recipe({ idx }: Props) {
-  return (
-    <StyledContainer idx={idx} className={roboto.className}>
-      <StyledHoverContent>
-        <StyledHoverContentImgBox>
-          <Image src={'/img/img1.png'} fill alt='Picture of the author' />
-        </StyledHoverContentImgBox>
-
-        <StyledHoverContentH2 className={libre.className}>
-          Bibimbab
-        </StyledHoverContentH2>
-      </StyledHoverContent>
-
-      <StyledImgOuterBox>
-        <StyledImgInnerBox idx={idx}>
-          <Image src={'/img/img1.png'} fill alt='Picture of the author' />
-        </StyledImgInnerBox>
-      </StyledImgOuterBox>
-      <StyledInformation>
-        <StyledInformationHeader>
-          <StyledTitle>Bibimbab</StyledTitle>
-          <Chip
-            label='Vegan'
-            variant='outlined'
-            sx={{
-              fontWeight: 400,
-              ...roboto.style,
-              fontSize: '0.8rem',
-            }}
-          />
-        </StyledInformationHeader>
-
-        <StyledText>Spaghetti Carbonara</StyledText>
-      </StyledInformation>
-    </StyledContainer>
-  );
-}
-
-export default Recipe;
