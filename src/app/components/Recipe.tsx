@@ -30,17 +30,18 @@ function Recipe({ idx }: Props) {
           Bibimbab
         </StyledHoverContentH2>
       </StyledHoverContent>
+
       <StyledImgOuterBox>
         <StyledImgInnerBox idx={idx}>
           <Image src={'/img/img1.png'} fill alt='Picture of the author' />
         </StyledImgInnerBox>
       </StyledImgOuterBox>
+
       <StyledInformation>
         <StyledInformationHeader>
           <StyledTitle>Bibimbab</StyledTitle>
           <StyledChip>Vege</StyledChip>
         </StyledInformationHeader>
-
         <StyledText>Spaghetti Carbonara</StyledText>
       </StyledInformation>
     </StyledContainer>
@@ -64,6 +65,7 @@ const StyledChip = styled('span')({
 const StyledContainer = styled('div')<{
   idx: number;
 }>(({ idx }) => ({
+  minHeight: '300px',
   display: 'flex',
   flexDirection: 'column',
   gridArea: `item${idx}`,
@@ -145,6 +147,7 @@ const StyledImgInnerBox = styled('div')<{
 }));
 
 const StyledInformation = styled('div')({
+  minHeight: '300px',
   zIndex: 1,
   display: 'flex',
   flexDirection: 'column',
@@ -170,6 +173,6 @@ const StyledText = styled('p')({
   fontWeight: 400,
   fontSize: '0.8rem',
   backgroundColor: 'rgba(255, 255, 255, 0.7)',
-  padding: '0.5rem 0',
+  padding: '0.7rem 0',
   textAlign: 'center',
 });

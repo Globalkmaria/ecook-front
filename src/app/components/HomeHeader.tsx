@@ -1,5 +1,6 @@
 'use client';
 
+import { theme } from '@/styles/theme';
 import { Libre_Bodoni } from 'next/font/google';
 import styled from 'styled-components';
 
@@ -7,21 +8,6 @@ const libre = Libre_Bodoni({
   subsets: ['latin'],
   style: ['italic', 'normal'],
   weight: ['700'],
-});
-
-const StyledHeader = styled('header')({
-  display: 'flex',
-  flexDirection: 'column',
-  fontWeight: 600,
-  marginBottom: '2rem',
-
-  h1: {
-    fontSize: '5rem',
-  },
-});
-
-const StyledRecipes = styled('h1')({
-  alignSelf: 'flex-end',
 });
 
 function HomeHeader() {
@@ -37,3 +23,30 @@ function HomeHeader() {
 }
 
 export default HomeHeader;
+
+const StyledHeader = styled('header')({
+  display: 'flex',
+  flexDirection: 'column',
+  fontWeight: 600,
+  marginBottom: '2rem',
+
+  h1: {
+    fontSize: '5rem',
+  },
+
+  [`@media ${theme.devices.laptop}`]: {
+    h1: {
+      fontSize: '4rem',
+    },
+  },
+
+  [`@media ${theme.devices.mobile}`]: {
+    h1: {
+      fontSize: '2rem',
+    },
+  },
+});
+
+const StyledRecipes = styled('h1')({
+  alignSelf: 'flex-end',
+});
