@@ -1,6 +1,6 @@
 import '@/styles/global.css';
 
-import StyledComponentsRegistry from './lib/registry';
+import StyledComponentsRegistry from '@/lib/registry';
 
 export default function RootLayout({
   children,
