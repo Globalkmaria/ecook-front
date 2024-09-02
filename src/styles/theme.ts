@@ -105,6 +105,16 @@ const colors = {
   brown200: '#f5e3e0',
   brown100: '#f9e9e6',
   brown000: '#fce5e2',
+
+  blurry900: '#ffffffe6',
+  blurry800: '#ffffffcc',
+  blurry700: '#ffffffb3',
+  blurry600: '#ffffff99',
+  blurry500: '#ffffff80',
+  blurry400: '#ffffff66',
+  blurry300: '#ffffff4d',
+  blurry200: '#ffffff33',
+  blurry100: '#ffffff1a',
 };
 
 const devices = {
