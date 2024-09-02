@@ -4,6 +4,9 @@ import Image from 'next/image';
 import { Libre_Bodoni, Roboto } from 'next/font/google';
 import styled from 'styled-components';
 
+import { theme } from '@/styles/theme';
+import Chip from '@/components/Chip';
+
 const libre = Libre_Bodoni({
   subsets: ['latin'],
   style: ['italic', 'normal'],
@@ -40,7 +43,7 @@ function Recipe({ idx }: Props) {
       <StyledInformation>
         <StyledInformationHeader>
           <StyledTitle>Bibimbab</StyledTitle>
-          <StyledChip>Vege</StyledChip>
+          <Chip>Vege</Chip>
         </StyledInformationHeader>
         <StyledText>Spaghetti Carbonara</StyledText>
       </StyledInformation>
@@ -49,18 +52,6 @@ function Recipe({ idx }: Props) {
 }
 
 export default Recipe;
-
-const StyledChip = styled('span')({
-  padding: '0.25rem 0.7rem',
-  borderRadius: '15px',
-  backgroundColor: '#f5f5f5',
-  fontSize: '0.8rem',
-  fontWeight: 400,
-
-  '&:hover': {
-    backgroundColor: '#ddd',
-  },
-});
 
 const StyledContainer = styled('div')<{
   idx: number;
@@ -161,7 +152,7 @@ const StyledInformationHeader = styled('div')({
   alignItems: 'center',
   gap: '5px',
   padding: '0.6rem 0.5rem 0.5rem',
-  backgroundColor: 'rgba(255, 255, 255, 0.7)',
+  backgroundColor: theme.colors.blurry700,
 });
 
 const StyledTitle = styled('h2')({
@@ -172,7 +163,7 @@ const StyledTitle = styled('h2')({
 const StyledText = styled('p')({
   fontWeight: 400,
   fontSize: '0.8rem',
-  backgroundColor: 'rgba(255, 255, 255, 0.7)',
+  backgroundColor: theme.colors.blurry700,
   padding: '0.7rem 0',
   textAlign: 'center',
 });
