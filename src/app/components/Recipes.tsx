@@ -4,11 +4,12 @@ import styled from 'styled-components';
 import Recipe from './Recipe';
 import { theme } from '@/styles/theme';
 
+import { recipeIds } from '@/data/recipe';
+
 function Recipes() {
-  const array = Array.from({ length: 18 }, (_, i) => i + 1);
   return (
     <StyledSection>
-      {array.map((idx) => (
+      {recipeIds.map((idx) => (
         <Recipe key={idx} idx={idx} />
       ))}
     </StyledSection>

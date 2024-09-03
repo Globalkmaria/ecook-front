@@ -9,49 +9,25 @@ import { Tab, TabsContainer } from '@/components/Tab';
 import CheckboxList from '@/components/CheckboxList';
 import { getListCheckboxInitialState } from '@/components/helpers';
 
-import { RECIPE_TABS, RecipeTab } from './const';
+import { recipes } from '@/data/recipe';
 
-const INFO = {
-  name: 'Bibimbab',
-  chips: ['Vegetarian', 'Healthy', 'Easy to prepare'],
-  Ingredients: [
-    '1 lb. spaghetti',
-    '1 onion, chopped',
-    '2 cloves garlic, minced',
-    '1 lb. bacon, sliced',
-    '1/2 cup heavy cream',
-    '1/2 cup shredded mozzarella',
-    '1/2 cup shredded cheddar',
-    '1/2 cup shredded Parmesan',
-    '1/4 cup grated Parmesan cheese',
-    '1/4 cup grated mozzarella cheese',
-    '1/4 cup grated feta cheese',
-    '1/4 cup grated romano cheese',
-    '1/2 cup grated pecorino Romano cheese',
-    '1/2 cup grated Gorgonzola cheese',
-    '1/4 cup grated fontina cheese',
-    '1/4 cup grated provolone cheese',
-  ],
-  Steps: [
-    'Cook pasta according to package instructions.',
-    'Cook bacon according to package instructions.',
-    'In a large pot, combine salted water, pasta, and cooked bacon.',
-    'Cook and stir over medium heat until heated through.',
-  ],
-} as const;
+import { RECIPE_TABS, RecipeTab } from './const';
 
 interface Props {
   recipeId: string;
 }
 
 function Recipe({ recipeId }: Props) {
+  const recipe = recipeId ? recipes[recipeId] : null;
   const [tab, setTab] = useState<RecipeTab>('Ingredients');
   const [ingredientsChecked, setIngredientsChecked] = useState(
-    getListCheckboxInitialState(INFO.Ingredients),
+    getListCheckboxInitialState(recipe?.ingredients ?? []),
   );
   const [stepsChecked, setStepsChecked] = useState(
-    getListCheckboxInitialState(INFO.Steps),
+    getListCheckboxInitialState(recipe?.steps ?? []),
   );
+
+  if (!recipe) return null;
 
   const onIngredientsToggle = (id: string) => {
     setIngredientsChecked({
@@ -67,14 +43,14 @@ function Recipe({ recipeId }: Props) {
   return (
     <StyledRecipe>
       <StyledImgBox>
-        <Image src={'/img/img1.png'} fill alt='Picture of the author' />
+        <Image src={`/img/img${recipeId}.png`} fill alt={recipe.name} />
       </StyledImgBox>
 
       <StyledContent>
         <StyledHeader>
-          <StyledTitle>{INFO.name}</StyledTitle>
+          <StyledTitle>{recipe.name}</StyledTitle>
           <StyledChipsContainer>
-            {INFO.chips.map((chip) => (
+            {recipe.filters.map((chip) => (
               <Chip key={chip}>{chip}</Chip>
             ))}
           </StyledChipsContainer>
@@ -97,14 +73,14 @@ function Recipe({ recipeId }: Props) {
             {tab === 'Ingredients' && (
               <CheckboxList
                 state={ingredientsChecked}
-                items={INFO.Ingredients}
+                items={recipe.ingredients}
                 onChange={onIngredientsToggle}
               />
             )}
             {tab === 'Steps' && (
               <CheckboxList
                 state={stepsChecked}
-                items={INFO.Steps}
+                items={recipe.steps}
                 onChange={onStepsToggle}
               />
             )}
