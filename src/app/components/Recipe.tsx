@@ -25,8 +25,8 @@ interface Props {
 
 function Recipe({ idx }: Props) {
   return (
-    <StyledContainer idx={idx} className={roboto.className}>
-      <Link href={`/recipes/${idx}`}>
+    <StyledContainer $idx={idx} className={roboto.className}>
+      <Link scroll={false} href={`/recipes/${idx}`}>
         <StyledHoverContent>
           <StyledHoverContentImgBox>
             <Image src={'/img/img1.png'} fill alt='Picture of the author' />
@@ -37,7 +37,7 @@ function Recipe({ idx }: Props) {
         </StyledHoverContent>
 
         <StyledImgOuterBox>
-          <StyledImgInnerBox idx={idx}>
+          <StyledImgInnerBox $idx={idx}>
             <Image src={'/img/img1.png'} fill alt='Picture of the author' />
           </StyledImgInnerBox>
         </StyledImgOuterBox>
@@ -57,12 +57,12 @@ function Recipe({ idx }: Props) {
 export default Recipe;
 
 const StyledContainer = styled('div')<{
-  idx: number;
-}>(({ idx }) => ({
+  $idx: number;
+}>(({ $idx }) => ({
   minHeight: '300px',
   display: 'flex',
   flexDirection: 'column',
-  gridArea: `item${idx}`,
+  gridArea: `item${$idx}`,
   border: '1px solid',
   position: 'relative',
 }));
@@ -132,12 +132,12 @@ const StyledImgOuterBox = styled('div')({
 });
 
 const StyledImgInnerBox = styled('div')<{
-  idx: number;
-}>(({ idx }) => ({
+  $idx: number;
+}>(({ $idx }) => ({
   position: 'relative',
   width: '100%',
   height: '100%',
-  gridArea: `item${idx}`,
+  gridArea: `item${$idx}`,
 }));
 
 const StyledInformation = styled('div')({
