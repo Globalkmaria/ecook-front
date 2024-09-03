@@ -5,7 +5,10 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 import Chip, { ChipsContainer } from '@/components/Chip';
-import { theme } from '@/styles/theme';
+import { Tab, TabsContainer } from '@/components/Tab';
+import CheckboxList from '@/components/CheckboxList';
+import { getListCheckboxInitialState } from '@/components/helpers';
+
 import { RECIPE_TABS, RecipeTab } from './const';
 
 interface Props {
@@ -43,9 +46,24 @@ const INFO = {
 
 function Recipe({ params }: Props) {
   const [tab, setTab] = useState<RecipeTab>('Ingredients');
+  const [ingredientsChecked, setIngredientsChecked] = useState(
+    getListCheckboxInitialState(INFO.Ingredients),
+  );
+  const [stepsChecked, setStepsChecked] = useState(
+    getListCheckboxInitialState(INFO.Steps),
+  );
 
-  const ingredients = <List items={INFO.Ingredients} />;
-  const steps = <List items={INFO.Steps} />;
+  const onIngredientsToggle = (id: string) => {
+    setIngredientsChecked({
+      ...ingredientsChecked,
+      [id]: !ingredientsChecked[id],
+    });
+  };
+
+  const onStepsToggle = (id: string) => {
+    setStepsChecked({ ...stepsChecked, [id]: !stepsChecked[id] });
+  };
+
   return (
     <StyledRecipe>
       <StyledImgBox>
@@ -63,7 +81,7 @@ function Recipe({ params }: Props) {
         </StyledHeader>
 
         <StyledBody>
-          <StyledTabs>
+          <TabsContainer>
             {RECIPE_TABS.map((item) => (
               <Tab
                 key={item}
@@ -73,11 +91,23 @@ function Recipe({ params }: Props) {
                 {item}
               </Tab>
             ))}
-          </StyledTabs>
+          </TabsContainer>
 
           <StyledInfo>
-            {tab === 'Ingredients' && ingredients}
-            {tab === 'Steps' && steps}
+            {tab === 'Ingredients' && (
+              <CheckboxList
+                state={ingredientsChecked}
+                items={INFO.Ingredients}
+                onChange={onIngredientsToggle}
+              />
+            )}
+            {tab === 'Steps' && (
+              <CheckboxList
+                state={stepsChecked}
+                items={INFO.Steps}
+                onChange={onStepsToggle}
+              />
+            )}
           </StyledInfo>
         </StyledBody>
       </StyledContent>
@@ -92,22 +122,6 @@ const StyledBody = styled('div')({
   padding: '1rem 3rem',
   marginTop: '2rem',
 });
-
-const StyledTabs = styled('div')({
-  width: '100%',
-  display: 'flex',
-});
-
-const Tab = styled('button')<{
-  selected?: boolean;
-}>(({ selected }) => ({
-  flex: 1,
-  padding: '0.5rem 1rem',
-  cursor: 'pointer',
-  fontWeight: 500,
-
-  borderBottom: `2px solid ${selected ? 'black' : 'transparent'}`,
-}));
 
 const StyledInfo = styled('div')({
   marginTop: '2rem',
@@ -150,28 +164,3 @@ const StyledTitle = styled('h1')({
 const StyledChipsContainer = styled(ChipsContainer)({
   marginTop: '1rem',
 });
-
-function List({ items }: { items: readonly string[] }) {
-  return (
-    <StyledList>
-      {items.map((item, i) => (
-        <StyledListItem key={item}>
-          <input type='checkbox' id={i.toString()} />
-          <label htmlFor={i.toString()}>{item}</label>
-        </StyledListItem>
-      ))}
-    </StyledList>
-  );
-}
-
-const StyledList = styled('ul')``;
-const StyledListItem = styled('li')`
-  margin: 0.5rem 0;
-  input {
-    margin-right: 1rem;
-
-    &:checked + label {
-      color: ${theme.colors.grey500};
-    }
-  }
-`;
