@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 import { theme } from '@/styles/theme';
 import Chip from '@/components/Chip';
+import Link from 'next/link';
 
 const libre = Libre_Bodoni({
   subsets: ['latin'],
@@ -25,28 +26,30 @@ interface Props {
 function Recipe({ idx }: Props) {
   return (
     <StyledContainer idx={idx} className={roboto.className}>
-      <StyledHoverContent>
-        <StyledHoverContentImgBox>
-          <Image src={'/img/img1.png'} fill alt='Picture of the author' />
-        </StyledHoverContentImgBox>
-        <StyledHoverContentH2 className={libre.className}>
-          Bibimbab
-        </StyledHoverContentH2>
-      </StyledHoverContent>
+      <Link href={`/recipes/${idx}`}>
+        <StyledHoverContent>
+          <StyledHoverContentImgBox>
+            <Image src={'/img/img1.png'} fill alt='Picture of the author' />
+          </StyledHoverContentImgBox>
+          <StyledHoverContentH2 className={libre.className}>
+            Bibimbab
+          </StyledHoverContentH2>
+        </StyledHoverContent>
 
-      <StyledImgOuterBox>
-        <StyledImgInnerBox idx={idx}>
-          <Image src={'/img/img1.png'} fill alt='Picture of the author' />
-        </StyledImgInnerBox>
-      </StyledImgOuterBox>
+        <StyledImgOuterBox>
+          <StyledImgInnerBox idx={idx}>
+            <Image src={'/img/img1.png'} fill alt='Picture of the author' />
+          </StyledImgInnerBox>
+        </StyledImgOuterBox>
 
-      <StyledInformation>
-        <StyledInformationHeader>
-          <StyledTitle>Bibimbab</StyledTitle>
-          <Chip>Vege</Chip>
-        </StyledInformationHeader>
-        <StyledText>Spaghetti Carbonara</StyledText>
-      </StyledInformation>
+        <StyledInformation>
+          <StyledInformationHeader>
+            <StyledTitle>Bibimbab</StyledTitle>
+            <Chip>Vege</Chip>
+          </StyledInformationHeader>
+          <StyledText>Spaghetti Carbonara</StyledText>
+        </StyledInformation>
+      </Link>
     </StyledContainer>
   );
 }
