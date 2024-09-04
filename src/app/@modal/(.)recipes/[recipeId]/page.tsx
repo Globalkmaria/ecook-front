@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { useRouter } from 'next/navigation';
 
 import Recipe from '@/app/recipes/[recipeId]/Recipe';
-import useModal from '@/hooks/useModal';
 import { Modal } from '@/components/Modal';
 
 interface Props {
@@ -14,13 +13,15 @@ interface Props {
 function RecipePage({ params }: Props) {
   const router = useRouter();
 
-  const modalHandler = useModal(true);
+  if (!params.recipeId) {
+    return null;
+  }
 
   const onDismiss = () => {
     router.back();
   };
   return (
-    <Modal isOpen={modalHandler.isOpen} onClose={onDismiss}>
+    <Modal isOpen={true} onClose={onDismiss}>
       <StyledContainer>
         <Recipe recipeId={params.recipeId} />
       </StyledContainer>

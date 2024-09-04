@@ -2,7 +2,9 @@
 
 import styled from 'styled-components';
 
-export const Tab = styled('button')<{
+export const Tab = styled('button').attrs({
+  type: 'button',
+})<{
   selected?: boolean;
 }>(({ selected }) => ({
   flex: 1,
