@@ -1,4 +1,4 @@
-import style from './style.module.css';
+import style from './style.module.scss';
 
 import HomeHeader from './components/HomeHeader';
 import Recipes from './components/Recipes';
