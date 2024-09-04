@@ -1,6 +1,7 @@
 import '@/styles/global.css';
 
 import StyledComponentsRegistry from '@/lib/registry';
+import Nav from './components/Nav';
 
 export default function RootLayout({
   children,
@@ -13,6 +14,7 @@ export default function RootLayout({
     <html lang='en'>
       <body>
         <StyledComponentsRegistry>
+          <Nav />
           {children}
           {modal}
           <div id='modal-root' />
