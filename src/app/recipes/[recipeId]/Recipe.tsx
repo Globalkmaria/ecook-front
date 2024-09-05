@@ -93,51 +93,51 @@ function Recipe({ recipeId }: Props) {
 
 export default Recipe;
 
-const StyledBody = styled('div')({
-  width: '100%',
-  padding: '1rem 3rem',
-  marginTop: '2rem',
-});
+const StyledRecipe = styled.div`
+  display: flex;
+  height: 100%;
+`;
 
-const StyledInfo = styled('div')({
-  marginTop: '2rem',
-});
+const StyledImgBox = styled.div`
+  flex: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0 3rem;
 
-const StyledRecipe = styled('div')({
-  display: 'flex',
-  height: '100%',
-});
+  img {
+    object-fit: contain;
+  }
+`;
 
-const StyledImgBox = styled('div')({
-  flex: '1',
-  position: 'relative',
-  width: '100%',
-  height: '100%',
-  margin: '0 3rem',
+const StyledContent = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-left: 1px solid;
+  overflow: overlay;
+`;
 
-  img: {
-    objectFit: 'contain',
-  },
-});
+const StyledHeader = styled.div``;
 
-const StyledContent = styled('div')({
-  flex: '1',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  borderLeft: '1px solid',
-  overflow: 'overlay',
-});
+const StyledTitle = styled.h1`
+  font-weight: 500;
+  font-style: italic;
+  font-size: 4rem;
+  text-align: center;
+`;
 
-const StyledHeader = styled('div')({});
+const StyledBody = styled.div`
+  width: 100%;
+  padding: 1rem 3rem;
+  margin-top: 2rem;
+`;
 
-const StyledTitle = styled('h1')({
-  fontWeight: 500,
-  fontStyle: 'italic',
-  fontSize: '4rem',
-  textAlign: 'center',
-});
+const StyledInfo = styled.div`
+  margin-top: 2rem;
+`;
 
-const StyledChipsContainer = styled(ChipsContainer)({
-  marginTop: '1rem',
-});
+const StyledChipsContainer = styled(ChipsContainer)`
+  margin-top: 1rem;
+`;

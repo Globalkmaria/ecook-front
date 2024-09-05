@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { Libre_Bodoni, Roboto } from 'next/font/google';
+import { Libre_Bodoni } from 'next/font/google';
 import styled from 'styled-components';
 
 import { theme } from '@/styles/theme';
@@ -29,11 +29,7 @@ function Recipe({ idx }: Props) {
       <StyledContainer>
         <StyledHoverContent>
           <StyledHoverContentImgBox>
-            <Image
-              src={`/img/img${idx}.png`}
-              fill
-              alt='Picture of the author'
-            />
+            <Image src={`/img/img${idx}.png`} fill alt={recipe.name} />
           </StyledHoverContentImgBox>
           <StyledHoverContentH2 className={libre.className}>
             {recipe.name}
@@ -42,11 +38,7 @@ function Recipe({ idx }: Props) {
 
         <StyledImgOuterBox>
           <StyledImgInnerBox $idx={idx}>
-            <Image
-              src={`/img/img${idx}.png`}
-              fill
-              alt='Picture of the author'
-            />
+            <Image src={`/img/img${idx}.png`} fill alt={recipe.name} />
           </StyledImgInnerBox>
         </StyledImgOuterBox>
 
@@ -67,131 +59,125 @@ function Recipe({ idx }: Props) {
 }
 
 export default Recipe;
+const StyledLink = styled(Link)<{ $idx: Props['idx'] }>`
+  grid-area: ${({ $idx }) => `item${$idx}`};
+  min-height: 300px;
+`;
 
-const StyledLink = styled(Link)<{
-  $idx: Props['idx'];
-}>(({ $idx }) => ({
-  gridArea: `item${$idx}`,
-  minHeight: '300px',
-}));
+const StyledContainer = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid;
+  position: relative;
+`;
 
-const StyledContainer = styled('div')({
-  height: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-  border: '1px solid',
-  position: 'relative',
-});
+const StyledHoverContent = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  background-color: ${theme.colors.black};
+  overflow: hidden;
+  opacity: 0;
 
-const StyledHoverContent = styled('div')({
-  position: 'absolute',
-  width: '100%',
-  height: '100%',
-  zIndex: 2,
-  backgroundColor: 'black',
-  overflow: 'hidden',
+  ${StyledContainer}:hover & {
+    opacity: 1;
 
-  opacity: 0,
+    img {
+      animation: 1s showBorderAnimation forwards;
+    }
 
-  [`${StyledContainer}:hover &`]: {
-    opacity: 1,
+    h2 {
+      animation: 3.5s leftToRightAnimation infinite linear;
+    }
+  }
 
-    img: {
-      animation: `1s showBorderAnimation forwards`,
-    },
+  @keyframes leftToRightAnimation {
+    0% {
+      transform: translateX(100%) translateY(-50%);
+    }
+    100% {
+      transform: translateX(-100%) translateY(-50%);
+    }
+  }
 
-    h2: {
-      animation: `3.5s leftToRightAnimation infinite linear`,
-    },
-  },
+  @keyframes showBorderAnimation {
+    0% {
+      border-radius: 0px;
+    }
+    100% {
+      border-radius: 40px;
+    }
+  }
+`;
 
-  '@keyframes leftToRightAnimation': {
-    '0%': {
-      transform: 'translateX(100%) translateY(-50%)',
-    },
-    '100%': {
-      transform: 'translateX(-100%) translateY(-50%)',
-    },
-  },
+const StyledHoverContentImgBox = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
 
-  '@keyframes showBorderAnimation': {
-    '0%': {
-      borderRadius: '0px',
-    },
-    '100%': {
-      borderRadius: '40px',
-    },
-  },
-});
+  img {
+    object-fit: cover;
+  }
+`;
 
-const StyledHoverContentImgBox = styled('div')({
-  position: 'relative',
-  width: '100%',
-  height: '100%',
+const StyledHoverContentH2 = styled.h2`
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-style: italic;
+  font-size: 5rem;
+  font-weight: 500;
+`;
 
-  img: {
-    objectFit: 'cover',
-  },
-});
+const StyledImgOuterBox = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+`;
 
-const StyledHoverContentH2 = styled('h2')({
-  display: 'block',
-  width: '100%',
-  position: 'absolute',
-  top: '50%',
-  transform: 'translateY(-50%)',
-  fontStyle: 'italic',
-  fontSize: '5rem',
-  fontWeight: 500,
-});
+const StyledImgInnerBox = styled.div<{ $idx: Props['idx'] }>`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  grid-area: ${({ $idx }) => `item${$idx}`};
 
-const StyledImgOuterBox = styled('div')({
-  position: 'absolute',
-  width: '100%',
-  height: '100%',
-});
+  img {
+    object-fit: cover;
+  }
+`;
 
-const StyledImgInnerBox = styled('div')<{
-  $idx: Props['idx'];
-}>(({ $idx }) => ({
-  position: 'relative',
-  width: '100%',
-  height: '100%',
-  gridArea: `item${$idx}`,
+const StyledInformation = styled.div`
+  min-height: 300px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+`;
 
-  img: {
-    objectFit: 'cover',
-  },
-}));
+const StyledInformationHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 0.6rem 0.5rem 0.5rem;
+  background-color: ${theme.colors.blurry700};
+`;
 
-const StyledInformation = styled('div')({
-  minHeight: '300px',
-  zIndex: 1,
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
-  height: '100%',
-});
+const StyledTitle = styled.h2`
+  font-weight: 500;
+  font-size: 1.2rem;
+  text-align: center;
+`;
 
-const StyledInformationHeader = styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  gap: '5px',
-  padding: '0.6rem 0.5rem 0.5rem',
-  backgroundColor: theme.colors.blurry700,
-});
-
-const StyledTitle = styled('h2')({
-  fontWeight: 500,
-  fontSize: '1.2rem',
-  textAlign: 'center',
-});
-
-const StyledText = styled('p')({
-  fontWeight: 400,
-  fontSize: '0.8rem',
-  backgroundColor: theme.colors.blurry700,
-  padding: '0.7rem 0.4rem',
-  textAlign: 'center',
-});
+const StyledText = styled.p`
+  font-weight: 400;
+  font-size: 0.8rem;
+  background-color: ${theme.colors.blurry700};
+  padding: 0.7rem 0.4rem;
+  text-align: center;
+`;

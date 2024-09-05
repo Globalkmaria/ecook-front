@@ -2,20 +2,18 @@
 
 import styled from 'styled-components';
 
-export const Tab = styled('button').attrs({
+export const Tab = styled.button.attrs({
   type: 'button',
-})<{
-  selected?: boolean;
-}>(({ selected }) => ({
-  flex: 1,
-  padding: '0.5rem 1rem',
-  cursor: 'pointer',
-  fontWeight: 500,
+})<{ selected?: boolean }>`
+  flex: 1;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  border-bottom: 2px solid
+    ${({ selected }) => (selected ? 'black' : 'transparent')};
+`;
 
-  borderBottom: `2px solid ${selected ? 'black' : 'transparent'}`,
-}));
-
-export const TabsContainer = styled('div')({
-  width: '100%',
-  display: 'flex',
-});
+export const TabsContainer = styled.div`
+  width: 100%;
+  display: flex;
+`;

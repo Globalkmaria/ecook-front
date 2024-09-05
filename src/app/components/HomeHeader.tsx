@@ -24,29 +24,28 @@ function HomeHeader() {
 
 export default HomeHeader;
 
-const StyledHeader = styled('header')({
-  display: 'flex',
-  flexDirection: 'column',
-  fontWeight: 600,
-  marginBottom: '2rem',
+const StyledHeader = styled.header`
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  margin-bottom: 2rem;
 
-  h1: {
-    fontSize: '5rem',
-  },
+  h1 {
+    font-size: 5rem;
+  }
+  @media ${theme.devices.laptop} {
+    h1 {
+      font-size: 4rem;
+    }
+  }
 
-  [`@media ${theme.devices.laptop}`]: {
-    h1: {
-      fontSize: '4rem',
-    },
-  },
+  @media ${theme.devices.mobile} {
+    h1 {
+      font-size: 2rem;
+    }
+  }
+`;
 
-  [`@media ${theme.devices.mobile}`]: {
-    h1: {
-      fontSize: '2rem',
-    },
-  },
-});
-
-const StyledRecipes = styled('h1')({
-  alignSelf: 'flex-end',
-});
+const StyledRecipes = styled.h1`
+  align-self: flex-end;
+`;

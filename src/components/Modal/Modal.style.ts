@@ -3,7 +3,7 @@
 import { theme } from '@/styles/theme';
 import styled from 'styled-components';
 
-export const StyledModal = styled('div').withConfig({
+export const StyledModal = styled.div.withConfig({
   shouldForwardProp: (props) => !['isOpen'].includes(props),
 })<{ isOpen: boolean }>`
   z-index: 9999;
@@ -16,7 +16,7 @@ export const StyledModal = styled('div').withConfig({
   background: transparent;
 `;
 
-export const StyledModalContent = styled('div')`
+export const StyledModalContent = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -36,7 +36,7 @@ export const StyledModalContent = styled('div')`
   }
 `;
 
-export const StyledModalHeader = styled('div').withConfig({
+export const StyledModalHeader = styled.div.withConfig({
   shouldForwardProp: (props) => !['needHeader'].includes(props),
 })<{ needHeader: boolean }>`
   display: ${({ needHeader }) => (needHeader ? 'flex' : 'none')};
@@ -62,7 +62,7 @@ export const StyledModalMessage = styled.p`
   flex: 1;
 `;
 
-export const StyledModalContainer = styled('div')`
+export const StyledModalContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 340px;

@@ -23,12 +23,7 @@ const StyledSection = styled('section')({
   gap: '2rem',
   gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr',
   gridAutoRows: '300px',
-  gridTemplateAreas: `"item1 item3 item3 item4 item5"
-"item2 item3 item3 item9 item9"
-"item6 item7 item8 item9 item9"
-"item10 item10 item11 item12 item13"
-"item10 item10 item16 item16 item17"
-"item14 item15 item16 item16 item18"
+  gridTemplateAreas: `"item1 item3 item3 item4 item5" "item2 item3 item3 item9 item9" "item6 item7 item8 item9 item9" "item10 item10 item11 item12 item13" "item10 item10 item16 item16 item17" "item14 item15 item16 item16 item18"
 `,
 
   [`@media ${theme.devices.laptop}`]: {
