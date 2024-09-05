@@ -15,11 +15,6 @@ const libre = Libre_Bodoni({
   weight: ['700'],
 });
 
-const roboto = Roboto({
-  subsets: ['latin'],
-  weight: ['100', '300', '400', '500'],
-});
-
 interface Props {
   idx: string;
 }
@@ -31,7 +26,7 @@ function Recipe({ idx }: Props) {
 
   return (
     <StyledLink $idx={idx} scroll={false} href={`/recipes/${idx}`}>
-      <StyledContainer className={roboto.className}>
+      <StyledContainer>
         <StyledHoverContent>
           <StyledHoverContentImgBox>
             <Image

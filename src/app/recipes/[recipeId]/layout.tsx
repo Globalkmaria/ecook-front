@@ -13,8 +13,9 @@ function RecipeLayout({
 export default RecipeLayout;
 
 const StyledContainer = styled.section`
+  flex: 1;
   margin: 0 auto;
-  max-width: 1200px;
   padding: 2rem 1rem;
-  height: 100%;
+  max-width: 1200px;
+  width: 100%;
 `;

@@ -14,6 +14,7 @@ export default function Home() {
 }
 
 const StyledContainer = styled.div`
+  flex: 1;
   margin: 0 auto;
   max-width: 1200px;
   padding: 1rem 1rem;
