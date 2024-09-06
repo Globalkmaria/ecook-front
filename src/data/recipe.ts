@@ -1,3 +1,13 @@
+interface User {
+  id: string;
+  username: string;
+  youtube?: string;
+  instagram?: string;
+  img?: string;
+  posts?: string[];
+  comments?: string[];
+}
+
 interface Recipe {
   name: string;
   description: string;
@@ -5,10 +15,64 @@ interface Recipe {
   ingredients: string[];
   steps: string[];
   img: string;
+  user: User;
 }
 
-const recipes: Record<string, Recipe> = {
+export const users = {
   1: {
+    id: '1',
+    username: 'John Doe',
+    img: '/user/user1.png',
+    youtube: 'https://www.youtube.com/',
+    instagram: 'https://www.instagram.com/',
+    posts: ['1'],
+    comments: ['1'],
+  },
+  2: {
+    id: '2',
+    username: 'Maria Smith',
+    img: '/user/user2.png',
+    youtube: 'https://www.youtube.com/',
+    instagram: 'https://www.instagram.com/',
+    posts: ['2'],
+    comments: ['2'],
+  },
+  3: {
+    id: '3',
+    username: 'Sarah Johnson',
+    img: '/user/user3.png',
+    youtube: 'https://www.youtube.com/',
+    instagram: 'https://www.instagram.com/',
+    posts: ['3', '4', '5'],
+    comments: ['3', '4', '5'],
+  },
+  4: {
+    id: '4',
+    username: 'Jessica Brown',
+    img: '/user/user4.png',
+    youtube: 'https://www.youtube.com/',
+    instagram: 'https://www.instagram.com/',
+    posts: ['6'],
+    comments: ['6'],
+  },
+  5: {
+    id: '5',
+    username: 'Michael Wilson',
+    img: '/user/user5.png',
+    youtube: 'https://www.youtube.com/',
+    instagram: 'https://www.instagram.com/',
+    posts: ['7'],
+    comments: ['7'],
+  },
+  6: {
+    id: '6',
+    username: 'Laura Miller',
+  },
+};
+
+export const recipes: Record<string, Recipe> = {
+  1: {
+    user: users[1],
     name: 'Bibimbap',
     filters: ['Vegetarian', 'Healthy', 'Easy to prepare'],
     description:
@@ -80,6 +144,7 @@ const recipes: Record<string, Recipe> = {
     img: 'img1.png',
   },
   2: {
+    user: users[2],
     name: 'Spaghetti Carbonara',
     filters: ['Italian', 'Comfort Food', 'Quick'],
     description:
@@ -105,6 +170,7 @@ const recipes: Record<string, Recipe> = {
     img: 'img2.png',
   },
   3: {
+    user: users[2],
     name: 'Chicken Tikka Masala',
     filters: ['Indian', 'Spicy', 'Comfort Food'],
     description:
@@ -136,6 +202,7 @@ const recipes: Record<string, Recipe> = {
     img: 'img3.png',
   },
   4: {
+    user: users[2],
     name: 'Caesar Salad',
     filters: ['Salad', 'Healthy', 'Quick'],
     description:
@@ -161,6 +228,7 @@ const recipes: Record<string, Recipe> = {
     img: 'img4.png',
   },
   5: {
+    user: users[3],
     name: 'Beef Stroganoff',
     filters: ['Comfort Food', 'Russian', 'Rich'],
     description:
@@ -187,6 +255,7 @@ const recipes: Record<string, Recipe> = {
     img: 'img5.png',
   },
   6: {
+    user: users[6],
     name: 'Pad Thai',
     filters: ['Thai', 'Noodles', 'Spicy'],
     description:
@@ -218,6 +287,7 @@ const recipes: Record<string, Recipe> = {
     img: 'img6.png',
   },
   7: {
+    user: users[4],
     name: 'Shakshuka',
     filters: ['Breakfast', 'Middle Eastern', 'Spicy'],
     description:
@@ -247,6 +317,7 @@ const recipes: Record<string, Recipe> = {
     img: 'img7.png',
   },
   8: {
+    user: users[4],
     name: 'Chicken Alfredo',
     filters: ['Italian', 'Creamy', 'Comfort Food'],
     description:
@@ -272,6 +343,7 @@ const recipes: Record<string, Recipe> = {
     img: 'img8.png',
   },
   9: {
+    user: users[5],
     name: 'Greek Salad',
     filters: ['Salad', 'Healthy', 'Mediterranean'],
     description:
@@ -297,6 +369,7 @@ const recipes: Record<string, Recipe> = {
     img: 'img9.png',
   },
   10: {
+    user: users[5],
     name: 'Ramen',
     filters: ['Japanese', 'Soup', 'Comfort Food'],
     description:
@@ -324,6 +397,7 @@ const recipes: Record<string, Recipe> = {
     img: 'img10.png',
   },
   11: {
+    user: users[5],
     name: 'French Toast',
     filters: ['Breakfast', 'Sweet', 'Quick'],
     description:
@@ -347,6 +421,7 @@ const recipes: Record<string, Recipe> = {
     img: 'img11.png',
   },
   12: {
+    user: users[3],
     name: 'Lasagna',
     filters: ['Italian', 'Baked', 'Comfort Food'],
     description:
@@ -375,6 +450,7 @@ const recipes: Record<string, Recipe> = {
     img: 'img12.png',
   },
   13: {
+    user: users[5],
     name: 'Guacamole',
     filters: ['Mexican', 'Dip', 'Healthy'],
     description:
@@ -396,6 +472,7 @@ const recipes: Record<string, Recipe> = {
     img: 'img13.png',
   },
   14: {
+    user: users[5],
     name: 'Chocolate Chip Cookies',
     filters: ['Dessert', 'Baked', 'Sweet'],
     description:
@@ -424,6 +501,7 @@ const recipes: Record<string, Recipe> = {
     img: 'img14.png',
   },
   15: {
+    user: users[5],
     name: 'Margarita Pizza',
     filters: ['Pizza', 'Vegetarian', 'Italian'],
     description:
@@ -449,6 +527,7 @@ const recipes: Record<string, Recipe> = {
     img: 'img15.png',
   },
   16: {
+    user: users[5],
     name: 'Sushi Rolls',
     filters: ['Japanese', 'Seafood', 'Healthy'],
     description:
@@ -479,6 +558,7 @@ const recipes: Record<string, Recipe> = {
     img: 'img16.png',
   },
   17: {
+    user: users[5],
     name: 'Tom Yum Soup',
     filters: ['Thai', 'Soup', 'Spicy'],
     description:
@@ -504,6 +584,7 @@ const recipes: Record<string, Recipe> = {
     img: 'img17.png',
   },
   18: {
+    user: users[5],
     name: 'Tacos al Pastor',
     filters: ['Mexican', 'Spicy', 'Street Food'],
     description:
@@ -532,6 +613,4 @@ const recipes: Record<string, Recipe> = {
   },
 };
 
-const recipeIds = Object.keys(recipes);
-
-export { recipes, recipeIds };
+export const recipeIds = Object.keys(recipes);
