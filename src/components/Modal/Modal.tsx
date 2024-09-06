@@ -51,7 +51,7 @@ function Modal({
   return (
     <ModalWrapper wrapperId={wrapperId}>
       <div
-        className={`${style.container} ${isOpen ? style['container--close'] : ''}`}
+        className={`${style.container} ${isOpen ? '' : style['container--close']}`}
         onClick={onClick}
         ref={modalBackground}
       >

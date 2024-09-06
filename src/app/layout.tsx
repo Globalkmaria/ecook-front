@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={roboto.className}>
-        <div className={style.container}>
+        <div className={style.layout_container}>
           <Nav />
           {children}
           {modal}

@@ -11,7 +11,7 @@ export function Tab({
   selected: boolean;
   onClick: () => void;
 }) {
-  const selectedClass = selected ? style['--selected'] : '';
+  const selectedClass = selected ? style['tab--selected'] : '';
   return (
     <button
       onClick={onClick}
