@@ -1,9 +1,23 @@
 import style from './style.module.scss';
 
-export function ListContainer({ children }: { children: React.ReactNode }) {
-  return <ul>{children}</ul>;
+export function ListContainer({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return <ul className={className ?? ''}>{children}</ul>;
 }
 
-export function ListItem({ children }: { children: React.ReactNode }) {
-  return <li className={style['list-item']}>{children}</li>;
+export function ListItem({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <li className={`${style['list-item']} ${className ?? ''}`}>{children}</li>
+  );
 }
