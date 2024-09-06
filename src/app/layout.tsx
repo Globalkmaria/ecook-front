@@ -1,13 +1,8 @@
-'use client';
-
 import '@/styles/global.scss';
 import style from './style.module.scss';
 
-import StyledComponentsRegistry from '@/lib/registry';
 import { Roboto } from 'next/font/google';
 import Nav from './components/Nav';
-import { ThemeProvider } from 'styled-components';
-import { theme } from '@/styles/theme';
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -24,16 +19,12 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={roboto.className}>
-        <StyledComponentsRegistry>
-          <ThemeProvider theme={theme}>
-            <div className={style.container}>
-              <Nav />
-              {children}
-              {modal}
-              <div id='modal-root' />
-            </div>
-          </ThemeProvider>
-        </StyledComponentsRegistry>
+        <div className={style.container}>
+          <Nav />
+          {children}
+          {modal}
+          <div id='modal-root' />
+        </div>
       </body>
     </html>
   );

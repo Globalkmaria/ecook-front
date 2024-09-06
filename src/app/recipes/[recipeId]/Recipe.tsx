@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import styled from 'styled-components';
+import style from './Recipe.module.scss';
 
 import Chip, { ChipsContainer } from '@/components/Chip';
 import { Tab, TabsContainer } from '@/components/Tab';
@@ -41,22 +41,22 @@ function Recipe({ recipeId }: Props) {
   };
 
   return (
-    <StyledRecipe>
-      <StyledImgBox>
+    <div className={style.container}>
+      <div className={style['img-box']}>
         <Image src={`/img/img${recipeId}.png`} fill alt={recipe.name} />
-      </StyledImgBox>
+      </div>
 
-      <StyledContent>
-        <StyledHeader>
-          <StyledTitle>{recipe.name}</StyledTitle>
-          <StyledChipsContainer>
+      <div className={style.content}>
+        <div>
+          <span className={style.title}>{recipe.name}</span>
+          <ChipsContainer className={`${style['chip-container']}`}>
             {recipe.filters.map((chip) => (
               <Chip key={chip}>{chip}</Chip>
             ))}
-          </StyledChipsContainer>
-        </StyledHeader>
+          </ChipsContainer>
+        </div>
 
-        <StyledBody>
+        <div className={style.body}>
           <TabsContainer>
             {RECIPE_TABS.map((item) => (
               <Tab
@@ -69,7 +69,7 @@ function Recipe({ recipeId }: Props) {
             ))}
           </TabsContainer>
 
-          <StyledInfo>
+          <div className={style.info}>
             {tab === 'Ingredients' && (
               <CheckboxList
                 state={ingredientsChecked}
@@ -84,60 +84,11 @@ function Recipe({ recipeId }: Props) {
                 onChange={onStepsToggle}
               />
             )}
-          </StyledInfo>
-        </StyledBody>
-      </StyledContent>
-    </StyledRecipe>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
 export default Recipe;
-
-const StyledRecipe = styled.div`
-  display: flex;
-  height: 100%;
-`;
-
-const StyledImgBox = styled.div`
-  flex: 1;
-  position: relative;
-  width: 100%;
-  height: 100%;
-  margin: 0 3rem;
-
-  img {
-    object-fit: contain;
-  }
-`;
-
-const StyledContent = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-left: 1px solid;
-  overflow: overlay;
-`;
-
-const StyledHeader = styled.div``;
-
-const StyledTitle = styled.h1`
-  font-weight: 500;
-  font-style: italic;
-  font-size: 4rem;
-  text-align: center;
-`;
-
-const StyledBody = styled.div`
-  width: 100%;
-  padding: 1rem 3rem;
-  margin-top: 2rem;
-`;
-
-const StyledInfo = styled.div`
-  margin-top: 2rem;
-`;
-
-const StyledChipsContainer = styled(ChipsContainer)`
-  margin-top: 1rem;
-`;

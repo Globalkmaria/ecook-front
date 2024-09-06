@@ -1,13 +1,9 @@
 'use client';
 
+import style from './modal.module.scss';
+
 import { MouseEvent, ReactNode, useEffect, useRef } from 'react';
 
-import {
-  StyledModal,
-  StyledModalContent,
-  StyledModalHeader,
-  StyledModalTitle,
-} from './Modal.style';
 import useEscapeKey from '@/hooks/useEscapeKey';
 import useHideScroll from '@/hooks/useHideScroll';
 import ModalWrapper from './ModalWrapper';
@@ -54,23 +50,34 @@ function Modal({
 
   return (
     <ModalWrapper wrapperId={wrapperId}>
-      <StyledModal isOpen={isOpen} onClick={onClick} ref={modalBackground}>
-        <StyledModalContent
+      <div
+        className={`${style.container} ${isOpen ? style['container--close'] : ''}`}
+        onClick={onClick}
+        ref={modalBackground}
+      >
+        <div
+          className={style.content}
           id={id}
           ref={modalContent}
           aria-modal='true'
           role='dialog'
           tabIndex={-1}
         >
-          <StyledModalHeader needHeader={needHeader}>
-            <StyledModalTitle>{title}</StyledModalTitle>
+          <div
+            className={`${style.header} ${needHeader ? '' : style['header--no-header']}`}
+          >
+            <h1 className={style.title}>{title}</h1>
             {showCloseButton && <button onClick={onClose}>X</button>}
-          </StyledModalHeader>
+          </div>
           {children}
-        </StyledModalContent>
-      </StyledModal>
+        </div>
+      </div>
     </ModalWrapper>
   );
 }
 
 export default Modal;
+
+export function ModalMessage({ children }: { children: ReactNode }) {
+  return <p className={style.message}>{children}</p>;
+}

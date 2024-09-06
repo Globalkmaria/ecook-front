@@ -1,0 +1,10 @@
+.list-item {
+  margin: 0.5rem 0;
+  input {
+    margin-right: 1rem;
+
+    &:checked + label {
+      // color: ${({ theme }) => theme.colors.grey500};
+    }
+  }
+}

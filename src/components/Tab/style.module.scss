@@ -1,0 +1,16 @@
+.tab {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  border-bottom: 2px solid transparent;
+
+  &--selected {
+    border-bottom: 2px solid black;
+  }
+}
+
+.tabs-container {
+  width: 100%;
+  display: flex;
+}
