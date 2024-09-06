@@ -1,4 +1,4 @@
-import '@/styles/global.scss';
+import '@/style/global.scss';
 import style from './style.module.scss';
 
 import { Roboto } from 'next/font/google';

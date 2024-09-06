@@ -1,3 +1,5 @@
+@use '@/style/theme' as *;
+
 .container {
   display: 'block';
   z-index: 9999;
@@ -19,14 +21,14 @@
   position: absolute;
   padding: 20px;
   border-radius: 5px;
-  // border: 2px solid ${({ theme }) => theme.colors.grey700};
+  border: 2px solid $grey700;
   min-height: 100px;
   min-width: 200px;
 
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
+  background-color: $white;
 
   &:focus {
     outline: none;
@@ -49,9 +51,9 @@
   font-weight: 500;
   font-size: 1.2rem;
 
-  //   @media ${({ theme }) => theme.devices.mobile} {
-  //     font-size: 1rem;
-  //   }
+  @media #{$mobile} {
+    font-size: 1rem;
+  }
 }
 
 .message {

@@ -7,7 +7,7 @@ import Recipes from './components/Recipes';
 
 export default function Home() {
   return (
-    <div className={style.container}>
+    <div className={style.page_container}>
       <HomeHeader />
       <Recipes />
     </div>

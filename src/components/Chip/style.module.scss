@@ -1,7 +1,9 @@
+@use '@/style/theme' as *;
+
 .chip {
   padding: 0.25rem 0.7rem;
   border-radius: 15px;
-  // background-color: ${({ theme }) => theme.colors.grey200};
+  background-color: $grey200;
   font-size: 0.8rem;
   font-weight: 400;
 }
