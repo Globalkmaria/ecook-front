@@ -1,26 +1,28 @@
-import { ListContainer, ListItem } from '@/components/List';
+import style from './style.module.scss';
+
+import { ListItem } from '@/components/List';
 
 interface CheckboxListProps {
   items: readonly string[];
   state: Record<string, boolean>;
-  onChange?: (id: string) => void;
+  onChange?: (id: number) => void;
 }
 
 function CheckboxList({ items, state, onChange }: CheckboxListProps) {
   return (
-    <ListContainer>
+    <ul>
       {items.map((item, i) => (
-        <ListItem key={i}>
+        <ListItem className={style.item} key={i}>
           <input
-            onChange={() => onChange && onChange(item)}
-            checked={state[item]}
+            onChange={() => onChange && onChange(i)}
+            checked={state[i]}
             type='checkbox'
             id={i.toString()}
           />
           <label htmlFor={i.toString()}>{item}</label>
         </ListItem>
       ))}
-    </ListContainer>
+    </ul>
   );
 }
 

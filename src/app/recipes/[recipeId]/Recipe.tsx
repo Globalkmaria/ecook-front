@@ -6,12 +6,12 @@ import style from './Recipe.module.scss';
 
 import Chip, { ChipsContainer } from '@/components/Chip';
 import { Tab, TabsContainer } from '@/components/Tab';
-import CheckboxList from '@/components/CheckboxList';
 import { getListCheckboxInitialState } from '@/components/helpers';
 
 import { recipes } from '@/data/recipe';
 
 import { RECIPE_TABS, RecipeTab } from './const';
+import CheckboxList from '@/components/CheckboxList';
 
 interface Props {
   recipeId: string;
@@ -29,14 +29,14 @@ function Recipe({ recipeId }: Props) {
 
   if (!recipe) return null;
 
-  const onIngredientsToggle = (id: string) => {
+  const onIngredientsToggle = (id: number) => {
     setIngredientsChecked({
       ...ingredientsChecked,
       [id]: !ingredientsChecked[id],
     });
   };
 
-  const onStepsToggle = (id: string) => {
+  const onStepsToggle = (id: number) => {
     setStepsChecked({ ...stepsChecked, [id]: !stepsChecked[id] });
   };
 
