@@ -13,23 +13,20 @@ interface Props {
   wrapperId?: string;
   isOpen?: boolean;
   onClose?: () => void;
-  showCloseButton?: boolean;
   title?: string;
   id?: string;
 }
 
-function Modal({
+function Modal2({
   children,
   wrapperId,
   isOpen = true,
   onClose = () => {},
   title = '',
-  showCloseButton = true,
   id,
 }: Props) {
   const modalBackground = useRef<HTMLDivElement>(null);
   const modalContent = useRef<HTMLDivElement>(null);
-  const needHeader = !!title.length || showCloseButton;
   useEscapeKey({ onClose, target: modalBackground, portalId: wrapperId });
   useHideScroll({ isOpen });
 
@@ -51,28 +48,27 @@ function Modal({
   return (
     <ModalWrapper wrapperId={wrapperId}>
       <div
-        className={`${style.container} ${isOpen ? '' : style['container--close']}`}
+        tabIndex={-1}
+        className={`${style.container} ${isOpen ? '' : style['container--close']} ${style.modal2}`}
         onClick={onClick}
         ref={modalBackground}
       >
+        <button type='button' className={style['modal2__close-button']}>
+          X
+        </button>
+
         <div
-          className={style.content}
+          className={style.modal2__content}
           id={id}
           ref={modalContent}
           aria-modal='true'
           role='dialog'
-          tabIndex={-1}
         >
-          <div
-            className={`${style.header} ${needHeader ? '' : style['header--no-header']}`}
-          >
-            <h1 className={style.title}>{title}</h1>
-            {showCloseButton && (
-              <button type='button' onClick={onClose}>
-                X
-              </button>
-            )}
-          </div>
+          {!!title.length && (
+            <div className={style.header}>
+              <h1 className={style.title}>{title}</h1>
+            </div>
+          )}
           {children}
         </div>
       </div>
@@ -80,8 +76,4 @@ function Modal({
   );
 }
 
-export default Modal;
-
-export function ModalMessage({ children }: { children: ReactNode }) {
-  return <p className={style.message}>{children}</p>;
-}
+export default Modal2;

@@ -1,7 +1,7 @@
 @use '@/style/theme' as *;
 
 .container {
-  display: 'block';
+  display: block;
   z-index: 9999;
   position: fixed;
   top: 0;
@@ -62,4 +62,34 @@
   justify-content: center;
   line-height: 1.7;
   flex: 1;
+}
+
+// Modal2
+
+.modal2 {
+  background-color: $blurryBlack400;
+
+  &__close-button {
+    color: white;
+    padding: 20px;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    padding: 20px;
+    border-radius: 5px 5px 0px 0px;
+    min-height: 100px;
+    min-width: 200px;
+
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: $white;
+
+    &:focus {
+      outline: none;
+    }
+  }
 }
