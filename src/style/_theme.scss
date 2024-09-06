@@ -113,9 +113,11 @@ $blurry300: #ffffff4d;
 $blurry200: #ffffff33;
 $blurry100: #ffffff1a;
 
-$mobileS: "(max-width: 320px)";
-$mobile: "(max-width: 480px)";
-$tablet: "(max-width: 768px)";
-$laptop: "(max-width: 1024px)";
-$laptopL: "(max-width: 1280px)";
-$screen: "(max-width: 1600px)";
+$mobileS: '(max-width: 320px)';
+$mobile: '(max-width: 480px)';
+$tablet: '(max-width: 768px)';
+$laptop: '(max-width: 1024px)';
+$laptopL: '(max-width: 1280px)';
+$screen: '(max-width: 1600px)';
+
+$layoutMaxWidth: 1600px;

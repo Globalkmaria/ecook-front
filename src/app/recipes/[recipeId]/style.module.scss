@@ -1,7 +1,9 @@
+@use '@/style/theme.scss' as *;
+
 .layout {
   flex: 1;
   margin: 0 auto;
   padding: 2rem 1rem;
-  max-width: 1200px;
+  max-width: $layoutMaxWidth;
   width: 100%;
 }
