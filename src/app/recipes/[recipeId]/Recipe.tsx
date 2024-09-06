@@ -47,7 +47,7 @@ function Recipe({ recipeId }: Props) {
       </div>
 
       <div className={style.content}>
-        <div>
+        <div className={style.header}>
           <span className={style.title}>{recipe.name}</span>
           <ChipsContainer className={`${style['chip-container']}`}>
             {recipe.filters.map((chip) => (
