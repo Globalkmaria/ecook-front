@@ -1,10 +1,8 @@
-'use client';
-
 import Image from 'next/image';
 import { Libre_Bodoni } from 'next/font/google';
-import styled from 'styled-components';
 
-import { theme } from '@/styles/theme';
+import style from './Recipe.module.scss';
+
 import Chip, { ChipsContainer } from '@/components/Chip';
 import Link from 'next/link';
 import { recipes } from '@/data/recipe';
@@ -25,159 +23,164 @@ function Recipe({ idx }: Props) {
   if (recipe === null) return null;
 
   return (
-    <StyledLink $idx={idx} scroll={false} href={`/recipes/${idx}`}>
-      <StyledContainer>
-        <StyledHoverContent>
-          <StyledHoverContentImgBox>
+    <Link
+      className={`${style.link} ${style[`item--${idx}`]}`}
+      scroll={false}
+      href={`/recipes/${idx}`}
+    >
+      <div className={style.container}>
+        <div className={style['hover-content']}>
+          <div className={style['hover-content__img-box']}>
             <Image src={`/img/img${idx}.png`} fill alt={recipe.name} />
-          </StyledHoverContentImgBox>
-          <StyledHoverContentH2 className={libre.className}>
+          </div>
+          <h2 className={`${libre.className} ${style['hover-content__name']}`}>
             {recipe.name}
-          </StyledHoverContentH2>
-        </StyledHoverContent>
+          </h2>
+        </div>
 
-        <StyledImgOuterBox>
-          <StyledImgInnerBox $idx={idx}>
+        <div className={style['img-wrapper']}>
+          <div className={`${style[`item--${idx}`]} ${style['img-box']}`}>
             <Image src={`/img/img${idx}.png`} fill alt={recipe.name} />
-          </StyledImgInnerBox>
-        </StyledImgOuterBox>
+          </div>
+        </div>
 
-        <StyledInformation>
-          <StyledInformationHeader>
-            <StyledTitle> {recipe.name}</StyledTitle>
+        <div className={style.information}>
+          <div className={style.information__header}>
+            <h2 className={style.information__title}> {recipe.name}</h2>
             <ChipsContainer>
               {recipe.filters.map((chip) => (
                 <Chip key={chip}>{chip}</Chip>
               ))}
             </ChipsContainer>
-          </StyledInformationHeader>
-          <StyledText>{recipe.description}</StyledText>
-        </StyledInformation>
-      </StyledContainer>
-    </StyledLink>
+          </div>
+          <p className={style.information__text}>{recipe.description}</p>
+        </div>
+      </div>
+    </Link>
   );
 }
 
 export default Recipe;
-const StyledLink = styled(Link)<{ $idx: Props['idx'] }>`
-  grid-area: ${({ $idx }) => `item${$idx}`};
-  min-height: 300px;
-`;
 
-const StyledContainer = styled.div`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid;
-  position: relative;
-`;
+// const StyledLink = styled(Link)<{ $idx: Props['idx'] }>`
+//   grid-area: ${({ $idx }) => `item${$idx}`};
+//   min-height: 300px;
+// `;
 
-const StyledHoverContent = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-  background-color: ${theme.colors.black};
-  overflow: hidden;
-  opacity: 0;
+// const StyledContainer = styled.div`
+//   height: 100%;
+//   display: flex;
+//   flex-direction: column;
+//   border: 1px solid;
+//   position: relative;
+// `;
 
-  ${StyledContainer}:hover & {
-    opacity: 1;
+// const StyledHoverContent = styled.div`
+//   position: absolute;
+//   width: 100%;
+//   height: 100%;
+//   z-index: 2;
+//   background-color: ${({ theme }) => theme.colors.black};
+//   overflow: hidden;
+//   opacity: 0;
 
-    img {
-      animation: 1s showBorderAnimation forwards;
-    }
+//   ${StyledContainer}:hover & {
+//     opacity: 1;
 
-    h2 {
-      animation: 3.5s leftToRightAnimation infinite linear;
-    }
-  }
+//     img {
+//       animation: 1s showBorderAnimation forwards;
+//     }
 
-  @keyframes leftToRightAnimation {
-    0% {
-      transform: translateX(100%) translateY(-50%);
-    }
-    100% {
-      transform: translateX(-100%) translateY(-50%);
-    }
-  }
+//     h2 {
+//       animation: 3.5s leftToRightAnimation infinite linear;
+//     }
+//   }
 
-  @keyframes showBorderAnimation {
-    0% {
-      border-radius: 0px;
-    }
-    100% {
-      border-radius: 40px;
-    }
-  }
-`;
+//   @keyframes leftToRightAnimation {
+//     0% {
+//       transform: translateX(100%) translateY(-50%);
+//     }
+//     100% {
+//       transform: translateX(-100%) translateY(-50%);
+//     }
+//   }
 
-const StyledHoverContentImgBox = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
+//   @keyframes showBorderAnimation {
+//     0% {
+//       border-radius: 0px;
+//     }
+//     100% {
+//       border-radius: 40px;
+//     }
+//   }
+// `;
 
-  img {
-    object-fit: cover;
-  }
-`;
+// const StyledHoverContentImgBox = styled.div`
+//   position: relative;
+//   width: 100%;
+//   height: 100%;
 
-const StyledHoverContentH2 = styled.h2`
-  display: block;
-  width: 100%;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-style: italic;
-  font-size: 5rem;
-  font-weight: 500;
-`;
+//   img {
+//     object-fit: cover;
+//   }
+// `;
 
-const StyledImgOuterBox = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-`;
+// const StyledHoverContentH2 = styled.h2`
+//   display: block;
+//   width: 100%;
+//   position: absolute;
+//   top: 50%;
+//   transform: translateY(-50%);
+//   font-style: italic;
+//   font-size: 5rem;
+//   font-weight: 500;
+// `;
 
-const StyledImgInnerBox = styled.div<{ $idx: Props['idx'] }>`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  grid-area: ${({ $idx }) => `item${$idx}`};
+// const StyledImgOuterBox = styled.div`
+//   position: absolute;
+//   width: 100%;
+//   height: 100%;
+// `;
 
-  img {
-    object-fit: cover;
-  }
-`;
+// const StyledImgInnerBox = styled.div<{ $idx: Props['idx'] }>`
+//   position: relative;
+//   width: 100%;
+//   height: 100%;
+//   grid-area: ${({ $idx }) => `item${$idx}`};
 
-const StyledInformation = styled.div`
-  min-height: 300px;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-`;
+//   img {
+//     object-fit: cover;
+//   }
+// `;
 
-const StyledInformationHeader = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-  padding: 0.6rem 0.5rem 0.5rem;
-  background-color: ${theme.colors.blurry700};
-`;
+// const StyledInformation = styled.div`
+//   min-height: 300px;
+//   z-index: 1;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+//   height: 100%;
+// `;
 
-const StyledTitle = styled.h2`
-  font-weight: 500;
-  font-size: 1.2rem;
-  text-align: center;
-`;
+// const StyledInformationHeader = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   gap: 5px;
+//   padding: 0.6rem 0.5rem 0.5rem;
+//   background-color: ${({ theme }) => theme.colors.blurry700};
+// `;
 
-const StyledText = styled.p`
-  font-weight: 400;
-  font-size: 0.8rem;
-  background-color: ${theme.colors.blurry700};
-  padding: 0.7rem 0.4rem;
-  text-align: center;
-`;
+// const StyledTitle = styled.h2`
+//   font-weight: 500;
+//   font-size: 1.2rem;
+//   text-align: center;
+// `;
+
+// const StyledText = styled.p`
+//   font-weight: 400;
+//   font-size: 0.8rem;
+//   background-color: ${({ theme }) => theme.colors.blurry700};
+//   padding: 0.7rem 0.4rem;
+//   text-align: center;
+// `;

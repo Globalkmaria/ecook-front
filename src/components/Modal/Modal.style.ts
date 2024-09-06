@@ -1,6 +1,5 @@
 'use client';
 
-import { theme } from '@/styles/theme';
 import styled from 'styled-components';
 
 export const StyledModal = styled.div.withConfig({
@@ -22,7 +21,7 @@ export const StyledModalContent = styled.div`
   position: absolute;
   padding: 20px;
   border-radius: 5px;
-  border: 2px solid ${theme.colors.grey700};
+  border: 2px solid ${({ theme }) => theme.colors.grey700};
   min-height: 100px;
   min-width: 200px;
 
@@ -49,7 +48,7 @@ export const StyledModalTitle = styled.h1`
   font-weight: 500;
   font-size: 1.2rem;
 
-  @media ${theme.devices.mobile} {
+  @media ${({ theme }) => theme.devices.mobile} {
     font-size: 1rem;
   }
 `;

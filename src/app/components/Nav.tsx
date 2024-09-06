@@ -1,7 +1,6 @@
-'use client';
-
-import styled from 'styled-components';
 import Link from 'next/link';
+
+import style from './Nav.module.scss';
 
 import { Lato } from 'next/font/google';
 
@@ -12,29 +11,14 @@ const libre = Lato({
 
 function Nav() {
   return (
-    <StyledWrapper>
-      <StyledContainer>
+    <nav className={style.wrapper}>
+      <div className={style.container}>
         <Link href='/'>
-          <StyledTitle className={libre.className}>E-COOK</StyledTitle>
+          <h1 className={`${libre.className} ${style.title}`}>E-COOK</h1>
         </Link>
-      </StyledContainer>
-    </StyledWrapper>
+      </div>
+    </nav>
   );
 }
 
 export default Nav;
-
-const StyledWrapper = styled.nav`
-  width: 100%;
-`;
-
-const StyledContainer = styled.div`
-  margin: 0 auto;
-  max-width: 1200px;
-  width: 100%;
-  padding: 1rem;
-`;
-
-const StyledTitle = styled.h1`
-  font-size: 3rem;
-`;

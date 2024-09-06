@@ -1,7 +1,6 @@
-'use client';
-
-import styled from 'styled-components';
 import { useRouter } from 'next/navigation';
+
+import style from './style.module.scss';
 
 import Recipe from '@/app/recipes/[recipeId]/Recipe';
 import { Modal } from '@/components/Modal';
@@ -22,17 +21,11 @@ function RecipePage({ params }: Props) {
   };
   return (
     <Modal isOpen={true} onClose={onDismiss}>
-      <StyledContainer>
+      <div className={style.container}>
         <Recipe recipeId={params.recipeId} />
-      </StyledContainer>
+      </div>
     </Modal>
   );
 }
 
 export default RecipePage;
-
-const StyledContainer = styled.div`
-  max-width: 1200px;
-  width: 80vw;
-  height: 80vh;
-`;

@@ -1,12 +1,11 @@
 'use client';
 
-import { theme } from '@/styles/theme';
 import styled from 'styled-components';
 
 const Chip = styled.span`
   padding: 0.25rem 0.7rem;
   border-radius: 15px;
-  background-color: ${theme.colors.grey200};
+  background-color: ${({ theme }) => theme.colors.grey200};
   font-size: 0.8rem;
   font-weight: 400;
 `;

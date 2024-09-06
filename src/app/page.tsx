@@ -1,21 +1,15 @@
 'use client';
 
+import style from './style.module.scss';
+
 import HomeHeader from './components/HomeHeader';
 import Recipes from './components/Recipes';
-import styled from 'styled-components';
 
 export default function Home() {
   return (
-    <StyledContainer>
+    <div className={style.container}>
       <HomeHeader />
       <Recipes />
-    </StyledContainer>
+    </div>
   );
 }
-
-const StyledContainer = styled.div`
-  flex: 1;
-  margin: 0 auto;
-  max-width: 1200px;
-  padding: 1rem 1rem;
-`;
