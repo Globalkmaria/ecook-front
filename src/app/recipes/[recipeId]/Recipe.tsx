@@ -12,6 +12,7 @@ import { recipes } from '@/data/recipe';
 
 import { RECIPE_TABS, RecipeTab } from './const';
 import CheckboxList from '@/components/CheckboxList';
+import Avatar from '@/components/Avatar';
 
 interface Props {
   recipeId: string;
@@ -41,49 +42,52 @@ function Recipe({ recipeId }: Props) {
   };
 
   return (
-    <div className={style.container}>
-      <div className={style['img-box']}>
-        <Image src={`/img/img${recipeId}.png`} fill alt={recipe.name} />
-      </div>
-
-      <div className={style.content}>
-        <div className={style.header}>
-          <span className={style.title}>{recipe.name}</span>
-          <ChipsContainer className={`${style['chip-container']}`}>
-            {recipe.filters.map((chip) => (
-              <Chip key={chip}>{chip}</Chip>
-            ))}
-          </ChipsContainer>
+    <div className={style.wrapper}>
+      <Avatar user={recipe.user} />
+      <div className={style.container}>
+        <div className={style['img-box']}>
+          <Image src={`/img/img${recipeId}.png`} fill alt={recipe.name} />
         </div>
 
-        <div className={style.body}>
-          <TabsContainer>
-            {RECIPE_TABS.map((item) => (
-              <Tab
-                key={item}
-                selected={item === tab}
-                onClick={() => setTab(item)}
-              >
-                {item}
-              </Tab>
-            ))}
-          </TabsContainer>
+        <div className={style.content}>
+          <div className={style['content__header']}>
+            <span className={style['content__title']}>{recipe.name}</span>
+            <ChipsContainer className={style['chip-container']}>
+              {recipe.filters.map((chip) => (
+                <Chip key={chip}>{chip}</Chip>
+              ))}
+            </ChipsContainer>
+          </div>
 
-          <div className={style.info}>
-            {tab === 'Ingredients' && (
-              <CheckboxList
-                state={ingredientsChecked}
-                items={recipe.ingredients}
-                onChange={onIngredientsToggle}
-              />
-            )}
-            {tab === 'Steps' && (
-              <CheckboxList
-                state={stepsChecked}
-                items={recipe.steps}
-                onChange={onStepsToggle}
-              />
-            )}
+          <div className={style['content__body']}>
+            <TabsContainer>
+              {RECIPE_TABS.map((item) => (
+                <Tab
+                  key={item}
+                  selected={item === tab}
+                  onClick={() => setTab(item)}
+                >
+                  {item}
+                </Tab>
+              ))}
+            </TabsContainer>
+
+            <div className={style.info}>
+              {tab === 'Ingredients' && (
+                <CheckboxList
+                  state={ingredientsChecked}
+                  items={recipe.ingredients}
+                  onChange={onIngredientsToggle}
+                />
+              )}
+              {tab === 'Steps' && (
+                <CheckboxList
+                  state={stepsChecked}
+                  items={recipe.steps}
+                  onChange={onStepsToggle}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>
