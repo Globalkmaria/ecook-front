@@ -1,4 +1,4 @@
-export const getListCheckboxInitialState = (items: readonly string[]) =>
+export const getListCheckboxInitialState = <T>(items: readonly T[]) =>
   items.reduce(
     (acc, item, i) => {
       acc[i] = false;

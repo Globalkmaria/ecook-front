@@ -13,6 +13,7 @@ import { recipes } from '@/data/recipe';
 import { RECIPE_TABS, RecipeTab } from './const';
 import CheckboxList from '@/components/CheckboxList';
 import Avatar from '@/components/Avatar';
+import Ingredients from './components/IngredientList';
 
 interface Props {
   recipeId: string;
@@ -74,7 +75,7 @@ function Recipe({ recipeId }: Props) {
 
             <div className={style.info}>
               {tab === 'Ingredients' && (
-                <CheckboxList
+                <Ingredients
                   state={ingredientsChecked}
                   items={recipe.ingredients}
                   onChange={onIngredientsToggle}
