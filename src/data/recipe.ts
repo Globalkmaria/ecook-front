@@ -1,74 +1,15 @@
-interface User {
-  id: string;
-  username: string;
-  youtube?: string;
-  instagram?: string;
-  img?: string;
-  posts?: string[];
-  comments?: string[];
-}
+import { RecipeIngredient, recipeIngredientsArray } from './ingredients';
+import { User, users } from './users';
 
 interface Recipe {
   name: string;
   description: string;
   filters: string[];
-  ingredients: string[];
+  ingredients: RecipeIngredient[];
   steps: string[];
   img: string;
   user: User;
 }
-
-export const users = {
-  1: {
-    id: '1',
-    username: 'John Doe',
-    img: '/user/user1.png',
-    youtube: 'https://www.youtube.com/',
-    instagram: 'https://www.instagram.com/',
-    posts: ['1'],
-    comments: ['1'],
-  },
-  2: {
-    id: '2',
-    username: 'Maria Smith',
-    img: '/user/user2.png',
-    youtube: 'https://www.youtube.com/',
-    instagram: 'https://www.instagram.com/',
-    posts: ['2'],
-    comments: ['2'],
-  },
-  3: {
-    id: '3',
-    username: 'Sarah Johnson',
-    img: '/user/user3.png',
-    youtube: 'https://www.youtube.com/',
-    instagram: 'https://www.instagram.com/',
-    posts: ['3', '4', '5'],
-    comments: ['3', '4', '5'],
-  },
-  4: {
-    id: '4',
-    username: 'Jessica Brown',
-    img: '/user/user4.png',
-    youtube: 'https://www.youtube.com/',
-    instagram: 'https://www.instagram.com/',
-    posts: ['6'],
-    comments: ['6'],
-  },
-  5: {
-    id: '5',
-    username: 'Michael Wilson',
-    img: '/user/user5.png',
-    youtube: 'https://www.youtube.com/',
-    instagram: 'https://www.instagram.com/',
-    posts: ['7'],
-    comments: ['7'],
-  },
-  6: {
-    id: '6',
-    username: 'Laura Miller',
-  },
-};
 
 export const recipes: Record<string, Recipe> = {
   1: {
@@ -77,38 +18,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Vegetarian', 'Healthy', 'Easy to prepare'],
     description:
       'Bibimbap is a popular Korean dish made with rice, vegetables, and a variety of toppings.',
-    ingredients: [
-      '1 cup short-grain rice',
-      '1/2 lb spinach, blanched',
-      '1 carrot, julienned',
-      '1 zucchini, julienned',
-      '1/2 lb shiitake mushrooms, sliced',
-      '1 egg',
-      '2 tbsp sesame oil',
-      '2 tbsp soy sauce',
-      '2 cloves garlic, minced',
-      '1 tbsp gochujang (Korean red pepper paste)',
-      '1 cup short-grain rice',
-      '1/2 lb spinach, blanched',
-      '1 carrot, julienned',
-      '1 zucchini, julienned',
-      '1/2 lb shiitake mushrooms, sliced',
-      '1 egg',
-      '2 tbsp sesame oil',
-      '2 tbsp soy sauce',
-      '2 cloves garlic, minced',
-      '1/2 lb shiitake mushrooms, sliced',
-      '1 egg',
-      '2 tbsp sesame oil',
-      '2 tbsp soy sauce',
-      '2 cloves garlic, minced',
-      '1/2 lb shiitake mushrooms, sliced',
-      '1 egg',
-      '2 tbsp sesame oil',
-      '2 tbsp soy sauce',
-      '2 cloves garlic, minced',
-      '1 tbsp gochujang (Korean red pepper paste)',
-    ],
+    ingredients: recipeIngredientsArray,
     steps: [
       'Cook rice according to package instructions.',
       'Sauté vegetables separately with sesame oil and garlic.',
@@ -149,16 +59,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Italian', 'Comfort Food', 'Quick'],
     description:
       'A classic Italian pasta dish made with eggs, cheese, pancetta, and pepper.',
-    ingredients: [
-      '1 lb spaghetti',
-      '4 oz pancetta, diced',
-      '2 cloves garlic, minced',
-      '3 large eggs',
-      '1 cup grated Pecorino Romano',
-      'Freshly ground black pepper',
-      'Salt',
-      '2 tbsp olive oil',
-    ],
+    ingredients: recipeIngredientsArray,
     steps: [
       'Cook spaghetti according to package instructions.',
       'In a pan, cook pancetta until crispy, then add garlic and sauté briefly.',
@@ -175,22 +76,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Indian', 'Spicy', 'Comfort Food'],
     description:
       'A flavorful curry made with marinated chicken pieces in a creamy tomato sauce.',
-    ingredients: [
-      '1 lb chicken breast, cubed',
-      '1 cup plain yogurt',
-      '2 tbsp garam masala',
-      '1 tbsp ground cumin',
-      '1 tbsp ground coriander',
-      '1 tsp turmeric',
-      '1 tsp paprika',
-      '1 large onion, chopped',
-      '3 cloves garlic, minced',
-      '1 tbsp ginger, minced',
-      '1 can (14 oz) tomato sauce',
-      '1 cup heavy cream',
-      '2 tbsp butter',
-      'Salt to taste',
-    ],
+    ingredients: recipeIngredientsArray,
     steps: [
       'Marinate chicken in yogurt and spices for at least 1 hour.',
       'Sauté onions, garlic, and ginger in butter until soft.',
@@ -207,18 +93,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Salad', 'Healthy', 'Quick'],
     description:
       'A classic Caesar salad with romaine lettuce, croutons, and a creamy dressing.',
-    ingredients: [
-      '1 head romaine lettuce, chopped',
-      '1/2 cup grated Parmesan cheese',
-      '1 cup croutons',
-      '2 cloves garlic, minced',
-      '1 tsp Dijon mustard',
-      '1 tsp Worcestershire sauce',
-      '1 egg yolk',
-      '2 tbsp lemon juice',
-      '1/2 cup olive oil',
-      'Salt and pepper to taste',
-    ],
+    ingredients: recipeIngredientsArray,
     steps: [
       'Whisk together garlic, mustard, Worcestershire, egg yolk, lemon juice, and olive oil to make dressing.',
       'Toss lettuce with dressing, Parmesan, and croutons.',
@@ -233,18 +108,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Comfort Food', 'Russian', 'Rich'],
     description:
       'A rich and creamy dish made with tender beef and mushrooms in a sour cream sauce.',
-    ingredients: [
-      '1 lb beef sirloin, sliced into strips',
-      '1 onion, chopped',
-      '2 cups mushrooms, sliced',
-      '1/2 cup sour cream',
-      '1 tbsp Dijon mustard',
-      '1 cup beef broth',
-      '2 tbsp flour',
-      '2 tbsp butter',
-      'Salt and pepper to taste',
-      'Egg noodles for serving',
-    ],
+    ingredients: recipeIngredientsArray,
     steps: [
       'Sauté beef strips in butter until browned, then remove from pan.',
       'Sauté onions and mushrooms in the same pan.',
@@ -260,22 +124,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Thai', 'Noodles', 'Spicy'],
     description:
       'A popular Thai stir-fry noodle dish with shrimp, tofu, peanuts, and a tangy sauce.',
-    ingredients: [
-      '8 oz rice noodles',
-      '1/2 lb shrimp, peeled and deveined',
-      '1/2 cup firm tofu, cubed',
-      '2 eggs, lightly beaten',
-      '1 cup bean sprouts',
-      '1/4 cup chopped peanuts',
-      '3 green onions, sliced',
-      '2 cloves garlic, minced',
-      '3 tbsp fish sauce',
-      '2 tbsp tamarind paste',
-      '2 tbsp brown sugar',
-      '1 tbsp soy sauce',
-      '2 tbsp vegetable oil',
-      'Lime wedges for serving',
-    ],
+    ingredients: recipeIngredientsArray,
     steps: [
       'Soak rice noodles in warm water until soft, then drain.',
       'Sauté shrimp and tofu in oil until cooked, then remove from pan.',
@@ -292,20 +141,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Breakfast', 'Middle Eastern', 'Spicy'],
     description:
       'A North African and Middle Eastern dish of poached eggs in a spicy tomato sauce.',
-    ingredients: [
-      '1 onion, chopped',
-      '1 bell pepper, chopped',
-      '3 cloves garlic, minced',
-      '1 can (28 oz) crushed tomatoes',
-      '1 tsp cumin',
-      '1 tsp paprika',
-      '1/2 tsp chili powder',
-      '4 large eggs',
-      '2 tbsp olive oil',
-      'Salt and pepper to taste',
-      'Fresh parsley for garnish',
-      'Crusty bread for serving',
-    ],
+    ingredients: recipeIngredientsArray,
     steps: [
       'Sauté onion and bell pepper in olive oil until soft.',
       'Add garlic, cumin, paprika, and chili powder, and cook for 1 minute.',
@@ -322,16 +158,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Italian', 'Creamy', 'Comfort Food'],
     description:
       'A rich and creamy pasta dish made with grilled chicken and Alfredo sauce.',
-    ingredients: [
-      '1 lb fettuccine',
-      '2 chicken breasts, grilled and sliced',
-      '1 cup heavy cream',
-      '1/2 cup butter',
-      '1 cup grated Parmesan cheese',
-      '2 cloves garlic, minced',
-      'Salt and pepper to taste',
-      'Chopped parsley for garnish',
-    ],
+    ingredients: recipeIngredientsArray,
     steps: [
       'Cook fettuccine according to package instructions.',
       'In a pan, melt butter and sauté garlic until fragrant.',
@@ -348,18 +175,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Salad', 'Healthy', 'Mediterranean'],
     description:
       'A refreshing salad with cucumbers, tomatoes, olives, feta cheese, and a lemon vinaigrette.',
-    ingredients: [
-      '1 cucumber, diced',
-      '2 tomatoes, chopped',
-      '1/2 red onion, thinly sliced',
-      '1/2 cup Kalamata olives',
-      '1/4 cup feta cheese, crumbled',
-      '1 tbsp oregano',
-      '2 tbsp olive oil',
-      '1 tbsp red wine vinegar',
-      'Juice of 1 lemon',
-      'Salt and pepper to taste',
-    ],
+    ingredients: recipeIngredientsArray,
     steps: [
       'Combine cucumber, tomatoes, onion, and olives in a large bowl.',
       'In a small bowl, whisk together olive oil, vinegar, lemon juice, oregano, salt, and pepper.',
@@ -374,19 +190,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Japanese', 'Soup', 'Comfort Food'],
     description:
       'A Japanese noodle soup with broth, noodles, meat, and various toppings.',
-    ingredients: [
-      '4 cups chicken broth',
-      '2 cups water',
-      '2 packages ramen noodles',
-      '1/2 cup soy sauce',
-      '2 cloves garlic, minced',
-      '1 tsp ginger, grated',
-      '2 green onions, sliced',
-      '2 eggs, soft boiled',
-      '1/2 cup sliced pork or chicken',
-      '1/2 cup mushrooms, sliced',
-      'Nori (seaweed) for garnish',
-    ],
+    ingredients: recipeIngredientsArray,
     steps: [
       'In a large pot, combine broth, water, soy sauce, garlic, and ginger. Bring to a boil.',
       'Add ramen noodles and cook according to package instructions.',
@@ -402,16 +206,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Breakfast', 'Sweet', 'Quick'],
     description:
       'A classic breakfast dish made with bread soaked in eggs and milk, then fried.',
-    ingredients: [
-      '4 slices bread',
-      '2 eggs',
-      '1/2 cup milk',
-      '1 tsp cinnamon',
-      '1 tsp vanilla extract',
-      '2 tbsp butter',
-      'Maple syrup for serving',
-      'Powdered sugar for garnish',
-    ],
+    ingredients: recipeIngredientsArray,
     steps: [
       'Whisk together eggs, milk, cinnamon, and vanilla in a shallow bowl.',
       'Dip each slice of bread in the egg mixture, coating both sides.',
@@ -426,18 +221,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Italian', 'Baked', 'Comfort Food'],
     description:
       'A layered pasta dish with rich meat sauce, ricotta, mozzarella, and Parmesan cheese.',
-    ingredients: [
-      '12 lasagna noodles',
-      '1 lb ground beef',
-      '1 onion, chopped',
-      '2 cloves garlic, minced',
-      '1 jar marinara sauce',
-      '1 cup ricotta cheese',
-      '2 cups shredded mozzarella',
-      '1/2 cup grated Parmesan',
-      '1 egg',
-      'Salt and pepper to taste',
-    ],
+    ingredients: recipeIngredientsArray,
     steps: [
       'Cook lasagna noodles according to package instructions.',
       'In a large pan, cook ground beef, onion, and garlic until browned.',
@@ -455,15 +239,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Mexican', 'Dip', 'Healthy'],
     description:
       'A classic Mexican dip made with mashed avocados, lime juice, onions, and cilantro.',
-    ingredients: [
-      '3 ripe avocados, peeled and pitted',
-      '1 lime, juiced',
-      '1/2 red onion, finely chopped',
-      '2 cloves garlic, minced',
-      '1 jalapeño, seeded and minced',
-      '1/4 cup fresh cilantro, chopped',
-      'Salt to taste',
-    ],
+    ingredients: recipeIngredientsArray,
     steps: [
       'In a large bowl, mash avocados with lime juice.',
       'Stir in onion, garlic, jalapeño, and cilantro.',
@@ -477,17 +253,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Dessert', 'Baked', 'Sweet'],
     description:
       'Classic cookies with a chewy texture and loaded with chocolate chips.',
-    ingredients: [
-      '1 cup unsalted butter, softened',
-      '1 cup brown sugar',
-      '1/2 cup granulated sugar',
-      '2 large eggs',
-      '1 tsp vanilla extract',
-      '2 1/4 cups all-purpose flour',
-      '1 tsp baking soda',
-      '1/2 tsp salt',
-      '2 cups semisweet chocolate chips',
-    ],
+    ingredients: recipeIngredientsArray,
     steps: [
       'Preheat oven to 350°F.',
       'In a large bowl, cream together butter, brown sugar, and granulated sugar.',
@@ -506,15 +272,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Pizza', 'Vegetarian', 'Italian'],
     description:
       'A simple yet delicious pizza topped with fresh tomatoes, mozzarella, and basil.',
-    ingredients: [
-      '1 pizza dough',
-      '1/2 cup tomato sauce',
-      '1 cup fresh mozzarella, sliced',
-      '2 tomatoes, sliced',
-      '1/4 cup fresh basil leaves',
-      '2 tbsp olive oil',
-      'Salt and pepper to taste',
-    ],
+    ingredients: recipeIngredientsArray,
     steps: [
       'Preheat oven to 475°F.',
       'Roll out pizza dough and place on a pizza stone or baking sheet.',
@@ -532,18 +290,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Japanese', 'Seafood', 'Healthy'],
     description:
       'Traditional Japanese rolls made with sushi rice, seaweed, and various fillings.',
-    ingredients: [
-      '2 cups sushi rice',
-      '2 1/2 cups water',
-      '1/4 cup rice vinegar',
-      '1 tbsp sugar',
-      '1/2 tsp salt',
-      '10 sheets nori (seaweed)',
-      '1/2 lb sushi-grade fish (tuna, salmon, etc.)',
-      '1 cucumber, julienned',
-      '1 avocado, sliced',
-      'Soy sauce for serving',
-    ],
+    ingredients: recipeIngredientsArray,
     steps: [
       'Rinse sushi rice until water runs clear.',
       'Combine rice and water in a pot and bring to a boil.',
@@ -563,18 +310,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Thai', 'Soup', 'Spicy'],
     description:
       'A hot and sour Thai soup made with shrimp, lemongrass, and fresh herbs.',
-    ingredients: [
-      '4 cups chicken broth',
-      '1 stalk lemongrass, cut into 2-inch pieces',
-      '3 kaffir lime leaves',
-      '1 inch piece of galangal, sliced',
-      '2 bird’s eye chilies, crushed',
-      '1/2 lb shrimp, peeled and deveined',
-      '1/2 cup mushrooms, sliced',
-      '2 tbsp fish sauce',
-      '2 tbsp lime juice',
-      'Fresh cilantro for garnish',
-    ],
+    ingredients: recipeIngredientsArray,
     steps: [
       'Bring chicken broth to a boil with lemongrass, lime leaves, galangal, and chilies.',
       'Add mushrooms and shrimp, cooking until shrimp are pink.',
@@ -589,20 +325,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Mexican', 'Spicy', 'Street Food'],
     description:
       'Mexican street tacos made with marinated pork, pineapple, and onions.',
-    ingredients: [
-      '1 lb pork shoulder, thinly sliced',
-      '1/2 cup pineapple juice',
-      '1/4 cup vinegar',
-      '2 tbsp chili powder',
-      '1 tsp cumin',
-      '1 tsp oregano',
-      '2 cloves garlic, minced',
-      '1/2 cup chopped pineapple',
-      'Small corn tortillas',
-      '1/2 red onion, chopped',
-      'Fresh cilantro for garnish',
-      'Lime wedges for serving',
-    ],
+    ingredients: recipeIngredientsArray,
     steps: [
       'Marinate pork in pineapple juice, vinegar, chili powder, cumin, oregano, and garlic for at least 2 hours.',
       'Grill or sauté pork until cooked through.',
