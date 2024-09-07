@@ -1,7 +1,21 @@
+import { joinClassNames } from '@/utils/style';
 import style from './style.module.scss';
 
-function Chip({ children }: { children: React.ReactNode }) {
-  return <div className={style.chip}>{children}</div>;
+function Chip({
+  children,
+  className,
+  border,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  border?: boolean;
+}) {
+  const borderClassName = border ? style['chip--border'] : '';
+  const joinedClassName = className
+    ? joinClassNames(style.chip, borderClassName, className)
+    : style.chip;
+
+  return <div className={joinedClassName}>{children}</div>;
 }
 export default Chip;
 

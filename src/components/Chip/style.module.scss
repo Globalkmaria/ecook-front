@@ -6,6 +6,10 @@
   background-color: $grey200;
   font-size: 0.8rem;
   font-weight: 400;
+
+  &--border {
+    border: 1px solid $black;
+  }
 }
 
 .chip-list {
