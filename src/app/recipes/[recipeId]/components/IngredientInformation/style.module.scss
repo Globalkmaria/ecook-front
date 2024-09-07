@@ -11,11 +11,24 @@
 .ingredient {
   display: flex;
   justify-content: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 
   &__name {
     font-size: 1.5rem;
     font-weight: 500;
+  }
+}
+
+.icon-info {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+
+  &__item {
+    display: flex;
+    gap: 5px;
   }
 }
 
@@ -40,9 +53,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 1rem;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   border-radius: 5px;
   box-shadow:
     rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
@@ -59,17 +71,11 @@
     flex-direction: column;
     gap: 0.5rem;
     padding: 0.5rem;
-    align-items: center;
   }
 
   &__info {
     display: flex;
-    gap: 0.5rem;
-
-    &__title {
-      font-weight: 500;
-      margin-right: 10px;
-    }
+    gap: 1rem;
   }
 }
 

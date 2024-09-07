@@ -7,6 +7,7 @@ import { MouseEvent, ReactNode, useEffect, useRef } from 'react';
 import useEscapeKey from '@/hooks/useEscapeKey';
 import useHideScroll from '@/hooks/useHideScroll';
 import ModalWrapper from './ModalWrapper';
+import Icon from '../Icon';
 
 interface Props {
   children: ReactNode;
@@ -54,7 +55,7 @@ function Modal2({
         ref={modalBackground}
       >
         <button type='button' className={style['modal2__close-button']}>
-          X
+          <Icon icon='close' />
         </button>
 
         <div

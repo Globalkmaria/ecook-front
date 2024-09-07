@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { Libre_Bodoni } from 'next/font/google';
 
 import style from './style.module.scss';
 
@@ -7,6 +8,13 @@ import { Ingredient, IngredientProduct } from '@/data/ingredients';
 import useModal from '@/hooks/useModal';
 import { joinClassNames } from '@/utils/style';
 import Chip from '@/components/Chip';
+import Icon from '@/components/Icon';
+
+const libre = Libre_Bodoni({
+  subsets: ['latin'],
+  style: ['italic', 'normal'],
+  weight: ['700'],
+});
 
 interface Props {
   userProduct: IngredientProduct;
@@ -19,13 +27,29 @@ function IngredientInformationModal({
   userProduct,
   ingredientInfo,
 }: Props) {
+  const titleClassName = joinClassNames(
+    style['ingredient__name'],
+    libre.className,
+  );
   return (
     <Modal onClose={modalControl.onClose} isOpen={modalControl.isOpen}>
       <div className={style.container}>
         <div className={style.ingredient}>
-          <span className={style['ingredient__name']}>
-            {ingredientInfo.name}
-          </span>
+          <span className={titleClassName}>{ingredientInfo.name}</span>
+        </div>
+        <div className={style['icon-info']}>
+          <div className={style['icon-info__item']}>
+            <Icon icon='label' />
+            <span>Product Name</span>
+          </div>
+          <div className={style['icon-info__item']}>
+            <Icon icon='product' />
+            <span>Brand</span>
+          </div>
+          <div className={style['icon-info__item']}>
+            <Icon icon='basket' />
+            <span>Purchased at</span>
+          </div>
         </div>
         <div className={style['product-list']}>
           <Product item={userProduct} isUserProduct />
@@ -65,20 +89,16 @@ function Product({
       </div>
       <div className={style['product__content']}>
         <div className={style['product__info']}>
-          <span className={style['product__info__title']}>Product Name</span>
-          <span className={style['product__info__content']}>{item.name}</span>
+          <Icon icon='label' />
+          <span>{item.name}</span>
         </div>
-        <div>
-          <span className={style['product__info__title']}>Brand</span>
-          <span className={style['product__info__content']}>
-            {item.brand || ''}
-          </span>
+        <div className={style['product__info']}>
+          <Icon icon='product' />
+          <span>{item.brand || ''}</span>
         </div>
-        <div>
-          <span className={style['product__info__title']}>Purchased at</span>
-          <span className={style['product__info__content']}>
-            {item.purchasedAt || ''}
-          </span>
+        <div className={style['product__info']}>
+          <Icon icon='basket' />
+          <span>{item.purchasedAt || ''}</span>
         </div>
       </div>
     </div>

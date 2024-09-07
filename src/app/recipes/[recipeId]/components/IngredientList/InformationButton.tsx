@@ -4,6 +4,7 @@ import useModal from '@/hooks/useModal';
 import { IngredientProduct, INGREDIENTS, PRODUCTS } from '@/data/ingredients';
 
 import IngredientInformationModal from '../IngredientInformation';
+import Icon from '@/components/Icon';
 
 interface Props {
   ingredientProductId: IngredientProduct['id'];
@@ -17,7 +18,7 @@ function InformationButton({ ingredientProductId }: Props) {
   return (
     <>
       <button className={style.icon} onClick={control.onOpen}>
-        i
+        <Icon icon='info' />
       </button>
       <IngredientInformationModal
         userProduct={userProduct}
