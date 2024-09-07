@@ -1,16 +1,17 @@
-interface Ingredient {
+export interface Ingredient {
   id: string;
   name: string;
   products: IngredientProduct[];
 }
 
-interface IngredientProduct {
+export interface IngredientProduct {
   id: string;
   ingredientId: string;
   name: string;
   img?: string;
   brand?: string;
   purchasedAt?: string;
+  link?: string;
 }
 
 export interface RecipeIngredient {
@@ -20,7 +21,7 @@ export interface RecipeIngredient {
   quantity: string;
 }
 
-const recipeIngredients: { [key: string]: RecipeIngredient } = {
+export const RECIPE_INGREDIENTS: { [key: string]: RecipeIngredient } = {
   1: {
     id: '1',
     name: 'TomatoTomato Tomato TomatoTomato',
@@ -40,9 +41,9 @@ const recipeIngredients: { [key: string]: RecipeIngredient } = {
   },
 };
 
-export const recipeIngredientsArray = Object.values(recipeIngredients);
+export const RECIPE_INGREDIENTS_ARRAY = Object.values(RECIPE_INGREDIENTS);
 
-export const ingredients: { [key: string]: Ingredient } = {
+export const INGREDIENTS: { [key: string]: Ingredient } = {
   1: {
     id: '1',
     name: 'Tomato',
@@ -105,29 +106,29 @@ export const ingredients: { [key: string]: Ingredient } = {
   },
   3: {
     id: '3',
-    name: 'Garlic',
+    name: 'Mushroom',
     products: [
       {
         id: '7',
         ingredientId: '3',
-        name: 'Garlic',
-        img: '/ingredient/garlic.png',
+        name: 'Mushroom',
+        img: '/ingredient/mushroom.png',
         brand: 'Organic',
         purchasedAt: 'Walmart',
       },
       {
         id: '8',
         ingredientId: '3',
-        name: 'Garlic',
-        img: '/ingredient/garlic.png',
+        name: 'Mushroom',
+        img: '/ingredient/mushroom.png',
         brand: 'Organic',
         purchasedAt: 'Whole Foods',
       },
       {
         id: '9',
         ingredientId: '3',
-        name: 'Garlic',
-        img: '/ingredient/garlic.png',
+        name: 'Mushroom',
+        img: '/ingredient/mushroom.png',
         brand: 'Organic',
         purchasedAt: "Trader Joe's",
       },
@@ -135,8 +136,8 @@ export const ingredients: { [key: string]: Ingredient } = {
   },
 };
 
-export const products: { [key: string]: IngredientProduct } = Object.values(
-  ingredients,
+export const PRODUCTS: { [key: string]: IngredientProduct } = Object.values(
+  INGREDIENTS,
 ).reduce(
   (acc, ingredient) => {
     ingredient.products.forEach((product) => {

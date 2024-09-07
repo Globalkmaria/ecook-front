@@ -1,4 +1,4 @@
-import { RecipeIngredient, recipeIngredientsArray } from './ingredients';
+import { RecipeIngredient, RECIPE_INGREDIENTS_ARRAY } from './ingredients';
 import { User, users } from './users';
 
 interface Recipe {
@@ -11,14 +11,14 @@ interface Recipe {
   user: User;
 }
 
-export const recipes: Record<string, Recipe> = {
+export const RECIPES: Record<string, Recipe> = {
   1: {
     user: users[1],
     name: 'Bibimbap',
     filters: ['Vegetarian', 'Healthy', 'Easy to prepare'],
     description:
       'Bibimbap is a popular Korean dish made with rice, vegetables, and a variety of toppings.',
-    ingredients: recipeIngredientsArray,
+    ingredients: RECIPE_INGREDIENTS_ARRAY,
     steps: [
       'Cook rice according to package instructions.',
       'Sauté vegetables separately with sesame oil and garlic.',
@@ -59,7 +59,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Italian', 'Comfort Food', 'Quick'],
     description:
       'A classic Italian pasta dish made with eggs, cheese, pancetta, and pepper.',
-    ingredients: recipeIngredientsArray,
+    ingredients: RECIPE_INGREDIENTS_ARRAY,
     steps: [
       'Cook spaghetti according to package instructions.',
       'In a pan, cook pancetta until crispy, then add garlic and sauté briefly.',
@@ -76,7 +76,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Indian', 'Spicy', 'Comfort Food'],
     description:
       'A flavorful curry made with marinated chicken pieces in a creamy tomato sauce.',
-    ingredients: recipeIngredientsArray,
+    ingredients: RECIPE_INGREDIENTS_ARRAY,
     steps: [
       'Marinate chicken in yogurt and spices for at least 1 hour.',
       'Sauté onions, garlic, and ginger in butter until soft.',
@@ -93,7 +93,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Salad', 'Healthy', 'Quick'],
     description:
       'A classic Caesar salad with romaine lettuce, croutons, and a creamy dressing.',
-    ingredients: recipeIngredientsArray,
+    ingredients: RECIPE_INGREDIENTS_ARRAY,
     steps: [
       'Whisk together garlic, mustard, Worcestershire, egg yolk, lemon juice, and olive oil to make dressing.',
       'Toss lettuce with dressing, Parmesan, and croutons.',
@@ -108,7 +108,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Comfort Food', 'Russian', 'Rich'],
     description:
       'A rich and creamy dish made with tender beef and mushrooms in a sour cream sauce.',
-    ingredients: recipeIngredientsArray,
+    ingredients: RECIPE_INGREDIENTS_ARRAY,
     steps: [
       'Sauté beef strips in butter until browned, then remove from pan.',
       'Sauté onions and mushrooms in the same pan.',
@@ -124,7 +124,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Thai', 'Noodles', 'Spicy'],
     description:
       'A popular Thai stir-fry noodle dish with shrimp, tofu, peanuts, and a tangy sauce.',
-    ingredients: recipeIngredientsArray,
+    ingredients: RECIPE_INGREDIENTS_ARRAY,
     steps: [
       'Soak rice noodles in warm water until soft, then drain.',
       'Sauté shrimp and tofu in oil until cooked, then remove from pan.',
@@ -141,7 +141,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Breakfast', 'Middle Eastern', 'Spicy'],
     description:
       'A North African and Middle Eastern dish of poached eggs in a spicy tomato sauce.',
-    ingredients: recipeIngredientsArray,
+    ingredients: RECIPE_INGREDIENTS_ARRAY,
     steps: [
       'Sauté onion and bell pepper in olive oil until soft.',
       'Add garlic, cumin, paprika, and chili powder, and cook for 1 minute.',
@@ -158,7 +158,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Italian', 'Creamy', 'Comfort Food'],
     description:
       'A rich and creamy pasta dish made with grilled chicken and Alfredo sauce.',
-    ingredients: recipeIngredientsArray,
+    ingredients: RECIPE_INGREDIENTS_ARRAY,
     steps: [
       'Cook fettuccine according to package instructions.',
       'In a pan, melt butter and sauté garlic until fragrant.',
@@ -175,7 +175,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Salad', 'Healthy', 'Mediterranean'],
     description:
       'A refreshing salad with cucumbers, tomatoes, olives, feta cheese, and a lemon vinaigrette.',
-    ingredients: recipeIngredientsArray,
+    ingredients: RECIPE_INGREDIENTS_ARRAY,
     steps: [
       'Combine cucumber, tomatoes, onion, and olives in a large bowl.',
       'In a small bowl, whisk together olive oil, vinegar, lemon juice, oregano, salt, and pepper.',
@@ -190,7 +190,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Japanese', 'Soup', 'Comfort Food'],
     description:
       'A Japanese noodle soup with broth, noodles, meat, and various toppings.',
-    ingredients: recipeIngredientsArray,
+    ingredients: RECIPE_INGREDIENTS_ARRAY,
     steps: [
       'In a large pot, combine broth, water, soy sauce, garlic, and ginger. Bring to a boil.',
       'Add ramen noodles and cook according to package instructions.',
@@ -206,7 +206,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Breakfast', 'Sweet', 'Quick'],
     description:
       'A classic breakfast dish made with bread soaked in eggs and milk, then fried.',
-    ingredients: recipeIngredientsArray,
+    ingredients: RECIPE_INGREDIENTS_ARRAY,
     steps: [
       'Whisk together eggs, milk, cinnamon, and vanilla in a shallow bowl.',
       'Dip each slice of bread in the egg mixture, coating both sides.',
@@ -221,7 +221,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Italian', 'Baked', 'Comfort Food'],
     description:
       'A layered pasta dish with rich meat sauce, ricotta, mozzarella, and Parmesan cheese.',
-    ingredients: recipeIngredientsArray,
+    ingredients: RECIPE_INGREDIENTS_ARRAY,
     steps: [
       'Cook lasagna noodles according to package instructions.',
       'In a large pan, cook ground beef, onion, and garlic until browned.',
@@ -239,7 +239,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Mexican', 'Dip', 'Healthy'],
     description:
       'A classic Mexican dip made with mashed avocados, lime juice, onions, and cilantro.',
-    ingredients: recipeIngredientsArray,
+    ingredients: RECIPE_INGREDIENTS_ARRAY,
     steps: [
       'In a large bowl, mash avocados with lime juice.',
       'Stir in onion, garlic, jalapeño, and cilantro.',
@@ -253,7 +253,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Dessert', 'Baked', 'Sweet'],
     description:
       'Classic cookies with a chewy texture and loaded with chocolate chips.',
-    ingredients: recipeIngredientsArray,
+    ingredients: RECIPE_INGREDIENTS_ARRAY,
     steps: [
       'Preheat oven to 350°F.',
       'In a large bowl, cream together butter, brown sugar, and granulated sugar.',
@@ -272,7 +272,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Pizza', 'Vegetarian', 'Italian'],
     description:
       'A simple yet delicious pizza topped with fresh tomatoes, mozzarella, and basil.',
-    ingredients: recipeIngredientsArray,
+    ingredients: RECIPE_INGREDIENTS_ARRAY,
     steps: [
       'Preheat oven to 475°F.',
       'Roll out pizza dough and place on a pizza stone or baking sheet.',
@@ -290,7 +290,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Japanese', 'Seafood', 'Healthy'],
     description:
       'Traditional Japanese rolls made with sushi rice, seaweed, and various fillings.',
-    ingredients: recipeIngredientsArray,
+    ingredients: RECIPE_INGREDIENTS_ARRAY,
     steps: [
       'Rinse sushi rice until water runs clear.',
       'Combine rice and water in a pot and bring to a boil.',
@@ -310,7 +310,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Thai', 'Soup', 'Spicy'],
     description:
       'A hot and sour Thai soup made with shrimp, lemongrass, and fresh herbs.',
-    ingredients: recipeIngredientsArray,
+    ingredients: RECIPE_INGREDIENTS_ARRAY,
     steps: [
       'Bring chicken broth to a boil with lemongrass, lime leaves, galangal, and chilies.',
       'Add mushrooms and shrimp, cooking until shrimp are pink.',
@@ -325,7 +325,7 @@ export const recipes: Record<string, Recipe> = {
     filters: ['Mexican', 'Spicy', 'Street Food'],
     description:
       'Mexican street tacos made with marinated pork, pineapple, and onions.',
-    ingredients: recipeIngredientsArray,
+    ingredients: RECIPE_INGREDIENTS_ARRAY,
     steps: [
       'Marinate pork in pineapple juice, vinegar, chili powder, cumin, oregano, and garlic for at least 2 hours.',
       'Grill or sauté pork until cooked through.',
@@ -336,4 +336,4 @@ export const recipes: Record<string, Recipe> = {
   },
 };
 
-export const recipeIds = Object.keys(recipes);
+export const RECIPE_IDS = Object.keys(RECIPES);
