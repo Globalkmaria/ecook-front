@@ -8,7 +8,7 @@ import Chip, { ChipsContainer } from '@/components/Chip';
 import { Tab, TabsContainer } from '@/components/Tab';
 import { getListCheckboxInitialState } from '@/components/helpers';
 
-import { recipes } from '@/data/recipe';
+import { RECIPES } from '@/data/recipe';
 
 import { RECIPE_TABS, RecipeTab } from './const';
 import CheckboxList from '@/components/CheckboxList';
@@ -20,7 +20,7 @@ interface Props {
 }
 
 function Recipe({ recipeId }: Props) {
-  const recipe = recipeId ? recipes[recipeId] : null;
+  const recipe = recipeId ? RECIPES[recipeId] : null;
   const [tab, setTab] = useState<RecipeTab>('Ingredients');
   const [ingredientsChecked, setIngredientsChecked] = useState(
     getListCheckboxInitialState(recipe?.ingredients ?? []),
@@ -77,7 +77,7 @@ function Recipe({ recipeId }: Props) {
               {tab === 'Ingredients' && (
                 <Ingredients
                   state={ingredientsChecked}
-                  items={recipe.ingredients}
+                  ingredients={recipe.ingredients}
                   onChange={onIngredientsToggle}
                 />
               )}

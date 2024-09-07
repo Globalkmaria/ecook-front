@@ -5,7 +5,7 @@ import style from './Recipe.module.scss';
 
 import Chip, { ChipsContainer } from '@/components/Chip';
 import Link from 'next/link';
-import { recipes } from '@/data/recipe';
+import { RECIPES } from '@/data/recipe';
 
 const libre = Libre_Bodoni({
   subsets: ['latin'],
@@ -18,7 +18,7 @@ interface Props {
 }
 
 function Recipe({ idx }: Props) {
-  const recipe = idx ? recipes[idx] : null;
+  const recipe = idx ? RECIPES[idx] : null;
 
   if (recipe === null) return null;
 

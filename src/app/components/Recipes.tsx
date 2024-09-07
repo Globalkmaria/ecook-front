@@ -3,12 +3,12 @@
 import style from './Recipes.module.scss';
 import Recipe from './Recipe';
 
-import { recipeIds } from '@/data/recipe';
+import { RECIPE_IDS } from '@/data/recipe';
 
 function Recipes() {
   return (
     <section className={style.container}>
-      {recipeIds.map((idx) => (
+      {RECIPE_IDS.map((idx) => (
         <Recipe key={idx} idx={idx} />
       ))}
     </section>

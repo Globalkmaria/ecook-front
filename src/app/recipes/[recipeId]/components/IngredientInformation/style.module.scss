@@ -1,0 +1,84 @@
+@use '@/style/theme' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 60vw;
+  min-width: 200px;
+  max-height: 70vh;
+}
+
+.ingredient {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+
+  &__name {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+}
+
+.product-list {
+  flex: 1;
+  overflow: overlay;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  padding: 10px;
+}
+
+// Product
+
+.user-pick {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.product {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  box-shadow:
+    rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+
+  &--user {
+    box-shadow:
+      rgba(60, 64, 67, 0.3) 8px 7px 2px 0px,
+      rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    align-items: center;
+  }
+
+  &__info {
+    display: flex;
+    gap: 0.5rem;
+
+    &__title {
+      font-weight: 500;
+      margin-right: 10px;
+    }
+  }
+}
+
+.img-box {
+  position: relative;
+  height: 200px;
+  width: 100%;
+
+  img {
+    object-fit: contain;
+  }
+}
