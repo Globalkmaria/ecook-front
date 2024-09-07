@@ -80,12 +80,16 @@ function Product({
     <div className={productClassName}>
       {isUserProduct && (
         <div className={style['user-pick']}>
-          <Chip>User pick</Chip>
+          <Chip border>User pick</Chip>
         </div>
       )}
 
       <div className={style['img-box']}>
-        <Image src={img} alt={item.name} fill />
+        {item.img ? (
+          <Image src={img} alt={item.name} fill />
+        ) : (
+          <Icon icon='img' className={style['img-icon']} />
+        )}
       </div>
       <div className={style['product__content']}>
         <div className={style['product__info']}>

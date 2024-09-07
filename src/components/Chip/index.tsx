@@ -11,9 +11,12 @@ function Chip({
   border?: boolean;
 }) {
   const borderClassName = border ? style['chip--border'] : '';
-  const joinedClassName = className
-    ? joinClassNames(style.chip, borderClassName, className)
-    : style.chip;
+
+  const joinedClassName = joinClassNames(
+    style.chip,
+    borderClassName,
+    className || '',
+  );
 
   return <div className={joinedClassName}>{children}</div>;
 }
