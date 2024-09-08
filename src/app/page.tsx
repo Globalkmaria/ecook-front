@@ -1,9 +1,8 @@
 'use client';
 
+import HomeHeader from './components/layout/HomeHeader';
+import Recipes from './components/List/Recipes';
 import style from './style.module.scss';
-
-import HomeHeader from './components/HomeHeader';
-import Recipes from './components/Recipes';
 
 export default function Home() {
   return (

@@ -2,8 +2,8 @@ import '@/style/global.scss';
 import style from './style.module.scss';
 
 import { Roboto } from 'next/font/google';
-import Nav from './components/Nav';
-import Footer from './components/Footer';
+import Nav from './components/layout/Nav';
+import Footer from './components/layout/Footer';
 
 const roboto = Roboto({
   subsets: ['latin'],
