@@ -1,5 +1,3 @@
-'use client';
-
 import HomeHeader from './components/layout/HomeHeader';
 import Recipes from './components/List/Recipes';
 import style from './style.module.scss';
