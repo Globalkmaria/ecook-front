@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import style from './style.module.scss';
+import { ChipListInput } from '@/components/Input';
+import ImageUploader from '@/components/imageUploader';
 
 interface Ingredient {
   id: string;
@@ -19,6 +21,8 @@ interface Step {
 function NewRecipe() {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [steps, setSteps] = useState<Step[]>([]);
+  const tagsState = useState<string[]>([]);
+  const imgState = useState<string | null>(null);
 
   const addIngredient = () => {
     const id = uuidv4();
@@ -80,14 +84,16 @@ function NewRecipe() {
           <input className={style.input} type='text' id='time' name='time' />
         </div>
 
-        {/* tags */}
-
         <div className={style.box}>
           <h3>Tags</h3>
-          {/* chip input */}
+          <ChipListInput state={tagsState} />
         </div>
 
         {/* img */}
+        <div className={style.box}>
+          <h3>Image</h3>
+          <ImageUploader state={imgState} />
+        </div>
 
         <div className={style.box}>
           <h3>Ingredients*</h3>
@@ -115,7 +121,7 @@ function NewRecipe() {
           <AddButton onClick={addStep}>Add a step</AddButton>
         </div>
 
-        <button type='submit'>Submit</button>
+        <button type='button'>Submit</button>
       </form>
     </div>
   );
