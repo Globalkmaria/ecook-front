@@ -1,7 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { Dispatch, SetStateAction, useState } from 'react';
 
 import style from './style.module.scss';
 
@@ -9,51 +8,55 @@ import { ChipListInput, Input } from '@/components/Input';
 import ImageUploader from '@/components/imageUploader';
 
 import Ingredients, { Ingredient } from './components/Ingredients';
-import { AddButton, RemoveButton } from './components/buttons';
+import { AddButton } from './components/buttons';
 import Button from '@/components/Button';
+import Steps, { Step } from './components/Steps';
+import { getRandomId } from '@/utils/generateId';
+import { onFieldChange } from './helper';
 
-interface Step {
-  id: string;
-  value: string;
-}
+const INGREDIENTS_INITIAL_STATE: Ingredient[] = [
+  {
+    id: getRandomId(),
+    name: '',
+    productId: null,
+    quantity: '',
+  },
+];
+
+const STEPS_INITIAL_STATE: Step[] = [{ id: getRandomId(), value: '' }];
 
 function NewRecipe() {
-  const [ingredients, setIngredients] = useState<Ingredient[]>([
-    {
-      id: uuidv4(),
-      name: '',
-      productId: null,
-      quantity: '',
-    },
-  ]);
-  const [steps, setSteps] = useState<Step[]>([]);
+  const [ingredients, setIngredients] = useState<Ingredient[]>(
+    INGREDIENTS_INITIAL_STATE,
+  );
+  const [steps, setSteps] = useState<Step[]>(STEPS_INITIAL_STATE);
   const tagsState = useState<string[]>([]);
   const imgState = useState<string | null>(null);
 
-  const addIngredient = () => {
-    const id = uuidv4();
+  const addIngredient = () =>
     setIngredients([
       ...ingredients,
-      { id, name: '', productId: null, quantity: '' },
+      { id: getRandomId(), name: '', productId: null, quantity: '' },
     ]);
-  };
 
-  const removeIngredient = (id: string) => {
+  const onRemoveIngredient = (id: string) =>
     setIngredients(ingredients.filter((item) => item.id !== id));
-  };
 
-  const addStep = () => {
-    const id = uuidv4();
-    setSteps([...steps, { id, value: '' }]);
-  };
+  const addStep = () => setSteps([...steps, { id: getRandomId(), value: '' }]);
 
-  const removeStep = (id: string) => {
+  const onRemoveStep = (id: string) =>
     setSteps(steps.filter((item) => item.id !== id));
-  };
+
+  const onIngredientChange = (id: string, fieldName: string, value: string) =>
+    onFieldChange(setIngredients, id, fieldName, value);
+
+  const onStepChange = (id: string, fieldName: string, value: string) =>
+    onFieldChange(setSteps, id, fieldName, value);
 
   return (
     <div className={style.container}>
       <h2 className={style.title}>Submit new recipe</h2>
+
       <form className={style.form}>
         <div className={style.box}>
           <label htmlFor='title'>
@@ -95,45 +98,32 @@ function NewRecipe() {
 
         <div className={style.box}>
           <h3>Ingredients*</h3>
-          <div className={style.ingredients}>
+          <div className={style.box__content}>
             <Ingredients
-              onRemove={removeIngredient}
+              onChange={onIngredientChange}
+              onRemove={onRemoveIngredient}
               ingredients={ingredients}
             />
             <AddButton onClick={addIngredient}>Add a ingredient</AddButton>
           </div>
         </div>
 
-        {/* steps */}
         <div className={style.box}>
           <h3>Steps*</h3>
-          <ol>
-            {steps.map((item) => (
-              <Step key={item.id} item={item} onRemove={removeStep} />
-            ))}
-          </ol>
-
-          <AddButton onClick={addStep}>Add a step</AddButton>
+          <div className={style.box__content}>
+            <Steps
+              steps={steps}
+              onRemove={onRemoveStep}
+              onChange={onStepChange}
+            />
+            <AddButton onClick={addStep}>Add a step</AddButton>
+          </div>
         </div>
 
-        <Button>Submit</Button>
+        <Button className={style['submit-button']}>Submit</Button>
       </form>
     </div>
   );
 }
 
 export default NewRecipe;
-
-interface StepProps {
-  item: Step;
-  onRemove: (id: string) => void;
-}
-
-function Step({ item, onRemove }: StepProps) {
-  return (
-    <li>
-      <input type='text' value={item.value} />
-      <RemoveButton onClick={() => onRemove(item.id)} />
-    </li>
-  );
-}

@@ -1,7 +1,5 @@
 @use '@/style/theme.scss' as *;
 
-// Buttons
-
 // Ingredients
 
 .ingredients {
@@ -29,5 +27,23 @@
 
   &__name {
     flex-grow: 2;
+  }
+}
+
+// Steps
+.steps {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 10px;
+}
+
+.step {
+  flex: 1;
+  display: flex;
+  gap: 5px;
+
+  &__value {
+    flex-grow: 1;
   }
 }

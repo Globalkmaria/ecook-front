@@ -1,5 +1,3 @@
-import style from './style.module.scss';
-
 import Button from '@/components/Button';
 import Icon from '@/components/Icon';
 
