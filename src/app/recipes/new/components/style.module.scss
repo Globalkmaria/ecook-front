@@ -14,19 +14,37 @@
   flex-wrap: wrap;
   gap: 5px;
 
+  @media #{$tablet} {
+    flex-direction: column;
+  }
+
   &__inputs {
     flex-grow: 1;
     display: flex;
     gap: 5px;
+
+    @media #{$tablet} {
+      flex-direction: column;
+    }
   }
 
   &__quantity {
     width: 90px;
     flex-grow: 1;
+
+    @media #{$tablet} {
+      width: 100%;
+    }
   }
 
   &__name {
     flex-grow: 2;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
   }
 }
 

@@ -6,6 +6,10 @@
   padding: 0rem 1rem 2rem;
   max-width: 700px;
   width: 100%;
+
+  @media #{$tablet} {
+    padding: 0rem 2rem 2rem;
+  }
 }
 
 .title {
@@ -23,6 +27,11 @@
 .box {
   display: flex;
   width: 100%;
+
+  @media #{$tablet} {
+    flex-direction: column;
+    gap: 5px;
+  }
 
   h3 {
     font-weight: 500;

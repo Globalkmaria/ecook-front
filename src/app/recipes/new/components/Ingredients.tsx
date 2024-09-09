@@ -93,10 +93,12 @@ function Ingredient({ item, onRemove, onChange }: IngredientProps) {
           value={item.name}
         />
       </div>
-      <Button variant={productButtonType} onClick={control.onOpen}>
-        {productButtonTitle}
-      </Button>
-      <RemoveButton onClick={() => onRemove(item.id)} />
+      <div className={style['ingredient__buttons']}>
+        <Button variant={productButtonType} onClick={control.onOpen}>
+          {productButtonTitle}
+        </Button>
+        <RemoveButton onClick={() => onRemove(item.id)} />
+      </div>
 
       {control.isOpen && (
         <ProductModal onProductSelect={handleProductSelect} control={control} />
