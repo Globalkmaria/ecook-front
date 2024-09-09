@@ -1,0 +1,20 @@
+@use '@/style/theme.scss' as *;
+
+.container {
+  // Added min-height to prevent layout shift when chips are added/removed
+  min-height: 42px;
+
+  flex: 1;
+  padding: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid $grey300;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.chip {
+  display: flex;
+  gap: 0.5rem;
+}

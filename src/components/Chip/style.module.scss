@@ -1,6 +1,8 @@
 @use '@/style/theme' as *;
 
 .chip {
+  display: flex;
+  gap: 0.5rem;
   padding: 0.25rem 0.7rem;
   border-radius: 15px;
   background-color: $grey200;
