@@ -1,0 +1,33 @@
+@use '@/style/theme.scss' as *;
+
+// Buttons
+
+// Ingredients
+
+.ingredients {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ingredient {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+
+  &__inputs {
+    flex-grow: 1;
+    display: flex;
+    gap: 5px;
+  }
+
+  &__quantity {
+    width: 90px;
+    flex-grow: 1;
+  }
+
+  &__name {
+    flex-grow: 2;
+  }
+}

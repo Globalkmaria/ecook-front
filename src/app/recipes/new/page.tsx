@@ -4,14 +4,13 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import style from './style.module.scss';
-import { ChipListInput } from '@/components/Input';
+
+import { ChipListInput, Input } from '@/components/Input';
 import ImageUploader from '@/components/imageUploader';
 
-interface Ingredient {
-  id: string;
-  name: string;
-  productId: string | null;
-}
+import Ingredients, { Ingredient } from './components/Ingredients';
+import { AddButton, RemoveButton } from './components/buttons';
+import Button from '@/components/Button';
 
 interface Step {
   id: string;
@@ -19,14 +18,24 @@ interface Step {
 }
 
 function NewRecipe() {
-  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+  const [ingredients, setIngredients] = useState<Ingredient[]>([
+    {
+      id: uuidv4(),
+      name: '',
+      productId: null,
+      quantity: '',
+    },
+  ]);
   const [steps, setSteps] = useState<Step[]>([]);
   const tagsState = useState<string[]>([]);
   const imgState = useState<string | null>(null);
 
   const addIngredient = () => {
     const id = uuidv4();
-    setIngredients([...ingredients, { id, name: '', productId: null }]);
+    setIngredients([
+      ...ingredients,
+      { id, name: '', productId: null, quantity: '' },
+    ]);
   };
 
   const removeIngredient = (id: string) => {
@@ -50,38 +59,28 @@ function NewRecipe() {
           <label htmlFor='title'>
             <h3>Title*</h3>
           </label>
-          <input className={style.input} type='text' id='title' name='title' />
+          <Input id='title' name='title' />
         </div>
 
         <div className={style.box}>
           <label htmlFor='summary'>
             <h3>Summary</h3>
           </label>
-          <input
-            className={style.input}
-            type='text'
-            id='summary'
-            name='summary'
-          />
+          <Input id='summary' name='summary' />
         </div>
 
         <div className={style.box}>
           <label htmlFor='description'>
             <h3>Description</h3>
           </label>
-          <input
-            className={style.input}
-            type='text'
-            id='description'
-            name='description'
-          />
+          <Input id='description' name='description' />
         </div>
 
         <div className={style.box}>
           <label htmlFor='time'>
             <h3>Time</h3>
           </label>
-          <input className={style.input} type='text' id='time' name='time' />
+          <Input id='time' name='time' />
         </div>
 
         <div className={style.box}>
@@ -89,7 +88,6 @@ function NewRecipe() {
           <ChipListInput state={tagsState} />
         </div>
 
-        {/* img */}
         <div className={style.box}>
           <h3>Image</h3>
           <ImageUploader state={imgState} />
@@ -97,16 +95,13 @@ function NewRecipe() {
 
         <div className={style.box}>
           <h3>Ingredients*</h3>
-          <ul>
-            {ingredients.map((item) => (
-              <Ingredient
-                onRemove={removeIngredient}
-                key={item.id}
-                item={item}
-              />
-            ))}
-          </ul>
-          <AddButton onClick={addIngredient}>Add a ingredient</AddButton>
+          <div className={style.ingredients}>
+            <Ingredients
+              onRemove={removeIngredient}
+              ingredients={ingredients}
+            />
+            <AddButton onClick={addIngredient}>Add a ingredient</AddButton>
+          </div>
         </div>
 
         {/* steps */}
@@ -121,50 +116,13 @@ function NewRecipe() {
           <AddButton onClick={addStep}>Add a step</AddButton>
         </div>
 
-        <button type='button'>Submit</button>
+        <Button>Submit</Button>
       </form>
     </div>
   );
 }
 
 export default NewRecipe;
-
-function RemoveButton({ onClick }: { onClick: () => void }) {
-  return (
-    <button type='button' onClick={onClick}>
-      -
-    </button>
-  );
-}
-
-function AddButton({
-  onClick,
-  children,
-}: {
-  onClick: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <button type='button' onClick={onClick}>
-      {children}
-    </button>
-  );
-}
-
-interface IngredientProps {
-  item: Ingredient;
-  onRemove: (id: string) => void;
-}
-
-function Ingredient({ item, onRemove }: IngredientProps) {
-  return (
-    <li>
-      <input type='text' value={item.name} />
-      {/* selected product */}
-      <RemoveButton onClick={() => onRemove(item.id)} />
-    </li>
-  );
-}
 
 interface StepProps {
   item: Step;
