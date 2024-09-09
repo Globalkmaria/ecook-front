@@ -1,0 +1,44 @@
+@use '@/style/theme' as *;
+
+.button {
+  padding: 5px 10px;
+  border-radius: 5px;
+
+  &-contained {
+    &--primary {
+      background: $black;
+      color: $white;
+
+      &:hover {
+        background: $grey700;
+      }
+    }
+
+    &--secondary {
+      background: $grey200;
+      color: $black;
+
+      &:hover {
+        background: $grey300;
+      }
+    }
+
+    &--success {
+      background: $teal700;
+      color: $white;
+
+      &:hover {
+        background: $teal500;
+      }
+    }
+
+    &--danger {
+      background: $red900;
+      color: $white;
+
+      &:hover {
+        background: $red700;
+      }
+    }
+  }
+}
