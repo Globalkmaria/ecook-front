@@ -1,18 +1,20 @@
-import IngredientInformationHeader from '@/app/recipes/[recipeId]/components/IngredientInformation/IngredientInformationHeader';
+import { ChangeEventHandler, KeyboardEventHandler, useState } from 'react';
+
 import style from './style.module.scss';
 
-import { ProductInfo } from '@/app/recipes/[recipeId]/components/Product';
 import Button from '@/components/Button';
-import ImageUploader from '@/components/imageUploader';
 import { Input } from '@/components/Input';
 import { Modal } from '@/components/Modal';
+
 import { IngredientProduct } from '@/data/ingredients';
+import { getIngredientInfo } from '@/data/helper';
 
 import useModal from '@/hooks/useModal';
-import { ChangeEventHandler, KeyboardEventHandler, useState } from 'react';
-import Image from 'next/image';
-import Icon from '@/components/Icon';
-import { getIngredientInfo } from '@/data/helper';
+
+import IngredientInformationHeader from '@/app/recipes/[recipeId]/components/IngredientInformation/IngredientInformationHeader';
+
+import NewProduct from './NewProduct';
+import ExistingProduct from './ExistingProduct';
 
 interface Props {
   control: ReturnType<typeof useModal>;
@@ -22,8 +24,6 @@ interface Props {
 
 const NEW_PRODUCT_ID = 'new';
 
-// existing product
-
 // data to create recipe
 interface IngredientState {
   ingredientId: string | null;
@@ -32,7 +32,7 @@ interface IngredientState {
   product: (NewProductState & { id?: string }) | null;
 }
 
-interface NewProductState {
+export interface NewProductState {
   name: string;
   img?: string;
   brand?: string;
@@ -206,98 +206,3 @@ function SearchProductModal({
 }
 
 export default SearchProductModal;
-
-interface NewProductProps {
-  onClick: () => void;
-  onInputChange: ChangeEventHandler<HTMLInputElement>;
-  id: string;
-  selectedProductId?: string | null;
-  newProductState: NewProductState;
-  onNewProductImgChange: (img: string | null) => void;
-}
-function NewProduct({
-  onClick,
-  id,
-  selectedProductId,
-  onInputChange,
-  newProductState,
-  onNewProductImgChange,
-}: NewProductProps) {
-  return (
-    <li className={style['product-container']} onClick={onClick}>
-      <input
-        className={style.checkbox}
-        type='checkbox'
-        id={id}
-        checked={selectedProductId === id}
-        onChange={() => onClick()}
-      />
-      <div className={style['new-product']}>
-        <h3>New Product</h3>
-        <div className={style['img-uploader']}>
-          <ImageUploader
-            imgValue={newProductState.img}
-            onChange={onNewProductImgChange}
-          />
-        </div>
-        <Input
-          placeholder='Product name'
-          name='name'
-          value={newProductState.name}
-          onChange={onInputChange}
-        />
-        <Input
-          placeholder='Product brand'
-          name='brand'
-          value={newProductState.brand}
-          onChange={onInputChange}
-        />
-        <Input
-          placeholder='Purchased from'
-          name='purchasedFrom'
-          value={newProductState.purchasedFrom}
-          onChange={onInputChange}
-        />
-      </div>
-    </li>
-  );
-}
-
-interface ExistingProductProps {
-  item: IngredientProduct;
-  selectedProductId?: string | null;
-  onClick: (product: IngredientProduct) => void;
-}
-
-function ExistingProduct({
-  item,
-  selectedProductId,
-  onClick,
-}: ExistingProductProps) {
-  const img = item.img || '/ingredient/default.png';
-
-  return (
-    <li className={style['product-container']} onClick={() => onClick(item)}>
-      <input
-        className={style.checkbox}
-        type='checkbox'
-        id={item.id}
-        checked={selectedProductId === item.id}
-        onChange={() => onClick(item)}
-      />
-      <div className={style.product}>
-        <div className={style['img-box']}>
-          {item.img ? (
-            <Image src={img} alt={item.name} fill />
-          ) : (
-            <Icon icon='img' className={style['img-icon']} />
-          )}
-        </div>
-
-        <div className={style['product__info']}>
-          <ProductInfo item={item} />
-        </div>
-      </div>
-    </li>
-  );
-}
