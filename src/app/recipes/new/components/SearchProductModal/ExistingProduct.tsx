@@ -11,12 +11,14 @@ interface ExistingProductProps {
   item: IngredientProduct;
   selectedProductId?: string | null;
   onClick: (product: IngredientProduct) => void;
+  currentIngredientName?: string;
 }
 
 function ExistingProduct({
   item,
   selectedProductId,
   onClick,
+  currentIngredientName,
 }: ExistingProductProps) {
   const img = item.img || '/ingredient/default.png';
 
@@ -30,6 +32,9 @@ function ExistingProduct({
         onChange={() => onClick(item)}
       />
       <div className={style.product}>
+        <span className={style['ingredient-name']}>
+          {currentIngredientName}
+        </span>
         <div className={style['img-box']}>
           {item.img ? (
             <Image src={img} alt={item.name} fill />

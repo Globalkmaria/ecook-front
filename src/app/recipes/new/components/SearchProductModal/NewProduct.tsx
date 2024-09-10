@@ -1,9 +1,11 @@
+import { ChangeEventHandler } from 'react';
+
 import style from './style.module.scss';
 
-import { ChangeEventHandler } from 'react';
-import { NewProductState } from '.';
 import { Input } from '@/components/Input';
 import ImageUploader from '@/components/imageUploader';
+
+import { NewProductState } from '.';
 
 interface NewProductProps {
   onClick: () => void;
@@ -12,6 +14,7 @@ interface NewProductProps {
   selectedProductId?: string | null;
   newProductState: NewProductState;
   onNewProductImgChange: (img: string | null) => void;
+  currentIngredientName?: string;
 }
 
 function NewProduct({
@@ -21,6 +24,7 @@ function NewProduct({
   onInputChange,
   newProductState,
   onNewProductImgChange,
+  currentIngredientName,
 }: NewProductProps) {
   return (
     <li className={style['product-container']} onClick={onClick}>
@@ -33,6 +37,9 @@ function NewProduct({
       />
       <div className={style['new-product']}>
         <h3>New Product</h3>
+        <span className={style['ingredient-name']}>
+          {currentIngredientName}
+        </span>
         <div className={style['img-uploader']}>
           <ImageUploader
             imgValue={newProductState.img}

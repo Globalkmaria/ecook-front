@@ -39,7 +39,7 @@
   height: auto;
 }
 
-// ProductContainer
+//NewProduct & Product - Common style
 
 .product-container {
   position: relative;
@@ -53,6 +53,11 @@
   position: absolute;
   top: 15px;
   left: 15px;
+}
+
+.ingredient-name {
+  font-weight: 500;
+  text-align: center;
 }
 
 // NewProduct
@@ -91,6 +96,10 @@
   flex-direction: column;
   box-shadow: $boxshadow1;
   border-radius: $borderRadiusS;
+
+  .ingredient-name {
+    margin-top: 20px;
+  }
 
   .img-box {
     position: relative;

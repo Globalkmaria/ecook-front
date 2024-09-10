@@ -25,7 +25,7 @@ interface Props {
 const NEW_PRODUCT_ID = 'new';
 
 // data to create recipe
-interface IngredientState {
+export interface IngredientState {
   ingredientId: string | null;
   ingredientName: string;
   productId: string | null;
@@ -91,6 +91,7 @@ function SearchProductModal({
     };
 
     setSearchedIngredient(ingredientInfo);
+    setSelectedProduct(null);
   };
 
   const handleInputKeydown: KeyboardEventHandler<HTMLInputElement> = (e) => {
@@ -185,13 +186,15 @@ function SearchProductModal({
               onInputChange={onNewProductChange}
               newProductState={newProduct}
               onNewProductImgChange={onNewProductImgChange}
+              currentIngredientName={searchedIngredient?.name}
             />
             {searchedIngredient?.products?.map((product) => (
               <ExistingProduct
+                key={product.id}
                 item={product}
                 selectedProductId={selectedProduct?.productId}
                 onClick={onExistingProductClick}
-                key={product.id}
+                currentIngredientName={searchedIngredient?.name}
               />
             ))}
           </ul>
