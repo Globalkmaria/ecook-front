@@ -10,7 +10,7 @@ export interface IngredientProduct {
   name: string;
   img?: string;
   brand?: string;
-  purchasedAt?: string;
+  purchasedFrom?: string;
   link?: string;
 }
 
@@ -54,7 +54,7 @@ export const INGREDIENTS: { [key: string]: Ingredient } = {
         name: 'Tomato',
         img: '/ingredient/tomato.png',
         brand: 'Organic',
-        purchasedAt: 'Walmart',
+        purchasedFrom: 'Walmart',
       },
       {
         id: '2',
@@ -62,7 +62,7 @@ export const INGREDIENTS: { [key: string]: Ingredient } = {
         name: 'Tomato',
         img: '/ingredient/tomato.png',
         brand: 'Organic',
-        purchasedAt: 'Whole Foods',
+        purchasedFrom: 'Whole Foods',
       },
       {
         id: '3',
@@ -70,7 +70,7 @@ export const INGREDIENTS: { [key: string]: Ingredient } = {
         name: 'Tomato',
         img: '/ingredient/tomato.png',
         brand: 'Organic',
-        purchasedAt: "Trader Joe's",
+        purchasedFrom: "Trader Joe's",
       },
     ],
   },
@@ -84,7 +84,7 @@ export const INGREDIENTS: { [key: string]: Ingredient } = {
         name: 'Onion',
         img: '/ingredient/onion.png',
         brand: 'Organic',
-        purchasedAt: 'Walmart',
+        purchasedFrom: 'Walmart',
       },
       {
         id: '5',
@@ -92,7 +92,7 @@ export const INGREDIENTS: { [key: string]: Ingredient } = {
         name: 'Onion',
         img: '/ingredient/onion.png',
         brand: 'Organic',
-        purchasedAt: 'Whole Foods',
+        purchasedFrom: 'Whole Foods',
       },
       {
         id: '6',
@@ -100,7 +100,7 @@ export const INGREDIENTS: { [key: string]: Ingredient } = {
         name: 'Onion',
         img: '/ingredient/onion.png',
         brand: 'Organic',
-        purchasedAt: "Trader Joe's",
+        purchasedFrom: "Trader Joe's",
       },
     ],
   },
@@ -114,7 +114,7 @@ export const INGREDIENTS: { [key: string]: Ingredient } = {
         name: 'Mushroom',
         img: '/ingredient/mushroom.png',
         brand: 'Organic',
-        purchasedAt: 'Walmart',
+        purchasedFrom: 'Walmart',
       },
       {
         id: '8',
@@ -122,7 +122,7 @@ export const INGREDIENTS: { [key: string]: Ingredient } = {
         name: 'Mushroom',
         img: '/ingredient/mushroom.png',
         brand: 'Organic',
-        purchasedAt: 'Whole Foods',
+        purchasedFrom: 'Whole Foods',
       },
       {
         id: '9',
@@ -130,7 +130,7 @@ export const INGREDIENTS: { [key: string]: Ingredient } = {
         name: 'Mushroom',
         img: '/ingredient/mushroom.png',
         brand: 'Organic',
-        purchasedAt: "Trader Joe's",
+        purchasedFrom: "Trader Joe's",
       },
     ],
   },

@@ -4,10 +4,11 @@ import style from './style.module.scss';
 
 import { Input } from '@/components/Input';
 import useModal from '@/hooks/useModal';
-import { Modal2 } from '@/components/Modal';
 import Button, { ButtonProps } from '@/components/Button';
 
 import { RemoveButton } from './buttons';
+import SearchProductModal from './SearchProductModal';
+import { IngredientProduct } from '@/data/ingredients';
 
 export interface Ingredient {
   id: string;
@@ -27,17 +28,44 @@ function Ingredients({
   onRemove,
   onChange,
 }: Props): React.ReactElement<Props> | null {
+  const searchProductModalControl = useModal();
+  const [selectedIngredient, setSelectedIngredient] =
+    useState<Ingredient | null>(null);
+
+  const onSelectProduct = (product: IngredientProduct) => {
+    if (selectedIngredient === null) return;
+    onChange(selectedIngredient.id, 'productId', product.id);
+    onChange(selectedIngredient.id, 'name', product.name);
+    setSelectedIngredient(null);
+    searchProductModalControl.onClose();
+  };
+
+  const onClickSearchProduct = (ingredient: Ingredient) => {
+    setSelectedIngredient(ingredient);
+    searchProductModalControl.onOpen();
+  };
+
   return (
-    <ul className={style.ingredients}>
-      {ingredients.map((item) => (
-        <Ingredient
-          onChange={onChange}
-          onRemove={onRemove}
-          key={item.id}
-          item={item}
+    <>
+      <ul className={style.ingredients}>
+        {ingredients.map((item) => (
+          <Ingredient
+            key={item.id}
+            onChange={onChange}
+            onRemove={onRemove}
+            item={item}
+            onClickSearchProduct={onClickSearchProduct}
+          />
+        ))}
+      </ul>
+      {searchProductModalControl.isOpen && (
+        <SearchProductModal
+          control={searchProductModalControl}
+          onSelectProduct={onSelectProduct}
+          selectedIngredient={selectedIngredient}
         />
-      ))}
-    </ul>
+      )}
+    </>
   );
 }
 
@@ -47,29 +75,24 @@ interface IngredientProps {
   item: Ingredient;
   onRemove: (id: string) => void;
   onChange: (id: string, fieldName: string, value: string) => void;
+  onClickSearchProduct: (ingredient: Ingredient) => void;
 }
 
-interface Product {
-  id: string;
-  name: string;
-}
-
-function Ingredient({ item, onRemove, onChange }: IngredientProps) {
-  const [product, setProduct] = useState<Product | null>(null);
-  const control = useModal();
-
-  const productButtonType: ButtonProps['variant'] = product
+function Ingredient({
+  item,
+  onRemove,
+  onChange,
+  onClickSearchProduct,
+}: IngredientProps) {
+  const productButtonType: ButtonProps['variant'] = item.productId
     ? 'success'
     : 'secondary';
-  const productButtonTitle = product ? 'Product selected' : 'Select product';
+  const productButtonTitle = item.productId
+    ? 'Product selected'
+    : 'Select product';
 
   const handleValueChange: ChangeEventHandler<HTMLInputElement> = (e) =>
     onChange(item.id, e.target.name, e.target.value);
-
-  const handleProductSelect = (product: Product) => {
-    onChange(item.id, 'productId', product.id);
-    setProduct(product);
-  };
 
   return (
     <li className={style.ingredient}>
@@ -94,23 +117,14 @@ function Ingredient({ item, onRemove, onChange }: IngredientProps) {
         />
       </div>
       <div className={style['ingredient__buttons']}>
-        <Button variant={productButtonType} onClick={control.onOpen}>
+        <Button
+          variant={productButtonType}
+          onClick={() => onClickSearchProduct(item)}
+        >
           {productButtonTitle}
         </Button>
         <RemoveButton onClick={() => onRemove(item.id)} />
       </div>
-
-      {control.isOpen && (
-        <ProductModal onProductSelect={handleProductSelect} control={control} />
-      )}
     </li>
   );
-}
-
-interface ProductModalProps {
-  control: ReturnType<typeof useModal>;
-  onProductSelect: (product: Product) => void;
-}
-function ProductModal({ control }: ProductModalProps) {
-  return <Modal2 onClose={control.onClose}>hello</Modal2>;
 }

@@ -37,22 +37,29 @@ function Product({
           <Icon icon='img' className={style['img-icon']} />
         )}
       </div>
-      <div className={style['product__content']}>
-        <div className={style['product__info']}>
-          <Icon icon='label' />
-          <span>{item.name}</span>
-        </div>
-        <div className={style['product__info']}>
-          <Icon icon='product' />
-          <span>{item.brand || ''}</span>
-        </div>
-        <div className={style['product__info']}>
-          <Icon icon='basket' />
-          <span>{item.purchasedAt || ''}</span>
-        </div>
-      </div>
+
+      <ProductInfo item={item} />
     </div>
   );
 }
 
 export default Product;
+
+export function ProductInfo({ item }: { item: IngredientProduct }) {
+  return (
+    <div className={style['product__content']}>
+      <div className={style['product__info']}>
+        <Icon icon='label' />
+        <span>{item.name}</span>
+      </div>
+      <div className={style['product__info']}>
+        <Icon icon='product' />
+        <span>{item.brand || ''}</span>
+      </div>
+      <div className={style['product__info']}>
+        <Icon icon='basket' />
+        <span>{item.purchasedFrom || ''}</span>
+      </div>
+    </div>
+  );
+}
