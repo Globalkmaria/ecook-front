@@ -1,4 +1,4 @@
-export interface Ingredient {
+export interface ServerIngredient {
   id: string;
   name: string;
   products: IngredientProduct[];
@@ -43,7 +43,7 @@ export const RECIPE_INGREDIENTS: { [key: string]: RecipeIngredient } = {
 
 export const RECIPE_INGREDIENTS_ARRAY = Object.values(RECIPE_INGREDIENTS);
 
-export const INGREDIENTS: { [key: string]: Ingredient } = {
+export const INGREDIENTS: { [key: string]: ServerIngredient } = {
   1: {
     id: '1',
     name: 'Tomato',
@@ -135,6 +135,18 @@ export const INGREDIENTS: { [key: string]: Ingredient } = {
     ],
   },
 };
+
+export const INGREDIENTS_WITH_NAME_KEYS = Object.values(INGREDIENTS).reduce(
+  (acc, ingredient) => {
+    acc[ingredient.name] = ingredient;
+    return acc;
+  },
+  {} as { [key: string]: ServerIngredient },
+);
+
+export const INGREDIENTS_NAME_KEYS_ARRAY = Object.keys(
+  INGREDIENTS_WITH_NAME_KEYS,
+);
 
 export const PRODUCTS: { [key: string]: IngredientProduct } = Object.values(
   INGREDIENTS,

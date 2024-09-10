@@ -3,7 +3,6 @@
 .wrapper {
   height: 80vh;
   width: 80vw;
-  overflow: overlay;
 }
 
 .container {
@@ -11,6 +10,7 @@
   flex-direction: column;
   gap: 10px;
   padding: 10px 25px;
+  height: 100%;
 }
 
 .title {
@@ -24,7 +24,10 @@
 }
 
 .list {
+  overflow: overlay;
+  flex-grow: 1;
   display: grid;
+  padding: 10px;
   gap: 10px;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }

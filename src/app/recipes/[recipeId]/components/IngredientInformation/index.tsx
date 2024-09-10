@@ -3,7 +3,7 @@ import { Libre_Bodoni } from 'next/font/google';
 import style from './style.module.scss';
 
 import { Modal } from '@/components/Modal';
-import { Ingredient, IngredientProduct } from '@/data/ingredients';
+import { ServerIngredient, IngredientProduct } from '@/data/ingredients';
 import useModal from '@/hooks/useModal';
 import { joinClassNames } from '@/utils/style';
 import Product from '../Product';
@@ -17,7 +17,7 @@ const libre = Libre_Bodoni({
 
 interface Props {
   userProduct: IngredientProduct;
-  ingredientInfo: Ingredient;
+  ingredientInfo: ServerIngredient;
   modalControl: ReturnType<typeof useModal>;
 }
 

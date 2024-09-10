@@ -6,69 +6,154 @@ import Button from '@/components/Button';
 import ImageUploader from '@/components/imageUploader';
 import { Input } from '@/components/Input';
 import { Modal } from '@/components/Modal';
-import { IngredientProduct, INGREDIENTS } from '@/data/ingredients';
+import { IngredientProduct } from '@/data/ingredients';
 
 import useModal from '@/hooks/useModal';
-import {
-  ChangeEventHandler,
-  KeyboardEventHandler,
-  ReactNode,
-  useState,
-} from 'react';
+import { ChangeEventHandler, KeyboardEventHandler, useState } from 'react';
 import Image from 'next/image';
 import Icon from '@/components/Icon';
-import { Ingredient } from '../Ingredients';
-import { getRandomId } from '@/utils/generateId';
+import { getIngredientInfo } from '@/data/helper';
 
 interface Props {
   control: ReturnType<typeof useModal>;
-  onSelectProduct: (product: IngredientProduct) => void;
-  selectedIngredient: Ingredient;
+  onSelectProduct: (product: IngredientState) => void;
+  ingredientName: string;
 }
 
 const NEW_PRODUCT_ID = 'new';
 
+// existing product
+
+// data to create recipe
+interface IngredientState {
+  ingredientId: string | null;
+  ingredientName: string;
+  productId: string | null;
+  product: (NewProductState & { id?: string }) | null;
+}
+
+interface NewProductState {
+  name: string;
+  img?: string;
+  brand?: string;
+  purchasedFrom?: string;
+}
+
+type SearchedIngredientState = {
+  id?: string;
+  name: string;
+  products: (NewProductState & { id: string; ingredientId: string })[];
+} | null;
+
+// 'selectedProduct.productId' shows type and status of selected product. new | existing | null
+
 function SearchProductModal({
   control,
   onSelectProduct,
-  selectedIngredient,
+  ingredientName,
 }: Props) {
-  const [newProduct, setNewProduct] = useState<IngredientProduct>({
-    id: getRandomId(),
-    ingredientId: selectedIngredient.id,
-    name: selectedIngredient.name,
-    brand: '',
+  const [selectedProduct, setSelectedProduct] =
+    useState<IngredientState | null>({
+      ingredientId: null,
+      ingredientName,
+      productId: NEW_PRODUCT_ID,
+      product: null,
+    });
+  const [searchInput, setSearchInput] = useState(ingredientName);
+  // TODO searched ingredient product on mount
+  const [searchedIngredient, setSearchedIngredient] =
+    useState<SearchedIngredientState | null>(null);
+
+  const [newProduct, setNewProduct] = useState<NewProductState>({
+    name: '',
     img: '',
+    brand: '',
     purchasedFrom: '',
   });
-  const [searchInput, setSearchInput] = useState(selectedIngredient.name);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedProduct, setSelectedProduct] = useState<string | null>();
-  const imgState = useState<string | null>(null);
 
-  const products = INGREDIENTS['1'].products;
-
-  const handleSearch = () => {
-    setSearchTerm(searchInput);
+  const onNewProductChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const { name, value } = e.target;
+    setNewProduct((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleInputKeydown: KeyboardEventHandler<HTMLInputElement> = (e) => {
-    if (e.key === 'Enter') handleConfirm();
-  };
+  const onNewProductImgChange = (img: string | null) =>
+    setNewProduct((prev) => ({ ...prev, img }));
 
   const handleSearchInputChange: ChangeEventHandler<HTMLInputElement> = (e) =>
     setSearchInput(e.target.value);
 
-  const onProductClick = (productId: string) =>
-    setSelectedProduct((prev) => (prev === productId ? null : productId));
+  const handleSearchSubmit = () => {
+    const ingredientInfo: SearchedIngredientState = getIngredientInfo(
+      searchInput,
+    ) ?? {
+      name: searchInput,
+      products: [],
+    };
+
+    setSearchedIngredient(ingredientInfo);
+  };
+
+  const handleInputKeydown: KeyboardEventHandler<HTMLInputElement> = (e) => {
+    if (e.key === 'Enter') handleSearchSubmit();
+  };
+
+  const onExistingProductClick = (product: IngredientProduct) => {
+    if (!searchedIngredient?.id) return;
+
+    if (selectedProduct?.productId === product.id) {
+      setSelectedProduct(null);
+      return;
+    }
+
+    setSelectedProduct({
+      ingredientId: searchedIngredient.id,
+      ingredientName: searchedIngredient.name,
+      productId: product.id,
+      product: {
+        id: product.id,
+        name: product.name,
+        img: product.img || '',
+        brand: product.brand || '',
+        purchasedFrom: product.purchasedFrom || '',
+      },
+    });
+  };
+
+  const onNewProductClick = () => {
+    if (!searchedIngredient) return;
+
+    if (selectedProduct?.productId === NEW_PRODUCT_ID) {
+      setSelectedProduct(null);
+      return;
+    }
+
+    setSelectedProduct({
+      ingredientId: searchedIngredient.id || null,
+      ingredientName: searchedIngredient.name,
+      productId: NEW_PRODUCT_ID,
+      product: {
+        name: newProduct.name,
+        img: newProduct.img || '',
+        brand: newProduct.brand || '',
+        purchasedFrom: newProduct.purchasedFrom || '',
+      },
+    });
+  };
 
   const handleConfirm = () => {
-    if (searchTerm === '' || selectedProduct === null) {
+    if (!selectedProduct?.productId || !searchedIngredient?.name) {
       control.onClose();
       return;
     }
 
-    onSelectProduct();
+    if (selectedProduct.productId === NEW_PRODUCT_ID) {
+      // removing fake product id
+      onSelectProduct({ ...selectedProduct, productId: null });
+      control.onClose();
+      return;
+    }
+
+    onSelectProduct(selectedProduct);
     control.onClose();
   };
 
@@ -86,29 +171,28 @@ function SearchProductModal({
               onChange={handleSearchInputChange}
               onKeyDown={handleInputKeydown}
             />
-            <Button variant='secondary' onClick={handleSearch}>
+            <Button variant='secondary' onClick={handleSearchSubmit}>
               Search
             </Button>
           </div>
           <IngredientInformationHeader />
 
           <ul className={style.list}>
-            <ProductContainer
-              selectedProduct={selectedProduct}
+            <NewProduct
+              selectedProductId={selectedProduct?.productId}
               id={NEW_PRODUCT_ID}
-              onClick={onProductClick}
-            >
-              <NewProduct />
-            </ProductContainer>
-            {products.map((product) => (
-              <ProductContainer
-                selectedProduct={selectedProduct}
-                id={product.id}
-                onClick={onProductClick}
+              onClick={onNewProductClick}
+              onInputChange={onNewProductChange}
+              newProductState={newProduct}
+              onNewProductImgChange={onNewProductImgChange}
+            />
+            {searchedIngredient?.products?.map((product) => (
+              <ExistingProduct
+                item={product}
+                selectedProductId={selectedProduct?.productId}
+                onClick={onExistingProductClick}
                 key={product.id}
-              >
-                <Product item={product} />
-              </ProductContainer>
+              />
             ))}
           </ul>
 
@@ -123,66 +207,97 @@ function SearchProductModal({
 
 export default SearchProductModal;
 
-interface ProductContainerProps {
-  children: ReactNode;
+interface NewProductProps {
+  onClick: () => void;
+  onInputChange: ChangeEventHandler<HTMLInputElement>;
   id: string;
-  selectedProduct: string | null;
-  onClick: (productId: string) => void;
+  selectedProductId?: string | null;
+  newProductState: NewProductState;
+  onNewProductImgChange: (img: string | null) => void;
 }
-
-function ProductContainer({
-  children,
-  id,
-  selectedProduct,
+function NewProduct({
   onClick,
-}: ProductContainerProps) {
-  const handleChange: ChangeEventHandler<HTMLInputElement> = () => onClick(id);
-
+  id,
+  selectedProductId,
+  onInputChange,
+  newProductState,
+  onNewProductImgChange,
+}: NewProductProps) {
   return (
-    <li className={style['product-container']} onClick={() => onClick(id)}>
+    <li className={style['product-container']} onClick={onClick}>
       <input
         className={style.checkbox}
         type='checkbox'
         id={id}
-        checked={selectedProduct === id}
-        onChange={handleChange}
+        checked={selectedProductId === id}
+        onChange={() => onClick()}
       />
-      {children}
+      <div className={style['new-product']}>
+        <h3>New Product</h3>
+        <div className={style['img-uploader']}>
+          <ImageUploader
+            imgValue={newProductState.img}
+            onChange={onNewProductImgChange}
+          />
+        </div>
+        <Input
+          placeholder='Product name'
+          name='name'
+          value={newProductState.name}
+          onChange={onInputChange}
+        />
+        <Input
+          placeholder='Product brand'
+          name='brand'
+          value={newProductState.brand}
+          onChange={onInputChange}
+        />
+        <Input
+          placeholder='Purchased from'
+          name='purchasedFrom'
+          value={newProductState.purchasedFrom}
+          onChange={onInputChange}
+        />
+      </div>
     </li>
   );
 }
 
-interface NewProductProps {}
-function NewProduct() {
-  return (
-    <div className={style['new-product']}>
-      <h3>New Product</h3>
-      <div className={style['img-uploader']}>
-        <ImageUploader imgValue={} onChange={} />
-      </div>
-      <Input placeholder='Product name' name='name' />
-      <Input placeholder='Product brand' name='brand' />
-      <Input placeholder='Purchased from' name='purchasedFrom' />
-    </div>
-  );
+interface ExistingProductProps {
+  item: IngredientProduct;
+  selectedProductId?: string | null;
+  onClick: (product: IngredientProduct) => void;
 }
 
-function Product({ item }: { item: IngredientProduct }) {
+function ExistingProduct({
+  item,
+  selectedProductId,
+  onClick,
+}: ExistingProductProps) {
   const img = item.img || '/ingredient/default.png';
 
   return (
-    <div className={style.product}>
-      <div className={style['img-box']}>
-        {item.img ? (
-          <Image src={img} alt={item.name} fill />
-        ) : (
-          <Icon icon='img' className={style['img-icon']} />
-        )}
-      </div>
+    <li className={style['product-container']} onClick={() => onClick(item)}>
+      <input
+        className={style.checkbox}
+        type='checkbox'
+        id={item.id}
+        checked={selectedProductId === item.id}
+        onChange={() => onClick(item)}
+      />
+      <div className={style.product}>
+        <div className={style['img-box']}>
+          {item.img ? (
+            <Image src={img} alt={item.name} fill />
+          ) : (
+            <Icon icon='img' className={style['img-icon']} />
+          )}
+        </div>
 
-      <div className={style['product__info']}>
-        <ProductInfo item={item} />
+        <div className={style['product__info']}>
+          <ProductInfo item={item} />
+        </div>
       </div>
-    </div>
+    </li>
   );
 }
