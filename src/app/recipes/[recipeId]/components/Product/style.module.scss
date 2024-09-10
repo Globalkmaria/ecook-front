@@ -1,0 +1,57 @@
+@use '@/style/theme.scss' as *;
+
+.user-pick {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+}
+
+.product {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  box-shadow:
+    rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+
+  &--user {
+    box-shadow:
+      rgba(60, 64, 67, 0.3) 8px 7px 2px 0px,
+      rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  &__info {
+    display: flex;
+    gap: 1rem;
+  }
+}
+
+.img-box {
+  position: relative;
+  height: 200px;
+  width: 100%;
+
+  img {
+    object-fit: contain;
+  }
+}
+
+.img-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 4rem;
+  color: $grey600;
+}
