@@ -39,24 +39,30 @@ function NewProduct({
             onChange={onNewProductImgChange}
           />
         </div>
-        <Input
-          placeholder='Product name'
-          name='name'
-          value={newProductState.name}
-          onChange={onInputChange}
-        />
-        <Input
-          placeholder='Product brand'
-          name='brand'
-          value={newProductState.brand}
-          onChange={onInputChange}
-        />
-        <Input
-          placeholder='Purchased from'
-          name='purchasedFrom'
-          value={newProductState.purchasedFrom}
-          onChange={onInputChange}
-        />
+        <div className={style['input-container']}>
+          <Input
+            placeholder='Product name'
+            name='name'
+            value={newProductState.name}
+            onChange={onInputChange}
+          />
+        </div>
+        <div className={style['input-container']}>
+          <Input
+            placeholder='Product brand'
+            name='brand'
+            value={newProductState.brand}
+            onChange={onInputChange}
+          />
+        </div>
+        <div className={style['input-container']}>
+          <Input
+            placeholder='Purchased from'
+            name='purchasedFrom'
+            value={newProductState.purchasedFrom}
+            onChange={onInputChange}
+          />
+        </div>
       </div>
     </li>
   );
