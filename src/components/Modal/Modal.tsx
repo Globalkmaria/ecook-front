@@ -8,6 +8,7 @@ import useEscapeKey from '@/hooks/useEscapeKey';
 import useHideScroll from '@/hooks/useHideScroll';
 import ModalWrapper from './ModalWrapper';
 import Icon from '../Icon';
+import { joinClassNames } from '@/utils/style';
 
 interface Props {
   children: ReactNode;
@@ -17,6 +18,7 @@ interface Props {
   showCloseButton?: boolean;
   title?: string;
   id?: string;
+  backgroundType?: 'light' | 'dark';
 }
 
 function Modal({
@@ -27,6 +29,7 @@ function Modal({
   title = '',
   showCloseButton = true,
   id,
+  backgroundType,
 }: Props) {
   const modalBackground = useRef<HTMLDivElement>(null);
   const modalContent = useRef<HTMLDivElement>(null);
@@ -49,13 +52,18 @@ function Modal({
 
   if (!isOpen) return null;
 
+  const backgroundTypeClassName = backgroundType
+    ? style[`background--${backgroundType}`]
+    : '';
+  const joinedClassName = joinClassNames(
+    backgroundTypeClassName,
+    style.container,
+    isOpen ? '' : style['container--close'],
+  );
+
   return (
     <ModalWrapper wrapperId={wrapperId}>
-      <div
-        className={`${style.container} ${isOpen ? '' : style['container--close']}`}
-        onClick={onClick}
-        ref={modalBackground}
-      >
+      <div className={joinedClassName} onClick={onClick} ref={modalBackground}>
         <div
           className={style.content}
           id={id}
