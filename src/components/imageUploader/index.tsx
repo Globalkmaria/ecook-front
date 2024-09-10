@@ -20,16 +20,17 @@ interface Props {
   className?: string;
   maxSizeKB?: number;
   allowedFileTypes?: string[];
-  state: [string | null, React.Dispatch<React.SetStateAction<string | null>>];
+  imgValue?: string | null;
+  onChange: (img: string | null) => void;
 }
 
 function ImageUploader({
   className,
   maxSizeKB = MAX_FILE_SIZE,
   allowedFileTypes = ALLOWED_FILE_TYPES,
-  state,
+  imgValue,
+  onChange,
 }: Props) {
-  const [image, setImage] = state;
   const [dragging, setDragging] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -40,7 +41,7 @@ function ImageUploader({
 
   const readFile = (file: File): void => {
     const reader = new FileReader();
-    reader.onloadend = () => setImage(reader.result as string);
+    reader.onloadend = () => onChange(reader.result as string);
     reader.readAsDataURL(file);
   };
 
@@ -84,7 +85,7 @@ function ImageUploader({
   };
 
   const handleRemoveImage = () => {
-    setImage(null);
+    onChange(null);
     setError(null);
 
     if (inputRef.current) inputRef.current.value = '';
@@ -94,7 +95,7 @@ function ImageUploader({
 
   return (
     <div className={containerClassName}>
-      {!image && (
+      {!imgValue && (
         <div
           className={style.drag}
           onClick={handleClick}
@@ -120,10 +121,12 @@ function ImageUploader({
         accept={allowedFileTypes.join(', ')}
         onChange={handleImageChange}
       />
+
       {error && <p className={style.error}>{error}</p>}
-      {image && (
+
+      {imgValue && (
         <div className={style.preview}>
-          <img src={image} alt='Selected' className={style.img} />
+          <img src={imgValue} alt='Selected' className={style.img} />
           <button className={style['close-btn']} onClick={handleRemoveImage}>
             <Icon icon='close' />
           </button>

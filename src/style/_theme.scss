@@ -123,6 +123,12 @@ $blurryBlack300: #0000004d;
 $blurryBlack200: #00000033;
 $blurryBlack100: #0000001a;
 
+$boxshadow1:
+  rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+  rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+
+$borderRadiusS: 5px;
+
 $mobileS: '(max-width: 320px)';
 $mobile: '(max-width: 480px)';
 $tablet: '(max-width: 768px)';

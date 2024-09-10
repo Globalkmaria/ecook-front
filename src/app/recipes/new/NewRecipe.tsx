@@ -32,7 +32,7 @@ function NewRecipe() {
   );
   const [steps, setSteps] = useState<Step[]>(STEPS_INITIAL_STATE);
   const tagsState = useState<string[]>([]);
-  const imgState = useState<string | null>(null);
+  const [img, setImg] = useState<string | null>(null);
 
   const addIngredient = () =>
     setIngredients([
@@ -94,7 +94,9 @@ function NewRecipe() {
 
         <div className={style.box}>
           <h3>Image</h3>
-          <ImageUploader state={imgState} />
+          <div className={style['img-uploader']}>
+            <ImageUploader onChange={setImg} imgValue={img} />
+          </div>
         </div>
 
         <div className={style.box}>
