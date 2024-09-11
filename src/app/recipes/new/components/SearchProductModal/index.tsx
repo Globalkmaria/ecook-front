@@ -1,4 +1,9 @@
-import { ChangeEventHandler, KeyboardEventHandler, useState } from 'react';
+import {
+  ChangeEventHandler,
+  KeyboardEventHandler,
+  useEffect,
+  useState,
+} from 'react';
 
 import style from './style.module.scss';
 
@@ -15,11 +20,12 @@ import IngredientInformationHeader from '@/app/recipes/[recipeId]/components/Ing
 
 import NewProduct from './NewProduct';
 import ExistingProduct from './ExistingProduct';
+import { Ingredient } from '../Ingredients';
 
 interface Props {
   control: ReturnType<typeof useModal>;
-  onSelectProduct: (product: IngredientState) => void;
-  ingredientName: string;
+  onSelectProduct: (product: IngredientState | null) => void;
+  ingredient: Ingredient;
 }
 
 const NEW_PRODUCT_ID = 'new';
@@ -47,20 +53,16 @@ type SearchedIngredientState = {
 
 // 'selectedProduct.productId' shows type and status of selected product. new | existing | null
 
-function SearchProductModal({
-  control,
-  onSelectProduct,
-  ingredientName,
-}: Props) {
+function SearchProductModal({ control, onSelectProduct, ingredient }: Props) {
   const [selectedProduct, setSelectedProduct] =
     useState<IngredientState | null>({
-      ingredientId: null,
-      ingredientName,
-      productId: NEW_PRODUCT_ID,
-      product: null,
+      ingredientId: ingredient.id,
+      ingredientName: ingredient.name,
+      productId: ingredient.productId,
+      product: ingredient.product,
     });
-  const [searchInput, setSearchInput] = useState(ingredientName);
-  // TODO searched ingredient product on mount
+  const [searchInput, setSearchInput] = useState(ingredient.name);
+
   const [searchedIngredient, setSearchedIngredient] =
     useState<SearchedIngredientState | null>(null);
 
@@ -82,7 +84,7 @@ function SearchProductModal({
   const handleSearchInputChange: ChangeEventHandler<HTMLInputElement> = (e) =>
     setSearchInput(e.target.value);
 
-  const handleSearchSubmit = () => {
+  const searchIngredient = () => {
     const ingredientInfo: SearchedIngredientState = getIngredientInfo(
       searchInput,
     ) ?? {
@@ -91,6 +93,10 @@ function SearchProductModal({
     };
 
     setSearchedIngredient(ingredientInfo);
+  };
+
+  const handleSearchSubmit = () => {
+    searchIngredient();
     setSelectedProduct(null);
   };
 
@@ -143,11 +149,16 @@ function SearchProductModal({
 
   const handleConfirm = () => {
     if (!selectedProduct?.productId || !searchedIngredient?.name) {
+      onSelectProduct(null);
       control.onClose();
       return;
     }
 
     if (selectedProduct.productId === NEW_PRODUCT_ID) {
+      if (!selectedProduct.ingredientName) {
+        alert('Please enter product name to create new product.');
+        return;
+      }
       // removing fake product id
       onSelectProduct({ ...selectedProduct, productId: null });
       control.onClose();
@@ -157,6 +168,10 @@ function SearchProductModal({
     onSelectProduct(selectedProduct);
     control.onClose();
   };
+
+  useEffect(() => {
+    searchIngredient();
+  }, []);
 
   return (
     <Modal backgroundType='light' onClose={control.onClose} isOpen={true}>

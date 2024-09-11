@@ -1,4 +1,10 @@
-import { ChangeEventHandler, memo, useState } from 'react';
+import {
+  ChangeEventHandler,
+  Dispatch,
+  memo,
+  SetStateAction,
+  useState,
+} from 'react';
 
 import style from './style.module.scss';
 
@@ -7,35 +13,68 @@ import useModal from '@/hooks/useModal';
 import Button, { ButtonProps } from '@/components/Button';
 
 import { RemoveButton } from './buttons';
-import SearchProductModal from './SearchProductModal';
-import { IngredientProduct } from '@/data/ingredients';
+import SearchProductModal, { IngredientState } from './SearchProductModal';
+import { onFieldChange } from '../helper';
+import { IngredientsState } from '../NewRecipe';
 
 export interface Ingredient {
   id: string;
   name: string;
   quantity: string;
   productId: string | null;
+  product: {
+    id?: string;
+    name: string;
+    img?: string;
+    brand?: string;
+    purchasedFrom?: string;
+  } | null;
 }
 
 interface Props {
-  ingredients: Ingredient[];
+  ingredients: IngredientsState;
   onRemove: (id: string) => void;
-  onChange: (id: string, fieldName: string, value: string) => void;
+  setIngredients: Dispatch<SetStateAction<IngredientsState>>;
 }
 
-function Ingredients({
-  ingredients,
-  onRemove,
-  onChange,
-}: Props): React.ReactElement<Props> | null {
+function Ingredients({ ingredients, onRemove, setIngredients }: Props) {
   const searchProductModalControl = useModal();
   const [selectedIngredient, setSelectedIngredient] =
     useState<Ingredient | null>(null);
 
-  const onSelectProduct = (product: IngredientProduct) => {
+  const onSelectProduct = (productInfo: IngredientState | null) => {
     if (selectedIngredient === null) return;
-    onChange(selectedIngredient.id, 'productId', product.id);
-    onChange(selectedIngredient.id, 'name', product.name);
+    if (productInfo === null) {
+      setIngredients((prev) =>
+        prev.map((item) =>
+          item.id === selectedIngredient.id
+            ? {
+                ...item,
+                product: null,
+                productId: null,
+              }
+            : item,
+        ),
+      );
+
+      return;
+    }
+
+    const { ingredientName, ingredientId, productId, product } = productInfo;
+    setIngredients((prev) =>
+      prev.map((item) =>
+        item.id === selectedIngredient.id
+          ? {
+              ...item,
+              name: ingredientName || '',
+              id: ingredientId || item.id,
+              product,
+              productId: productId,
+            }
+          : item,
+      ),
+    );
+
     setSelectedIngredient(null);
     searchProductModalControl.onClose();
   };
@@ -44,6 +83,9 @@ function Ingredients({
     setSelectedIngredient(ingredient);
     searchProductModalControl.onOpen();
   };
+
+  const onChange = (id: string, fieldName: string, value: string) =>
+    onFieldChange(setIngredients, id, fieldName, value);
 
   return (
     <>
@@ -58,11 +100,11 @@ function Ingredients({
           />
         ))}
       </ul>
-      {searchProductModalControl.isOpen && (
+      {selectedIngredient && searchProductModalControl.isOpen && (
         <SearchProductModal
           control={searchProductModalControl}
           onSelectProduct={onSelectProduct}
-          selectedIngredient={selectedIngredient}
+          ingredient={selectedIngredient}
         />
       )}
     </>

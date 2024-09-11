@@ -15,19 +15,22 @@ import { AddButton } from './components/buttons';
 import Steps, { Step } from './components/Steps';
 import { onFieldChange } from './helper';
 
-const INGREDIENTS_INITIAL_STATE: Ingredient[] = [
+export type IngredientsState = Ingredient[];
+
+const INGREDIENTS_INITIAL_STATE: IngredientsState = [
   {
     id: getRandomId(),
     name: '',
-    productId: null,
     quantity: '',
+    productId: null,
+    product: null,
   },
 ];
 
 const STEPS_INITIAL_STATE: Step[] = [{ id: getRandomId(), value: '' }];
 
 function NewRecipe() {
-  const [ingredients, setIngredients] = useState<Ingredient[]>(
+  const [ingredients, setIngredients] = useState<IngredientsState>(
     INGREDIENTS_INITIAL_STATE,
   );
   const [steps, setSteps] = useState<Step[]>(STEPS_INITIAL_STATE);
@@ -37,7 +40,13 @@ function NewRecipe() {
   const addIngredient = () =>
     setIngredients([
       ...ingredients,
-      { id: getRandomId(), name: '', productId: null, quantity: '' },
+      {
+        id: getRandomId(),
+        name: '',
+        productId: null,
+        quantity: '',
+        product: null,
+      },
     ]);
 
   const onRemoveIngredient = (id: string) =>
@@ -47,9 +56,6 @@ function NewRecipe() {
 
   const onRemoveStep = (id: string) =>
     setSteps(steps.filter((item) => item.id !== id));
-
-  const onIngredientChange = (id: string, fieldName: string, value: string) =>
-    onFieldChange(setIngredients, id, fieldName, value);
 
   const onStepChange = (id: string, fieldName: string, value: string) =>
     onFieldChange(setSteps, id, fieldName, value);
@@ -103,7 +109,7 @@ function NewRecipe() {
           <h3>Ingredients*</h3>
           <div className={style.box__content}>
             <Ingredients
-              onChange={onIngredientChange}
+              setIngredients={setIngredients}
               onRemove={onRemoveIngredient}
               ingredients={ingredients}
             />
