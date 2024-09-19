@@ -1,11 +1,11 @@
 import style from './style.module.scss';
 
 import { ListItem } from '@/components/List';
-import { RecipeIngredient } from '@/data/ingredients';
 import InformationButton from './InformationButton';
+import { RecipeDetail } from '@/service/recipes/type';
 
 interface Props {
-  ingredients: readonly RecipeIngredient[];
+  ingredients: RecipeDetail['ingredients'];
   onChange: (id: number) => void;
   state: Record<string, boolean>;
 }
@@ -13,7 +13,7 @@ interface Props {
 function Ingredients({ ingredients, onChange, state }: Props) {
   return (
     <ul>
-      {ingredients.map((item, i) => (
+      {ingredients.map((ingredient, i) => (
         <ListItem className={style.item} key={i}>
           <input
             onChange={() => onChange(i)}
@@ -23,12 +23,10 @@ function Ingredients({ ingredients, onChange, state }: Props) {
           />
           <div className={style.content}>
             <label htmlFor={i.toString()}>
-              <span className={style.name}>{item.name}</span>
-              <span>{item.quantity}</span>
-              {item.ingredientProductId && (
-                <InformationButton
-                  ingredientProductId={item.ingredientProductId}
-                />
+              <span className={style.name}>{ingredient.name}</span>
+              <span>{ingredient.quantity}</span>
+              {ingredient.product && (
+                <InformationButton ingredient={ingredient} />
               )}
             </label>
           </div>

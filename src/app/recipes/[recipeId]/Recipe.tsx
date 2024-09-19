@@ -8,25 +8,23 @@ import Chip, { ChipsContainer } from '@/components/Chip';
 import { Tab, TabsContainer } from '@/components/Tab';
 import { getListCheckboxInitialState } from '@/components/helpers';
 
-import { RECIPES } from '@/data/recipe';
-
 import { RECIPE_TABS, RecipeTab } from './const';
 import CheckboxList from '@/components/CheckboxList';
 import Avatar from '@/components/Avatar';
 import Ingredients from './components/IngredientList';
+import { RecipeDetail } from '@/service/recipes/type';
 
 interface Props {
-  recipeId: string;
+  recipe: RecipeDetail;
 }
 
-function Recipe({ recipeId }: Props) {
-  const recipe = recipeId ? RECIPES[recipeId] : null;
+function Recipe({ recipe }: Props) {
   const [tab, setTab] = useState<RecipeTab>('Ingredients');
   const [ingredientsChecked, setIngredientsChecked] = useState(
-    getListCheckboxInitialState(recipe?.ingredients ?? []),
+    getListCheckboxInitialState(recipe.ingredients),
   );
   const [stepsChecked, setStepsChecked] = useState(
-    getListCheckboxInitialState(recipe?.steps ?? []),
+    getListCheckboxInitialState(recipe.steps),
   );
 
   if (!recipe) return null;
@@ -47,15 +45,15 @@ function Recipe({ recipeId }: Props) {
       <Avatar user={recipe.user} />
       <div className={style.container}>
         <div className={style['img-box']}>
-          <Image src={`/img/img${recipeId}.png`} fill alt={recipe.name} />
+          <Image src={recipe.img} fill alt={recipe.name} />
         </div>
 
         <div className={style.content}>
           <div className={style['content__header']}>
             <span className={style['content__title']}>{recipe.name}</span>
             <ChipsContainer className={style['chip-container']}>
-              {recipe.filters.map((chip) => (
-                <Chip key={chip}>{chip}</Chip>
+              {recipe.tags.map((tag) => (
+                <Chip key={tag.id}>{tag.name}</Chip>
               ))}
             </ChipsContainer>
           </div>

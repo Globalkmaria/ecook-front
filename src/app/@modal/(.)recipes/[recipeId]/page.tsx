@@ -1,30 +1,15 @@
-'use client';
-
-import { useRouter } from 'next/navigation';
-
-import style from './style.module.scss';
-
-import Recipe from '@/app/recipes/[recipeId]/Recipe';
-import { Modal2 } from '@/components/Modal';
+import { getRecipe } from '@/service/recipes';
+import ModalRecipes from './ModalRecipes';
 
 interface Props {
   params: { recipeId: string };
 }
 
-function RecipePage({ params }: Props) {
-  const router = useRouter();
+async function RecipePage({ params }: Props) {
+  const result = await getRecipe(params.recipeId);
+  if (!result.ok) return null;
 
-  if (!params.recipeId) return null;
-
-  const onDismiss = () => router.back();
-
-  return (
-    <Modal2 isOpen={true} onClose={onDismiss}>
-      <div className={style.container}>
-        <Recipe recipeId={params.recipeId} />
-      </div>
-    </Modal2>
-  );
+  return <ModalRecipes recipe={result.data} />;
 }
 
 export default RecipePage;

@@ -4,7 +4,7 @@ import style from './style.module.scss';
 
 interface AvatarProps {
   user: {
-    img?: string;
+    img: string | null;
     username: string;
   };
 }

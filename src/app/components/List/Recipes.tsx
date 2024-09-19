@@ -1,15 +1,14 @@
-'use client';
-
 import style from './Recipes.module.scss';
 import Recipe from './Recipe';
 
-import { RECIPE_IDS } from '@/data/recipe';
+import { getRecipes } from '@/service/recipes';
 
-function Recipes() {
+async function Recipes() {
+  const recipes = await getRecipes();
   return (
     <section className={style.container}>
-      {RECIPE_IDS.map((idx) => (
-        <Recipe key={idx} idx={idx} />
+      {recipes.data?.map((recipe, idx) => (
+        <Recipe key={recipe.id} recipe={recipe} idx={idx} />
       ))}
     </section>
   );

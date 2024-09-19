@@ -5,7 +5,7 @@ import style from './Recipe.module.scss';
 
 import Chip, { ChipsContainer } from '@/components/Chip';
 import Link from 'next/link';
-import { RECIPES } from '@/data/recipe';
+import { RecipeSimple } from '@/service/recipes/type';
 
 const libre = Libre_Bodoni({
   subsets: ['latin'],
@@ -14,24 +14,21 @@ const libre = Libre_Bodoni({
 });
 
 interface Props {
-  idx: string;
+  recipe: RecipeSimple;
+  idx: number;
 }
 
-function Recipe({ idx }: Props) {
-  const recipe = idx ? RECIPES[idx] : null;
-
-  if (recipe === null) return null;
-
+function Recipe({ recipe, idx }: Props) {
   return (
     <Link
       className={style[`item--${idx}`]}
       scroll={false}
-      href={`/recipes/${idx}`}
+      href={`/recipes/${recipe.id}`}
     >
       <div className={style.container}>
         <div className={style['hover-content']}>
           <div className={style['hover-content__img-box']}>
-            <Image src={`/img/img${idx}.png`} fill alt={recipe.name} />
+            <Image src={recipe.img} fill alt={recipe.name} />
           </div>
           <h2 className={`${libre.className} ${style['hover-content__name']}`}>
             {recipe.name}
@@ -40,20 +37,20 @@ function Recipe({ idx }: Props) {
 
         <div className={style['img-wrapper']}>
           <div className={`${style[`item--${idx}`]} ${style['img-box']}`}>
-            <Image src={`/img/img${idx}.png`} fill alt={recipe.name} />
+            <Image src={recipe.img} fill alt={recipe.name} />
           </div>
         </div>
 
         <div className={style.information}>
           <div className={style.information__header}>
-            <h2 className={style.information__title}> {recipe.name}</h2>
+            <h2 className={style.information__title}>{recipe.name}</h2>
             <ChipsContainer>
-              {recipe.filters.map((chip) => (
-                <Chip key={chip}>{chip}</Chip>
+              {recipe.tags.map((tag) => (
+                <Chip key={tag.id}>{tag.name}</Chip>
               ))}
             </ChipsContainer>
           </div>
-          <p className={style.information__text}>{recipe.description}</p>
+          <p className={style.information__text}>{recipe.simpleDescription}</p>
         </div>
       </div>
     </Link>

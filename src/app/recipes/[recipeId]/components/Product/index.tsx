@@ -2,21 +2,20 @@ import Image from 'next/image';
 
 import style from './style.module.scss';
 
-import { IngredientProduct } from '@/data/ingredients';
-
 import { joinClassNames } from '@/utils/style';
 
 import Chip from '@/components/Chip';
 import Icon from '@/components/Icon';
+import { IngredientProduct } from '@/service/recipes/type';
+import { Product as ProductType } from '@/service/products/type';
 
-function Product({
-  item,
-  isUserProduct,
-}: {
-  item: IngredientProduct;
+interface Props {
+  product: IngredientProduct | ProductType;
   isUserProduct?: boolean;
-}) {
-  const img = item.img || '/ingredient/default.png';
+}
+
+function Product({ product, isUserProduct }: Props) {
+  const img = product.img || '/ingredient/default.png';
 
   const productClassName = isUserProduct
     ? joinClassNames(style['product--user'], style.product)
@@ -31,34 +30,34 @@ function Product({
       )}
 
       <div className={style['img-box']}>
-        {item.img ? (
-          <Image src={img} alt={item.name} fill />
+        {product.img ? (
+          <Image src={img} alt={product.name} fill />
         ) : (
           <Icon icon='img' className={style['img-icon']} />
         )}
       </div>
 
-      <ProductInfo item={item} />
+      <ProductInfo product={product} />
     </div>
   );
 }
 
 export default Product;
 
-export function ProductInfo({ item }: { item: IngredientProduct }) {
+export function ProductInfo({ product }: { product: IngredientProduct }) {
   return (
     <div className={style['product__content']}>
       <div className={style['product__info']}>
         <Icon icon='label' />
-        <span>{item.name}</span>
+        <span>{product.name}</span>
       </div>
       <div className={style['product__info']}>
         <Icon icon='product' />
-        <span>{item.brand || ''}</span>
+        <span>{product.brand || ''}</span>
       </div>
       <div className={style['product__info']}>
         <Icon icon='basket' />
-        <span>{item.purchasedFrom || ''}</span>
+        <span>{product.purchasedFrom || ''}</span>
       </div>
     </div>
   );
