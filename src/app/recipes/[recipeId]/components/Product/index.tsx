@@ -6,11 +6,11 @@ import { joinClassNames } from '@/utils/style';
 
 import Chip from '@/components/Chip';
 import Icon from '@/components/Icon';
-import { IngredientProduct } from '@/service/recipes/type';
 import { Product as ProductType } from '@/service/products/type';
+import { RecipeProduct } from '@/service/recipes/type';
 
 interface Props {
-  product: IngredientProduct | ProductType;
+  product: RecipeProduct | ProductType;
   isUserProduct?: boolean;
 }
 
@@ -44,7 +44,7 @@ function Product({ product, isUserProduct }: Props) {
 
 export default Product;
 
-export function ProductInfo({ product }: { product: IngredientProduct }) {
+export function ProductInfo({ product }: { product: RecipeProduct }) {
   return (
     <div className={style['product__content']}>
       <div className={style['product__info']}>

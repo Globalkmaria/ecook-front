@@ -1,31 +1,4 @@
-// export interface Recipe {
-//   name: string;
-//   description: string;
-//   filters: string[];
-//   ingredients: RecipeIngredient[];
-//   steps: string[];
-//   img: string;
-//   user: User;
-// }
-
-// export interface RecipeIngredient {
-//   id: string;
-//   name: string;
-//   ingredientProductId?: string;
-//   quantity: string;
-// }
-
-// export interface User {
-//   id: string;
-//   username: string;
-//   youtube?: string;
-//   instagram?: string;
-//   img?: string;
-//   posts?: string[];
-//   comments?: string[];
-// }
-
-// ---
+import { Product } from '../products/type';
 
 export interface RecipeSimple {
   id: number;
@@ -35,7 +8,7 @@ export interface RecipeSimple {
   tags: { id: number; name: string }[];
 }
 
-export interface IngredientProduct {
+export interface RecipeProduct {
   id: number;
   name: string;
   brand: string | null;
@@ -44,12 +17,21 @@ export interface IngredientProduct {
   img: string | null;
 }
 
+export interface Ingredient {
+  id: number;
+  name: string;
+  quantity: string;
+  ingredientId: number | null;
+  userProduct: RecipeProduct | null;
+  products: Product[] | null;
+}
+
 export interface RecipeIngredient {
   id: number;
   name: string;
   quantity: string;
   ingredientId: number | null;
-  product: IngredientProduct | null;
+  product: RecipeProduct | null;
 }
 
 export interface RecipeDetail {
@@ -60,7 +42,7 @@ export interface RecipeDetail {
   time: string;
   steps: string[];
   img: string;
-  ingredients: RecipeIngredient[];
+  ingredients: Ingredient[];
   tags: { id: number; name: string }[];
   user: { id: number; username: string; img: string | null };
 }

@@ -1,28 +1,24 @@
 import style from './style.module.scss';
 
 import useModal from '@/hooks/useModal';
-import { IngredientProduct, INGREDIENTS, PRODUCTS } from '@/data/ingredients';
 
 import IngredientInformationModal from '../IngredientInformation';
 import Icon from '@/components/Icon';
+import { Ingredient } from '@/service/recipes/type';
 
 interface Props {
-  ingredientProductId: IngredientProduct['id'];
+  ingredient: Ingredient;
 }
 
-function InformationButton({ ingredientProductId }: Props) {
+function InformationButton({ ingredient }: Props) {
   const control = useModal();
-
-  const userProduct = PRODUCTS[ingredientProductId];
-  const ingredientInfo = INGREDIENTS[userProduct.ingredientId];
   return (
     <>
       <button className={style.icon} onClick={control.onOpen}>
         <Icon icon='info' />
       </button>
       <IngredientInformationModal
-        userProduct={userProduct}
-        ingredientInfo={ingredientInfo}
+        ingredient={ingredient}
         modalControl={control}
       />
     </>

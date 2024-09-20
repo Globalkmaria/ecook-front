@@ -3,11 +3,11 @@ import { Libre_Bodoni } from 'next/font/google';
 import style from './style.module.scss';
 
 import { Modal } from '@/components/Modal';
-import { ServerIngredient, IngredientProduct } from '@/data/ingredients';
 import useModal from '@/hooks/useModal';
 import { joinClassNames } from '@/utils/style';
 import Product from '../Product';
 import IngredientInformationHeader from './IngredientInformationHeader';
+import { Ingredient } from '@/service/recipes/type';
 
 const libre = Libre_Bodoni({
   subsets: ['latin'],
@@ -16,33 +16,33 @@ const libre = Libre_Bodoni({
 });
 
 interface Props {
-  userProduct: IngredientProduct;
-  ingredientInfo: ServerIngredient;
+  ingredient: Ingredient;
   modalControl: ReturnType<typeof useModal>;
 }
 
-function IngredientInformationModal({
-  modalControl,
-  userProduct,
-  ingredientInfo,
-}: Props) {
+function IngredientInformationModal({ modalControl, ingredient }: Props) {
   const titleClassName = joinClassNames(
     style['ingredient__name'],
     libre.className,
   );
+
+  if (!ingredient.ingredientId) return null;
+
   return (
     <Modal onClose={modalControl.onClose} isOpen={modalControl.isOpen}>
       <div className={style.container}>
         <div className={style.ingredient}>
-          <span className={titleClassName}>{ingredientInfo.name}</span>
+          <span className={titleClassName}>{ingredient.name}</span>
         </div>
 
         <IngredientInformationHeader />
 
         <div className={style['product-list']}>
-          <Product item={userProduct} isUserProduct />
-          {ingredientInfo.products.map((item, idx) => (
-            <Product item={item} key={idx} />
+          {ingredient.userProduct ? (
+            <Product product={ingredient.userProduct} isUserProduct />
+          ) : null}
+          {ingredient.products?.map((item, idx) => (
+            <Product product={item} key={idx} />
           ))}
         </div>
       </div>
