@@ -6,6 +6,7 @@ import React, {
   DragEventHandler,
   useRef,
   memo,
+  useEffect,
 } from 'react';
 
 import style from './style.module.scss';
@@ -20,8 +21,8 @@ interface Props {
   className?: string;
   maxSizeKB?: number;
   allowedFileTypes?: string[];
-  imgValue?: string | null;
-  onChange: (img: string | null) => void;
+  imgValue?: File | null;
+  onChange: (img: File | null) => void;
 }
 
 function ImageUploader({
@@ -35,15 +36,11 @@ function ImageUploader({
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const src = imgValue ? URL.createObjectURL(imgValue) : null;
+
   const maxSize = maxSizeKB * 1024;
   const containerClassName = joinClassNames(style.container, className);
   const infoMessage = getFileInfoMessage(maxSizeKB, allowedFileTypes);
-
-  const readFile = (file: File): void => {
-    const reader = new FileReader();
-    reader.onloadend = () => onChange(reader.result as string);
-    reader.readAsDataURL(file);
-  };
 
   const validateAndReadFile = (file: File): void => {
     setError(null);
@@ -58,7 +55,7 @@ function ImageUploader({
       return;
     }
 
-    readFile(file);
+    onChange(file);
   };
 
   const handleImageChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -93,6 +90,14 @@ function ImageUploader({
 
   const handleClick = () => inputRef.current?.click();
 
+  useEffect(() => {
+    return () => {
+      if (src) {
+        URL.revokeObjectURL(src);
+      }
+    };
+  }, [src]);
+
   return (
     <div className={containerClassName}>
       {!imgValue && (
@@ -126,7 +131,7 @@ function ImageUploader({
 
       {imgValue && (
         <div className={style.preview}>
-          <img src={imgValue} alt='Selected' className={style.img} />
+          <img src={src} alt='Selected' className={style.img} />
           <button className={style['close-btn']} onClick={handleRemoveImage}>
             <Icon icon='close' />
           </button>
