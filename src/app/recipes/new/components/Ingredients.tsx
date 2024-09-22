@@ -13,36 +13,30 @@ import useModal from '@/hooks/useModal';
 import Button, { ButtonProps } from '@/components/Button';
 
 import { RemoveButton } from './buttons';
-import SearchProductModal, { IngredientState } from './SearchProductModal';
+import SearchProductModal from './SearchProductModal';
 import { onFieldChange } from '../helper';
-import { IngredientsState } from '../NewRecipe';
+import {
+  NewRecipeIngredientState,
+  NewRecipeIngredientStates,
+} from '../NewRecipe';
+import { NewRecipeIngredient } from '@/service/recipes/type';
 
-export interface Ingredient {
-  id: string;
-  name: string;
-  quantity: string;
-  productId: string | null;
-  product: {
-    id?: string;
-    name: string;
-    img?: string;
-    brand?: string;
-    purchasedFrom?: string;
-  } | null;
-}
+export type onSelectProductProps = (
+  productInfo: Omit<NewRecipeIngredient, 'quantity'> | null,
+) => void;
 
 interface Props {
-  ingredients: IngredientsState;
+  ingredients: NewRecipeIngredientStates;
   onRemove: (id: string) => void;
-  setIngredients: Dispatch<SetStateAction<IngredientsState>>;
+  setIngredients: Dispatch<SetStateAction<NewRecipeIngredientStates>>;
 }
 
 function Ingredients({ ingredients, onRemove, setIngredients }: Props) {
   const searchProductModalControl = useModal();
   const [selectedIngredient, setSelectedIngredient] =
-    useState<Ingredient | null>(null);
+    useState<NewRecipeIngredientState | null>(null);
 
-  const onSelectProduct = (productInfo: IngredientState | null) => {
+  const onSelectProduct: onSelectProductProps = (productInfo) => {
     if (selectedIngredient === null) return;
     if (productInfo === null) {
       setIngredients((prev) =>
@@ -50,7 +44,7 @@ function Ingredients({ ingredients, onRemove, setIngredients }: Props) {
           item.id === selectedIngredient.id
             ? {
                 ...item,
-                product: null,
+                newProduct: null,
                 productId: null,
               }
             : item,
@@ -60,16 +54,17 @@ function Ingredients({ ingredients, onRemove, setIngredients }: Props) {
       return;
     }
 
-    const { ingredientName, ingredientId, productId, product } = productInfo;
+    const { name, ingredientId, productId, newProduct } = productInfo;
+
     setIngredients((prev) =>
       prev.map((item) =>
         item.id === selectedIngredient.id
           ? {
               ...item,
-              name: ingredientName || '',
-              id: ingredientId || item.id,
-              product,
-              productId: productId,
+              name,
+              ingredientId,
+              productId,
+              newProduct,
             }
           : item,
       ),
@@ -79,7 +74,7 @@ function Ingredients({ ingredients, onRemove, setIngredients }: Props) {
     searchProductModalControl.onClose();
   };
 
-  const onClickSearchProduct = (ingredient: Ingredient) => {
+  const onClickSearchProduct = (ingredient: NewRecipeIngredientState) => {
     setSelectedIngredient(ingredient);
     searchProductModalControl.onOpen();
   };
@@ -114,10 +109,10 @@ function Ingredients({ ingredients, onRemove, setIngredients }: Props) {
 export default memo(Ingredients);
 
 interface IngredientProps {
-  item: Ingredient;
+  item: NewRecipeIngredientState;
   onRemove: (id: string) => void;
   onChange: (id: string, fieldName: string, value: string) => void;
-  onClickSearchProduct: (ingredient: Ingredient) => void;
+  onClickSearchProduct: (ingredient: NewRecipeIngredientState) => void;
 }
 
 function Ingredient({

@@ -46,3 +46,31 @@ export interface RecipeDetail {
   tags: { id: number; name: string }[];
   user: { id: number; username: string; img: string | null };
 }
+
+export interface IngredientNewProduct {
+  name: string;
+  brand: string | null;
+  purchasedFrom: string | null;
+  link: string | null;
+  img: File | null;
+}
+
+export interface NewRecipeIngredient {
+  name: string;
+  quantity: string;
+  ingredientId: number | null;
+  productId: number | null;
+  newProduct: IngredientNewProduct | null;
+}
+
+export interface NewRecipeData {
+  title: string;
+  description: string;
+  simpleDescription: string;
+  time: string;
+  steps: string[];
+  img: File | null;
+  ingredients: NewRecipeIngredient[];
+  tags: string[];
+  user: { id: number };
+}

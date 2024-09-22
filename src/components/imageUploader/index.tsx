@@ -36,7 +36,7 @@ function ImageUploader({
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const src = imgValue ? URL.createObjectURL(imgValue) : null;
+  const src = imgValue ? URL.createObjectURL(imgValue) : undefined;
 
   const maxSize = maxSizeKB * 1024;
   const containerClassName = joinClassNames(style.container, className);

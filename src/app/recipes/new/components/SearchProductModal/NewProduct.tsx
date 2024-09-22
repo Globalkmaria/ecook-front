@@ -4,16 +4,16 @@ import style from './style.module.scss';
 
 import { Input } from '@/components/Input';
 import ImageUploader from '@/components/imageUploader';
-
-import { NewProductState } from '.';
+import { IngredientNewProduct } from '@/service/recipes/type';
+import { SelectedProductState } from '.';
 
 interface NewProductProps {
   onClick: () => void;
   onInputChange: ChangeEventHandler<HTMLInputElement>;
   id: string;
-  selectedProductId?: string | null;
-  newProductState: NewProductState;
-  onNewProductImgChange: (img: string | null) => void;
+  selectedProductId: SelectedProductState['productId'];
+  newProductState: IngredientNewProduct;
+  onNewProductImgChange: (img: File | null) => void;
   currentIngredientName?: string;
 }
 
@@ -58,7 +58,7 @@ function NewProduct({
           <Input
             placeholder='Product brand'
             name='brand'
-            value={newProductState.brand}
+            value={newProductState.brand ?? ''}
             onChange={onInputChange}
           />
         </div>
@@ -66,7 +66,7 @@ function NewProduct({
           <Input
             placeholder='Purchased from'
             name='purchasedFrom'
-            value={newProductState.purchasedFrom}
+            value={newProductState.purchasedFrom ?? ''}
             onChange={onInputChange}
           />
         </div>

@@ -5,12 +5,13 @@ import style from './style.module.scss';
 import { ProductInfo } from '@/app/recipes/[recipeId]/components/Product';
 import Icon from '@/components/Icon';
 
-import { IngredientProduct } from '@/data/ingredients';
+import { SelectedProductState } from '.';
+import { Product } from '@/service/products/type';
 
 interface ExistingProductProps {
-  item: IngredientProduct;
-  selectedProductId?: string | null;
-  onClick: (product: IngredientProduct) => void;
+  item: Product;
+  selectedProductId?: SelectedProductState['productId'];
+  onClick: (product: Product) => void;
   currentIngredientName?: string;
 }
 
@@ -27,7 +28,7 @@ function ExistingProduct({
       <input
         className={style.checkbox}
         type='checkbox'
-        id={item.id}
+        id={item.id.toString()}
         checked={selectedProductId === item.id}
         onChange={() => onClick(item)}
       />
@@ -44,7 +45,7 @@ function ExistingProduct({
         </div>
 
         <div className={style['product__info']}>
-          <ProductInfo item={item} />
+          <ProductInfo product={item} />
         </div>
       </div>
     </li>

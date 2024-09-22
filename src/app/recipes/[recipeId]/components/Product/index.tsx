@@ -44,7 +44,13 @@ function Product({ product, isUserProduct }: Props) {
 
 export default Product;
 
-export function ProductInfo({ product }: { product: RecipeProduct }) {
+interface ProductInfoProps {
+  name: string;
+  brand?: string | null;
+  purchasedFrom?: string | null;
+}
+
+export function ProductInfo({ product }: { product: ProductInfoProps }) {
   return (
     <div className={style['product__content']}>
       <div className={style['product__info']}>
