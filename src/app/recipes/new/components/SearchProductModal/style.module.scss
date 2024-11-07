@@ -78,6 +78,13 @@
     text-align: center;
   }
 
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1;
+  }
+
   .input-container {
     display: flex;
   }
@@ -86,6 +93,8 @@
 .img-uploader {
   height: 200px;
   flex-grow: 1;
+  border-radius: 5px;
+  box-shadow: $boxshadow1;
 }
 
 // Product

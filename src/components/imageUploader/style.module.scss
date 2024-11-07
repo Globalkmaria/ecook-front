@@ -32,6 +32,7 @@
 
 .error {
   margin-top: 5px;
+  padding: 5px;
   color: $red700;
 }
 
@@ -57,6 +58,6 @@
   font-size: 1.2rem;
 
   &:hover {
-    background-color: $blurry500;
+    background-color: $blurryBlack100;
   }
 }

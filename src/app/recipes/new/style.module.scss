@@ -42,6 +42,9 @@
 .img-uploader {
   height: 300px;
   flex-grow: 1;
+  border: 1px solid $grey300;
+  box-shadow: $boxshadow2;
+  border-radius: $borderRadiusS;
 }
 
 .box__content {
