@@ -28,12 +28,13 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    padding: 0.5rem;
   }
 
   &__info {
     display: flex;
+    align-items: center;
     gap: 1rem;
+    min-height: 36px;
   }
 }
 

@@ -12,9 +12,10 @@ import { RecipeProduct } from '@/service/recipes/type';
 interface Props {
   product: RecipeProduct | ProductType;
   isUserProduct?: boolean;
+  ingredientName: string;
 }
 
-function Product({ product, isUserProduct }: Props) {
+function Product({ product, isUserProduct, ingredientName }: Props) {
   const img = product.img || '/ingredient/default.png';
 
   const productClassName = isUserProduct
@@ -37,22 +38,31 @@ function Product({ product, isUserProduct }: Props) {
         )}
       </div>
 
-      <ProductInfo product={product} />
+      <ProductInfo ingredientName={ingredientName} product={product} />
     </div>
   );
 }
 
 export default Product;
 
-interface ProductInfoProps {
+interface ProductInfo {
   name: string;
   brand?: string | null;
   purchasedFrom?: string | null;
 }
 
-export function ProductInfo({ product }: { product: ProductInfoProps }) {
+interface ProductInfoProps {
+  product: ProductInfo;
+  ingredientName: string;
+}
+
+export function ProductInfo({ product, ingredientName }: ProductInfoProps) {
   return (
     <div className={style['product__content']}>
+      <div className={style['product__info']}>
+        <Icon icon='labelFill' />
+        <span>{ingredientName}</span>
+      </div>
       <div className={style['product__info']}>
         <Icon icon='label' />
         <span>{product.name}</span>

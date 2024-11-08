@@ -20,25 +20,26 @@ import ExistingProduct from './ExistingProduct';
 import { NewRecipeIngredientState } from '../../NewRecipe';
 import { IngredientNewProduct } from '@/service/recipes/type';
 import { Product } from '@/service/products/type';
-import { onSelectProductProps } from '../Ingredients';
+import { OnSelectProductProps } from '../Ingredients';
+import { getRandomId } from '@/utils/generateId';
 
 interface Props {
   control: ReturnType<typeof useModal>;
-  onSelectProduct: onSelectProductProps;
+  onSelectProduct: OnSelectProductProps;
   ingredient: NewRecipeIngredientState;
 }
 
 export const NEW_PRODUCT_ID = 'new';
 
 export type SelectedProductState = {
-  ingredientId: number | null;
+  ingredientId: string | null;
   name: string;
-  productId: number | typeof NEW_PRODUCT_ID | null;
+  productId: string | typeof NEW_PRODUCT_ID | null;
   newProduct: IngredientNewProduct | null;
 };
 
 type SearchedIngredientState = {
-  id: number | null;
+  id: string | null;
   name: string;
   products: Product[];
 } | null;
@@ -48,27 +49,36 @@ type SearchedIngredientState = {
 function SearchProductModal({ control, onSelectProduct, ingredient }: Props) {
   const [selectedProduct, setSelectedProduct] =
     useState<SelectedProductState | null>(
-      ingredient.productId === null
-        ? null
-        : {
-            ingredientId: ingredient.ingredientId,
-            name: ingredient.name,
-            productId: ingredient.productId,
-            newProduct: ingredient.newProduct,
-          },
+      (ingredient.productId ?? ingredient.newProduct?.id)
+        ? {
+            ...ingredient,
+            productId: ingredient.productId ?? NEW_PRODUCT_ID,
+          }
+        : null,
     );
   const [searchInput, setSearchInput] = useState(ingredient.name);
 
   const [searchedIngredient, setSearchedIngredient] =
     useState<SearchedIngredientState | null>(null);
 
-  const [newProduct, setNewProduct] = useState<IngredientNewProduct>({
-    name: '',
-    img: null,
-    brand: null,
-    link: null,
-    purchasedFrom: null,
-  });
+  const [newProduct, setNewProduct] = useState<IngredientNewProduct>(
+    ingredient.newProduct?.id
+      ? {
+          ...ingredient.newProduct,
+        }
+      : {
+          name: '',
+          img: null,
+          brand: null,
+          link: null,
+          purchasedFrom: null,
+          id: getRandomId(),
+        },
+  );
+
+  const confirmButtonTitle = selectedProduct
+    ? 'Product selected'
+    : 'Continue without a product';
 
   const onNewProductChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const { name, value } = e.target;
@@ -128,7 +138,7 @@ function SearchProductModal({ control, onSelectProduct, ingredient }: Props) {
 
     setSelectedProduct({
       ingredientId: searchedIngredient.id ?? null,
-      name: searchedIngredient.name,
+      name: newProduct.name,
       productId: NEW_PRODUCT_ID,
       newProduct,
     });
@@ -136,28 +146,48 @@ function SearchProductModal({ control, onSelectProduct, ingredient }: Props) {
 
   const handleConfirm = () => {
     if (!selectedProduct) {
-      onSelectProduct(null);
+      onSelectProduct({
+        product: null,
+        ingredient: null,
+      });
+
       control.onClose();
       return;
     }
 
     if (selectedProduct.productId === NEW_PRODUCT_ID) {
-      if (!selectedProduct.name) {
+      if (!newProduct.name) {
         alert('Please enter product name to create new product.');
         return;
       }
 
       // removing new product fake product id
-      onSelectProduct({ ...selectedProduct, productId: null });
+      onSelectProduct({
+        product: {
+          ...selectedProduct,
+          productId: null,
+          newProduct,
+        },
+        ingredient: {
+          name: searchedIngredient?.name ?? '',
+          id: searchedIngredient?.id,
+        },
+      });
       control.onClose();
       return;
     }
 
     onSelectProduct({
-      name: selectedProduct.name,
-      ingredientId: selectedProduct.ingredientId,
-      productId: selectedProduct.productId,
-      newProduct: null,
+      product: {
+        name: selectedProduct.name,
+        ingredientId: selectedProduct.ingredientId,
+        productId: selectedProduct.productId,
+        newProduct: null,
+      },
+      ingredient: {
+        name: searchedIngredient?.name ?? '',
+        id: searchedIngredient?.id,
+      },
     });
 
     control.onClose();
@@ -176,7 +206,7 @@ function SearchProductModal({ control, onSelectProduct, ingredient }: Props) {
             <Input
               id='search'
               name='search'
-              placeholder='Search product'
+              placeholder='Search product with ingredient name'
               value={searchInput}
               onChange={handleSearchInputChange}
               onKeyDown={handleInputKeydown}
@@ -185,30 +215,38 @@ function SearchProductModal({ control, onSelectProduct, ingredient }: Props) {
               Search
             </Button>
           </div>
+
           <IngredientInformationHeader />
 
           <ul className={style.list}>
-            <NewProduct
-              selectedProductId={selectedProduct?.productId ?? null}
-              id={NEW_PRODUCT_ID}
-              onClick={onNewProductClick}
-              onInputChange={onNewProductChange}
-              newProductState={newProduct}
-              onNewProductImgChange={onNewProductImgChange}
-              currentIngredientName={searchedIngredient?.name}
-            />
+            {!!searchedIngredient?.name && (
+              <NewProduct
+                selectedProductId={selectedProduct?.productId ?? null}
+                id={NEW_PRODUCT_ID}
+                onClick={onNewProductClick}
+                onInputChange={onNewProductChange}
+                newProductState={newProduct}
+                onNewProductImgChange={onNewProductImgChange}
+                ingredientName={searchedIngredient?.name}
+              />
+            )}
             {searchedIngredient?.products?.map((product) => (
               <ExistingProduct
                 key={product.id}
                 item={product}
                 selectedProductId={selectedProduct?.productId ?? null}
                 onClick={onExistingProductClick}
+                ingredientName={searchedIngredient?.name}
               />
             ))}
           </ul>
 
-          <Button className={style['confirm-button']} onClick={handleConfirm}>
-            Confirm
+          <Button
+            variant={selectedProduct ? 'success' : 'primary'}
+            className={style['confirm-button']}
+            onClick={handleConfirm}
+          >
+            {confirmButtonTitle}
           </Button>
         </div>
       </div>

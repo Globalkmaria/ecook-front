@@ -53,13 +53,14 @@ export interface IngredientNewProduct {
   purchasedFrom: string | null;
   link: string | null;
   img: File | null;
+  id: string;
 }
 
 export interface NewRecipeIngredient {
   name: string;
   quantity: string;
-  ingredientId: number | null;
-  productId: number | null;
+  ingredientId: string | null;
+  productId: string | null;
   newProduct: IngredientNewProduct | null;
 }
 
@@ -72,5 +73,5 @@ export interface NewRecipeData {
   img: File | null;
   ingredients: NewRecipeIngredient[];
   tags: string[];
-  user: { id: number };
+  user: { id: string };
 }

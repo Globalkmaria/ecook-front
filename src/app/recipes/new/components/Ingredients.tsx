@@ -21,9 +21,16 @@ import {
 } from '../NewRecipe';
 import { NewRecipeIngredient } from '@/service/recipes/type';
 
-export type onSelectProductProps = (
-  productInfo: Omit<NewRecipeIngredient, 'quantity'> | null,
-) => void;
+export type OnSelectProductProps = ({
+  product,
+  ingredient,
+}: {
+  product: Omit<NewRecipeIngredient, 'quantity'> | null;
+  ingredient: {
+    name: string;
+    id?: string | null;
+  } | null;
+}) => void;
 
 interface Props {
   ingredients: NewRecipeIngredientStates;
@@ -36,9 +43,10 @@ function Ingredients({ ingredients, onRemove, setIngredients }: Props) {
   const [selectedIngredient, setSelectedIngredient] =
     useState<NewRecipeIngredientState | null>(null);
 
-  const onSelectProduct: onSelectProductProps = (productInfo) => {
+  const onSelectProduct: OnSelectProductProps = ({ product, ingredient }) => {
     if (selectedIngredient === null) return;
-    if (productInfo === null) {
+
+    if (product === null) {
       setIngredients((prev) =>
         prev.map((item) =>
           item.id === selectedIngredient.id
@@ -54,17 +62,15 @@ function Ingredients({ ingredients, onRemove, setIngredients }: Props) {
       return;
     }
 
-    const { name, ingredientId, productId, newProduct } = productInfo;
-
     setIngredients((prev) =>
       prev.map((item) =>
         item.id === selectedIngredient.id
           ? {
               ...item,
-              name,
-              ingredientId,
-              productId,
-              newProduct,
+              name: ingredient?.name ?? '',
+              ingredientId: ingredient?.id ?? null,
+              productId: product.productId ?? null,
+              newProduct: product.newProduct ?? null,
             }
           : item,
       ),
@@ -121,10 +127,13 @@ function Ingredient({
   onChange,
   onClickSearchProduct,
 }: IngredientProps) {
-  const productButtonType: ButtonProps['variant'] = item.productId
+  const productSelected = item.productId ?? item.newProduct?.name;
+
+  const productButtonType: ButtonProps['variant'] = productSelected
     ? 'success'
     : 'secondary';
-  const productButtonTitle = item.productId
+
+  const productButtonTitle = productSelected
     ? 'Product selected'
     : 'Select product';
 

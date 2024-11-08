@@ -1,7 +1,7 @@
 export interface Product {
-  id: number;
-  ingredientId: number;
-  userId: number;
+  id: string;
+  ingredientId: string;
+  userId: string;
   name: string;
   brand: string;
   purchasedFrom: string;

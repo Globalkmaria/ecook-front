@@ -1,6 +1,6 @@
 import { CiShoppingBasket, CiTextAlignJustify } from 'react-icons/ci';
 import { IoIosInformationCircleOutline, IoMdRemove } from 'react-icons/io';
-import { PiJarLabelLight } from 'react-icons/pi';
+import { PiJarLabelLight, PiTagSimpleFill, PiJar } from 'react-icons/pi';
 import { MdLabelOutline } from 'react-icons/md';
 import { IoClose, IoInformationOutline } from 'react-icons/io5';
 import { FaRegImage } from 'react-icons/fa6';
@@ -15,6 +15,8 @@ const ICON_NAMES = [
   'close',
   'img',
   'remove',
+  'labelFill',
+  'jar',
 ] as const;
 
 export type IconButtonType = (typeof ICON_NAMES)[number];
@@ -31,6 +33,8 @@ export const ICONS: {
   close: <IoClose />,
   img: <FaRegImage />,
   remove: <IoMdRemove />,
+  labelFill: <PiTagSimpleFill />,
+  jar: <PiJar />,
 };
 
 export const ICON_TITLES: { [key in IconButtonType]: string } = {
@@ -43,4 +47,6 @@ export const ICON_TITLES: { [key in IconButtonType]: string } = {
   close: 'close',
   img: 'image',
   remove: 'remove',
+  labelFill: 'label',
+  jar: 'jar',
 };

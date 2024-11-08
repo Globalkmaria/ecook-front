@@ -1,11 +1,12 @@
-import { ChangeEventHandler } from 'react';
+import { ChangeEventHandler, MouseEventHandler, useRef } from 'react';
 
 import style from './style.module.scss';
 
 import { Input } from '@/components/Input';
 import ImageUploader from '@/components/imageUploader';
 import { IngredientNewProduct } from '@/service/recipes/type';
-import { SelectedProductState } from '.';
+import { NEW_PRODUCT_ID, SelectedProductState } from '.';
+import Icon from '@/components/Icon';
 
 interface NewProductProps {
   onClick: () => void;
@@ -14,7 +15,7 @@ interface NewProductProps {
   selectedProductId: SelectedProductState['productId'];
   newProductState: IngredientNewProduct;
   onNewProductImgChange: (img: File | null) => void;
-  currentIngredientName?: string;
+  ingredientName?: string;
 }
 
 function NewProduct({
@@ -24,10 +25,22 @@ function NewProduct({
   onInputChange,
   newProductState,
   onNewProductImgChange,
-  currentIngredientName,
+  ingredientName,
 }: NewProductProps) {
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  const handleClick: MouseEventHandler = (e) => {
+    if (
+      contentRef.current?.contains(e.target as Node) &&
+      selectedProductId === NEW_PRODUCT_ID
+    )
+      return;
+
+    onClick();
+  };
+
   return (
-    <li className={style['product-container']} onClick={onClick}>
+    <li className={style['product-container']} onClick={handleClick}>
       <input
         className={style.checkbox}
         type='checkbox'
@@ -36,39 +49,45 @@ function NewProduct({
         onChange={() => onClick()}
       />
       <div className={style['new-product']}>
-        <h3>New Product</h3>
-        <span className={style['ingredient-name']}>
-          {currentIngredientName}
-        </span>
-        <div className={style['img-uploader']}>
-          <ImageUploader
-            imgValue={newProductState.img}
-            onChange={onNewProductImgChange}
-          />
-        </div>
-        <div className={style['input-container']}>
-          <Input
-            placeholder='Product name'
-            name='name'
-            value={newProductState.name}
-            onChange={onInputChange}
-          />
-        </div>
-        <div className={style['input-container']}>
-          <Input
-            placeholder='Product brand'
-            name='brand'
-            value={newProductState.brand ?? ''}
-            onChange={onInputChange}
-          />
-        </div>
-        <div className={style['input-container']}>
-          <Input
-            placeholder='Purchased from'
-            name='purchasedFrom'
-            value={newProductState.purchasedFrom ?? ''}
-            onChange={onInputChange}
-          />
+        <h3>Add new product</h3>
+        <div ref={contentRef} className={style['content']}>
+          <div className={style['img-uploader']}>
+            <ImageUploader
+              imgValue={newProductState.img}
+              onChange={onNewProductImgChange}
+            />
+          </div>
+          <div className={style['input-container']}>
+            <Icon icon='labelFill' />
+            <span>{ingredientName}</span>
+          </div>
+          <div className={style['input-container']}>
+            <Icon icon='label' />
+            <Input
+              placeholder='Product name'
+              name='name'
+              value={newProductState.name}
+              onChange={onInputChange}
+            />
+          </div>
+          <div className={style['input-container']}>
+            <Icon icon='product' />
+            <Input
+              placeholder='Brand'
+              name='brand'
+              value={newProductState.brand ?? ''}
+              onChange={onInputChange}
+            />
+          </div>
+          <div className={style['input-container']}>
+            <Icon icon='basket' />
+            <Input
+              placeholder='Purchased at'
+              name='purchasedFrom'
+              value={newProductState.purchasedFrom ?? ''}
+              onChange={onInputChange}
+            />
+          </div>
         </div>
       </div>
     </li>

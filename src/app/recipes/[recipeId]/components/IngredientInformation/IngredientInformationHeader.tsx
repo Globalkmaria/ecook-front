@@ -6,8 +6,12 @@ function IngredientInformationHeader() {
   return (
     <div className={style['icon-info']}>
       <div className={style['icon-info__item']}>
+        <Icon icon='labelFill' />
+        <span>Ingredient name</span>
+      </div>
+      <div className={style['icon-info__item']}>
         <Icon icon='label' />
-        <span>Product Name</span>
+        <span>Product name</span>
       </div>
       <div className={style['icon-info__item']}>
         <Icon icon='product' />

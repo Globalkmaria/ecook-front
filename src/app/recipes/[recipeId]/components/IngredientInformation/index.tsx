@@ -39,10 +39,18 @@ function IngredientInformationModal({ modalControl, ingredient }: Props) {
 
         <div className={style['product-list']}>
           {ingredient.userProduct ? (
-            <Product product={ingredient.userProduct} isUserProduct />
+            <Product
+              product={ingredient.userProduct}
+              isUserProduct
+              ingredientName={ingredient.name}
+            />
           ) : null}
           {ingredient.products?.map((item, idx) => (
-            <Product product={item} key={idx} />
+            <Product
+              product={item}
+              key={idx}
+              ingredientName={ingredient.name}
+            />
           ))}
         </div>
       </div>
