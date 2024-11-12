@@ -15,7 +15,6 @@ import { AddButton } from './components/buttons';
 import Steps, { Step } from './components/Steps';
 import { onFieldChange } from './helper';
 import { NewRecipeData, NewRecipeIngredient } from '@/service/recipes/type';
-import { appendToFormData } from '@/utils/formdata';
 
 type TextInputs = Pick<
   NewRecipeData,
@@ -41,16 +40,16 @@ const STEPS_INITIAL_STATE: Step[] = [{ id: getRandomId(), value: '' }];
 function NewRecipe() {
   const [textInputs, setTextInputs] = useState<TextInputs>({
     title: '',
-    description: '',
     simpleDescription: '',
+    description: '',
     time: '',
   });
+  const tagsState = useState<string[]>([]);
+  const [img, setImg] = useState<File | null>(null);
   const [ingredients, setIngredients] = useState<NewRecipeIngredientStates>(
     INGREDIENTS_INITIAL_STATE,
   );
   const [steps, setSteps] = useState<Step[]>(STEPS_INITIAL_STATE);
-  const tagsState = useState<string[]>([]);
-  const [img, setImg] = useState<File | null>(null);
 
   const handleTextInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const fieldName = e.target.name;
@@ -58,6 +57,7 @@ function NewRecipe() {
 
     setTextInputs((prev) => ({ ...prev, [fieldName]: value }));
   };
+
   const addIngredient = () =>
     setIngredients([
       ...ingredients,
@@ -74,7 +74,8 @@ function NewRecipe() {
   const onRemoveIngredient = (id: string) =>
     setIngredients(ingredients.filter((item) => item.id !== id));
 
-  const addStep = () => setSteps([...steps, { id: getRandomId(), value: '' }]);
+  const onAddStep = () =>
+    setSteps([...steps, { id: getRandomId(), value: '' }]);
 
   const onRemoveStep = (id: string) =>
     setSteps(steps.filter((item) => item.id !== id));
@@ -83,7 +84,23 @@ function NewRecipe() {
     onFieldChange(setSteps, id, fieldName, value);
 
   const handleSubmit = async () => {
+    // TODO validation
+
+    const newProducts = ingredients
+      .map((item) => item.newProduct)
+      .filter((item) => !!item);
+
+    const formData = new FormData();
+
+    newProducts.forEach(
+      (product) =>
+        product.img && formData.append(`img_${product.id}`, product.img),
+    );
+
+    img && formData.append('img', img);
+    // TODO remove user id
     const data: Omit<NewRecipeData, 'img'> = {
+      // TODO add user id
       ...textInputs,
       steps: steps.map((item) => item.value),
       ingredients: ingredients.map((item) => ({
@@ -94,19 +111,15 @@ function NewRecipe() {
         productId: item.productId,
       })),
       tags: tagsState[0],
-      user: { id: 1 },
+      user: { id: '1' },
     };
 
-    const formData = new FormData();
     formData.append('info', JSON.stringify(data));
-    img && formData.append('img', img);
 
     const response = await fetch('http://localhost:8080/api/v1/recipes', {
       method: 'POST',
       body: formData,
     });
-
-    console.log(response);
   };
 
   return (
@@ -195,7 +208,7 @@ function NewRecipe() {
               onRemove={onRemoveStep}
               onChange={onStepChange}
             />
-            <AddButton onClick={addStep}>Add a step</AddButton>
+            <AddButton onClick={onAddStep}>Add a step</AddButton>
           </div>
         </div>
 
