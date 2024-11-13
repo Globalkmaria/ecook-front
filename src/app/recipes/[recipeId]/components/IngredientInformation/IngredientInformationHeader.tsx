@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import style from './style.module.scss';
 
 import Icon from '@/components/Icon';
@@ -25,4 +26,4 @@ function IngredientInformationHeader() {
   );
 }
 
-export default IngredientInformationHeader;
+export default memo(IngredientInformationHeader);

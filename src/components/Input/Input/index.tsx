@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, ReactNode } from 'react';
+import { InputHTMLAttributes, memo, ReactNode } from 'react';
 import style from './style.module.scss';
 import { joinClassNames } from '@/utils/style';
 
@@ -15,4 +15,4 @@ function Input({ children, className, ...restProps }: Props) {
   );
 }
 
-export default Input;
+export default memo(Input);

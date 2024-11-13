@@ -3,6 +3,7 @@ import {
   Dispatch,
   memo,
   SetStateAction,
+  useCallback,
   useState,
 } from 'react';
 
@@ -80,13 +81,19 @@ function Ingredients({ ingredients, onRemove, setIngredients }: Props) {
     searchProductModalControl.onClose();
   };
 
-  const onClickSearchProduct = (ingredient: NewRecipeIngredientState) => {
-    setSelectedIngredient(ingredient);
-    searchProductModalControl.onOpen();
-  };
+  const onClickSearchProduct = useCallback(
+    (ingredient: NewRecipeIngredientState) => {
+      setSelectedIngredient(ingredient);
+      searchProductModalControl.onOpen();
+    },
+    [searchProductModalControl],
+  );
 
-  const onChange = (id: string, fieldName: string, value: string) =>
-    onFieldChange(setIngredients, id, fieldName, value);
+  const onChange = useCallback(
+    (id: string, fieldName: string, value: string) =>
+      onFieldChange(setIngredients, id, fieldName, value),
+    [setIngredients],
+  );
 
   return (
     <>
@@ -121,7 +128,7 @@ interface IngredientProps {
   onClickSearchProduct: (ingredient: NewRecipeIngredientState) => void;
 }
 
-function Ingredient({
+const Ingredient = memo(function Ingredient({
   item,
   onRemove,
   onChange,
@@ -173,4 +180,4 @@ function Ingredient({
       </div>
     </li>
   );
-}
+});

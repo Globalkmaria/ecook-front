@@ -4,6 +4,7 @@ import {
   ChangeEventHandler,
   Dispatch,
   KeyboardEventHandler,
+  memo,
   SetStateAction,
   useRef,
   useState,
@@ -90,4 +91,4 @@ function ChipListInput({
   );
 }
 
-export default ChipListInput;
+export default memo(ChipListInput);

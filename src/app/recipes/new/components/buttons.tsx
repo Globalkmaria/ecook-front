@@ -1,5 +1,6 @@
 import Button from '@/components/Button';
 import Icon from '@/components/Icon';
+import { memo } from 'react';
 
 export function RemoveButton({ onClick }: { onClick: () => void }) {
   return (
@@ -9,7 +10,7 @@ export function RemoveButton({ onClick }: { onClick: () => void }) {
   );
 }
 
-export function AddButton({
+export const AddButton = memo(function AddButton({
   onClick,
   children,
 }: {
@@ -21,4 +22,4 @@ export function AddButton({
       {children}
     </Button>
   );
-}
+});

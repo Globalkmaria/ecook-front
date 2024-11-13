@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEventHandler, useState } from 'react';
+import { ChangeEventHandler, useCallback, useState } from 'react';
 
 import style from './style.module.scss';
 
@@ -51,37 +51,53 @@ function NewRecipe() {
   );
   const [steps, setSteps] = useState<Step[]>(STEPS_INITIAL_STATE);
 
-  const handleTextInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const fieldName = e.target.name;
-    const value = e.target.value;
+  const handleTextInputChange: ChangeEventHandler<HTMLInputElement> =
+    useCallback((e) => {
+      const fieldName = e.target.name;
+      const value = e.target.value;
 
-    setTextInputs((prev) => ({ ...prev, [fieldName]: value }));
-  };
+      setTextInputs((prev) => ({ ...prev, [fieldName]: value }));
+    }, []);
 
-  const addIngredient = () =>
-    setIngredients([
-      ...ingredients,
-      {
-        id: getRandomId(),
-        name: '',
-        quantity: '',
-        ingredientId: null,
-        productId: null,
-        newProduct: null,
-      },
-    ]);
+  const addIngredient = useCallback(
+    () =>
+      setIngredients((preIngredients) => [
+        ...preIngredients,
+        {
+          id: getRandomId(),
+          name: '',
+          quantity: '',
+          ingredientId: null,
+          productId: null,
+          newProduct: null,
+        },
+      ]),
+    [],
+  );
 
-  const onRemoveIngredient = (id: string) =>
-    setIngredients(ingredients.filter((item) => item.id !== id));
+  const onRemoveIngredient = useCallback(
+    (id: string) =>
+      setIngredients(ingredients.filter((item) => item.id !== id)),
+    [ingredients],
+  );
 
-  const onAddStep = () =>
-    setSteps([...steps, { id: getRandomId(), value: '' }]);
+  const onAddStep = useCallback(
+    () =>
+      setSteps((preSteps) => [...preSteps, { id: getRandomId(), value: '' }]),
+    [],
+  );
 
-  const onRemoveStep = (id: string) =>
-    setSteps(steps.filter((item) => item.id !== id));
+  const onRemoveStep = useCallback(
+    (id: string) =>
+      setSteps((preSteps) => preSteps.filter((item) => item.id !== id)),
+    [],
+  );
 
-  const onStepChange = (id: string, fieldName: string, value: string) =>
-    onFieldChange(setSteps, id, fieldName, value);
+  const onStepChange = useCallback(
+    (id: string, fieldName: string, value: string) =>
+      onFieldChange(setSteps, id, fieldName, value),
+    [],
+  );
 
   const handleSubmit = async () => {
     // TODO validation

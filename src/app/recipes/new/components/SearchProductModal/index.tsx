@@ -1,6 +1,7 @@
 import {
   ChangeEventHandler,
   KeyboardEventHandler,
+  useCallback,
   useEffect,
   useState,
 } from 'react';
@@ -112,21 +113,24 @@ function SearchProductModal({ control, onSelectProduct, ingredient }: Props) {
     if (e.key === 'Enter') handleSearchSubmit();
   };
 
-  const onExistingProductClick = (product: Product) => {
-    if (!searchedIngredient?.id) return;
+  const onExistingProductClick = useCallback(
+    (product: Product) => {
+      if (!searchedIngredient?.id) return;
 
-    if (selectedProduct?.productId === product.id) {
-      setSelectedProduct(null);
-      return;
-    }
+      if (selectedProduct?.productId === product.id) {
+        setSelectedProduct(null);
+        return;
+      }
 
-    setSelectedProduct({
-      ingredientId: product.ingredientId,
-      name: product.name,
-      productId: product.id,
-      newProduct: null,
-    });
-  };
+      setSelectedProduct({
+        ingredientId: product.ingredientId,
+        name: product.name,
+        productId: product.id,
+        newProduct: null,
+      });
+    },
+    [searchedIngredient?.id, selectedProduct?.productId],
+  );
 
   const onNewProductClick = () => {
     if (!searchedIngredient) return;

@@ -141,4 +141,8 @@ function ImageUploader({
   );
 }
 
-export default memo(ImageUploader);
+export default memo(ImageUploader, (prevProps, nextProps) => {
+  if (prevProps.imgValue === nextProps.imgValue) return true;
+
+  return false;
+});
