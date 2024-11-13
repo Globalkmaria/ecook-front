@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import Image from 'next/image';
 
 import style from './style.module.scss';
@@ -21,8 +22,6 @@ function ExistingProduct({
   onClick,
   ingredientName,
 }: ExistingProductProps) {
-  const img = item.img || '/ingredient/default.png';
-
   return (
     <li className={style['product-container']} onClick={() => onClick(item)}>
       <input
@@ -35,7 +34,7 @@ function ExistingProduct({
       <div className={style.product}>
         <div className={style['img-box']}>
           {item.img ? (
-            <Image src={img} alt={item.name} fill />
+            <Image src={item.img} alt={item.name} fill />
           ) : (
             <Icon icon='img' className={style['img-icon']} />
           )}
@@ -49,4 +48,4 @@ function ExistingProduct({
   );
 }
 
-export default ExistingProduct;
+export default memo(ExistingProduct);

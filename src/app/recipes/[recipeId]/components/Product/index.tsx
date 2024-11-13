@@ -16,8 +16,6 @@ interface Props {
 }
 
 function Product({ product, isUserProduct, ingredientName }: Props) {
-  const img = product.img || '/ingredient/default.png';
-
   const productClassName = isUserProduct
     ? joinClassNames(style['product--user'], style.product)
     : style.product;
@@ -32,7 +30,7 @@ function Product({ product, isUserProduct, ingredientName }: Props) {
 
       <div className={style['img-box']}>
         {product.img ? (
-          <Image src={img} alt={product.name} fill />
+          <Image src={product.img} alt={product.name} fill />
         ) : (
           <Icon icon='img' className={style['img-icon']} />
         )}
