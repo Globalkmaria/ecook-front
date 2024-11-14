@@ -19,7 +19,7 @@ import { NewRecipeData, NewRecipeIngredient } from '@/service/recipes/type';
 
 type TextInputs = Pick<
   NewRecipeData,
-  'title' | 'description' | 'simpleDescription' | 'time'
+  'title' | 'description' | 'hours' | 'minutes'
 >;
 
 export type NewRecipeIngredientState = NewRecipeIngredient & { id: string };
@@ -42,9 +42,9 @@ function NewRecipe() {
   const router = useRouter();
   const [textInputs, setTextInputs] = useState<TextInputs>({
     title: '',
-    simpleDescription: '',
     description: '',
-    time: '',
+    hours: '',
+    minutes: '',
   });
   const [loading, setLoading] = useState(false);
   const tagsState = useState<string[]>([]);
@@ -62,6 +62,45 @@ function NewRecipe() {
     (e) => {
       const fieldName = e.target.name;
       const value = e.target.value;
+
+      setTextInputs((prev) => ({ ...prev, [fieldName]: value }));
+    },
+    [],
+  );
+
+  const onHoursChange: ChangeEventHandler<HTMLInputElement> = useCallback(
+    (e) => {
+      if (e.target.value && isNaN(Number(e.target.value))) {
+        alert('Please enter a valid time');
+        return;
+      }
+
+      const fieldName = e.target.name;
+      const value = e.target.value;
+
+      if ((value.length && !/^\d+$/.test(value)) || Number(value) < 0) {
+        alert('Please enter a valid time');
+        return;
+      }
+
+      setTextInputs((prev) => ({ ...prev, [fieldName]: value }));
+    },
+    [],
+  );
+
+  const onMinusesChange: ChangeEventHandler<HTMLInputElement> = useCallback(
+    (e) => {
+      const fieldName = e.target.name;
+      const value = e.target.value;
+
+      if (
+        (value.length && !/^\d+$/.test(value)) ||
+        Number(value) < 0 ||
+        Number(value) > 59
+      ) {
+        alert('Please enter a valid time');
+        return;
+      }
 
       setTextInputs((prev) => ({ ...prev, [fieldName]: value }));
     },
@@ -178,18 +217,6 @@ function NewRecipe() {
         </div>
 
         <div className={style.box}>
-          <label htmlFor='simpleDescription'>
-            <h3>Summary</h3>
-          </label>
-          <Input
-            id='simpleDescription'
-            name='simpleDescription'
-            onChange={onTextInputChange}
-            value={textInputs.simpleDescription}
-          />
-        </div>
-
-        <div className={style.box}>
           <label htmlFor='description'>
             <h3>Description</h3>
           </label>
@@ -206,12 +233,26 @@ function NewRecipe() {
             <h3>Time</h3>
           </label>
 
-          <Input
-            id='time'
-            name='time'
-            onChange={onTextInputChange}
-            value={textInputs.time}
-          />
+          <div className={style.time}>
+            <div className={style['time-item']}>
+              Hours:
+              <Input
+                id='hours'
+                name='hours'
+                onChange={onHoursChange}
+                value={textInputs.hours}
+              />
+            </div>
+            <div className={style['time-item']}>
+              Minutes:
+              <Input
+                id='minutes'
+                name='minutes'
+                onChange={onMinusesChange}
+                value={textInputs.minutes}
+              />
+            </div>
+          </div>
         </div>
 
         <div className={style.box}>
@@ -269,4 +310,5 @@ function NewRecipe() {
 export default NewRecipe;
 
 const TAG_LIMIT = 5;
+
 const TAG_LIMIT_REACHED_MESSAGE = `You can only add up to ${TAG_LIMIT} tags.`;

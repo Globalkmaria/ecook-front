@@ -3,7 +3,6 @@ import { Product } from '../products/type';
 export interface RecipeSimple {
   id: number;
   name: string;
-  simpleDescription: string;
   img: string;
   tags: { id: number; name: string }[];
 }
@@ -38,8 +37,8 @@ export interface RecipeDetail {
   id: number;
   name: string;
   description: string;
-  simpleDescription: string;
-  time: string;
+  hours: string;
+  minutes: string;
   steps: string[];
   img: string;
   ingredients: Ingredient[];
@@ -67,8 +66,8 @@ export interface NewRecipeIngredient {
 export interface NewRecipeData {
   title: string;
   description: string;
-  simpleDescription: string;
-  time: string;
+  hours: string;
+  minutes: string;
   steps: string[];
   img: File | null;
   ingredients: NewRecipeIngredient[];

@@ -39,6 +39,23 @@
   }
 }
 
+.time {
+  display: flex;
+  flex-grow: 1;
+  gap: 10px;
+
+  @media #{$tablet} {
+    flex-direction: column;
+  }
+}
+
+.time-item {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
 .img-uploader {
   height: 300px;
   flex-grow: 1;

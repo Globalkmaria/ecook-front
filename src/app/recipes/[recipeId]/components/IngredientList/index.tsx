@@ -24,7 +24,7 @@ function Ingredients({ ingredients, onChange, state }: Props) {
           <div className={style.content}>
             <label htmlFor={i.toString()}>
               <span className={style.name}>{ingredient.name}</span>
-              <span>{ingredient.quantity}</span>
+              <span>- {ingredient.quantity}</span>
               {ingredient.userProduct && (
                 <InformationButton ingredient={ingredient} />
               )}
