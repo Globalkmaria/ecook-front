@@ -20,12 +20,16 @@ interface Props {
   className?: string;
   placeholder?: string;
   state: [string[], Dispatch<SetStateAction<string[]>>];
+  limit?: number;
+  limitReachedMessage?: string;
 }
 
 function ChipListInput({
   className,
   placeholder,
   state: [items, setItems],
+  limit,
+  limitReachedMessage,
 }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState('');
@@ -36,6 +40,11 @@ function ChipListInput({
     setInputValue(event.target.value);
 
   const addItem = (value: string) => {
+    if (limit && items.length > limit) {
+      alert(limitReachedMessage ?? 'Tag limit reached');
+      return;
+    }
+
     if (items.includes(value)) {
       setInputValue('');
       return;

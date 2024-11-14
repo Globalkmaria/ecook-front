@@ -102,6 +102,11 @@ function NewRecipe() {
   const handleSubmit = async () => {
     // TODO validation
 
+    if (!img || !ingredients.length || !steps.length) {
+      alert('Please fill in all required fields');
+      return;
+    }
+
     const newProducts = ingredients
       .map((item) => item.newProduct)
       .filter((item) => !!item);
@@ -114,9 +119,9 @@ function NewRecipe() {
     );
 
     img && formData.append('img', img);
+
     // TODO remove user id
     const data: Omit<NewRecipeData, 'img'> = {
-      // TODO add user id
       ...textInputs,
       steps: steps.map((item) => item.value),
       ingredients: ingredients.map((item) => ({
@@ -194,11 +199,15 @@ function NewRecipe() {
 
         <div className={style.box}>
           <h3>Tags</h3>
-          <ChipListInput state={tagsState} />
+          <ChipListInput
+            state={tagsState}
+            limit={5}
+            limitReachedMessage={TAG_LIMIT_REACHED_MESSAGE}
+          />
         </div>
 
         <div className={style.box}>
-          <h3>Image</h3>
+          <h3>Image*</h3>
           <div className={style['img-uploader']}>
             <ImageUploader onChange={setImg} imgValue={img} />
           </div>
@@ -237,3 +246,6 @@ function NewRecipe() {
 }
 
 export default NewRecipe;
+
+const TAG_LIMIT = 5;
+const TAG_LIMIT_REACHED_MESSAGE = `You can only add up to ${TAG_LIMIT} tags.`;
