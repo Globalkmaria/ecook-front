@@ -1,6 +1,7 @@
 'use client';
 
 import { ChangeEventHandler, useCallback, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import style from './style.module.scss';
 
@@ -38,12 +39,14 @@ const INGREDIENTS_INITIAL_STATE: NewRecipeIngredientStates = [
 const STEPS_INITIAL_STATE: Step[] = [{ id: getRandomId(), value: '' }];
 
 function NewRecipe() {
+  const router = useRouter();
   const [textInputs, setTextInputs] = useState<TextInputs>({
     title: '',
     simpleDescription: '',
     description: '',
     time: '',
   });
+  const [loading, setLoading] = useState(false);
   const tagsState = useState<string[]>([]);
   const [img, setImg] = useState<File | null>(null);
   const [ingredients, setIngredients] = useState<NewRecipeIngredientStates>(
@@ -52,6 +55,8 @@ function NewRecipe() {
   const [steps, setSteps] = useState<Step[]>(STEPS_INITIAL_STATE);
 
   const isSubmittable = img && ingredients[0].name && steps[0].value.length;
+  const submitButtonText = loading ? 'Submitting...' : 'Submit';
+  const disableButton = !isSubmittable || loading;
 
   const onTextInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {
@@ -140,10 +145,19 @@ function NewRecipe() {
 
     formData.append('info', JSON.stringify(data));
 
+    setLoading(true);
     const response = await fetch('http://localhost:8080/api/v1/recipes', {
       method: 'POST',
       body: formData,
     });
+    setLoading(false);
+
+    if (!response.ok) {
+      alert('Failed to submit recipe');
+      return;
+    }
+
+    router.back();
   };
 
   return (
@@ -241,11 +255,11 @@ function NewRecipe() {
         </div>
 
         <Button
-          disabled={!isSubmittable}
+          disabled={disableButton}
           className={style['submit-button']}
           onClick={onSubmit}
         >
-          Submit
+          {submitButtonText}
         </Button>
       </div>
     </div>
