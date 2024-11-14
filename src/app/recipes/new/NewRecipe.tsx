@@ -51,15 +51,19 @@ function NewRecipe() {
   );
   const [steps, setSteps] = useState<Step[]>(STEPS_INITIAL_STATE);
 
-  const handleTextInputChange: ChangeEventHandler<HTMLInputElement> =
-    useCallback((e) => {
+  const isSubmittable = img && ingredients[0].name && steps[0].value.length;
+
+  const onTextInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(
+    (e) => {
       const fieldName = e.target.name;
       const value = e.target.value;
 
       setTextInputs((prev) => ({ ...prev, [fieldName]: value }));
-    }, []);
+    },
+    [],
+  );
 
-  const addIngredient = useCallback(
+  const onAddIngredient = useCallback(
     () =>
       setIngredients((preIngredients) => [
         ...preIngredients,
@@ -99,9 +103,8 @@ function NewRecipe() {
     [],
   );
 
-  const handleSubmit = async () => {
+  const onSubmit = async () => {
     // TODO validation
-
     if (!img || !ingredients.length || !steps.length) {
       alert('Please fill in all required fields');
       return;
@@ -147,7 +150,7 @@ function NewRecipe() {
     <div className={style.container}>
       <h2 className={style.title}>Submit new recipe</h2>
 
-      <form className={style.form} onSubmit={handleSubmit}>
+      <div className={style.form}>
         <div className={style.box}>
           <label htmlFor='title'>
             <h3>Title*</h3>
@@ -155,7 +158,7 @@ function NewRecipe() {
           <Input
             id='title'
             name='title'
-            onChange={handleTextInputChange}
+            onChange={onTextInputChange}
             value={textInputs.title}
           />
         </div>
@@ -167,7 +170,7 @@ function NewRecipe() {
           <Input
             id='simpleDescription'
             name='simpleDescription'
-            onChange={handleTextInputChange}
+            onChange={onTextInputChange}
             value={textInputs.simpleDescription}
           />
         </div>
@@ -179,7 +182,7 @@ function NewRecipe() {
           <Input
             id='description'
             name='description'
-            onChange={handleTextInputChange}
+            onChange={onTextInputChange}
             value={textInputs.description}
           />
         </div>
@@ -192,7 +195,7 @@ function NewRecipe() {
           <Input
             id='time'
             name='time'
-            onChange={handleTextInputChange}
+            onChange={onTextInputChange}
             value={textInputs.time}
           />
         </div>
@@ -221,7 +224,7 @@ function NewRecipe() {
               onRemove={onRemoveIngredient}
               ingredients={ingredients}
             />
-            <AddButton onClick={addIngredient}>Add a ingredient</AddButton>
+            <AddButton onClick={onAddIngredient}>Add a ingredient</AddButton>
           </div>
         </div>
 
@@ -237,10 +240,14 @@ function NewRecipe() {
           </div>
         </div>
 
-        <Button className={style['submit-button']} onClick={handleSubmit}>
+        <Button
+          disabled={!isSubmittable}
+          className={style['submit-button']}
+          onClick={onSubmit}
+        >
           Submit
         </Button>
-      </form>
+      </div>
     </div>
   );
 }

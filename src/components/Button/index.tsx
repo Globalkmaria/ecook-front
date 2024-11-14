@@ -12,7 +12,13 @@ export type Props = {
 } & ButtonProps &
   ButtonHTMLAttributes<HTMLButtonElement>;
 
-function Button({ variant = 'primary', children, className, ...rest }: Props) {
+function Button({
+  disabled,
+  variant = 'primary',
+  children,
+  className,
+  ...rest
+}: Props) {
   const variantClassName = style[`button-contained--${variant}`];
 
   const joinedClassName = joinClassNames(
@@ -22,7 +28,12 @@ function Button({ variant = 'primary', children, className, ...rest }: Props) {
   );
 
   return (
-    <button type='button' className={joinedClassName} {...rest}>
+    <button
+      type='button'
+      className={joinedClassName}
+      {...rest}
+      disabled={disabled}
+    >
       {children}
     </button>
   );

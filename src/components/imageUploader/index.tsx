@@ -142,7 +142,5 @@ function ImageUploader({
 }
 
 export default memo(ImageUploader, (prevProps, nextProps) => {
-  if (prevProps.imgValue === nextProps.imgValue) return true;
-
-  return false;
+  return prevProps.imgValue === nextProps.imgValue;
 });
