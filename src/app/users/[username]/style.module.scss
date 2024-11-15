@@ -1,0 +1,96 @@
+@use '@/style/theme.scss' as *;
+
+.wrapper {
+  width: 100%;
+  flex: 1;
+}
+
+.container {
+  flex: 1;
+  padding: 10px 25px;
+  margin: 0 auto;
+  max-width: $layoutMaxWidth;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.avatar {
+  flex: 1;
+  display: flex;
+  justify-content: end;
+}
+
+.info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.username {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.recipes {
+  font-weight: 500;
+}
+
+.border {
+  margin-top: 40px;
+  border-top: 1px solid $grey400;
+}
+
+.tabs {
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  font-weight: 500;
+}
+
+.tab {
+  display: flex;
+  gap: 10px;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(550px, 1fr));
+  gap: 18px;
+  word-break: break-all;
+}
+
+// --- Card
+
+.card {
+  padding: 18px;
+  display: flex;
+  gap: 20px;
+  border: 2px solid $black;
+  border-radius: 20px;
+}
+
+.img {
+  border-radius: 10px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.title {
+  font-weight: 500;
+}
+
+.time {
+  font-size: 0.9rem;
+}
