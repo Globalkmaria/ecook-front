@@ -9,3 +9,11 @@ export const formatHours = (hours: number) =>
 
 export const formatMinutes = (minutes: number) =>
   formatTimeUnit(minutes, 'min', 'mins');
+
+export const formatTime = (time: { hours: number; minutes: number }) => {
+  const hours = time.hours ? formatHours(time.hours) : '';
+  const minutes = time.minutes ? formatMinutes(time.minutes) : '';
+
+  const result = `${hours} ${minutes}`.trim();
+  return result;
+};

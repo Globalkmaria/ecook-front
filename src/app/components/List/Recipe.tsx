@@ -45,13 +45,13 @@ function Recipe({ recipe, idx }: Props) {
           <div className={style.information__header}>
             <h2 className={style.information__title}>{recipe.name}</h2>
           </div>
-          <p className={style.information__text}>
+          <div className={style.information__text}>
             <ChipsContainer>
               {recipe.tags.map((tag) => (
                 <Chip key={tag.id}>{tag.name}</Chip>
               ))}
             </ChipsContainer>
-          </p>
+          </div>
         </div>
       </div>
     </Link>

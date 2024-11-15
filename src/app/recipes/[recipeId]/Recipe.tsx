@@ -13,7 +13,7 @@ import CheckboxList from '@/components/CheckboxList';
 import Avatar from '@/components/Avatar';
 import Ingredients from './components/IngredientList';
 import { RecipeDetail } from '@/service/recipes/type';
-import { formatHours, formatMinutes } from '@/utils/time';
+import { formatTime } from '@/utils/time';
 
 interface Props {
   recipe: RecipeDetail;
@@ -29,14 +29,10 @@ function Recipe({ recipe }: Props) {
   );
 
   if (!recipe) return null;
-
-  const hours = recipe.hours ? formatHours(Number(recipe.hours)) : '';
-  const minutes = recipe.hours
-    ? recipe.minutes
-      ? formatMinutes(Number(recipe.minutes))
-      : ''
-    : formatMinutes(Number(recipe.minutes ?? 0));
-  const time = `${hours} ${minutes}`.trim();
+  const time = formatTime({
+    hours: recipe.hours,
+    minutes: recipe.minutes,
+  });
 
   const onIngredientsToggle = (id: number) => {
     setIngredientsChecked({

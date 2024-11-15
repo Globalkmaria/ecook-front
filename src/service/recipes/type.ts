@@ -4,6 +4,8 @@ export interface RecipeSimple {
   id: number;
   name: string;
   img: string;
+  hours: number;
+  minutes: number;
   tags: { id: number; name: string }[];
 }
 
@@ -37,8 +39,8 @@ export interface RecipeDetail {
   id: number;
   name: string;
   description: string;
-  hours: string;
-  minutes: string;
+  hours: number;
+  minutes: number;
   steps: string[];
   img: string;
   ingredients: Ingredient[];
