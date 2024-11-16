@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 import style from './Recipe.module.scss';
 
@@ -47,7 +48,9 @@ function Recipe({ recipe }: Props) {
 
   return (
     <div className={style.wrapper}>
-      <Avatar user={recipe.user} />
+      <Link href={`/users/${recipe.user.username}`}>
+        <Avatar user={recipe.user} />
+      </Link>
       <div className={style.container}>
         <div className={style['img-box']}>
           <Image src={recipe.img} fill alt={recipe.name} />
