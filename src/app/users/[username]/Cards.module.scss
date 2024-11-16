@@ -7,12 +7,25 @@
   word-break: break-all;
 }
 
+.wrapper {
+  position: relative;
+}
+
 .card {
   padding: 18px;
   display: flex;
   gap: 20px;
   border: 2px solid $black;
   border-radius: 20px;
+}
+
+.more {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
 .img {

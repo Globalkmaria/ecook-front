@@ -1,0 +1,15 @@
+@use '@/style/theme.scss' as *;
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: $blurryBlack000;
+  }
+}

@@ -1,5 +1,9 @@
 import { CiShoppingBasket, CiTextAlignJustify } from 'react-icons/ci';
-import { IoIosInformationCircleOutline, IoMdRemove } from 'react-icons/io';
+import {
+  IoIosMore,
+  IoIosInformationCircleOutline,
+  IoMdRemove,
+} from 'react-icons/io';
 import { PiJarLabelLight, PiTagSimpleFill, PiJar } from 'react-icons/pi';
 import { MdLabelOutline, MdGridOn } from 'react-icons/md';
 import { IoClose, IoInformationOutline } from 'react-icons/io5';
@@ -18,6 +22,7 @@ const ICON_NAMES = [
   'labelFill',
   'jar',
   'grid',
+  'more',
 ] as const;
 
 export type IconButtonType = (typeof ICON_NAMES)[number];
@@ -37,6 +42,7 @@ export const ICONS: {
   labelFill: <PiTagSimpleFill />,
   jar: <PiJar />,
   grid: <MdGridOn />,
+  more: <IoIosMore />,
 };
 
 export const ICON_TITLES: { [key in IconButtonType]: string } = {
@@ -52,4 +58,5 @@ export const ICON_TITLES: { [key in IconButtonType]: string } = {
   labelFill: 'label',
   jar: 'jar',
   grid: 'grid',
+  more: 'more',
 };

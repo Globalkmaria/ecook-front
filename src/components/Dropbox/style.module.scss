@@ -1,0 +1,53 @@
+@use '@/style/theme.scss' as *;
+
+.container {
+  position: absolute;
+  z-index: 1;
+  padding: 5px 0;
+  background-color: $white;
+  box-shadow:
+    rgba(50, 50, 93, 0.25) 1px -1px 5px -1px,
+    rgba(0, 0, 0, 0.3) -1px 1px 3px -1px;
+  border-radius: 5px;
+
+  &.vertical-bottom {
+    top: 100%;
+    margin-top: 5px;
+  }
+
+  &.vertical-top {
+    bottom: 100%;
+    margin-bottom: 5px;
+  }
+
+  &.horizontal-right {
+    right: 0px;
+  }
+
+  a,
+  button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    width: 100%;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $grey100;
+    }
+  }
+}
+
+.wrapper {
+  position: relative;
+  height: fit-content;
+}
+
+.item {
+  &&:disabled {
+    cursor: default;
+    color: $grey400;
+    background: transparent;
+  }
+}

@@ -7,6 +7,7 @@ import { RecipeSimple } from '@/service/recipes/type';
 import { formatTime } from '@/utils/time';
 
 import Chip, { ChipsContainer } from '@/components/Chip';
+import IconButton from '@/components/IconButton';
 
 interface Props {
   recipes: RecipeSimple[];
@@ -32,7 +33,8 @@ function Card({ recipe }: CardProps) {
   const time = formatTime({ hours: recipe.hours, minutes: recipe.minutes });
 
   return (
-    <li>
+    <li className={style.wrapper}>
+      <IconButton className={style.more} icon='more' />
       <Link href={`/recipes/${recipe.id}`} className={style.card}>
         <Image
           className={style.img}
