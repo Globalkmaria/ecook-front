@@ -1,15 +1,10 @@
-import Link from 'next/link';
-import Image from 'next/image';
-
 import style from './style.module.scss';
 
-import { RecipeSimple } from '@/service/recipes/type';
 import { getProfile } from '@/service/users';
 
-import { formatTime } from '@/utils/time';
 import { AvatarImg } from '@/components/Avatar';
 import Icon from '@/components/Icon';
-import Chip, { ChipsContainer } from '@/components/Chip';
+import Cards from './Cards';
 
 interface Props {
   params: { username: string };
@@ -54,11 +49,7 @@ async function UserPage({ params }: Props) {
             </span>
           </div>
 
-          <div className={style.list}>
-            {recipes.map((recipe) => (
-              <Card key={recipe.id} recipe={recipe} />
-            ))}
-          </div>
+          <Cards recipes={recipes} />
         </section>
       </div>
     </main>
@@ -66,36 +57,3 @@ async function UserPage({ params }: Props) {
 }
 
 export default UserPage;
-
-interface CardProps {
-  recipe: RecipeSimple;
-}
-
-function Card({ recipe }: CardProps) {
-  const time = formatTime({ hours: recipe.hours, minutes: recipe.minutes });
-
-  return (
-    <Link href={`/recipes/${recipe.id}`} className={style.card}>
-      <Image
-        className={style.img}
-        src={recipe.img}
-        alt={recipe.name}
-        width={300}
-        height={300}
-        objectFit='contain'
-      />
-
-      <div className={style.info}>
-        <span className={style.title}>{recipe.name}</span>
-        <span className={style.time}>{time}</span>
-        <div className={style.chip}>
-          <ChipsContainer>
-            {recipe.tags.map((tag) => (
-              <Chip key={tag.id}>{tag.name}</Chip>
-            ))}
-          </ChipsContainer>
-        </div>
-      </div>
-    </Link>
-  );
-}
