@@ -1,5 +1,3 @@
-import { config } from '@/config';
-
 export const fetchURL = async (url: string, options?: RequestInit) => {
   const res = await fetch(url, options);
 
@@ -9,7 +7,10 @@ export const fetchURL = async (url: string, options?: RequestInit) => {
 };
 
 export const fetchAPI = async (url: string, options?: RequestInit) => {
-  const res = await fetch(`${config.server.url}${url}`, options);
+  const baseURL =
+    process.env.PUBLIC_SERVER_URL || process.env.NEXT_PUBLIC_SERVER_URL;
+
+  const res = await fetch(`${baseURL}${url}`, options);
 
   if (!res.ok) throw new Error(res.statusText);
 
