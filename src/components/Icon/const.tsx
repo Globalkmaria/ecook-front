@@ -7,7 +7,7 @@ import {
 import { PiJarLabelLight, PiTagSimpleFill, PiJar } from 'react-icons/pi';
 import { MdLabelOutline, MdGridOn } from 'react-icons/md';
 import { IoClose, IoInformationOutline } from 'react-icons/io5';
-import { FaRegImage } from 'react-icons/fa6';
+import { FaRegImage, FaRegTrashCan } from 'react-icons/fa6';
 
 const ICON_NAMES = [
   'basket',
@@ -23,6 +23,7 @@ const ICON_NAMES = [
   'jar',
   'grid',
   'more',
+  'trash',
 ] as const;
 
 export type IconButtonType = (typeof ICON_NAMES)[number];
@@ -43,6 +44,7 @@ export const ICONS: {
   jar: <PiJar />,
   grid: <MdGridOn />,
   more: <IoIosMore />,
+  trash: <FaRegTrashCan />,
 };
 
 export const ICON_TITLES: { [key in IconButtonType]: string } = {
@@ -59,4 +61,5 @@ export const ICON_TITLES: { [key in IconButtonType]: string } = {
   jar: 'jar',
   grid: 'grid',
   more: 'more',
+  trash: 'trash',
 };

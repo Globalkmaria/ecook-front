@@ -1,6 +1,8 @@
+'use client';
+
 import {
-  Attributes,
   ButtonHTMLAttributes,
+  forwardRef,
   HTMLAttributes,
   ReactNode,
   useEffect,
@@ -14,7 +16,7 @@ export interface DropboxStyleProps {
   width?: number;
 }
 
-interface DropboxProps<T extends HTMLElement>
+export interface DropboxProps<T extends HTMLElement>
   extends HTMLAttributes<HTMLDivElement>,
     DropboxStyleProps,
     React.PropsWithChildren {
@@ -48,10 +50,10 @@ export function Dropbox<T extends HTMLElement>({
 
   const classNames = joinClassNames(
     className,
+    style.container,
     ...[
-      'container',
-      vertical ? `vertical-${vertical}` : '',
-      horizontal ? `horizontal-${horizontal}` : '',
+      vertical ? style[`vertical-${vertical}`] : '',
+      horizontal ? style[`horizontal-${horizontal}`] : '',
     ].filter(Boolean),
   );
 
@@ -62,17 +64,23 @@ export function Dropbox<T extends HTMLElement>({
   );
 }
 
-export function DropboxWrapper({
-  children,
-  className,
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
+export const DropboxWrapper = forwardRef<
+  HTMLDivElement,
+  {
+    children: ReactNode;
+    className?: string;
+  }
+>(({ children, className }, ref) => {
   const joinedClassName = joinClassNames(className, style.wrapper);
 
-  return <div className={joinedClassName}>{children}</div>;
-}
+  return (
+    <div className={joinedClassName} ref={ref}>
+      {children}
+    </div>
+  );
+});
+
+DropboxWrapper.displayName = 'DropboxWrapper';
 
 interface DropboxItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;

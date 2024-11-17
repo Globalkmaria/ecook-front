@@ -1,16 +1,16 @@
 import { Product } from '../products/type';
 
 export interface RecipeSimple {
-  id: number;
+  id: string;
   name: string;
   img: string;
   hours: number;
   minutes: number;
-  tags: { id: number; name: string }[];
+  tags: { id: string; name: string }[];
 }
 
 export interface RecipeProduct {
-  id: number;
+  id: string;
   name: string;
   brand: string | null;
   purchasedFrom: string | null;
@@ -19,19 +19,19 @@ export interface RecipeProduct {
 }
 
 export interface Ingredient {
-  id: number;
+  id: string;
   name: string;
   quantity: string;
-  ingredientId: number | null;
+  ingredientId: string | null;
   userProduct: RecipeProduct | null;
   products: Product[] | null;
 }
 
 export interface RecipeIngredient {
-  id: number;
+  id: string;
   name: string;
   quantity: string;
-  ingredientId: number | null;
+  ingredientId: string | null;
   product: RecipeProduct | null;
 }
 
@@ -44,8 +44,8 @@ export interface RecipeDetail {
   steps: string[];
   img: string;
   ingredients: Ingredient[];
-  tags: { id: number; name: string }[];
-  user: { id: number; username: string; img: string | null };
+  tags: { id: string; name: string }[];
+  user: { id: string; username: string; img: string | null };
 }
 
 export interface IngredientNewProduct {

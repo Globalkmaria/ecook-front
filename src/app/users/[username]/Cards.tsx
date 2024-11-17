@@ -7,7 +7,7 @@ import { RecipeSimple } from '@/service/recipes/type';
 import { formatTime } from '@/utils/time';
 
 import Chip, { ChipsContainer } from '@/components/Chip';
-import IconButton from '@/components/IconButton';
+import CardMenu from './CardMenu';
 
 interface Props {
   recipes: RecipeSimple[];
@@ -34,7 +34,7 @@ function Card({ recipe }: CardProps) {
 
   return (
     <li className={style.wrapper}>
-      <IconButton className={style.more} icon='more' />
+      <CardMenu recipeId={recipe.id} />
       <Link href={`/recipes/${recipe.id}`} className={style.card}>
         <Image
           className={style.img}
@@ -42,7 +42,6 @@ function Card({ recipe }: CardProps) {
           alt={recipe.name}
           width={300}
           height={300}
-          objectFit='contain'
         />
 
         <div className={style.info}>

@@ -2,6 +2,7 @@
 
 .container {
   position: absolute;
+  width: fit-content;
   z-index: 1;
   padding: 5px 0;
   background-color: $white;
@@ -9,6 +10,7 @@
     rgba(50, 50, 93, 0.25) 1px -1px 5px -1px,
     rgba(0, 0, 0, 0.3) -1px 1px 3px -1px;
   border-radius: 5px;
+  word-break: keep-all;
 
   &.vertical-bottom {
     top: 100%;
@@ -45,7 +47,7 @@
 }
 
 .item {
-  &&:disabled {
+  &:disabled {
     cursor: default;
     color: $grey400;
     background: transparent;
