@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 
 import style from './style.module.scss';
 
+import { NewRecipeData, NewRecipeIngredient } from '@/service/recipes/type';
+
 import { ChipListInput, Input } from '@/components/Input';
 import ImageUploader from '@/components/imageUploader';
 import Button from '@/components/Button';
@@ -15,7 +17,6 @@ import Ingredients from './components/Ingredients';
 import { AddButton } from './components/buttons';
 import Steps, { Step } from './components/Steps';
 import { onFieldChange } from './helper';
-import { NewRecipeData, NewRecipeIngredient } from '@/service/recipes/type';
 
 type TextInputs = Pick<
   NewRecipeData,

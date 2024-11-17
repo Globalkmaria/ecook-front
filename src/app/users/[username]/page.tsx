@@ -7,13 +7,15 @@ import Icon from '@/components/Icon';
 import Cards from './Cards';
 
 interface Props {
-  params: { username: string };
+  params: Promise<{ username: string }>;
 }
 
 async function UserPage({ params }: Props) {
-  if (!params.username) return null;
+  const { username } = await params;
 
-  const result = await getProfile(params.username);
+  if (!username) return null;
+
+  const result = await getProfile(username);
   if (!result.ok) return null;
 
   const { user, recipes } = result.data;
