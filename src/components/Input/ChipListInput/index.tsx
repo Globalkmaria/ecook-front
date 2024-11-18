@@ -21,6 +21,7 @@ interface Props {
   placeholder?: string;
   state: [string[], Dispatch<SetStateAction<string[]>>];
   limit?: number;
+  limitTextLength?: number;
   limitReachedMessage?: string;
 }
 
@@ -29,6 +30,7 @@ function ChipListInput({
   placeholder,
   state: [items, setItems],
   limit,
+  limitTextLength,
   limitReachedMessage,
 }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -36,8 +38,14 @@ function ChipListInput({
 
   const joinedClassName = joinClassNames(style.container, className);
 
-  const handleInputChange: ChangeEventHandler<HTMLInputElement> = (event) =>
+  const handleInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+    if (limitTextLength && event.target.value.length > limitTextLength) {
+      alert(`Text limit reached: ${limitTextLength}`);
+      return;
+    }
+
     setInputValue(event.target.value);
+  };
 
   const addItem = (value: string) => {
     if (limit && items.length > limit) {
@@ -45,12 +53,14 @@ function ChipListInput({
       return;
     }
 
-    if (items.includes(value)) {
+    const trimmedValue = value.trim();
+
+    if (items.includes(trimmedValue)) {
       setInputValue('');
       return;
     }
 
-    setItems([...items, value]);
+    setItems([...items, trimmedValue]);
   };
 
   const removeItem = (value: string) =>
@@ -60,9 +70,9 @@ function ChipListInput({
 
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
     const key = event.key;
-    const value = event.currentTarget.value.trim();
+    const value = event.currentTarget.value;
 
-    if (key === 'Enter' && value.length) {
+    if (key === 'Enter' && value.trim().length) {
       addItem(value);
       setInputValue('');
       return;
@@ -89,6 +99,7 @@ function ChipListInput({
         </div>
       ))}
       <input
+        className={style.input}
         ref={inputRef}
         value={inputValue}
         onChange={handleInputChange}

@@ -32,3 +32,17 @@ export const deleteRecipe = async (id: string): FetchResult<null> => {
     return { ok: false, error: 'Failed to delete recipe' };
   }
 };
+
+export const saveRecipe = async (data: FormData): FetchResult<RecipeDetail> => {
+  try {
+    const response = await fetchAPI('/recipes', {
+      method: 'POST',
+      body: data,
+    });
+
+    return { ok: true, data: response };
+  } catch (e) {
+    console.error('Failed to save recipe', e);
+    return { ok: false, error: 'Failed to save recipe' };
+  }
+};

@@ -9,8 +9,12 @@ import {
 
 import style from './style.module.scss';
 
-import { Input } from '@/components/Input';
+import { NewRecipeIngredient } from '@/service/recipes/type';
+
 import useModal from '@/hooks/useModal';
+import { validateLengthAndExecute } from '@/utils/validation';
+
+import { Input } from '@/components/Input';
 import Button, { ButtonProps } from '@/components/Button';
 
 import { RemoveButton } from './buttons';
@@ -20,7 +24,6 @@ import {
   NewRecipeIngredientState,
   NewRecipeIngredientStates,
 } from '../NewRecipe';
-import { NewRecipeIngredient } from '@/service/recipes/type';
 
 export type OnSelectProductProps = ({
   product,
@@ -144,14 +147,27 @@ const Ingredient = memo(function Ingredient({
     ? 'Product selected'
     : 'Select product';
 
-  const handleValueChange: ChangeEventHandler<HTMLInputElement> = (e) =>
-    onChange(item.id, e.target.name, e.target.value);
+  const onQuantityChange: ChangeEventHandler<HTMLInputElement> = (e) =>
+    validateLengthAndExecute(
+      INGREDIENT_QUANTITY_LIMIT,
+      'Ingredient quantity',
+      e.target.value,
+      () => onChange(item.id, e.target.name, e.target.value),
+    );
+
+  const onNameChange: ChangeEventHandler<HTMLInputElement> = (e) =>
+    validateLengthAndExecute(
+      INGREDIENT_TEXT_LIMIT,
+      'Ingredient name',
+      e.target.value,
+      () => onChange(item.id, e.target.name, e.target.value),
+    );
 
   return (
     <li className={style.ingredient}>
       <div className={style['ingredient__inputs']}>
         <Input
-          onChange={handleValueChange}
+          onChange={onQuantityChange}
           className={style['ingredient__quantity']}
           placeholder='Quantity...'
           type='text'
@@ -160,7 +176,7 @@ const Ingredient = memo(function Ingredient({
           value={item.quantity}
         />
         <Input
-          onChange={handleValueChange}
+          onChange={onNameChange}
           className={style['ingredient__name']}
           placeholder='Ingredient name'
           type='text'
@@ -181,3 +197,6 @@ const Ingredient = memo(function Ingredient({
     </li>
   );
 });
+
+export const INGREDIENT_TEXT_LIMIT = 50;
+const INGREDIENT_QUANTITY_LIMIT = 20;

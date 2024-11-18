@@ -8,21 +8,23 @@ import {
 
 import style from './style.module.scss';
 
-import Button from '@/components/Button';
-import { Input } from '@/components/Input';
-import { Modal } from '@/components/Modal';
+import { Product } from '@/service/products/type';
+import { IngredientNewProduct } from '@/service/recipes/type';
 
 import useModal from '@/hooks/useModal';
 
+import { getRandomId } from '@/utils/generateId';
+import { validateLengthAndExecute } from '@/utils/validation';
+
+import Button from '@/components/Button';
+import { Input } from '@/components/Input';
+import { Modal } from '@/components/Modal';
 import IngredientInformationHeader from '@/app/recipes/[recipeId]/components/IngredientInformation/IngredientInformationHeader';
 
 import NewProduct from './NewProduct';
 import ExistingProduct from './ExistingProduct';
 import { NewRecipeIngredientState } from '../../NewRecipe';
-import { IngredientNewProduct } from '@/service/recipes/type';
-import { Product } from '@/service/products/type';
-import { OnSelectProductProps } from '../Ingredients';
-import { getRandomId } from '@/utils/generateId';
+import { INGREDIENT_TEXT_LIMIT, OnSelectProductProps } from '../Ingredients';
 
 interface Props {
   control: ReturnType<typeof useModal>;
@@ -90,7 +92,12 @@ function SearchProductModal({ control, onSelectProduct, ingredient }: Props) {
     setNewProduct((prev) => ({ ...prev, img }));
 
   const handleSearchInputChange: ChangeEventHandler<HTMLInputElement> = (e) =>
-    setSearchInput(e.target.value);
+    validateLengthAndExecute(
+      INGREDIENT_TEXT_LIMIT,
+      'Ingredient name',
+      e.target.value,
+      () => setSearchInput(e.target.value),
+    );
 
   const searchIngredient = async () => {
     const { ingredientId, products } = await fetch(

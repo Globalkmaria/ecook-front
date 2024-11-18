@@ -1,109 +1,102 @@
 'use client';
 
 import { ChangeEventHandler, useCallback, useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 import style from './style.module.scss';
 
 import { NewRecipeData, NewRecipeIngredient } from '@/service/recipes/type';
 
 import { ChipListInput, Input } from '@/components/Input';
-import ImageUploader from '@/components/imageUploader';
 import Button from '@/components/Button';
+import ImageUploader2 from '@/components/imageUploader/ImageUploader2';
 
 import { getRandomId } from '@/utils/generateId';
+import { createInputHandler } from '@/utils/createInputHandler';
+import {
+  validateLengthAndExecute,
+  validatePositiveInteger,
+  validateWithAlertAndExecute,
+  withTextLengthLimit,
+} from '@/utils/validation';
+import { validateMinutes } from '@/utils/time';
 
 import Ingredients from './components/Ingredients';
 import { AddButton } from './components/buttons';
 import Steps, { Step } from './components/Steps';
-import { onFieldChange } from './helper';
+import { getNewIngredient, onFieldChange } from './helper';
+import { OnSubmitNewRecipe } from './NewRecipeContainer';
 
-type TextInputs = Pick<
+export type TextInputs = Pick<
   NewRecipeData,
-  'title' | 'description' | 'hours' | 'minutes'
+  'name' | 'description' | 'hours' | 'minutes'
 >;
+
+export type NewRecipeTags = string[];
 
 export type NewRecipeIngredientState = NewRecipeIngredient & { id: string };
 export type NewRecipeIngredientStates = NewRecipeIngredientState[];
 
-const INGREDIENTS_INITIAL_STATE: NewRecipeIngredientStates = [
-  {
-    id: getRandomId(),
-    name: '',
-    quantity: '',
-    ingredientId: null,
-    productId: null,
-    newProduct: null,
-  },
-];
+interface Props {
+  initialData?: NewRecipeData;
+  onSubmit: OnSubmitNewRecipe;
+  loading: boolean;
+}
 
-const STEPS_INITIAL_STATE: Step[] = [{ id: getRandomId(), value: '' }];
-
-function NewRecipe() {
-  const router = useRouter();
+function NewRecipe({ initialData, onSubmit, loading }: Props) {
   const [textInputs, setTextInputs] = useState<TextInputs>({
-    title: '',
+    name: '',
     description: '',
     hours: '',
     minutes: '',
   });
-  const [loading, setLoading] = useState(false);
-  const tagsState = useState<string[]>([]);
-  const [img, setImg] = useState<File | null>(null);
-  const [ingredients, setIngredients] = useState<NewRecipeIngredientStates>(
-    INGREDIENTS_INITIAL_STATE,
-  );
+
+  const tagsState = useState<NewRecipeTags>([]);
+  const [img, setImg] = useState<File | string | null>(null);
+  const [ingredients, setIngredients] = useState<NewRecipeIngredientStates>([
+    getNewIngredient(),
+  ]);
   const [steps, setSteps] = useState<Step[]>(STEPS_INITIAL_STATE);
 
   const isSubmittable = img && ingredients[0].name && steps[0].value.length;
   const submitButtonText = loading ? 'Submitting...' : 'Submit';
   const disableButton = !isSubmittable || loading;
 
-  const onTextInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(
-    (e) => {
-      const fieldName = e.target.name;
-      const value = e.target.value;
+  const onTextInputChange = createInputHandler(setTextInputs);
 
-      setTextInputs((prev) => ({ ...prev, [fieldName]: value }));
-    },
+  const onChangeName: ChangeEventHandler<HTMLInputElement> = useCallback(
+    withTextLengthLimit(50, 'Title', onTextInputChange),
+    [],
+  );
+
+  const onChangeDescription: ChangeEventHandler<HTMLInputElement> = useCallback(
+    withTextLengthLimit(300, 'Description', onTextInputChange),
     [],
   );
 
   const onHoursChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {
-      if (e.target.value && isNaN(Number(e.target.value))) {
-        alert('Please enter a valid time');
-        return;
-      }
+      const { name, value } = e.target;
 
-      const fieldName = e.target.name;
-      const value = e.target.value;
-
-      if ((value.length && !/^\d+$/.test(value)) || Number(value) < 0) {
-        alert('Please enter a valid time');
-        return;
-      }
-
-      setTextInputs((prev) => ({ ...prev, [fieldName]: value }));
+      validateWithAlertAndExecute(
+        validatePositiveInteger,
+        'Please enter a valid time',
+        value,
+        () => setTextInputs((prev) => ({ ...prev, [name]: value })),
+      );
     },
     [],
   );
 
   const onMinusesChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {
-      const fieldName = e.target.name;
-      const value = e.target.value;
+      const { name, value } = e.target;
 
-      if (
-        (value.length && !/^\d+$/.test(value)) ||
-        Number(value) < 0 ||
-        Number(value) > 59
-      ) {
-        alert('Please enter a valid time');
-        return;
-      }
-
-      setTextInputs((prev) => ({ ...prev, [fieldName]: value }));
+      validateWithAlertAndExecute(
+        validateMinutes,
+        'Please enter a valid time',
+        value,
+        () => setTextInputs((prev) => ({ ...prev, [name]: value })),
+      );
     },
     [],
   );
@@ -112,14 +105,7 @@ function NewRecipe() {
     () =>
       setIngredients((preIngredients) => [
         ...preIngredients,
-        {
-          id: getRandomId(),
-          name: '',
-          quantity: '',
-          ingredientId: null,
-          productId: null,
-          newProduct: null,
-        },
+        getNewIngredient(),
       ]),
     [],
   );
@@ -143,61 +129,22 @@ function NewRecipe() {
   );
 
   const onStepChange = useCallback(
-    (id: string, fieldName: string, value: string) =>
-      onFieldChange(setSteps, id, fieldName, value),
+    (id: string, fieldName: string, value: string) => {
+      validateLengthAndExecute(150, 'Step', value, () =>
+        onFieldChange(setSteps, id, fieldName, value),
+      );
+    },
     [],
   );
 
-  const onSubmit = async () => {
-    // TODO validation
-    if (!img || !ingredients.length || !steps.length) {
-      alert('Please fill in all required fields');
-      return;
-    }
-
-    const newProducts = ingredients
-      .map((item) => item.newProduct)
-      .filter((item) => !!item);
-
-    const formData = new FormData();
-
-    newProducts.forEach(
-      (product) =>
-        product.img && formData.append(`img_${product.id}`, product.img),
-    );
-
-    img && formData.append('img', img);
-
-    // TODO remove user id
-    const data: Omit<NewRecipeData, 'img'> = {
-      ...textInputs,
-      steps: steps.map((item) => item.value),
-      ingredients: ingredients.map((item) => ({
-        name: item.name,
-        quantity: item.quantity,
-        ingredientId: item.productId,
-        newProduct: item.newProduct,
-        productId: item.productId,
-      })),
+  const onFormSubmit = () => {
+    onSubmit({
+      img,
+      ingredients,
+      steps,
+      textInputs,
       tags: tagsState[0],
-      user: { id: '1' },
-    };
-
-    formData.append('info', JSON.stringify(data));
-
-    setLoading(true);
-    const response = await fetch('http://localhost:8080/api/v1/recipes', {
-      method: 'POST',
-      body: formData,
     });
-    setLoading(false);
-
-    if (!response.ok) {
-      alert('Failed to submit recipe');
-      return;
-    }
-
-    router.back();
   };
 
   return (
@@ -206,14 +153,14 @@ function NewRecipe() {
 
       <div className={style.form}>
         <div className={style.box}>
-          <label htmlFor='title'>
+          <label htmlFor='name'>
             <h3>Title*</h3>
           </label>
           <Input
-            id='title'
-            name='title'
-            onChange={onTextInputChange}
-            value={textInputs.title}
+            id='name'
+            name='name'
+            onChange={onChangeName}
+            value={textInputs.name}
           />
         </div>
 
@@ -224,7 +171,7 @@ function NewRecipe() {
           <Input
             id='description'
             name='description'
-            onChange={onTextInputChange}
+            onChange={onChangeDescription}
             value={textInputs.description}
           />
         </div>
@@ -259,6 +206,7 @@ function NewRecipe() {
         <div className={style.box}>
           <h3>Tags</h3>
           <ChipListInput
+            limitTextLength={70}
             state={tagsState}
             limit={5}
             limitReachedMessage={TAG_LIMIT_REACHED_MESSAGE}
@@ -268,7 +216,7 @@ function NewRecipe() {
         <div className={style.box}>
           <h3>Image*</h3>
           <div className={style['img-uploader']}>
-            <ImageUploader onChange={setImg} imgValue={img} />
+            <ImageUploader2 onChange={setImg} imgValue={img} />
           </div>
         </div>
 
@@ -299,7 +247,7 @@ function NewRecipe() {
         <Button
           disabled={disableButton}
           className={style['submit-button']}
-          onClick={onSubmit}
+          onClick={onFormSubmit}
         >
           {submitButtonText}
         </Button>
@@ -313,3 +261,5 @@ export default NewRecipe;
 const TAG_LIMIT = 5;
 
 const TAG_LIMIT_REACHED_MESSAGE = `You can only add up to ${TAG_LIMIT} tags.`;
+
+const STEPS_INITIAL_STATE: Step[] = [{ id: getRandomId(), value: '' }];

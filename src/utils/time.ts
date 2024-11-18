@@ -1,3 +1,5 @@
+import { validatePositiveInteger } from './validation';
+
 export const formatTimeUnit = (
   value: number,
   singular: string,
@@ -16,4 +18,10 @@ export const formatTime = (time: { hours: number; minutes: number }) => {
 
   const result = `${hours} ${minutes}`.trim();
   return result;
+};
+
+export const validateMinutes = (value: string) => {
+  if (!validatePositiveInteger(value) || Number(value) > 59) return false;
+
+  return true;
 };

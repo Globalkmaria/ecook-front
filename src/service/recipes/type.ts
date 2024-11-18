@@ -66,7 +66,7 @@ export interface NewRecipeIngredient {
 }
 
 export interface NewRecipeData {
-  title: string;
+  name: string;
   description: string;
   hours: string;
   minutes: string;
