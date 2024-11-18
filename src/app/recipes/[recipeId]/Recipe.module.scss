@@ -50,12 +50,9 @@
   }
 
   &__header {
-    margin: 20px;
-  }
-
-  &__body {
+    margin-top: 2rem;
+    padding: 0px 1rem;
     width: 100%;
-    padding: 1rem 3rem;
   }
 
   &__title {
@@ -65,17 +62,28 @@
     font-size: 4rem;
     text-align: center;
   }
+
+  &__description {
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  &__body {
+    width: 100%;
+    padding: 1rem 3rem;
+  }
+}
+
+.chip-container {
+  margin-top: 1rem;
 }
 
 .time {
+  margin-top: 1rem;
   display: flex;
   justify-content: center;
 }
 
 .info {
   margin-top: 2rem;
-}
-
-.chip-container {
-  margin-top: 1rem;
 }

@@ -59,6 +59,9 @@ function Recipe({ recipe }: Props) {
         <div className={style.content}>
           <div className={style['content__header']}>
             <span className={style['content__title']}>{recipe.name}</span>
+            <p className={style['content__description']}>
+              {recipe.description}
+            </p>
             <ChipsContainer className={style['chip-container']}>
               {recipe.tags.map((tag) => (
                 <Chip key={tag.id}>{tag.name}</Chip>

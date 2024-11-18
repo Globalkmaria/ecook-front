@@ -49,9 +49,10 @@ interface Props {
   initialData: NewRecipeInitialData;
   onSubmit: OnSubmitNewRecipe;
   loading: boolean;
+  pageTitle: string;
 }
 
-function NewRecipe({ initialData, onSubmit, loading }: Props) {
+function NewRecipe({ initialData, onSubmit, loading, pageTitle }: Props) {
   const [textInputs, setTextInputs] = useState<TextInputs>({
     name: initialData.name,
     description: initialData.description,
@@ -158,7 +159,7 @@ function NewRecipe({ initialData, onSubmit, loading }: Props) {
 
   return (
     <div className={style.container}>
-      <h2 className={style.title}>Submit new recipe</h2>
+      <h2 className={style.title}>{pageTitle}</h2>
 
       <div className={style.form}>
         <div className={style.box}>

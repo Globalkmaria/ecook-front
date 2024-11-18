@@ -46,3 +46,20 @@ export const saveRecipe = async (data: FormData): FetchResult<RecipeDetail> => {
     return { ok: false, error: 'Failed to save recipe' };
   }
 };
+
+export const editRecipe = async (
+  data: FormData,
+  id: string,
+): FetchResult<RecipeDetail> => {
+  try {
+    const response = await fetchAPI(`/recipes/${id}`, {
+      method: 'PUT',
+      body: data,
+    });
+
+    return { ok: true, data: response };
+  } catch (e) {
+    console.error('Failed to save recipe', e);
+    return { ok: false, error: 'Failed to save recipe' };
+  }
+};

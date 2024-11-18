@@ -104,6 +104,7 @@ function NewRecipeContainer() {
       loading={loading}
       onSubmit={onSubmit}
       initialData={initialData}
+      pageTitle='Create a new recipe'
     />
   );
 }

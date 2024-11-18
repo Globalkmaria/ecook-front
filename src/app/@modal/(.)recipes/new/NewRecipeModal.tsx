@@ -4,8 +4,8 @@ import { useRouter } from 'next/navigation';
 
 import style from './style.module.scss';
 
-import NewRecipe from '@/app/recipes/new/NewRecipe';
 import { Modal2 } from '@/components/Modal';
+import NewRecipeContainer from '@/app/recipes/new/NewRecipeContainer';
 
 function NewRecipeModal() {
   const router = useRouter();
@@ -14,7 +14,7 @@ function NewRecipeModal() {
   return (
     <Modal2 isOpen={true} onClose={onDismiss}>
       <div className={style.container}>
-        <NewRecipe />
+        <NewRecipeContainer />
       </div>
     </Modal2>
   );
