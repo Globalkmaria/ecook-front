@@ -1,7 +1,7 @@
-import NewRecipe from './NewRecipe';
+import NewRecipeContainer from './NewRecipeContainer';
 
 function page() {
-  return <NewRecipe />;
+  return <NewRecipeContainer />;
 }
 
 export default page;
