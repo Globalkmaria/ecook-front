@@ -5,9 +5,10 @@ import {
   IoMdRemove,
 } from 'react-icons/io';
 import { PiJarLabelLight, PiTagSimpleFill, PiJar } from 'react-icons/pi';
-import { MdLabelOutline, MdGridOn } from 'react-icons/md';
+import { MdLabelOutline, MdGridOn, MdOutlineEdit } from 'react-icons/md';
 import { IoClose, IoInformationOutline } from 'react-icons/io5';
 import { FaRegImage, FaRegTrashCan } from 'react-icons/fa6';
+import { RxReset } from 'react-icons/rx';
 
 const ICON_NAMES = [
   'basket',
@@ -24,6 +25,8 @@ const ICON_NAMES = [
   'grid',
   'more',
   'trash',
+  'edit',
+  'reset',
 ] as const;
 
 export type IconButtonType = (typeof ICON_NAMES)[number];
@@ -45,6 +48,8 @@ export const ICONS: {
   grid: <MdGridOn />,
   more: <IoIosMore />,
   trash: <FaRegTrashCan />,
+  edit: <MdOutlineEdit />,
+  reset: <RxReset />,
 };
 
 export const ICON_TITLES: { [key in IconButtonType]: string } = {
@@ -62,4 +67,6 @@ export const ICON_TITLES: { [key in IconButtonType]: string } = {
   grid: 'grid',
   more: 'more',
   trash: 'trash',
+  edit: 'edit',
+  reset: 'reset',
 };

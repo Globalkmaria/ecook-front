@@ -1,6 +1,7 @@
 @use '@/style/theme.scss' as *;
 
 .container {
+  position: relative;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -60,4 +61,12 @@
   &:hover {
     background-color: $blurryBlack100;
   }
+}
+
+// ImageUploader2
+
+.reset {
+  position: absolute;
+  top: 0px;
+  right: 0px;
 }

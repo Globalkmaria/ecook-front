@@ -139,11 +139,21 @@ function ImageUploader2({
 
       {error && <p className={style.error}>{error}</p>}
 
-      {imgValue && (
+      {imgValue ? (
         <div className={style.preview}>
           <img src={src} alt='Selected' className={style.img} />
           <button className={style['close-btn']} onClick={onRemoveImage}>
             <Icon icon='close' />
+          </button>
+        </div>
+      ) : (
+        <div className={style.reset}>
+          <button
+            className={style['close-btn']}
+            onClick={onReset}
+            title='reset image'
+          >
+            <Icon icon='reset' />
           </button>
         </div>
       )}

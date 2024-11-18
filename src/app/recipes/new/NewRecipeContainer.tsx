@@ -5,12 +5,15 @@ import { useRouter } from 'next/navigation';
 
 import NewRecipe, {
   NewRecipeIngredientStates,
+  NewRecipeInitialData,
   NewRecipeTags,
   TextInputs,
 } from './NewRecipe';
 import { NewRecipeData } from '@/service/recipes/type';
 import { saveRecipe } from '@/service/recipes';
 import { Step } from './components/Steps';
+import { getNewIngredient } from './helper';
+import { getRandomId } from '@/utils/generateId';
 
 interface SubmitProps {
   img: File | string | null;
@@ -81,7 +84,28 @@ function NewRecipeContainer() {
     router.push(`/recipes/${response.data.id}`);
   };
 
-  return <NewRecipe loading={loading} onSubmit={onSubmit} />;
+  // TODO change user id
+  const initialData: NewRecipeInitialData = {
+    name: '',
+    description: '',
+    hours: '',
+    minutes: '',
+    img: null,
+    ingredients: [getNewIngredient()],
+    steps: [{ id: getRandomId(), value: '' }],
+    tags: [],
+    user: {
+      id: '1',
+    },
+  };
+
+  return (
+    <NewRecipe
+      loading={loading}
+      onSubmit={onSubmit}
+      initialData={initialData}
+    />
+  );
 }
 
 export default NewRecipeContainer;

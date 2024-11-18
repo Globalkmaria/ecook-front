@@ -36,26 +36,35 @@ export type NewRecipeTags = string[];
 export type NewRecipeIngredientState = NewRecipeIngredient & { id: string };
 export type NewRecipeIngredientStates = NewRecipeIngredientState[];
 
+export type NewRecipeInitialData = Omit<
+  NewRecipeData,
+  'img' | 'steps' | 'ingredients'
+> & {
+  img: string | null;
+  steps: Step[];
+  ingredients: NewRecipeIngredientStates;
+};
+
 interface Props {
-  initialData?: NewRecipeData;
+  initialData: NewRecipeInitialData;
   onSubmit: OnSubmitNewRecipe;
   loading: boolean;
 }
 
 function NewRecipe({ initialData, onSubmit, loading }: Props) {
   const [textInputs, setTextInputs] = useState<TextInputs>({
-    name: '',
-    description: '',
-    hours: '',
-    minutes: '',
+    name: initialData.name,
+    description: initialData.description,
+    hours: initialData.hours,
+    minutes: initialData.minutes,
   });
 
-  const tagsState = useState<NewRecipeTags>([]);
-  const [img, setImg] = useState<File | string | null>(null);
-  const [ingredients, setIngredients] = useState<NewRecipeIngredientStates>([
-    getNewIngredient(),
-  ]);
-  const [steps, setSteps] = useState<Step[]>(STEPS_INITIAL_STATE);
+  const tagsState = useState<NewRecipeTags>(initialData.tags);
+  const [img, setImg] = useState<File | string | null>(initialData.img);
+  const [ingredients, setIngredients] = useState<NewRecipeIngredientStates>(
+    initialData.ingredients,
+  );
+  const [steps, setSteps] = useState<Step[]>(initialData.steps);
 
   const isSubmittable = img && ingredients[0].name && steps[0].value.length;
   const submitButtonText = loading ? 'Submitting...' : 'Submit';
@@ -216,7 +225,11 @@ function NewRecipe({ initialData, onSubmit, loading }: Props) {
         <div className={style.box}>
           <h3>Image*</h3>
           <div className={style['img-uploader']}>
-            <ImageUploader2 onChange={setImg} imgValue={img} />
+            <ImageUploader2
+              onChange={setImg}
+              imgValue={img}
+              initialImg={initialData.img}
+            />
           </div>
         </div>
 
@@ -259,7 +272,4 @@ function NewRecipe({ initialData, onSubmit, loading }: Props) {
 export default NewRecipe;
 
 const TAG_LIMIT = 5;
-
 const TAG_LIMIT_REACHED_MESSAGE = `You can only add up to ${TAG_LIMIT} tags.`;
-
-const STEPS_INITIAL_STATE: Step[] = [{ id: getRandomId(), value: '' }];
