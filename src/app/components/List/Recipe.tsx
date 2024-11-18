@@ -6,6 +6,7 @@ import style from './Recipe.module.scss';
 import Chip, { ChipsContainer } from '@/components/Chip';
 import Link from 'next/link';
 import { RecipeSimple } from '@/service/recipes/type';
+import { getLimitedText } from '@/utils/text';
 
 const libre = Libre_Bodoni({
   subsets: ['latin'],
@@ -19,6 +20,7 @@ interface Props {
 }
 
 function Recipe({ recipe, idx }: Props) {
+  const limitedName = getLimitedText(recipe.name, 20);
   return (
     <Link
       className={style[`item--${idx}`]}
@@ -31,7 +33,7 @@ function Recipe({ recipe, idx }: Props) {
             <Image src={recipe.img} fill alt={recipe.name} />
           </div>
           <h2 className={`${libre.className} ${style['hover-content__name']}`}>
-            {recipe.name}
+            {limitedName}
           </h2>
         </div>
 
