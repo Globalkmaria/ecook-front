@@ -28,8 +28,8 @@ export function Dropbox<T extends HTMLElement>({
   children,
   containerRef,
   onCloseModal,
-  vertical,
-  horizontal,
+  vertical = 'bottom',
+  horizontal = 'right',
   className,
   ...props
 }: DropboxProps<T>) {

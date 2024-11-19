@@ -2,9 +2,10 @@
 
 .container {
   position: absolute;
-  width: fit-content;
   z-index: 1;
+  margin: 5px 0;
   padding: 5px 0;
+  width: fit-content;
   background-color: $white;
   box-shadow:
     rgba(50, 50, 93, 0.25) 1px -1px 5px -1px,
@@ -14,12 +15,10 @@
 
   &.vertical-bottom {
     top: 100%;
-    margin-top: 5px;
   }
 
   &.vertical-top {
     bottom: 100%;
-    margin-bottom: 5px;
   }
 
   &.horizontal-right {
