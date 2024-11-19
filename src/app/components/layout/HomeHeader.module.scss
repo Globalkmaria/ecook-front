@@ -3,26 +3,34 @@
 .header {
   display: flex;
   flex-direction: column;
-  font-weight: 600;
   margin-bottom: 2rem;
+  text-align: center;
+  align-items: center;
 
-  h1 {
-    font-size: 3rem;
+  .title {
+    font-weight: 600;
+    font-size: 4rem;
+    width: 600px;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .description {
+    width: 800px;
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1.4;
   }
 
   @media #{$laptop} {
-    h1 {
+    .title {
       font-size: 2.5rem;
     }
   }
 
   @media #{$mobile} {
-    h1 {
+    .title {
       font-size: 2rem;
     }
   }
-}
-
-.header__title {
-  align-self: flex-end;
 }
