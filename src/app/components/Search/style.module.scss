@@ -1,0 +1,73 @@
+@use '@/style/theme.scss' as *;
+
+//Search
+
+.search-wrapper {
+  margin-bottom: 46px;
+  display: flex;
+  justify-content: center;
+}
+
+.search {
+  padding: 8px;
+  width: 710px;
+  display: flex;
+  align-items: center;
+  background: $grey100;
+  border-radius: 30px;
+  border: 2px solid $grey100;
+  transition: all 0.3s;
+
+  &:hover {
+    border: 2px solid $pointColor;
+    background: $white;
+  }
+
+  &:focus-within {
+    border: 2px solid $pointColor;
+    background: $white;
+  }
+}
+
+.input {
+  flex: 1;
+  margin-left: 18px;
+  font-size: 0.9rem;
+  height: 100%;
+}
+
+.button {
+  padding: 10px;
+  background: $pointColor;
+  border-radius: 50%;
+  color: $white;
+  font-size: 1.2rem;
+
+  &:hover {
+    background: $pointColorLight;
+  }
+}
+
+// Search Menu
+
+.menu {
+  width: 100px;
+}
+
+.menu__title {
+  width: 100%;
+  padding: 5px 10px 5px 0px;
+  display: flex;
+  justify-content: flex-end;
+  font-weight: 500;
+  align-items: center;
+  gap: 5px;
+
+  &:hover {
+    color: $grey600;
+  }
+
+  .arrow {
+    font-weight: 400;
+  }
+}

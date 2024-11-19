@@ -6,8 +6,9 @@ import {
 } from 'react-icons/io';
 import { PiJarLabelLight, PiTagSimpleFill, PiJar } from 'react-icons/pi';
 import { MdLabelOutline, MdGridOn, MdOutlineEdit } from 'react-icons/md';
-import { IoClose, IoInformationOutline } from 'react-icons/io5';
+import { IoClose, IoInformationOutline, IoSearch } from 'react-icons/io5';
 import { FaRegImage, FaRegTrashCan } from 'react-icons/fa6';
+import { FaAngleUp, FaAngleDown } from 'react-icons/fa';
 import { RxReset } from 'react-icons/rx';
 
 const ICON_NAMES = [
@@ -27,6 +28,9 @@ const ICON_NAMES = [
   'trash',
   'edit',
   'reset',
+  'up',
+  'down',
+  'search',
 ] as const;
 
 export type IconButtonType = (typeof ICON_NAMES)[number];
@@ -50,6 +54,9 @@ export const ICONS: {
   trash: <FaRegTrashCan />,
   edit: <MdOutlineEdit />,
   reset: <RxReset />,
+  up: <FaAngleUp />,
+  down: <FaAngleDown />,
+  search: <IoSearch />,
 };
 
 export const ICON_TITLES: { [key in IconButtonType]: string } = {
@@ -69,4 +76,7 @@ export const ICON_TITLES: { [key in IconButtonType]: string } = {
   trash: 'trash',
   edit: 'edit',
   reset: 'reset',
+  up: 'up',
+  down: 'down',
+  search: 'search',
 };
