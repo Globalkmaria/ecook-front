@@ -15,7 +15,7 @@ import { MoreButton } from '@/components/MoreButton';
 import { Modal2 } from '@/components/Modal';
 import ModalContainer from '@/components/Modal/ModalContainer';
 
-import RecipeEdit from './RecipeEdit';
+import RecipeEdit from '../RecipeEdit';
 
 interface Props {
   recipeId: RecipeSimple['id'];

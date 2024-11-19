@@ -4,7 +4,7 @@ import { getProfile } from '@/service/users';
 
 import { AvatarImg } from '@/components/Avatar';
 import Icon from '@/components/Icon';
-import Cards from './Cards';
+import Cards from './Cards/Cards';
 
 interface Props {
   params: Promise<{ username: string }>;
