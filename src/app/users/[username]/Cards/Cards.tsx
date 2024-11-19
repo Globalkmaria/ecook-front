@@ -8,6 +8,7 @@ import { formatTime } from '@/utils/time';
 
 import Chip, { ChipsContainer } from '@/components/Chip';
 import CardMenu from './CardMenu';
+import { getLimitedText } from '@/utils/text';
 
 interface Props {
   recipes: RecipeSimple[];
@@ -31,21 +32,25 @@ interface CardProps {
 
 function Card({ recipe }: CardProps) {
   const time = formatTime({ hours: recipe.hours, minutes: recipe.minutes });
+  const name = getLimitedText(recipe.name, 30);
 
   return (
     <li className={style.wrapper}>
       <CardMenu recipeId={recipe.id} />
       <Link href={`/recipes/${recipe.id}`} className={style.card}>
-        <Image
-          className={style.img}
-          src={recipe.img}
-          alt={recipe.name}
-          width={300}
-          height={300}
-        />
+        <div className={style['img-box']}>
+          <div className={style['img-wrapper']}>
+            <Image
+              className={style.img}
+              src={recipe.img}
+              alt={recipe.name}
+              fill
+            />
+          </div>
+        </div>
 
         <div className={style.info}>
-          <span className={style.title}>{recipe.name}</span>
+          <span className={style.title}>{name}</span>
           <span className={style.time}>{time}</span>
           <div className={style.chip}>
             <ChipsContainer>
