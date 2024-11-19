@@ -2,9 +2,12 @@ import { fetchAPI } from '@/utils/api';
 import { RecipeDetail, RecipeSimple } from './type';
 import { FetchResult } from '../type';
 
-export const getRecipes = async (): FetchResult<RecipeSimple[]> => {
+export const getRecipes = async (
+  query?: string,
+  type?: string,
+): FetchResult<RecipeSimple[]> => {
   try {
-    const data = await fetchAPI('/recipes');
+    const data = await fetchAPI(`/recipes?q=${query ?? ''}&type=${type ?? ''}`);
 
     return { ok: true, data };
   } catch (e) {

@@ -8,15 +8,35 @@ import { Dropbox, DropboxItem, DropboxWrapper } from '@/components/Dropbox';
 import Icon from '@/components/Icon';
 
 import useModal from '@/hooks/useModal';
+import { useRouter } from 'next/navigation';
+import { SearchParams } from '@/app/search/page';
 
-function Search() {
-  const [searchQuery, setSearchQuery] = useState('');
+interface Props {
+  searchParamsData?: SearchParams;
+}
+
+function Search({ searchParamsData }: Props) {
+  const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState(searchParamsData?.q ?? '');
+  const [selectedMenuItem, setSelectedMenuItem] = useState<string>(
+    searchParamsData?.type ?? SEARCH_MENU_DEFAULT,
+  );
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setSearchQuery(e.target.value);
 
   const onSearch = () => {
-    // Replace with actual search logic
+    router.push(`/search?type=${selectedMenuItem}&q=${searchQuery}`);
+  };
+
+  const onMenuChange = (menuItem: string) => {
+    setSelectedMenuItem(menuItem);
+  };
+
+  const onEnterPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      onSearch();
+    }
   };
 
   return (
@@ -28,8 +48,12 @@ function Search() {
           placeholder='What are you looking for?'
           value={searchQuery}
           onChange={onChange}
+          onKeyDown={onEnterPress}
         />
-        <SearchMenu />
+        <SearchMenu
+          onMenuChange={onMenuChange}
+          selectedMenuItem={selectedMenuItem}
+        />
         <button type='button' className={style.button} onClick={onSearch}>
           <Icon icon='search' />
         </button>
@@ -40,35 +64,38 @@ function Search() {
 
 export default Search;
 
-function SearchMenu() {
+interface SearchMenuProps {
+  onMenuChange: (menuItem: string) => void;
+  selectedMenuItem: string;
+}
+
+function SearchMenu({ onMenuChange, selectedMenuItem }: SearchMenuProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [selectedMenuItem, setSelectedMenuItem] = useState<string | null>(
-    SEARCH_MENU_DEFAULT,
-  );
+
   const { isOpen, onClose, onToggle } = useModal();
 
   const menuArrow = isOpen ? <Icon icon='up' /> : <Icon icon='down' />;
 
-  const onClick = (menuItem: string) => {
-    setSelectedMenuItem(menuItem);
+  const onClick = (value: string) => {
+    onMenuChange(value);
     onClose();
   };
 
   return (
     <DropboxWrapper ref={ref} className={style['menu']}>
       <button type='button' className={style['menu__title']} onClick={onToggle}>
-        <span>{selectedMenuItem}</span>
+        <span>{SEARCH_MENU_ITEMS_MAP[selectedMenuItem]}</span>
         <span className={style.arrow}>{menuArrow}</span>
       </button>
       {isOpen && (
         <Dropbox containerRef={ref} onCloseModal={onClose}>
           {SEARCH_MENU_ITEMS.map((menuItem) => (
             <DropboxItem
-              key={menuItem}
-              selected={selectedMenuItem === menuItem}
-              onClick={() => onClick(menuItem)}
+              key={menuItem.value}
+              selected={selectedMenuItem === menuItem.value}
+              onClick={() => onClick(menuItem.value)}
             >
-              <span>{menuItem}</span>
+              <span>{menuItem.label}</span>
             </DropboxItem>
           ))}
         </Dropbox>
@@ -77,5 +104,20 @@ function SearchMenu() {
   );
 }
 
-const SEARCH_MENU_ITEMS = ['Title', 'Tag', 'Ingredient', 'Product'];
-const SEARCH_MENU_DEFAULT = 'Title';
+const SEARCH_MENU_ITEMS: {
+  label: string;
+  value: string;
+}[] = [
+  { label: 'Title', value: 'name' },
+  { label: 'Tag', value: 'tag' },
+  { label: 'Ingredient', value: 'ingredient' },
+  { label: 'Product', value: 'product' },
+];
+
+const SEARCH_MENU_ITEMS_MAP: { [key: string]: string } =
+  SEARCH_MENU_ITEMS.reduce(
+    (acc, item) => ({ ...acc, [item.value]: item.label }),
+    {},
+  );
+
+const SEARCH_MENU_DEFAULT = SEARCH_MENU_ITEMS[0].value;
