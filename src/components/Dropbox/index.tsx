@@ -84,14 +84,20 @@ DropboxWrapper.displayName = 'DropboxWrapper';
 
 interface DropboxItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
+  selected?: boolean;
 }
 
 export function DropboxItem({
   children,
   className,
+  selected,
   ...restProps
 }: DropboxItemProps) {
-  const joinedClassName = joinClassNames(className, style.item);
+  const joinedClassName = joinClassNames(
+    className,
+    selected ? style['item--selected'] : '',
+    style.item,
+  );
 
   return (
     <button type='button' className={joinedClassName} {...restProps}>

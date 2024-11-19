@@ -40,15 +40,23 @@
   }
 }
 
+// DropdownWrapper
+
 .wrapper {
   position: relative;
   height: fit-content;
 }
+
+// DropdownItem
 
 .item {
   &:disabled {
     cursor: default;
     color: $grey400;
     background: transparent;
+  }
+
+  &--selected {
+    font-weight: 600;
   }
 }
