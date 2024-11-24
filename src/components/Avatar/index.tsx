@@ -8,7 +8,7 @@ interface AvatarProps {
     img: string | null;
     username: string;
   };
-  size?: 32 | 48 | 64;
+  size?: 32 | 48 | 64 | 100;
 }
 
 function Avatar({ user: { img, username }, size = 32 }: AvatarProps) {
