@@ -2,7 +2,6 @@ import '@/style/global.scss';
 import style from './style.module.scss';
 
 import { Roboto } from 'next/font/google';
-import Nav from './components/layout/Nav';
 import Footer from './components/layout/Footer';
 
 const roboto = Roboto({
@@ -21,7 +20,6 @@ export default function RootLayout({
     <html lang='en'>
       <body className={roboto.className}>
         <div className={style.layout_container}>
-          <Nav />
           {children}
           {modal}
           <div id='modal-root' />

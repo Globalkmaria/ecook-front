@@ -6,21 +6,18 @@ import style from './Nav.module.scss';
 import { AvatarImg } from '@/components/Avatar';
 import Anchor from '@/components/Anchor';
 
-import Search from '../Search';
-
 const libre = Lato({
   weight: ['700'],
   subsets: ['latin'],
 });
 
-async function Nav() {
+async function HomeNav() {
   return (
     <nav className={style.wrapper}>
       <div className={style.container}>
         <Link href='/'>
           <h1 className={`${libre.className} ${style.title}`}>E-COOK</h1>
         </Link>
-        <Search />
         <div className={style['right-buttons']}>
           <Anchor href='/recipes/new'>+ New recipes</Anchor>
           <Link href={`/users/${USER.username}`}>
@@ -32,7 +29,7 @@ async function Nav() {
   );
 }
 
-export default Nav;
+export default HomeNav;
 
 const USER = {
   id: 1,
