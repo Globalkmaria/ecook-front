@@ -1,6 +1,6 @@
 import { Libre_Bodoni } from 'next/font/google';
 
-import style from './HomeHeader.module.scss';
+import style from './style.module.scss';
 
 import { joinClassNames } from '@/utils/style';
 
