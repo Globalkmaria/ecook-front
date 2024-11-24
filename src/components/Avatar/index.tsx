@@ -1,23 +1,28 @@
 import Image from 'next/image';
 
 import style from './style.module.scss';
+import { joinClassNames } from '@/utils/style';
 
 interface AvatarProps {
   user: {
     img: string | null;
     username: string;
   };
-  size?: number;
+  size?: 32 | 48 | 64;
 }
 
 function Avatar({ user: { img, username }, size = 32 }: AvatarProps) {
+  const userNameImgClassName = joinClassNames(
+    style['username-img'],
+    style['username-img--' + size],
+  );
   return (
     <div className={style.avatar}>
       <div className={style['img-box']}>
         {img ? (
           <Image src={img} alt={username} width={size} height={size} />
         ) : (
-          <span className={style['username-img']}>{username[0]}</span>
+          <span className={userNameImgClassName}>{username[0]}</span>
         )}
       </div>
 
@@ -29,13 +34,17 @@ function Avatar({ user: { img, username }, size = 32 }: AvatarProps) {
 export default Avatar;
 
 export function AvatarImg({ user: { img, username }, size = 32 }: AvatarProps) {
+  const userNameImgClassName = joinClassNames(
+    style['username-img'],
+    style['username-img--' + size],
+  );
   return (
     <div className={style.avatar}>
       <div className={style['img-box']}>
         {img ? (
           <Image src={img} alt={username} width={size} height={size} />
         ) : (
-          <span className={style['username-img']}>{username[0]}</span>
+          <span className={userNameImgClassName}>{username[0]}</span>
         )}
       </div>
     </div>

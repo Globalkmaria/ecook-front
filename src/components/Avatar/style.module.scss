@@ -21,6 +21,21 @@
   height: 32px;
   width: 32px;
   background-color: $grey400;
+
+  &--32 {
+    height: 32px;
+    width: 32px;
+  }
+
+  &--48 {
+    height: 48px;
+    width: 48px;
+  }
+
+  &--64 {
+    height: 64px;
+    width: 64px;
+  }
 }
 
 .username {
