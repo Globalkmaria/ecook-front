@@ -5,12 +5,20 @@
 }
 
 .container {
+  display: flex;
+  justify-content: space-between;
   margin: 0 auto;
+  padding: 20px 25px;
   max-width: $layoutMaxWidth;
   width: 100%;
-  padding: 20px 25px;
 }
 
 .title {
   font-size: 1.5rem;
+}
+
+.right-buttons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
