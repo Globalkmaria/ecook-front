@@ -24,3 +24,23 @@
   align-items: center;
   gap: 15px;
 }
+
+.profile {
+  .profile-dropbox {
+    margin-top: 8px;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0s linear 0.5s;
+    transition:
+      visibility 0s linear 0.5s,
+      opacity 0.5s linear;
+  }
+
+  &:hover {
+    .profile-dropbox {
+      visibility: visible;
+      opacity: 1;
+      transition-delay: 0s;
+    }
+  }
+}

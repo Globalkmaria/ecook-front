@@ -21,7 +21,7 @@ export interface DropboxProps<T extends HTMLElement>
     DropboxStyleProps,
     React.PropsWithChildren {
   containerRef: React.RefObject<T>;
-  onCloseModal: () => void;
+  onCloseModal?: () => void;
 }
 
 export function Dropbox<T extends HTMLElement>({
@@ -40,7 +40,7 @@ export function Dropbox<T extends HTMLElement>({
         containerRef.current &&
         !containerRef.current.contains(e.target as Node)
       ) {
-        onCloseModal();
+        onCloseModal && onCloseModal();
       }
     };
 

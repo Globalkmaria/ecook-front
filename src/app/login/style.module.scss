@@ -1,0 +1,7 @@
+@use '@/style/theme.scss' as *;
+
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}

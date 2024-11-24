@@ -3,10 +3,8 @@ import { Lato } from 'next/font/google';
 
 import style from './Nav.module.scss';
 
-import { AvatarImg } from '@/components/Avatar';
-import Anchor from '@/components/Anchor';
-
-import Search from '../Search';
+import Search from '../../Search';
+import NavRightButtons from './NavRightButtons';
 
 const libre = Lato({
   weight: ['700'],
@@ -21,21 +19,10 @@ async function Nav() {
           <h1 className={`${libre.className} ${style.title}`}>E-COOK</h1>
         </Link>
         <Search />
-        <div className={style['right-buttons']}>
-          <Anchor href='/recipes/new'>+ New recipes</Anchor>
-          <Link href={`/users/${USER.username}`}>
-            <AvatarImg user={USER} size={48} />
-          </Link>
-        </div>
+        <NavRightButtons />
       </div>
     </nav>
   );
 }
 
 export default Nav;
-
-const USER = {
-  id: 1,
-  username: 'johndoe',
-  img: '/img/img1.png',
-};

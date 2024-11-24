@@ -9,6 +9,7 @@ interface AvatarProps {
     username: string;
   };
   size?: 32 | 48 | 64 | 100;
+  hoverable?: boolean;
 }
 
 function Avatar({ user: { img, username }, size = 32 }: AvatarProps) {
@@ -33,13 +34,23 @@ function Avatar({ user: { img, username }, size = 32 }: AvatarProps) {
 
 export default Avatar;
 
-export function AvatarImg({ user: { img, username }, size = 32 }: AvatarProps) {
+export function AvatarImg({
+  user: { img, username },
+  size = 32,
+  hoverable,
+}: AvatarProps) {
+  const coverClassName = joinClassNames(
+    style['cover'],
+    // style['username-img--' + size],
+  );
   const userNameImgClassName = joinClassNames(
     style['username-img'],
     style['username-img--' + size],
   );
+
   return (
     <div className={style.avatar}>
+      {hoverable ? <div className={coverClassName}></div> : null}
       <div className={style['img-box']}>
         {img ? (
           <Image src={img} alt={username} width={size} height={size} />
