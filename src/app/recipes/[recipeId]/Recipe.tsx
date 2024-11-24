@@ -48,9 +48,11 @@ function Recipe({ recipe }: Props) {
 
   return (
     <div className={style.wrapper}>
-      <Link href={`/users/${recipe.user.username}`}>
-        <Avatar user={recipe.user} />
-      </Link>
+      <div>
+        <Link href={`/users/${recipe.user.username}`}>
+          <Avatar user={recipe.user} />
+        </Link>
+      </div>
       <div className={style.container}>
         <div className={style['img-box']}>
           <Image src={recipe.img} fill alt={recipe.name} />
