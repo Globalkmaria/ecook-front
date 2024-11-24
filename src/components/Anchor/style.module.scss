@@ -1,0 +1,78 @@
+@use '@/style/theme' as *;
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 5px 10px;
+  height: 38px;
+  border-radius: 5px;
+  box-shadow:
+    rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+
+  &--disabled {
+    cursor: default;
+    box-shadow:
+      inset rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+      inset rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  }
+
+  &-contained {
+    &--primary {
+      background: $black;
+      color: $white;
+
+      &:hover {
+        background: $grey700;
+      }
+
+      &:disabled {
+        background: $grey100;
+        color: $grey500;
+      }
+    }
+
+    &--secondary {
+      background: $grey200;
+      color: $black;
+
+      &:hover {
+        background: $grey300;
+      }
+
+      &:disabled {
+        background: $grey000;
+      }
+    }
+
+    &--success {
+      background: $teal700;
+      color: $white;
+
+      &:hover {
+        background: $teal500;
+      }
+
+      &:disabled {
+        background: $teal100;
+        color: $grey500;
+      }
+    }
+
+    &--danger {
+      background: $red900;
+      color: $white;
+
+      &:hover {
+        background: $red700;
+      }
+
+      &:disabled {
+        background: $red100;
+        color: $grey500;
+      }
+    }
+  }
+}
