@@ -1,5 +1,6 @@
 import { User } from '@/service/users/type';
 import { createStore } from 'zustand';
+import { devtools } from 'zustand/middleware';
 
 export type UserState =
   | Omit<User, 'id'>
@@ -23,9 +24,11 @@ export const defaultInitState: UserState = {
 };
 
 export const createUserStore = (initialState: UserState = defaultInitState) => {
-  return createStore<UserStore>((set) => ({
-    ...initialState,
-    setUser: (user) => set(user),
-    resetUser: () => set(defaultInitState),
-  }));
+  return createStore<UserStore>()(
+    devtools((set) => ({
+      ...initialState,
+      setUser: (user) => set(user),
+      resetUser: () => set(defaultInitState),
+    })),
+  );
 };
