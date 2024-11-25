@@ -5,11 +5,12 @@
 .search-wrapper {
   display: flex;
   justify-content: center;
+  flex-grow: 1;
 }
 
 .search {
+  width: 100%;
   padding: 8px;
-  width: 710px;
   display: flex;
   align-items: center;
   background: $grey100;

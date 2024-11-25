@@ -10,9 +10,22 @@
   width: 100%;
 }
 
-.page_container {
+.page-container {
   flex: 1;
   margin: 0 auto;
   max-width: $layoutMaxWidth;
   padding: 10px 32px;
+}
+
+.search {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex: 1;
+
+  &-container {
+    display: flex;
+    flex: 1;
+    max-width: 700px;
+  }
 }

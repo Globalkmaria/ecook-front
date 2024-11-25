@@ -1,0 +1,8 @@
+@use '@/style/theme.scss' as *;
+.logo {
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: 1.5rem;
+}
