@@ -15,9 +15,13 @@
   width: 100%;
 }
 
-.title {
-  font-size: 1.5rem;
+.search {
+  flex-grow: 1;
+  display: flex;
+  margin: 0 20px;
 }
+
+// NavRightButtons
 
 .right-buttons {
   display: flex;

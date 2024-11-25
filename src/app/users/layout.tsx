@@ -1,6 +1,7 @@
 import style from './style.module.scss';
 
 import Nav from '../components/layout/Nav';
+import Footer from '../components/layout/Footer';
 
 export default function RootLayout({
   children,
@@ -11,6 +12,7 @@ export default function RootLayout({
     <>
       <Nav />
       <section className={style['layout-container']}>{children}</section>
+      <Footer />
     </>
   );
 }

@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useUserStore } from '@/providers/user-store-provider';
 
-import style from './Nav.module.scss';
+import style from './style.module.scss';
 
 import { AvatarImg } from '@/components/Avatar';
 import Anchor from '@/components/Anchor';

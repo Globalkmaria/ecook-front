@@ -2,7 +2,6 @@ import '@/style/global.scss';
 import style from './style.module.scss';
 
 import { Roboto } from 'next/font/google';
-import Footer from './components/layout/Footer';
 import { UserStoreProvider } from '@/providers/user-store-provider';
 
 const roboto = Roboto({
@@ -24,7 +23,6 @@ export default function RootLayout({
           <UserStoreProvider>{children}</UserStoreProvider>
           {modal}
           <div id='modal-root' />
-          <Footer />
         </div>
       </body>
     </html>
