@@ -1,0 +1,70 @@
+@use '@/style/theme.scss' as *;
+
+//layout
+
+.wrapper {
+  display: flex;
+  width: 100%;
+  position: relative;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+// Header
+.logo {
+  min-width: 100px;
+  z-index: 1;
+  position: absolute;
+  top: 35px;
+  left: 25px;
+  color: $white;
+
+  @media #{$laptop} {
+    color: $black;
+  }
+}
+
+// Nav
+
+.nav {
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.img-container {
+  position: relative;
+  width: 400px;
+  min-height: 100vh;
+
+  @media #{$laptop} {
+    display: none;
+  }
+}
+
+.img {
+  object-fit: cover;
+  filter: brightness(0.8);
+}
+
+// Footer
+
+.footer {
+  width: 300px;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: $white;
+
+  @media #{$laptop} {
+    color: $black;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

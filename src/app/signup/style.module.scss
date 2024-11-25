@@ -1,0 +1,14 @@
+@use '@/style/theme.scss' as *;
+
+.wrapper {
+  display: flex;
+  width: 100%;
+  flex: 1;
+}
+
+.container {
+  display: flex;
+  flex: 1;
+  margin: 0 auto;
+  max-width: $layoutMaxWidth;
+}
