@@ -6,14 +6,17 @@
   display: flex;
   width: 100%;
   position: relative;
+  min-height: 100vh;
 }
 
-.nav-container {
-  position: relative;
-  justify-content: space-between;
-  align-items: center;
+.layout-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
+// Header
 .logo {
   min-width: 100px;
   z-index: 1;
@@ -25,6 +28,14 @@
   @media #{$laptop} {
     color: $black;
   }
+}
+
+// Nav
+
+.nav {
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .img-container {
@@ -42,12 +53,7 @@
   filter: brightness(0.9);
 }
 
-.layout-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
+// Footer
 
 .footer {
   width: 300px;

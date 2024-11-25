@@ -29,7 +29,7 @@ function Header() {
 
 function Nav() {
   return (
-    <nav className={style['nav-container']}>
+    <nav className={style['nav']}>
       <div className={style['img-container']}>
         <Image src='/img/signIn.png' alt='E-COOK' fill className={style.img} />
       </div>
