@@ -3,10 +3,9 @@ import { createStore } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
 export type UserState =
-  | Omit<User, 'id'>
+  | User
   | {
       username: null;
-      id: null;
       img: null;
     };
 
@@ -19,7 +18,6 @@ export type UserStore = UserState & UserActions;
 
 export const defaultInitState: UserState = {
   username: null,
-  id: null,
   img: null,
 };
 

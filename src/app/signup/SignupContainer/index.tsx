@@ -1,10 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { MouseEventHandler, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 import style from './style.module.scss';
+
+import { signup } from '@/service/auth';
+
+import { useUserStore } from '@/providers/user-store-provider';
 
 import { createInputHandler } from '@/utils/createInputHandler';
 
@@ -13,6 +17,8 @@ import { Input } from '@/components/Input';
 
 function SignupContainer() {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const { setUser } = useUserStore((store) => store);
   const [form, setForm] = useState({
     username: '',
     email: '',
@@ -21,7 +27,23 @@ function SignupContainer() {
 
   const onChange = createInputHandler(setForm);
 
-  const onSignup = () => {
+  const onSignup: MouseEventHandler = async (e) => {
+    e.preventDefault();
+    if (isLoading) return;
+
+    setIsLoading(true);
+    const result = await signup(form);
+
+    if (!result.ok) {
+      alert(result.error);
+      setIsLoading(false);
+      return;
+    }
+
+    setUser({
+      username: result.data.username,
+      img: result.data.img,
+    });
     router.push('/');
   };
 
@@ -61,7 +83,9 @@ function SignupContainer() {
             />
           </fieldset>
 
-          <Button onClick={onSignup}>Create Account</Button>
+          <Button type='submit' onClick={onSignup}>
+            Create Account
+          </Button>
 
           <div className={style.register}>
             <p>Already have an account?</p>

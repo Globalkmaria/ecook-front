@@ -1,12 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { MouseEventHandler, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 import style from './LoginContainer.module.scss';
 
 import { useUserStore } from '@/providers/user-store-provider';
+
+import { login } from '@/service/auth';
 
 import Button from '@/components/Button';
 import { Input } from '@/components/Input';
@@ -16,9 +18,26 @@ function LoginContainer() {
   const { setUser } = useUserStore((store) => store);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const onLogin = () => {
-    setUser(USER);
+  const onLogin: MouseEventHandler = async (e) => {
+    e.preventDefault();
+    if (isLoading) return;
+
+    setIsLoading(true);
+    const result = await login({ username, password });
+
+    if (!result.ok) {
+      alert(result.error);
+      setIsLoading(false);
+      return;
+    }
+
+    setUser({
+      username: result.data.username,
+      img: result.data.img,
+    });
+
     router.push('/');
   };
 
@@ -46,7 +65,9 @@ function LoginContainer() {
             />
           </fieldset>
 
-          <Button onClick={onLogin}>Sign In</Button>
+          <Button type='submit' disabled={isLoading} onClick={onLogin}>
+            Sign In
+          </Button>
 
           <div className={style.register}>
             <p>Don't have an account?</p>

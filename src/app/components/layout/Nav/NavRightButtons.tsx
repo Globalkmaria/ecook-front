@@ -1,23 +1,31 @@
 'use client';
 
+import { useRef, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
 import { useUserStore } from '@/providers/user-store-provider';
 
 import style from './style.module.scss';
 
+import { logout } from '@/service/auth';
+
 import { AvatarImg } from '@/components/Avatar';
 import Anchor from '@/components/Anchor';
 import { Dropbox, DropboxItem, DropboxWrapper } from '@/components/Dropbox';
-import { useRef } from 'react';
-import { useRouter } from 'next/navigation';
 
 function NavRightButtons() {
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
   const { username, resetUser } = useUserStore((store) => store);
   const isLogged = username !== null;
+  const [isLoading, setIsLoading] = useState(false);
 
-  const onLogout = () => {
+  const onLogout = async () => {
+    if (isLoading) return;
+    setIsLoading(true);
+
+    await logout();
     resetUser();
     router.push('/');
   };
