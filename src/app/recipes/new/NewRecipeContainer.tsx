@@ -3,17 +3,19 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
+import { NewRecipeData } from '@/service/recipes/type';
+import { saveRecipe } from '@/service/recipes';
+
+import { getRandomId } from '@/utils/generateId';
+
+import { Step } from './components/Steps';
 import NewRecipe, {
   NewRecipeIngredientStates,
   NewRecipeInitialData,
   NewRecipeTags,
   TextInputs,
 } from './NewRecipe';
-import { NewRecipeData } from '@/service/recipes/type';
-import { saveRecipe } from '@/service/recipes';
-import { Step } from './components/Steps';
 import { getNewIngredient } from './helper';
-import { getRandomId } from '@/utils/generateId';
 
 interface SubmitProps {
   img: File | string | null;
@@ -55,7 +57,6 @@ function NewRecipeContainer() {
 
     img && typeof img !== 'string' && formData.append('img', img);
 
-    // TODO remove user id
     const data: Omit<NewRecipeData, 'img'> = {
       ...textInputs,
       steps: steps.map((item) => item.value),
@@ -67,7 +68,6 @@ function NewRecipeContainer() {
         productId: item.productId,
       })),
       tags: tags,
-      user: { id: '1' },
     };
 
     formData.append('info', JSON.stringify(data));
@@ -84,7 +84,6 @@ function NewRecipeContainer() {
     router.push(`/recipes/${response.data.id}`);
   };
 
-  // TODO change user id
   const initialData: NewRecipeInitialData = {
     name: '',
     description: '',
@@ -94,9 +93,6 @@ function NewRecipeContainer() {
     ingredients: [getNewIngredient()],
     steps: [{ id: getRandomId(), value: '' }],
     tags: [],
-    user: {
-      id: '1',
-    },
   };
 
   return (

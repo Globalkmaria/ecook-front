@@ -49,7 +49,6 @@ function RecipeEdit({ recipeId, onCloseModal }: Props) {
 
     img && typeof img !== 'string' && formData.append('img', img);
 
-    // TODO remove user id
     const data: EditRecipeData = {
       ...textInputs,
       steps: steps.map((item) => item.value),
@@ -61,7 +60,6 @@ function RecipeEdit({ recipeId, onCloseModal }: Props) {
         productId: item.productId,
       })),
       tags: tags,
-      user: { id: '1' },
     };
 
     formData.append('info', JSON.stringify(data));
@@ -113,9 +111,6 @@ function RecipeEdit({ recipeId, onCloseModal }: Props) {
     })),
     steps: recipe.steps.map((item) => ({ value: item, id: getRandomId() })),
     tags: recipe.tags.map((item) => item.name),
-    user: {
-      id: recipe.user.id,
-    },
   };
 
   return (

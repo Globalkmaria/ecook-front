@@ -28,7 +28,9 @@ export const getRecipe = async (id: string): FetchResult<RecipeDetail> => {
 
 export const deleteRecipe = async (id: string): FetchResult<null> => {
   try {
-    await fetchAPI(`/recipes/${id}`, { method: 'DELETE' });
+    await fetchAPI(`/recipes/${id}`, {
+      method: 'DELETE',
+    });
     return { ok: true, data: null };
   } catch (e) {
     console.error('Failed to delete recipe', e);

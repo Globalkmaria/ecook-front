@@ -5,7 +5,7 @@ import { joinClassNames } from '@/utils/style';
 
 interface AvatarProps {
   user: {
-    img: string | null;
+    img?: string | null;
     username: string;
   };
   size?: 32 | 48 | 64 | 100;

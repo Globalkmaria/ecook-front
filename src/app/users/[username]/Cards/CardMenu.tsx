@@ -1,11 +1,13 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 import style from './Cards.module.scss';
 
 import { RecipeSimple } from '@/service/recipes/type';
 import { deleteRecipe } from '@/service/recipes';
+
+import { useUserStore } from '@/providers/user-store-provider';
 
 import useModal from '@/hooks/useModal';
 
@@ -24,6 +26,10 @@ interface Props {
 function CardMenu({ recipeId }: Props) {
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useModal();
+  const { username } = useUserStore((store) => store);
+  const { username: paramUsername } = useParams();
+
+  if (!username || username !== paramUsername) return null;
 
   const onDelete = async () => {
     const result = await deleteRecipe(recipeId);

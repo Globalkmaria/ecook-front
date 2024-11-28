@@ -17,7 +17,7 @@ import { Dropbox, DropboxItem, DropboxWrapper } from '@/components/Dropbox';
 function NavRightButtons() {
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
-  const { username, resetUser } = useUserStore((store) => store);
+  const { username, img, resetUser } = useUserStore((store) => store);
   const isLogged = username !== null;
   const [isLoading, setIsLoading] = useState(false);
 
@@ -36,8 +36,15 @@ function NavRightButtons() {
         <>
           <Anchor href='/recipes/new'>+ New recipes</Anchor>
           <div className={style.profile}>
-            <Link href={`/users/${USER.username}`}>
-              <AvatarImg user={USER} size={48} hoverable />
+            <Link href={`/users/${username}`}>
+              <AvatarImg
+                user={{
+                  img,
+                  username,
+                }}
+                size={48}
+                hoverable
+              />
             </Link>
             <DropboxWrapper ref={ref}>
               <Dropbox className={style['profile-dropbox']} containerRef={ref}>
@@ -54,9 +61,3 @@ function NavRightButtons() {
 }
 
 export default NavRightButtons;
-
-const USER = {
-  id: 1,
-  username: 'johndoe',
-  img: '/img/img1.png',
-};

@@ -74,5 +74,4 @@ export interface NewRecipeData {
   img: File | null;
   ingredients: NewRecipeIngredient[];
   tags: string[];
-  user: { id: string };
 }
