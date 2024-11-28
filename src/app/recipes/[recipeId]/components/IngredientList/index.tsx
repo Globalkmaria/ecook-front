@@ -1,8 +1,11 @@
 import style from './style.module.scss';
 
-import { ListItem } from '@/components/List';
-import InformationButton from './InformationButton';
 import { RecipeDetail } from '@/service/recipes/type';
+
+import { ListItem } from '@/components/List';
+import SearchIconLink from '@/components/SearchIconLink';
+
+import InformationButton from './InformationButton';
 
 interface Props {
   ingredients: RecipeDetail['ingredients'];
@@ -24,7 +27,11 @@ function Ingredients({ ingredients, onChange, state }: Props) {
           <div className={style.content}>
             <label htmlFor={i.toString()}>
               <span className={style.name}>{ingredient.name}</span>
-              <span>- {ingredient.quantity}</span>
+              <span>-</span>
+              <span className={style.quantity}>{ingredient.quantity}</span>
+              <SearchIconLink
+                href={`/search?type=ingredient&q=${ingredient.name}`}
+              />
               {ingredient.userProduct && (
                 <InformationButton ingredient={ingredient} />
               )}

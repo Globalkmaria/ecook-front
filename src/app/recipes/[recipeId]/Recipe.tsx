@@ -3,18 +3,22 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+
 import style from './Recipe.module.scss';
+
+import { RecipeDetail } from '@/service/recipes/type';
+
+import { formatTime } from '@/utils/time';
 
 import Chip, { ChipsContainer } from '@/components/Chip';
 import { Tab, TabsContainer } from '@/components/Tab';
 import { getListCheckboxInitialState } from '@/components/helpers';
-
-import { RECIPE_TABS, RecipeTab } from './const';
 import CheckboxList from '@/components/CheckboxList';
 import Avatar from '@/components/Avatar';
+import AnchorUnderline from '@/components/Anchor/AnchorUnderline';
 import Ingredients from './components/IngredientList';
-import { RecipeDetail } from '@/service/recipes/type';
-import { formatTime } from '@/utils/time';
+
+import { RECIPE_TABS, RecipeTab } from './const';
 
 interface Props {
   recipe: RecipeDetail;
@@ -66,7 +70,12 @@ function Recipe({ recipe }: Props) {
             </p>
             <ChipsContainer className={style['chip-container']}>
               {recipe.tags.map((tag) => (
-                <Chip key={tag.id}>{tag.name}</Chip>
+                <AnchorUnderline
+                  href={`/search?type=tag&q=${tag.name}`}
+                  key={tag.id}
+                >
+                  <Chip>{tag.name}</Chip>
+                </AnchorUnderline>
               ))}
             </ChipsContainer>
           </div>
