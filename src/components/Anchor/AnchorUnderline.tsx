@@ -5,13 +5,10 @@ import style from './AnchorUnderline.module.scss';
 
 import { joinClassNames } from '@/utils/style';
 
-export type Props = {
+type Props = {
   children?: ReactNode;
 } & LinkProps &
-  AnchorHTMLAttributes<HTMLAnchorElement> & {
-    disabled?: boolean;
-    href: string;
-  };
+  AnchorHTMLAttributes<HTMLAnchorElement>;
 
 function AnchorUnderline({ children, className, href, ...rest }: Props) {
   const joinedClassName = joinClassNames(className, style['link']);

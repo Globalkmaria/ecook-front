@@ -1,19 +1,18 @@
 import { AnchorHTMLAttributes, ReactNode } from 'react';
+import Link, { LinkProps } from 'next/link';
 
 import style from './style.module.scss';
 import { joinClassNames } from '@/utils/style';
-import Link from 'next/link';
 
-export interface LinkProps {
+interface BaseProps {
   variant?: 'primary' | 'secondary' | 'success' | 'danger';
 }
 
 export type Props = {
   children?: ReactNode;
-} & LinkProps &
-  AnchorHTMLAttributes<HTMLAnchorElement> & {
-    href: string;
-  };
+} & BaseProps &
+  AnchorHTMLAttributes<HTMLAnchorElement> &
+  LinkProps;
 
 function Anchor({
   variant = 'primary',
