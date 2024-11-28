@@ -24,9 +24,9 @@ function Anchor({
   const variantClassName = style[`link-contained--${variant}`];
 
   const joinedClassName = joinClassNames(
-    className,
     style['link'],
     variantClassName,
+    className,
   );
 
   return (

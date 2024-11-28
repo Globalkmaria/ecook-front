@@ -27,6 +27,28 @@
   display: flex;
   align-items: center;
   gap: 15px;
+
+  .new {
+    background: $pointColorVivid;
+
+    &:hover {
+      background: $pointColor;
+    }
+
+    &__icon {
+      font-size: 1.4rem;
+    }
+
+    &__text {
+      margin-left: 5px;
+    }
+
+    @media #{$tablet} {
+      &__text {
+        display: none;
+      }
+    }
+  }
 }
 
 .profile {

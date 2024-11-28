@@ -13,6 +13,7 @@ import { logout } from '@/service/auth';
 import { AvatarImg } from '@/components/Avatar';
 import Anchor from '@/components/Anchor';
 import { Dropbox, DropboxItem, DropboxWrapper } from '@/components/Dropbox';
+import Icon from '@/components/Icon';
 
 function NavRightButtons() {
   const router = useRouter();
@@ -34,7 +35,10 @@ function NavRightButtons() {
     <div className={style['right-buttons']}>
       {isLogged ? (
         <>
-          <Anchor href='/recipes/new'>+ New recipes</Anchor>
+          <Anchor href='/recipes/new' className={style.new}>
+            <Icon icon='add' className={style['new__icon']} />
+            <span className={style['new__text']}>New recipes</span>
+          </Anchor>
           <div className={style.profile}>
             <Link href={`/users/${username}`}>
               <AvatarImg

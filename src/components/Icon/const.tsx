@@ -3,6 +3,7 @@ import {
   IoIosMore,
   IoIosInformationCircleOutline,
   IoMdRemove,
+  IoMdAdd,
 } from 'react-icons/io';
 import { PiJarLabelLight, PiTagSimpleFill, PiJar } from 'react-icons/pi';
 import { MdLabelOutline, MdGridOn, MdOutlineEdit } from 'react-icons/md';
@@ -31,6 +32,7 @@ const ICON_NAMES = [
   'up',
   'down',
   'search',
+  'add',
 ] as const;
 
 export type IconButtonType = (typeof ICON_NAMES)[number];
@@ -57,6 +59,7 @@ export const ICONS: {
   up: <FaAngleUp />,
   down: <FaAngleDown />,
   search: <IoSearch />,
+  add: <IoMdAdd />,
 };
 
 export const ICON_TITLES: { [key in IconButtonType]: string } = {
@@ -79,4 +82,5 @@ export const ICON_TITLES: { [key in IconButtonType]: string } = {
   up: 'up',
   down: 'down',
   search: 'search',
+  add: 'add',
 };
