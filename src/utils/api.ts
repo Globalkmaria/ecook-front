@@ -10,7 +10,10 @@ export const fetchAPI = async (url: string, options?: RequestInit) => {
   const baseURL =
     process.env.PUBLIC_SERVER_URL || process.env.NEXT_PUBLIC_SERVER_URL;
 
-  const res = await fetch(`${baseURL}${url}`, options);
+  const res = await fetch(`${baseURL}${url}`, {
+    ...options,
+    credentials: 'include',
+  });
 
   if (!res.ok) throw new Error(res.statusText);
 
