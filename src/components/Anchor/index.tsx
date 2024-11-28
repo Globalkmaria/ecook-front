@@ -12,12 +12,10 @@ export type Props = {
   children?: ReactNode;
 } & LinkProps &
   AnchorHTMLAttributes<HTMLAnchorElement> & {
-    disabled?: boolean;
     href: string;
   };
 
 function Anchor({
-  disabled,
   variant = 'primary',
   children,
   className,
@@ -30,7 +28,6 @@ function Anchor({
     className,
     style['link'],
     variantClassName,
-    disabled ? style['link--disabled'] : '',
   );
 
   return (
