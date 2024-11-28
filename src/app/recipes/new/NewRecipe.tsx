@@ -230,6 +230,7 @@ function NewRecipe({ initialData, onSubmit, loading, pageTitle }: Props) {
               onChange={setImg}
               imgValue={img}
               initialImg={initialData.img}
+              mode={initialData.img ? 'edit' : 'new'}
             />
           </div>
         </div>

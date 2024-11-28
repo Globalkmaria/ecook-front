@@ -24,6 +24,7 @@ interface Props {
   imgValue?: File | string | null;
   initialImg?: string | null;
   onChange: (img: File | string | null) => void;
+  mode?: 'edit' | 'new';
 }
 
 function ImageUploader2({
@@ -33,6 +34,7 @@ function ImageUploader2({
   imgValue,
   onChange,
   initialImg = null,
+  mode = 'edit',
 }: Props) {
   const [dragging, setDragging] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -136,9 +138,56 @@ function ImageUploader2({
         accept={allowedFileTypes.join(', ')}
         onChange={onImageChange}
       />
+      {mode === 'edit' && (
+        <EditCloseButton
+          imgValue={imgValue}
+          src={src}
+          onRemoveImage={onRemoveImage}
+          onReset={onReset}
+        />
+      )}
+      {mode === 'new' && (
+        <NewCloseButton
+          imgValue={imgValue}
+          src={src}
+          onRemoveImage={onRemoveImage}
+        />
+      )}
 
       {error && <p className={style.error}>{error}</p>}
+    </div>
+  );
+}
 
+type ButtonProps = {
+  onRemoveImage: () => void;
+  onReset: () => void;
+  src?: string;
+} & Pick<Props, 'imgValue'>;
+
+type NewCloseButtonProps = Omit<ButtonProps, 'onReset'>;
+
+function NewCloseButton({ imgValue, src, onRemoveImage }: NewCloseButtonProps) {
+  if (!imgValue) return null;
+
+  return (
+    <div className={style.preview}>
+      <img src={src} alt='Selected' className={style.img} />
+      <button className={style['close-btn']} onClick={onRemoveImage}>
+        <Icon icon='close' />
+      </button>
+    </div>
+  );
+}
+
+function EditCloseButton({
+  imgValue,
+  src,
+  onRemoveImage,
+  onReset,
+}: ButtonProps) {
+  return (
+    <>
       {imgValue ? (
         <div className={style.preview}>
           <img src={src} alt='Selected' className={style.img} />
@@ -157,7 +206,7 @@ function ImageUploader2({
           </button>
         </div>
       )}
-    </div>
+    </>
   );
 }
 
