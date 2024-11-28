@@ -17,5 +17,10 @@ export const fetchAPI = async (url: string, options?: RequestInit) => {
 
   if (!res.ok) throw new Error(res.statusText);
 
-  return res.json();
+  const contentType = res.headers.get('Content-Type');
+  if (contentType && contentType.includes('application/json')) {
+    return res.json();
+  }
+
+  return null;
 };
