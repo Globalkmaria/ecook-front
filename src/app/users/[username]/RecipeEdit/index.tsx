@@ -73,7 +73,7 @@ function RecipeEdit({ recipeId, onCloseModal }: Props) {
       return;
     }
 
-    router.push(`/recipes/${response.data.id}`);
+    router.replace(`/recipes/${response.data.id}`);
   };
 
   const getRecipeData = async () => {
