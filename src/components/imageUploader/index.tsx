@@ -26,6 +26,7 @@ interface Props {
   allowedFileTypes?: string[];
   imgValue: File | null;
   onChange: (img: File | null) => void;
+  name?: string;
 }
 
 function ImageUploader({
@@ -34,6 +35,7 @@ function ImageUploader({
   allowedFileTypes = ALLOWED_FILE_TYPES,
   imgValue,
   onChange,
+  name = 'img',
 }: Props) {
   const [dragging, setDragging] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -126,6 +128,7 @@ function ImageUploader({
         ref={inputRef}
         type='file'
         id='image-input'
+        name={name}
         accept={allowedFileTypes.join(', ')}
         onChange={handleImageChange}
       />
