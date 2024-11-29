@@ -8,7 +8,7 @@ import { NewRecipeData, NewRecipeIngredient } from '@/service/recipes/type';
 
 import { ChipListInput, Input } from '@/components/Input';
 import Button from '@/components/Button';
-import ImageUploader2 from '@/components/imageUploader/ImageUploader2';
+import ImageUploaderWithReset from '@/components/imageUploader/ImageUploaderWithReset';
 
 import { getRandomId } from '@/utils/generateId';
 import { createInputHandler } from '@/utils/createInputHandler';
@@ -226,7 +226,7 @@ function NewRecipe({ initialData, onSubmit, loading, pageTitle }: Props) {
         <div className={style.box}>
           <h3>Image*</h3>
           <div className={style['img-uploader']}>
-            <ImageUploader2
+            <ImageUploaderWithReset
               onChange={setImg}
               imgValue={img}
               initialImg={initialData.img}

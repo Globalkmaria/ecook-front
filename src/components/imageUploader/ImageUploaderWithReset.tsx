@@ -10,8 +10,11 @@ import React, {
 } from 'react';
 
 import style from './style.module.scss';
-import Icon from '../Icon';
+
 import { joinClassNames } from '@/utils/style';
+
+import Icon from '@/components/Icon';
+
 import { getFileInfoMessage, getInvalidFileFormatMessage } from './helper';
 
 const MAX_FILE_SIZE = 500;
@@ -21,13 +24,15 @@ interface Props {
   className?: string;
   maxSizeKB?: number;
   allowedFileTypes?: string[];
-  imgValue?: File | string | null;
+  imgValue: File | string | null;
   initialImg?: string | null;
   onChange: (img: File | string | null) => void;
   mode?: 'edit' | 'new';
 }
 
-function ImageUploader2({
+// image uploader with initial image and reset button
+
+function ImageUploaderWithReset({
   className,
   maxSizeKB = MAX_FILE_SIZE,
   allowedFileTypes = ALLOWED_FILE_TYPES,
@@ -210,6 +215,6 @@ function EditCloseButton({
   );
 }
 
-export default memo(ImageUploader2, (prevProps, nextProps) => {
+export default memo(ImageUploaderWithReset, (prevProps, nextProps) => {
   return prevProps.imgValue === nextProps.imgValue;
 });

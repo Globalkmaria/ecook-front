@@ -10,8 +10,11 @@ import React, {
 } from 'react';
 
 import style from './style.module.scss';
-import Icon from '../Icon';
+
 import { joinClassNames } from '@/utils/style';
+
+import Icon from '@/components/Icon';
+
 import { getFileInfoMessage, getInvalidFileFormatMessage } from './helper';
 
 const MAX_FILE_SIZE = 500;
@@ -21,7 +24,7 @@ interface Props {
   className?: string;
   maxSizeKB?: number;
   allowedFileTypes?: string[];
-  imgValue?: File | null;
+  imgValue: File | null;
   onChange: (img: File | null) => void;
 }
 
