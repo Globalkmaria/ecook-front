@@ -58,7 +58,12 @@ function NavRightButtons() {
           </div>
         </>
       ) : (
-        <Anchor href='/login'>Login</Anchor>
+        <>
+          <Anchor variant='secondary' href='/signup'>
+            Sign up
+          </Anchor>
+          <Anchor href='/login'>Login</Anchor>
+        </>
       )}
     </div>
   );
