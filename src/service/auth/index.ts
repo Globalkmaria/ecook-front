@@ -7,12 +7,6 @@ interface LoginData {
   password: string;
 }
 
-interface RegisterData {
-  username: string;
-  password: string;
-  email: string;
-}
-
 export const login = async (data: LoginData): FetchResult<User> => {
   try {
     const response = await fetchAPI('/auth/login', {
@@ -30,14 +24,11 @@ export const login = async (data: LoginData): FetchResult<User> => {
   }
 };
 
-export const signup = async (data: RegisterData): FetchResult<User> => {
+export const signup = async (data: FormData): FetchResult<User> => {
   try {
     const response = await fetchAPI('/auth/signup', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
+      body: data,
     });
 
     return { ok: true, data: response };

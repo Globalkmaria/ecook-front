@@ -9,3 +9,8 @@ export interface Profile {
   user: User;
   recipes: RecipeSimple[];
 }
+
+export interface ResIsUsernameAvailable {
+  message: string;
+  isAvailable: boolean;
+}

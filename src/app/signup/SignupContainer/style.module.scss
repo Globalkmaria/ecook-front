@@ -15,8 +15,9 @@
 .container {
   display: flex;
   flex-direction: column;
-  max-width: 300px;
+  max-width: 410px;
   width: 100%;
+  margin: 0 20px;
 
   h1 {
     font-size: 1.5rem;
@@ -39,9 +40,26 @@
     font-weight: 500;
   }
 
-  button {
-    margin-top: 10px;
+  .text-input {
+    padding: 14px 20px;
   }
+
+  .username {
+    display: flex;
+    gap: 10px;
+  }
+  .valid-button {
+    height: 48px;
+  }
+
+  .submit-btn {
+    margin-top: 10px;
+    height: 48px;
+  }
+}
+
+.img-uploader {
+  height: 200px;
 }
 
 .register {
