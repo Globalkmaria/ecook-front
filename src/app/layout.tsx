@@ -20,9 +20,11 @@ export default function RootLayout({
     <html lang='en'>
       <body className={roboto.className}>
         <div className={style.layout_container}>
-          <UserStoreProvider>{children}</UserStoreProvider>
-          {modal}
-          <div id='modal-root' />
+          <UserStoreProvider>
+            {children}
+            {modal}
+            <div id='modal-root' />
+          </UserStoreProvider>
         </div>
       </body>
     </html>

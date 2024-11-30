@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { NewRecipeData } from '@/service/recipes/type';
@@ -16,6 +16,7 @@ import NewRecipe, {
   TextInputs,
 } from './NewRecipe';
 import { getNewIngredient } from './helper';
+import { useUserStore } from '@/providers/user-store-provider';
 
 interface SubmitProps {
   img: File | string | null;
@@ -29,8 +30,19 @@ export type OnSubmitNewRecipe = (data: SubmitProps) => void;
 
 function NewRecipeContainer() {
   const router = useRouter();
+  const { username } = useUserStore((store) => store);
 
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!username) {
+      router.push('/login');
+    }
+  }, [username, router]);
+
+  if (!username) {
+    return null;
+  }
 
   const onSubmit = async ({
     img,
