@@ -78,6 +78,12 @@ function ChipListInput({
       return;
     }
 
+    if (key === ' ' && value.trim().length) {
+      addItem(value);
+      setInputValue('');
+      return;
+    }
+
     if (key === 'Backspace' && !value.length && items.length) {
       removeLastItem();
       return;
