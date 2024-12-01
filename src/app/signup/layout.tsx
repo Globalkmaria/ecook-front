@@ -31,7 +31,13 @@ function Nav() {
   return (
     <nav className={style['nav']}>
       <div className={style['img-container']}>
-        <Image src='/img/bg1.png' alt='E-COOK' fill className={style.img} />
+        <Image
+          src='/img/bg1.png'
+          alt='E-COOK'
+          fill
+          className={style.img}
+          priority
+        />
       </div>
     </nav>
   );
