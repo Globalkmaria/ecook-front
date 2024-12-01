@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import style from './style.module.scss';
 
@@ -8,19 +8,15 @@ import { Dropbox, DropboxItem, DropboxWrapper } from '@/components/Dropbox';
 import Icon from '@/components/Icon';
 
 import useModal from '@/hooks/useModal';
-import { useRouter } from 'next/navigation';
-import { SearchParams } from '@/app/search/page';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { lightSlugify } from '@/utils/normalize';
 
-interface Props {
-  searchParamsData?: SearchParams;
-}
-
-function Search({ searchParamsData }: Props) {
+function Search() {
   const router = useRouter();
-  const [searchQuery, setSearchQuery] = useState(searchParamsData?.q ?? '');
+  const searchParams = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('q') ?? '');
   const [selectedMenuItem, setSelectedMenuItem] = useState<string>(
-    searchParamsData?.type ?? SEARCH_MENU_DEFAULT,
+    searchParams.get('type') ?? SEARCH_MENU_DEFAULT,
   );
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -41,6 +37,11 @@ function Search({ searchParamsData }: Props) {
       onSearch();
     }
   };
+
+  useEffect(() => {
+    setSearchQuery(searchParams.get('q') ?? '');
+    setSelectedMenuItem(searchParams.get('type') ?? SEARCH_MENU_DEFAULT);
+  }, [searchParams]);
 
   return (
     <section className={style['search-wrapper']}>
