@@ -25,6 +25,7 @@ import NewProduct from './NewProduct';
 import ExistingProduct from './ExistingProduct';
 import { NewRecipeIngredientState } from '../../NewRecipe';
 import { INGREDIENT_TEXT_LIMIT, OnSelectProductProps } from '../Ingredients';
+import { getProducts } from '@/service/products';
 
 interface Props {
   control: ReturnType<typeof useModal>;
@@ -100,14 +101,16 @@ function SearchProductModal({ control, onSelectProduct, ingredient }: Props) {
     );
 
   const searchIngredient = async () => {
-    const { ingredientId, products } = await fetch(
-      `http://localhost:8080/api/v1/products?ingredient=${searchInput}`,
-    ).then((response) => response.json());
+    const result = await getProducts('ingredientName', searchInput);
+    if (!result.ok) {
+      alert('Something went wrong while searching for the products.');
+      return;
+    }
 
     setSearchedIngredient({
-      id: ingredientId,
+      id: result.data.ingredientId ?? null,
       name: searchInput,
-      products,
+      products: result.data.products,
     });
   };
 
