@@ -2,6 +2,17 @@
 
 // List
 
+.no-result {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-weight: 500;
+  gap: 5px;
+}
+
 .list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(336px, 1fr));

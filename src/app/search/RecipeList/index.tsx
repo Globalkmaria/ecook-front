@@ -16,11 +16,17 @@ interface Props {
 
 function RecipeList({ recipes }: Props) {
   return (
-    <ul className={style.list}>
-      {recipes.map((recipe) => (
-        <Item key={recipe.id} recipe={recipe} />
-      ))}
-    </ul>
+    <>
+      {recipes.length ? (
+        <ul className={style.list}>
+          {recipes.map((recipe) => (
+            <Item key={recipe.id} recipe={recipe} />
+          ))}
+        </ul>
+      ) : (
+        <NoResult />
+      )}
+    </>
   );
 }
 
@@ -61,5 +67,17 @@ function Item({ recipe }: ItemProps) {
         </div>
       </Link>
     </li>
+  );
+}
+
+function NoResult() {
+  return (
+    <div className={style['no-result']}>
+      <span>Oops! We couldn’t find any recipes that match your search. 🥺</span>
+      <span>
+        Try refining your keywords or explore some of our popular recipes for
+        inspiration!
+      </span>
+    </div>
   );
 }
