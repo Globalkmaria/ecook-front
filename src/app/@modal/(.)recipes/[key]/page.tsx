@@ -2,14 +2,14 @@ import { getRecipe } from '@/service/recipes';
 import ModalRecipes from './ModalRecipes';
 
 interface Props {
-  params: Promise<{ recipeId: string }>;
+  params: Promise<{ key: string }>;
 }
 
 async function RecipePage({ params }: Props) {
-  const { recipeId } = await params;
-  if (!recipeId) return null;
+  const { key } = await params;
+  if (!key) return null;
 
-  const result = await getRecipe(recipeId);
+  const result = await getRecipe(key);
   if (!result.ok) return null;
 
   return <ModalRecipes recipe={result.data} />;

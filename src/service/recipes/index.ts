@@ -16,9 +16,11 @@ export const getRecipes = async (
   }
 };
 
-export const getRecipe = async (id: string): FetchResult<RecipeDetail> => {
+export const getRecipe = async (
+  recipeKey: string,
+): FetchResult<RecipeDetail> => {
   try {
-    const data = await fetchAPI(`/recipes/${id}`);
+    const data = await fetchAPI(`/recipes/${recipeKey}`);
     return { ok: true, data };
   } catch (e) {
     console.error('Failed to fetch recipe', e);
@@ -26,9 +28,9 @@ export const getRecipe = async (id: string): FetchResult<RecipeDetail> => {
   }
 };
 
-export const deleteRecipe = async (id: string): FetchResult<null> => {
+export const deleteRecipe = async (recipeKey: string): FetchResult<null> => {
   try {
-    await fetchAPI(`/recipes/${id}`, {
+    await fetchAPI(`/recipes/${recipeKey}`, {
       method: 'DELETE',
     });
     return { ok: true, data: null };
@@ -54,10 +56,10 @@ export const saveRecipe = async (data: FormData): FetchResult<RecipeDetail> => {
 
 export const editRecipe = async (
   data: FormData,
-  id: string,
+  recipeKey: string,
 ): FetchResult<RecipeDetail> => {
   try {
-    const response = await fetchAPI(`/recipes/${id}`, {
+    const response = await fetchAPI(`/recipes/${recipeKey}`, {
       method: 'PUT',
       body: data,
     });

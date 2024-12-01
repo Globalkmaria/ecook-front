@@ -14,11 +14,11 @@ import { OnSubmitNewRecipe } from '@/app/recipes/new/NewRecipeContainer';
 type EditRecipeData = Omit<NewRecipeData, 'img'>;
 
 interface Props {
-  recipeId: string;
+  key: string;
   onCloseModal: () => void;
 }
 
-function RecipeEdit({ recipeId, onCloseModal }: Props) {
+function RecipeEdit({ key, onCloseModal }: Props) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [loadingRecipe, setLoadingRecipe] = useState(true);
@@ -65,7 +65,7 @@ function RecipeEdit({ recipeId, onCloseModal }: Props) {
     formData.append('info', JSON.stringify(data));
 
     setLoading(true);
-    const response = await editRecipe(formData, recipeId);
+    const response = await editRecipe(formData, key);
     setLoading(false);
 
     if (!response.ok) {
@@ -73,11 +73,12 @@ function RecipeEdit({ recipeId, onCloseModal }: Props) {
       return;
     }
 
-    router.replace(`/recipes/${response.data.id}`);
+    onCloseModal();
+    router.push(`/recipes/${key}`);
   };
 
   const getRecipeData = async () => {
-    const result = await getRecipe(recipeId);
+    const result = await getRecipe(key);
 
     if (!result.ok) {
       alert('Something went wrong while getting the recipe.');

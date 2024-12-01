@@ -36,7 +36,7 @@ function Item({ recipe }: ItemProps) {
 
   return (
     <li className={style.wrapper}>
-      <Link href={`/recipes/${recipe.id}`} className={style.card}>
+      <Link href={`/recipes/${recipe.key}`} className={style.card}>
         <div className={style['img-box']}>
           <div className={style['img-wrapper']}>
             <Image

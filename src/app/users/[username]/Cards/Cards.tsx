@@ -18,7 +18,7 @@ function Cards({ recipes }: Props) {
   return (
     <ul className={style.list}>
       {recipes.map((recipe) => (
-        <Card key={recipe.id} recipe={recipe} />
+        <Card key={recipe.key} recipe={recipe} />
       ))}
     </ul>
   );
@@ -36,8 +36,8 @@ function Card({ recipe }: CardProps) {
 
   return (
     <li className={style.wrapper}>
-      <CardMenu recipeId={recipe.id} />
-      <Link href={`/recipes/${recipe.id}`} className={style.card}>
+      <CardMenu key={recipe.key} />
+      <Link href={`/recipes/${recipe.key}`} className={style.card}>
         <div className={style['img-box']}>
           <div className={style['img-wrapper']}>
             <Image

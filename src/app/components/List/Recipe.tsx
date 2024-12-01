@@ -1,12 +1,14 @@
 import Image from 'next/image';
 import { Libre_Bodoni } from 'next/font/google';
+import Link from 'next/link';
 
 import style from './Recipe.module.scss';
 
-import Chip, { ChipsContainer } from '@/components/Chip';
-import Link from 'next/link';
 import { RecipeSimple } from '@/service/recipes/type';
+
 import { getLimitedText } from '@/utils/text';
+
+import Chip, { ChipsContainer } from '@/components/Chip';
 
 const libre = Libre_Bodoni({
   subsets: ['latin'],
@@ -21,11 +23,12 @@ interface Props {
 
 function Recipe({ recipe, idx }: Props) {
   const limitedName = getLimitedText(recipe.name, 20);
+
   return (
     <Link
       className={style[`item--${idx}`]}
       scroll={false}
-      href={`/recipes/${recipe.id}`}
+      href={`/recipes/${recipe.key}`}
     >
       <div className={style.container}>
         <div className={style['hover-content']}>

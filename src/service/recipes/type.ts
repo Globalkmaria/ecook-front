@@ -7,6 +7,7 @@ export interface RecipeSimple {
   hours: number;
   minutes: number;
   tags: { id: string; name: string }[];
+  key: string;
 }
 
 export interface RecipeProduct {
