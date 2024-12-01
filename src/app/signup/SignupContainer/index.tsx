@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -19,6 +19,7 @@ import ImageUploader from '@/components/imageUploader';
 
 import {
   checkAllFieldsAreFilled,
+  getSignupFormData,
   INVALID_EMAIL_MESSAGE,
   INVALID_PASSWORD_MESSAGE,
   INVALID_USERNAME_MESSAGE,
@@ -61,9 +62,7 @@ function SignupContainer() {
     onChange(e);
   };
 
-  const onSignup = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const onSignup = async () => {
     if (isLoading) return;
     setIsLoading(true);
 
@@ -91,8 +90,7 @@ function SignupContainer() {
       return;
     }
 
-    const formData = new FormData(e.currentTarget);
-
+    const formData = getSignupFormData(form);
     const result = await signup(formData);
 
     setIsLoading(false);
@@ -139,12 +137,13 @@ function SignupContainer() {
   const validateUsernameButtonVariant = isUsernameValid
     ? 'success'
     : 'secondary';
+  const submitButtonText = isLoading ? 'Creating Account...' : 'Create Account';
 
   return (
     <div className={style.wrapper}>
       <div className={style.container}>
         <h1>Sign up to E-COOK</h1>
-        <form className={style.form} onSubmit={onSignup}>
+        <div className={style.form}>
           <div className={style['img-uploader']}>
             <ImageUploader
               onChange={onImgChange}
@@ -209,15 +208,19 @@ function SignupContainer() {
             />
           </fieldset>
 
-          <Button type='submit' className={style['submit-btn']}>
-            Create Account
+          <Button
+            onClick={onSignup}
+            className={style['submit-btn']}
+            disabled={isLoading}
+          >
+            {submitButtonText}
           </Button>
 
           <div className={style.register}>
             <p>Already have an account?</p>
             <Link href='/login'>Sign In</Link>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

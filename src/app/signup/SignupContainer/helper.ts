@@ -24,3 +24,9 @@ export const INVALID_EMAIL_MESSAGE = 'Please enter a valid email address.';
 
 export const checkAllFieldsAreFilled = (form: SignupFormState) =>
   Object.values(form).every((value) => value !== '');
+
+export const getSignupFormData = (form: SignupFormState) => {
+  const formData = new FormData();
+  Object.entries(form).forEach(([key, value]) => formData.append(key, value));
+  return formData;
+};
