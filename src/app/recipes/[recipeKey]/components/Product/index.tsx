@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 import style from './style.module.scss';
 
 import { joinClassNames } from '@/utils/style';
@@ -10,6 +8,7 @@ import { Product as ProductType } from '@/service/products/type';
 import { RecipeProduct } from '@/service/recipes/type';
 import SearchIconLink from '@/components/SearchIconLink';
 import { lightSlugify } from '@/utils/normalize';
+import CustomImage from '@/app/components/CustomImage';
 
 interface Props {
   product: RecipeProduct | ProductType;
@@ -38,7 +37,7 @@ function Product({ product, isUserProduct, ingredientName }: Props) {
 
       <div className={style['img-box']}>
         {product.img ? (
-          <Image src={product.img} alt={product.name} fill />
+          <CustomImage src={product.img} alt={product.name} fill />
         ) : (
           <Icon icon='img' className={style['img-icon']} />
         )}

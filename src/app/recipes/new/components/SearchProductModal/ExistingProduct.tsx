@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import Image from 'next/image';
 
 import style from './style.module.scss';
 
@@ -8,6 +7,7 @@ import Icon from '@/components/Icon';
 
 import { SelectedProductState } from '.';
 import { Product } from '@/service/products/type';
+import CustomImage from '@/app/components/CustomImage';
 
 interface ExistingProductProps {
   item: Product;
@@ -34,7 +34,7 @@ function ExistingProduct({
       <div className={style.product}>
         <div className={style['img-box']}>
           {item.img ? (
-            <Image src={item.img} alt={item.name} fill />
+            <CustomImage src={item.img} alt={item.name} fill />
           ) : (
             <Icon icon='img' className={style['img-icon']} />
           )}

@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { Libre_Bodoni } from 'next/font/google';
 import Link from 'next/link';
 
@@ -9,6 +8,7 @@ import { RecipeSimple } from '@/service/recipes/type';
 import { getLimitedText } from '@/utils/text';
 
 import Chip, { ChipsContainer } from '@/components/Chip';
+import CustomImage from '../CustomImage';
 
 const libre = Libre_Bodoni({
   subsets: ['latin'],
@@ -33,7 +33,7 @@ function Recipe({ recipe, idx }: Props) {
       <div className={style.container}>
         <div className={style['hover-content']}>
           <div className={style['hover-content__img-box']}>
-            <Image src={recipe.img} fill alt={recipe.name} />
+            <CustomImage src={recipe.img} fill alt={recipe.name} />
           </div>
           <h2 className={`${libre.className} ${style['hover-content__name']}`}>
             {limitedName}
@@ -42,7 +42,7 @@ function Recipe({ recipe, idx }: Props) {
 
         <div className={style['img-wrapper']}>
           <div className={`${style[`item--${idx}`]} ${style['img-box']}`}>
-            <Image src={recipe.img} fill alt={recipe.name} />
+            <CustomImage src={recipe.img} fill alt={recipe.name} />
           </div>
         </div>
 

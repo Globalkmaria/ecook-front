@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -19,6 +18,7 @@ import AnchorUnderline from '@/components/Anchor/AnchorUnderline';
 import Ingredients from './components/IngredientList';
 
 import { RECIPE_TABS, RecipeTab } from './const';
+import CustomImage from '@/app/components/CustomImage';
 
 interface Props {
   recipe: RecipeDetail;
@@ -59,7 +59,7 @@ function Recipe({ recipe }: Props) {
       </div>
       <div className={style.container}>
         <div className={style['img-box']}>
-          <Image src={recipe.img} fill alt={recipe.name} />
+          <CustomImage src={recipe.img} fill alt={recipe.name} />
         </div>
 
         <div className={style.content}>

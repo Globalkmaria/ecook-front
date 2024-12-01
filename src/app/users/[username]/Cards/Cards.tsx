@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import style from './Cards.module.scss';
 
 import { RecipeSimple } from '@/service/recipes/type';
@@ -9,6 +8,7 @@ import { formatTime } from '@/utils/time';
 import Chip, { ChipsContainer } from '@/components/Chip';
 import CardMenu from './CardMenu';
 import { getLimitedText } from '@/utils/text';
+import CustomImage from '@/app/components/CustomImage';
 
 interface Props {
   recipes: RecipeSimple[];
@@ -40,7 +40,7 @@ function Card({ recipe }: CardProps) {
       <Link href={`/recipes/${recipe.key}`} className={style.card}>
         <div className={style['img-box']}>
           <div className={style['img-wrapper']}>
-            <Image
+            <CustomImage
               className={style.img}
               src={recipe.img}
               alt={recipe.name}

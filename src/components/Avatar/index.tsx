@@ -1,7 +1,7 @@
-import Image from 'next/image';
-
 import style from './style.module.scss';
+
 import { joinClassNames } from '@/utils/style';
+import CustomImage from '@/app/components/CustomImage';
 
 interface AvatarProps {
   user: {
@@ -21,7 +21,7 @@ function Avatar({ user: { img, username }, size = 32 }: AvatarProps) {
     <div className={style.avatar}>
       <div className={style['img-box']}>
         {img ? (
-          <Image src={img} alt={username} width={size} height={size} />
+          <CustomImage src={img} alt={username} width={size} height={size} />
         ) : (
           <span className={userNameImgClassName}>{username[0]}</span>
         )}
@@ -39,10 +39,7 @@ export function AvatarImg({
   size = 32,
   hoverable,
 }: AvatarProps) {
-  const coverClassName = joinClassNames(
-    style['cover'],
-    // style['username-img--' + size],
-  );
+  const coverClassName = joinClassNames(style['cover']);
   const userNameImgClassName = joinClassNames(
     style['username-img'],
     style['username-img--' + size],
@@ -53,7 +50,7 @@ export function AvatarImg({
       {hoverable ? <div className={coverClassName}></div> : null}
       <div className={style['img-box']}>
         {img ? (
-          <Image src={img} alt={username} width={size} height={size} />
+          <CustomImage src={img} alt={username} width={size} height={size} />
         ) : (
           <span className={userNameImgClassName}>{username[0]}</span>
         )}
