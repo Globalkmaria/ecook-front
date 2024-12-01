@@ -10,6 +10,11 @@ import Icon from '@/components/Icon';
 import useModal from '@/hooks/useModal';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { lightSlugify } from '@/utils/normalize';
+import {
+  SEARCH_MENU_DEFAULT,
+  SEARCH_MENU_ITEMS,
+  SEARCH_MENU_ITEMS_MAP,
+} from '@/app/const/searchMenu';
 
 function Search() {
   const router = useRouter();
@@ -107,21 +112,3 @@ function SearchMenu({ onMenuChange, selectedMenuItem }: SearchMenuProps) {
     </DropboxWrapper>
   );
 }
-
-const SEARCH_MENU_ITEMS: {
-  label: string;
-  value: string;
-}[] = [
-  { label: 'Title', value: 'name' },
-  { label: 'Tag', value: 'tag' },
-  { label: 'Ingredient', value: 'ingredient' },
-  { label: 'Product', value: 'product' },
-];
-
-const SEARCH_MENU_ITEMS_MAP: { [key: string]: string } =
-  SEARCH_MENU_ITEMS.reduce(
-    (acc, item) => ({ ...acc, [item.value]: item.label }),
-    {},
-  );
-
-const SEARCH_MENU_DEFAULT = SEARCH_MENU_ITEMS[0].value;
