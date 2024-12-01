@@ -12,21 +12,22 @@ import CustomImage from '@/app/components/CustomImage';
 
 interface Props {
   recipes: RecipeSimple[];
+  isSuccess: boolean;
 }
 
-function RecipeList({ recipes }: Props) {
+function RecipeList({ recipes, isSuccess }: Props) {
+  if (!isSuccess) {
+    return <Error />;
+  }
+  if (!recipes) {
+    return <NoResult />;
+  }
   return (
-    <>
-      {recipes.length ? (
-        <ul className={style.list}>
-          {recipes.map((recipe) => (
-            <Item key={recipe.id} recipe={recipe} />
-          ))}
-        </ul>
-      ) : (
-        <NoResult />
-      )}
-    </>
+    <ul className={style.list}>
+      {recipes.map((recipe) => (
+        <Item key={recipe.id} recipe={recipe} />
+      ))}
+    </ul>
   );
 }
 
@@ -77,6 +78,17 @@ function NoResult() {
       <span>
         Try refining your keywords or explore some of our popular recipes for
         inspiration!
+      </span>
+    </div>
+  );
+}
+
+function Error() {
+  return (
+    <div className={style['no-result']}>
+      <span>Oops! Something went wrong.</span>
+      <span>
+        Please double-check your search keywords or try again later. 🥺
       </span>
     </div>
   );
