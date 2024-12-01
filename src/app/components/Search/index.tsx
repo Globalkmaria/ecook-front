@@ -10,6 +10,7 @@ import Icon from '@/components/Icon';
 import useModal from '@/hooks/useModal';
 import { useRouter } from 'next/navigation';
 import { SearchParams } from '@/app/search/page';
+import { lightSlugify } from '@/utils/normalize';
 
 interface Props {
   searchParamsData?: SearchParams;
@@ -26,7 +27,9 @@ function Search({ searchParamsData }: Props) {
     setSearchQuery(e.target.value);
 
   const onSearch = () => {
-    router.push(`/search?type=${selectedMenuItem}&q=${searchQuery}`);
+    if (!searchQuery) return;
+    const query = lightSlugify(searchQuery);
+    router.push(`/search?type=${selectedMenuItem}&q=${query}`);
   };
 
   const onMenuChange = (menuItem: string) => {
