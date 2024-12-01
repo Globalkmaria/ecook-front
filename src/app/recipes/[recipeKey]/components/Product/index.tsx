@@ -8,8 +8,8 @@ import Chip from '@/components/Chip';
 import Icon from '@/components/Icon';
 import { Product as ProductType } from '@/service/products/type';
 import { RecipeProduct } from '@/service/recipes/type';
-import Link from 'next/link';
 import SearchIconLink from '@/components/SearchIconLink';
+import { lightSlugify } from '@/utils/normalize';
 
 interface Props {
   product: RecipeProduct | ProductType;
@@ -31,7 +31,9 @@ function Product({ product, isUserProduct, ingredientName }: Props) {
       )}
 
       <div className={style.search}>
-        <SearchIconLink href={`/search?type=product&q=${product.name}`} />
+        <SearchIconLink
+          href={`/search?type=product&q=${lightSlugify(product.name)}`}
+        />
       </div>
 
       <div className={style['img-box']}>
