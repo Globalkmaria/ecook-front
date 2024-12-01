@@ -2,14 +2,14 @@ import { getRecipe } from '@/service/recipes';
 import Recipe from './Recipe';
 
 interface Props {
-  params: Promise<{ key: string }>;
+  params: Promise<{ recipeKey: string }>;
 }
 
 async function Page({ params }: Props) {
-  const { key } = await params;
-  if (!key) return null;
+  const { recipeKey } = await params;
+  if (!recipeKey) return null;
 
-  const result = await getRecipe(key);
+  const result = await getRecipe(recipeKey);
   if (!result.ok) return null;
 
   return <Recipe recipe={result.data} />;

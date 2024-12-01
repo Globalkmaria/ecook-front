@@ -36,7 +36,7 @@ function Card({ recipe }: CardProps) {
 
   return (
     <li className={style.wrapper}>
-      <CardMenu key={recipe.key} />
+      <CardMenu recipeKey={recipe.key} />
       <Link href={`/recipes/${recipe.key}`} className={style.card}>
         <div className={style['img-box']}>
           <div className={style['img-wrapper']}>

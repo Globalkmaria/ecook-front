@@ -93,7 +93,7 @@ function NewRecipeContainer() {
       return;
     }
 
-    router.replace(`/recipes/${response.data.id}`);
+    router.replace(`/recipes/${response.data.key}`);
   };
 
   const initialData: NewRecipeInitialData = {

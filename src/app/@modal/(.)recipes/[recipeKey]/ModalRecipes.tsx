@@ -5,7 +5,7 @@ import style from './style.module.scss';
 import { Modal2 } from '@/components/Modal';
 import { useRouter } from 'next/navigation';
 import { RecipeDetail } from '@/service/recipes/type';
-import Recipe from '@/app/recipes/[key]/Recipe';
+import Recipe from '@/app/recipes/[recipeKey]/Recipe';
 
 interface Props {
   recipe: RecipeDetail;

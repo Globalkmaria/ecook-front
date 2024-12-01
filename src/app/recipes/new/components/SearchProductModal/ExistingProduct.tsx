@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import style from './style.module.scss';
 
-import { ProductInfo } from '@/app/recipes/[key]/components/Product';
+import { ProductInfo } from '@/app/recipes/[recipeKey]/components/Product';
 import Icon from '@/components/Icon';
 
 import { SelectedProductState } from '.';

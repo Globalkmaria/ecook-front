@@ -20,10 +20,10 @@ import ModalContainer from '@/components/Modal/ModalContainer';
 import RecipeEdit from '../RecipeEdit';
 
 interface Props {
-  key: RecipeSimple['id'];
+  recipeKey: RecipeSimple['key'];
 }
 
-function CardMenu({ key }: Props) {
+function CardMenu({ recipeKey }: Props) {
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useModal();
   const { username } = useUserStore((store) => store);
@@ -32,7 +32,7 @@ function CardMenu({ key }: Props) {
   if (!username || username !== paramUsername) return null;
 
   const onDelete = async () => {
-    const result = await deleteRecipe(key);
+    const result = await deleteRecipe(recipeKey);
     if (result.ok) {
       router.refresh();
     } else {
@@ -60,7 +60,7 @@ function CardMenu({ key }: Props) {
       {isOpen && (
         <Modal2 isOpen={isOpen} onClose={onClose}>
           <ModalContainer>
-            <RecipeEdit key={key} onCloseModal={onClose} />
+            <RecipeEdit recipeKey={recipeKey} onCloseModal={onClose} />
           </ModalContainer>
         </Modal2>
       )}

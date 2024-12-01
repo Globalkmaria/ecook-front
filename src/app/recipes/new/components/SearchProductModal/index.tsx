@@ -19,7 +19,7 @@ import { validateLengthAndExecute } from '@/utils/validation';
 import Button from '@/components/Button';
 import { Input } from '@/components/Input';
 import { Modal } from '@/components/Modal';
-import IngredientInformationHeader from '@/app/recipes/[key]/components/IngredientInformation/IngredientInformationHeader';
+import IngredientInformationHeader from '@/app/recipes/[recipeKey]/components/IngredientInformation/IngredientInformationHeader';
 
 import NewProduct from './NewProduct';
 import ExistingProduct from './ExistingProduct';
