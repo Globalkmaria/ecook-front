@@ -16,6 +16,17 @@ export const getRecipes = async (
   }
 };
 
+export const getHomeRecipes = async (): FetchResult<RecipeSimple[]> => {
+  try {
+    const data = await fetchAPI('/recipes/home');
+
+    return { ok: true, data };
+  } catch (e) {
+    console.error('Failed to fetch recipes', e);
+    return { ok: false, error: 'Failed to fetch recipes', data: [] };
+  }
+};
+
 export const getRecipe = async (
   recipeKey: string,
 ): FetchResult<RecipeDetail> => {

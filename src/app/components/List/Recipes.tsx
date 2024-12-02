@@ -1,11 +1,11 @@
 import style from './Recipes.module.scss';
 
-import { getRecipes } from '@/service/recipes';
+import { getHomeRecipes } from '@/service/recipes';
 
 import Recipe from './Recipe';
 
 async function Recipes() {
-  const recipes = await getRecipes();
+  const recipes = await getHomeRecipes();
   return (
     <section className={style.container}>
       {recipes.data?.map((recipe, idx) => (

@@ -14,9 +14,9 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const recipeKey = (await params).username;
+  const username = (await params).username;
 
-  const result = await getProfile(recipeKey);
+  const result = await getProfile(username);
 
   if (!result.ok) return {};
 

@@ -1,11 +1,24 @@
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
-import { getRecipe } from '@/service/recipes';
+import { getHomeRecipes, getRecipe } from '@/service/recipes';
 
 import { capitalizeFirstLetter } from '@/utils/text';
 
 import Recipe from './Recipe';
+
+export const revalidate = 86400; // 24 hours
+
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+  const result = await getHomeRecipes();
+  return (
+    result.data?.map((recipe) => ({
+      recipeKey: recipe.key,
+    })) ?? []
+  );
+}
 
 interface Props {
   params: Promise<{ recipeKey: string }>;
