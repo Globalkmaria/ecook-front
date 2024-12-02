@@ -7,6 +7,19 @@ interface LoginData {
   password: string;
 }
 
+export const me = async (): FetchResult<User> => {
+  try {
+    const response = await fetchAPI('/auth/me');
+
+    if ('username' in response) return { ok: true, data: response };
+
+    return { ok: false, error: 'Failed to fetch user' };
+  } catch (e) {
+    console.error('Failed to fetch user', e);
+    return { ok: false, error: 'Failed to fetch user' };
+  }
+};
+
 export const login = async (data: LoginData): FetchResult<User> => {
   try {
     const response = await fetchAPI('/auth/login', {

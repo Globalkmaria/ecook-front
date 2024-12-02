@@ -1,6 +1,8 @@
-import { getRecipe } from '@/service/recipes';
-import Recipe from './Recipe';
 import { redirect } from 'next/navigation';
+
+import { getRecipe } from '@/service/recipes';
+
+import Recipe from './Recipe';
 
 interface Props {
   params: Promise<{ recipeKey: string }>;

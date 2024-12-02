@@ -1,6 +1,8 @@
-import { User } from '@/service/users/type';
 import { createStore } from 'zustand';
 import { devtools } from 'zustand/middleware';
+
+import { me } from '@/service/auth';
+import { User } from '@/service/users/type';
 
 export type UserState =
   | User
@@ -23,10 +25,23 @@ export const defaultInitState: UserState = {
 
 export const createUserStore = (initialState: UserState = defaultInitState) => {
   return createStore<UserStore>()(
-    devtools((set) => ({
-      ...initialState,
-      setUser: (user) => set(user),
-      resetUser: () => set(defaultInitState),
-    })),
+    devtools((set) => {
+      const getUser = async () => {
+        const response = await me();
+        if (response.ok)
+          set({
+            username: response.data.username,
+            img: response.data.img,
+          });
+      };
+
+      getUser();
+
+      return {
+        ...initialState,
+        setUser: (user) => set(user),
+        resetUser: () => set(defaultInitState),
+      };
+    }),
   );
 };
