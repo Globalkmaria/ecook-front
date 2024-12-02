@@ -1,11 +1,28 @@
+import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
 import { getRecipe } from '@/service/recipes';
+
+import { capitalizeFirstLetter } from '@/utils/text';
 
 import Recipe from './Recipe';
 
 interface Props {
   params: Promise<{ recipeKey: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const recipeKey = (await params).recipeKey;
+
+  const result = await getRecipe(recipeKey);
+
+  if (!result.ok) return {};
+
+  const recipe = result.data;
+  return {
+    title: `${capitalizeFirstLetter(recipe.name)} - E-COOK`,
+    description: `Discover ${recipe.name} recipe. Learn how to make it step-by-step!`,
+  };
 }
 
 async function Page({ params }: Props) {

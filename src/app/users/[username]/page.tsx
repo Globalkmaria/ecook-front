@@ -1,13 +1,30 @@
+import { Metadata } from 'next';
+
 import style from './style.module.scss';
 
 import { getProfile } from '@/service/users';
 
 import { AvatarImg } from '@/components/Avatar';
 import Icon from '@/components/Icon';
+
 import Cards from './Cards/Cards';
 
 interface Props {
   params: Promise<{ username: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const recipeKey = (await params).username;
+
+  const result = await getProfile(recipeKey);
+
+  if (!result.ok) return {};
+
+  const data = result.data;
+  return {
+    title: `User Profile - Explore Recipes by ${data.user.username} | E-COOK`,
+    description: `Check out recipes shared by ${data.user.username} on E-COOK. Discover their culinary creations and find inspiration for your next meal.'`,
+  };
 }
 
 async function UserPage({ params }: Props) {

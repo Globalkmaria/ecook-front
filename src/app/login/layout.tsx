@@ -1,8 +1,15 @@
+import { Metadata } from 'next';
 import Image from 'next/image';
 
 import style from './layout.module.scss';
 
 import Logo from '../components/layout/Logo';
+
+export const metadata: Metadata = {
+  title: 'Login to Your Account | E-COOK',
+  description:
+    'Log in to your E-COOK account to discover, save, and share delicious recipes.',
+};
 
 export default function Layout({
   children,
