@@ -70,7 +70,7 @@ function LoginContainer() {
           </Button>
 
           <div className={style.register}>
-            <p>Don't have an account?</p>
+            <p>{`Don't have an account?`}</p>
             <Link href='/signup'>Sign up</Link>
           </div>
         </form>
@@ -80,9 +80,3 @@ function LoginContainer() {
 }
 
 export default LoginContainer;
-
-const USER = {
-  id: 1,
-  username: 'johndoe',
-  img: '/img/img1.png',
-};

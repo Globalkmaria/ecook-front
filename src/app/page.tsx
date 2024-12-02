@@ -4,8 +4,8 @@ import HomeNav from './components/layout/HomeNav';
 
 import HomeHeader from './components/HomeHeader';
 import Recipes from './components/List/Recipes';
-import Search from './components/Search';
 import Footer from './components/layout/Footer';
+import Search from './components/Search';
 
 export default function Home() {
   return (

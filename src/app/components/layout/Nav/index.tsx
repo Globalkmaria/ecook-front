@@ -1,8 +1,8 @@
 import style from './style.module.scss';
 
-import Search from '../../Search';
 import NavRightButtons from './NavRightButtons';
 import Logo from '../Logo';
+import Search from '../../Search';
 
 async function Nav() {
   return (

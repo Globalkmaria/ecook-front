@@ -1,114 +1,15 @@
-'use client';
+import { Suspense } from 'react';
 
-import { useEffect, useRef, useState } from 'react';
+import Skeleton from '@/components/Skeleton';
 
-import style from './style.module.scss';
+import Search from './SearchContainer';
 
-import { Dropbox, DropboxItem, DropboxWrapper } from '@/components/Dropbox';
-import Icon from '@/components/Icon';
-
-import useModal from '@/hooks/useModal';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { lightSlugify } from '@/utils/normalize';
-import {
-  SEARCH_MENU_DEFAULT,
-  SEARCH_MENU_ITEMS,
-  SEARCH_MENU_ITEMS_MAP,
-} from '@/app/const/searchMenu';
-
-function Search() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const [searchQuery, setSearchQuery] = useState(searchParams.get('q') ?? '');
-  const [selectedMenuItem, setSelectedMenuItem] = useState<string>(
-    searchParams.get('type') ?? SEARCH_MENU_DEFAULT,
-  );
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setSearchQuery(e.target.value);
-
-  const onSearch = () => {
-    if (!searchQuery) return;
-    const query = lightSlugify(searchQuery);
-    router.push(`/search?type=${selectedMenuItem}&q=${query}`);
-  };
-
-  const onMenuChange = (menuItem: string) => {
-    setSelectedMenuItem(menuItem);
-  };
-
-  const onEnterPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      onSearch();
-    }
-  };
-
-  useEffect(() => {
-    setSearchQuery(searchParams.get('q') ?? '');
-    setSelectedMenuItem(searchParams.get('type') ?? SEARCH_MENU_DEFAULT);
-  }, [searchParams]);
-
+function Wrapper() {
   return (
-    <section className={style['search-wrapper']}>
-      <div className={style.search}>
-        <input
-          className={style.input}
-          type='text'
-          placeholder='What are you looking for?'
-          value={searchQuery}
-          onChange={onChange}
-          onKeyDown={onEnterPress}
-        />
-        <SearchMenu
-          onMenuChange={onMenuChange}
-          selectedMenuItem={selectedMenuItem}
-        />
-        <button type='button' className={style.button} onClick={onSearch}>
-          <Icon icon='search' />
-        </button>
-      </div>
-    </section>
+    <Suspense fallback={<Skeleton />}>
+      <Search />
+    </Suspense>
   );
 }
 
-export default Search;
-
-interface SearchMenuProps {
-  onMenuChange: (menuItem: string) => void;
-  selectedMenuItem: string;
-}
-
-function SearchMenu({ onMenuChange, selectedMenuItem }: SearchMenuProps) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  const { isOpen, onClose, onToggle } = useModal();
-
-  const menuArrow = isOpen ? <Icon icon='up' /> : <Icon icon='down' />;
-
-  const onClick = (value: string) => {
-    onMenuChange(value);
-    onClose();
-  };
-
-  return (
-    <DropboxWrapper ref={ref} className={style['menu']}>
-      <button type='button' className={style['menu__title']} onClick={onToggle}>
-        <span>{SEARCH_MENU_ITEMS_MAP[selectedMenuItem]}</span>
-        <span className={style.arrow}>{menuArrow}</span>
-      </button>
-      {isOpen && (
-        <Dropbox containerRef={ref} onCloseModal={onClose}>
-          {SEARCH_MENU_ITEMS.map((menuItem) => (
-            <DropboxItem
-              key={menuItem.value}
-              selected={selectedMenuItem === menuItem.value}
-              onClick={() => onClick(menuItem.value)}
-            >
-              <span>{menuItem.label}</span>
-            </DropboxItem>
-          ))}
-        </Dropbox>
-      )}
-    </DropboxWrapper>
-  );
-}
+export default Wrapper;

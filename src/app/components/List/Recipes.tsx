@@ -1,7 +1,8 @@
 import style from './Recipes.module.scss';
-import Recipe from './Recipe';
 
 import { getRecipes } from '@/service/recipes';
+
+import Recipe from './Recipe';
 
 async function Recipes() {
   const recipes = await getRecipes();
