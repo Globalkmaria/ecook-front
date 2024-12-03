@@ -4,7 +4,14 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'velog.velcdn.com',
+        hostname: 'ecook.online',
+      },
+      {
+        protocol: 'http',
+        hostname: 'ecook.online',
+      },
+      {
+        hostname: 'localhost',
       },
     ],
   },
