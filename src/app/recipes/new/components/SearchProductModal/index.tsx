@@ -101,6 +101,11 @@ function SearchProductModal({ control, onSelectProduct, ingredient }: Props) {
     );
 
   const searchIngredient = async () => {
+    if (searchInput.trim() === '') {
+      setSearchedIngredient(null);
+      return;
+    }
+
     const result = await getProducts('ingredientName', searchInput);
     if (!result.ok) {
       alert('Something went wrong while searching for the products.');
