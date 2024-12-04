@@ -1,8 +1,10 @@
 @use '@/style/theme.scss' as *;
+
 .logo {
   flex-shrink: 0;
 }
 
 .title {
+  font-family: $font-lato;
   font-size: 1.5rem;
 }

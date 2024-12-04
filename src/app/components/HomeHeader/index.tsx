@@ -1,18 +1,8 @@
-import { Libre_Bodoni } from 'next/font/google';
-
 import style from './style.module.scss';
-
-import { joinClassNames } from '@/utils/style';
-
-const libre = Libre_Bodoni({
-  subsets: ['latin'],
-  style: ['italic', 'normal'],
-  weight: ['600', '400'],
-});
 
 function HomeHeader() {
   return (
-    <header className={joinClassNames(style.header, libre.className)}>
+    <header className={style.header}>
       <h1 className={style.title}>Discover the joy of cooking</h1>
       <p className={style.description}>
         Explore a world of delicious recipes, from timeless classics to modern
