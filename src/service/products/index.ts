@@ -13,9 +13,12 @@ export const getProducts = async (
 }> => {
   try {
     const response = await fetchAPI(`/products?type=${type}&q=${q}`);
-    return { ok: true, data: response.data };
+
+    if (response.ok) return { ok: true, data: response.data };
+
+    throw new Error(response.res.statusText);
   } catch (e) {
-    console.error('Failed to fetch recipes', e);
-    return { ok: false, error: 'Failed to fetch recipes' };
+    console.error('Failed to get recipes', e);
+    return { ok: false, error: 'Failed to get recipes' };
   }
 };

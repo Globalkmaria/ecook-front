@@ -22,19 +22,6 @@ export const fetchAPI = async (
     credentials: 'include',
   });
 
-  if (res.status === 401) {
-    alert('Please login again to use the service');
-    console.error('Please login again to use the service');
-
-    return {
-      ok: false,
-      data: null,
-      res: res,
-    };
-  }
-
-  if (!res.ok) throw new Error(res.statusText);
-
   const contentType = res.headers.get('Content-Type');
   if (contentType && contentType.includes('application/json')) {
     return {
@@ -44,9 +31,23 @@ export const fetchAPI = async (
     };
   }
 
-  return {
-    ok: false,
-    data: null,
-    res: res,
-  };
+  // response.status is between 200 and 299
+  if (res.ok) {
+    return {
+      ok: true,
+      data: null,
+      res: res,
+    };
+  }
+
+  if (300 <= res.status && res.status <= 404) {
+    return {
+      ok: false,
+      data: null,
+      res: res,
+    };
+  }
+
+  // 400 <= response.status < 500
+  throw new Error(`Error: ${res.status}`);
 };

@@ -17,10 +17,15 @@ export const login = async (data: LoginData): FetchResult<User> => {
       body: JSON.stringify(data),
     });
 
-    return { ok: true, data: response.data };
+    if (response.ok) return { ok: true, data: response.data };
+
+    throw new Error(response.res.statusText);
   } catch (e) {
     console.error('Failed to login', e);
-    return { ok: false, error: 'Failed to login' };
+    return {
+      ok: false,
+      error: 'Please check your email and password and try again.',
+    };
   }
 };
 
@@ -31,7 +36,9 @@ export const signup = async (data: FormData): FetchResult<User> => {
       body: data,
     });
 
-    return { ok: true, data: response.data };
+    if (response.ok) return { ok: true, data: response.data };
+
+    throw new Error(response.res.statusText);
   } catch (e) {
     console.error('Failed to register', e);
     return { ok: false, error: 'Failed to register' };

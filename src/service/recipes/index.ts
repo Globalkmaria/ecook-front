@@ -7,11 +7,13 @@ export const getRecipes = async (
   type?: string,
 ): FetchResult<RecipeSimple[]> => {
   try {
-    const { data } = await fetchAPI(
+    const response = await fetchAPI(
       `/recipes?q=${query ?? ''}&type=${type ?? ''}`,
     );
 
-    return { ok: true, data };
+    if (response.ok) return { ok: true, data: response.data };
+
+    throw new Error(response.res.statusText);
   } catch (e) {
     console.error('Failed to fetch recipes', e);
     return { ok: false, error: 'Failed to fetch recipes', data: [] };
@@ -20,9 +22,11 @@ export const getRecipes = async (
 
 export const getHomeRecipes = async (): FetchResult<RecipeSimple[]> => {
   try {
-    const { data } = await fetchAPI('/recipes/home');
+    const response = await fetchAPI('/recipes/home');
 
-    return { ok: true, data };
+    if (response.ok) return { ok: true, data: response.data };
+
+    throw new Error(response.res.statusText);
   } catch (e) {
     console.error('Failed to fetch recipes', e);
     return { ok: false, error: 'Failed to fetch recipes', data: [] };
@@ -33,8 +37,10 @@ export const getRecipe = async (
   recipeKey: string,
 ): FetchResult<RecipeDetail> => {
   try {
-    const { data } = await fetchAPI(`/recipes/${recipeKey}`);
-    return { ok: true, data };
+    const response = await fetchAPI(`/recipes/${recipeKey}`);
+    if (response.ok) return { ok: true, data: response.data };
+
+    throw new Error(response.res.statusText);
   } catch (e) {
     console.error('Failed to fetch recipe', e);
     return { ok: false, error: 'Failed to fetch recipe' };
@@ -43,10 +49,18 @@ export const getRecipe = async (
 
 export const deleteRecipe = async (recipeKey: string): FetchResult<null> => {
   try {
-    await fetchAPI(`/recipes/${recipeKey}`, {
+    const response = await fetchAPI(`/recipes/${recipeKey}`, {
       method: 'DELETE',
     });
-    return { ok: true, data: null };
+
+    if (response.ok) return { ok: true, data: null };
+
+    if (response.res.status === 401) {
+      alert('Please login again to use the service');
+      return { ok: false, error: 'Please login again to use the service' };
+    }
+
+    throw new Error(response.res.statusText);
   } catch (e) {
     console.error('Failed to delete recipe', e);
     return { ok: false, error: 'Failed to delete recipe' };
@@ -60,7 +74,14 @@ export const saveRecipe = async (data: FormData): FetchResult<RecipeDetail> => {
       body: data,
     });
 
-    return { ok: true, data: response.data };
+    if (response.ok) return { ok: true, data: response.data };
+
+    if (response.res.status === 401) {
+      alert('Please login again to use the service');
+      return { ok: false, error: 'Please login again to use the service' };
+    }
+
+    throw new Error(response.res.statusText);
   } catch (e) {
     console.error('Failed to save recipe', e);
     return { ok: false, error: 'Failed to save recipe' };
@@ -77,7 +98,14 @@ export const editRecipe = async (
       body: data,
     });
 
-    return { ok: true, data: response.data };
+    if (response.ok) return { ok: true, data: response.data };
+
+    if (response.res.status === 401) {
+      alert('Please login again to use the service');
+      return { ok: false, error: 'Please login again to use the service' };
+    }
+
+    throw new Error(response.res.statusText);
   } catch (e) {
     console.error('Failed to save recipe', e);
     return { ok: false, error: 'Failed to save recipe' };
