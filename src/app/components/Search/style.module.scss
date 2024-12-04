@@ -27,6 +27,10 @@
     border: 2px solid $pointColor;
     background: $white;
   }
+
+  @media #{$mobile} {
+    padding: 5px;
+  }
 }
 
 .input {
@@ -37,6 +41,7 @@
 
   @media #{$mobile} {
     font-size: 0.8rem;
+    margin-left: 5px;
   }
 }
 
@@ -50,12 +55,21 @@
   &:hover {
     background: $pointColorLight;
   }
+
+  @media #{$mobile} {
+    padding: 4px;
+    font-size: 1rem;
+  }
 }
 
 // Search Menu
 
 .menu {
   width: 100px;
+
+  @media #{$mobile} {
+    width: 80px;
+  }
 }
 
 .menu__title {
@@ -73,7 +87,8 @@
   }
 
   @media #{$mobile} {
-    font-size: 0.9rem;
+    padding: 5px 5px 5px 0px;
+    font-size: 0.8rem;
   }
 
   .arrow {
