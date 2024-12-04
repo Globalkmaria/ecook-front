@@ -5,7 +5,7 @@ interface Props {
   params: Promise<{ recipeKey: string }>;
 }
 
-export const revalidate = 3600; // 60 minutes
+export const revalidate = 10800; // 3 hours
 
 export const dynamicParams = true;
 

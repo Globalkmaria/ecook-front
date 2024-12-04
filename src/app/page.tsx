@@ -7,7 +7,7 @@ import Recipes from './components/List/Recipes';
 import Footer from './components/layout/Footer';
 import Search from './components/Search';
 
-export const revalidate = 3600; // 60 minutes
+export const revalidate = 10800; // 3 hours
 
 export default function Home() {
   return (
