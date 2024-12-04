@@ -9,10 +9,13 @@ async function Nav() {
     <nav className={style.wrapper}>
       <div className={style.container}>
         <Logo />
+
         <div className={style.search}>
           <Search />
         </div>
-        <NavRightButtons />
+        <div className={style['right-buttons-containers']}>
+          <NavRightButtons />
+        </div>
       </div>
     </nav>
   );
