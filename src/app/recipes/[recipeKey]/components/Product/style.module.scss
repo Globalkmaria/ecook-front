@@ -50,6 +50,10 @@
   height: 200px;
   width: 100%;
 
+  @media #{$tablet} {
+    height: 150px;
+  }
+
   img {
     object-fit: contain;
   }
