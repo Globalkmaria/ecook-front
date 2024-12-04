@@ -94,6 +94,7 @@ function SignupContainer() {
     setIsLoading(false);
     if (!result.ok) {
       alert(result.error);
+      setIsLoading(false);
       return;
     }
 
