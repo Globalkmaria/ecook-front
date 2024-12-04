@@ -12,8 +12,8 @@ export const getProducts = async (
   products: Product[];
 }> => {
   try {
-    const data = await fetchAPI(`/products?type=${type}&q=${q}`);
-    return { ok: true, data };
+    const response = await fetchAPI(`/products?type=${type}&q=${q}`);
+    return { ok: true, data: response.data };
   } catch (e) {
     console.error('Failed to fetch recipes', e);
     return { ok: false, error: 'Failed to fetch recipes' };

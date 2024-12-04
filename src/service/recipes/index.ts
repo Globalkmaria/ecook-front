@@ -7,7 +7,9 @@ export const getRecipes = async (
   type?: string,
 ): FetchResult<RecipeSimple[]> => {
   try {
-    const data = await fetchAPI(`/recipes?q=${query ?? ''}&type=${type ?? ''}`);
+    const { data } = await fetchAPI(
+      `/recipes?q=${query ?? ''}&type=${type ?? ''}`,
+    );
 
     return { ok: true, data };
   } catch (e) {
@@ -18,7 +20,7 @@ export const getRecipes = async (
 
 export const getHomeRecipes = async (): FetchResult<RecipeSimple[]> => {
   try {
-    const data = await fetchAPI('/recipes/home');
+    const { data } = await fetchAPI('/recipes/home');
 
     return { ok: true, data };
   } catch (e) {
@@ -31,7 +33,7 @@ export const getRecipe = async (
   recipeKey: string,
 ): FetchResult<RecipeDetail> => {
   try {
-    const data = await fetchAPI(`/recipes/${recipeKey}`);
+    const { data } = await fetchAPI(`/recipes/${recipeKey}`);
     return { ok: true, data };
   } catch (e) {
     console.error('Failed to fetch recipe', e);
@@ -58,7 +60,7 @@ export const saveRecipe = async (data: FormData): FetchResult<RecipeDetail> => {
       body: data,
     });
 
-    return { ok: true, data: response };
+    return { ok: true, data: response.data };
   } catch (e) {
     console.error('Failed to save recipe', e);
     return { ok: false, error: 'Failed to save recipe' };
@@ -75,7 +77,7 @@ export const editRecipe = async (
       body: data,
     });
 
-    return { ok: true, data: response };
+    return { ok: true, data: response.data };
   } catch (e) {
     console.error('Failed to save recipe', e);
     return { ok: false, error: 'Failed to save recipe' };
