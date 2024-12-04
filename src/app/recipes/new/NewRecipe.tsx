@@ -150,8 +150,10 @@ function NewRecipe({ initialData, onSubmit, loading, pageTitle }: Props) {
   const onFormSubmit = () => {
     onSubmit({
       img,
-      ingredients,
-      steps,
+      ingredients: ingredients.filter(
+        (ingredient) => ingredient.name.trim() || ingredient.quantity.trim(),
+      ),
+      steps: steps.filter((step) => step.value.trim()),
       textInputs,
       tags: tagsState[0],
     });
