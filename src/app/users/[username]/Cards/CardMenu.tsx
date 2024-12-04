@@ -7,8 +7,6 @@ import style from './Cards.module.scss';
 import { RecipeSimple } from '@/service/recipes/type';
 import { deleteRecipe } from '@/service/recipes';
 
-import { useUserStore } from '@/providers/user-store-provider';
-
 import useModal from '@/hooks/useModal';
 
 import Icon from '@/components/Icon';
@@ -18,6 +16,7 @@ import { Modal2 } from '@/components/Modal';
 import ModalContainer from '@/components/Modal/ModalContainer';
 
 import RecipeEdit from '../RecipeEdit';
+import { getUserInfo } from '@/helpers/user';
 
 interface Props {
   recipeKey: RecipeSimple['key'];
@@ -26,7 +25,7 @@ interface Props {
 function CardMenu({ recipeKey }: Props) {
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useModal();
-  const { username } = useUserStore((store) => store);
+  const { username } = getUserInfo();
   const { username: paramUsername } = useParams();
 
   if (!username || username !== paramUsername) return null;

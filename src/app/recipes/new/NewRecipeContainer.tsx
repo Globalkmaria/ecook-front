@@ -7,6 +7,7 @@ import { NewRecipeData } from '@/service/recipes/type';
 import { saveRecipe } from '@/service/recipes';
 
 import { getRandomId } from '@/utils/generateId';
+import { getUserInfo } from '@/helpers/user';
 
 import { Step } from './components/Steps';
 import NewRecipe, {
@@ -16,7 +17,6 @@ import NewRecipe, {
   TextInputs,
 } from './NewRecipe';
 import { getNewIngredient } from './helper';
-import { useUserStore } from '@/providers/user-store-provider';
 
 interface SubmitProps {
   img: File | string | null;
@@ -30,8 +30,7 @@ export type OnSubmitNewRecipe = (data: SubmitProps) => void;
 
 function NewRecipeContainer() {
   const router = useRouter();
-  const { username } = useUserStore((store) => store);
-
+  const { username } = getUserInfo();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

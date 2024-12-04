@@ -4,8 +4,6 @@ import { Roboto } from 'next/font/google';
 import '@/style/global.scss';
 import style from './style.module.scss';
 
-import { UserStoreProvider } from '@/providers/user-store-provider';
-
 const roboto = Roboto({
   subsets: ['latin'],
   weight: ['100', '300', '400', '500', '700', '900'],
@@ -37,11 +35,9 @@ export default function RootLayout({
     <html lang='en'>
       <body className={roboto.className}>
         <div className={style.layout_container}>
-          <UserStoreProvider>
-            {children}
-            {modal}
-            <div id='modal-root' />
-          </UserStoreProvider>
+          {children}
+          {modal}
+          <div id='modal-root' />
         </div>
       </body>
     </html>

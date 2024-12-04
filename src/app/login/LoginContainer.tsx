@@ -6,16 +6,14 @@ import Link from 'next/link';
 
 import style from './LoginContainer.module.scss';
 
-import { useUserStore } from '@/providers/user-store-provider';
-
 import { login } from '@/service/auth';
 
 import Button from '@/components/Button';
 import { Input } from '@/components/Input';
+import { saveUerInfo } from '@/helpers/user';
 
 function LoginContainer() {
   const router = useRouter();
-  const { setUser } = useUserStore((store) => store);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -33,10 +31,7 @@ function LoginContainer() {
       return;
     }
 
-    setUser({
-      username: result.data.username,
-      img: result.data.img,
-    });
+    saveUerInfo(result.data);
 
     router.push('/');
   };

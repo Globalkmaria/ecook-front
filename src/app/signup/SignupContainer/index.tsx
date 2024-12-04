@@ -9,9 +9,8 @@ import style from './style.module.scss';
 import { signup } from '@/service/auth';
 import { isUsernameAvailable } from '@/service/users';
 
-import { useUserStore } from '@/providers/user-store-provider';
-
 import { createInputHandler } from '@/utils/createInputHandler';
+import { saveUerInfo } from '@/helpers/user';
 
 import Button from '@/components/Button';
 import { Input } from '@/components/Input';
@@ -39,7 +38,6 @@ export interface SignupFormState {
 function SignupContainer() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const { setUser } = useUserStore((store) => store);
 
   const [isUsernameValid, setIsUsernameValid] = useState(false);
 
@@ -99,7 +97,7 @@ function SignupContainer() {
       return;
     }
 
-    setUser({
+    saveUerInfo({
       username: result.data.username,
       img: result.data.img,
     });
