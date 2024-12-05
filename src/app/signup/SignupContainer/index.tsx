@@ -17,7 +17,7 @@ import { Input } from '@/components/Input';
 import ImageUploader from '@/components/imageUploader';
 
 import {
-  checkAllFieldsAreFilled,
+  checkRequiredFieldsAreFilled,
   getSignupFormData,
   INVALID_EMAIL_MESSAGE,
   INVALID_PASSWORD_MESSAGE,
@@ -35,18 +35,22 @@ export interface SignupFormState {
   img: File | null;
 }
 
+export const initialSignupFormState: SignupFormState = {
+  username: '',
+  email: '',
+  password: '',
+  name: '',
+  img: null,
+};
+
 function SignupContainer() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const [isUsernameValid, setIsUsernameValid] = useState(false);
 
-  const [form, setForm] = useState<SignupFormState>({
-    username: '',
-    email: '',
-    password: '',
-    name: '',
-    img: null,
+  const [form, setForm] = useState({
+    ...initialSignupFormState,
   });
 
   const onChange = createInputHandler(setForm);
@@ -70,8 +74,8 @@ function SignupContainer() {
       return;
     }
 
-    if (!checkAllFieldsAreFilled(form)) {
-      alert('Please fill all fields');
+    if (!checkRequiredFieldsAreFilled(form)) {
+      alert('Username, name, email and password are required');
       setIsLoading(false);
       return;
     }
@@ -136,6 +140,7 @@ function SignupContainer() {
   const validateUsernameButtonVariant = isUsernameValid
     ? 'success'
     : 'secondary';
+
   const submitButtonText = isLoading ? 'Creating Account...' : 'Create Account';
 
   return (
