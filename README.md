@@ -91,6 +91,9 @@ Whether you're exploring new recipes or looking for ways to reuse ingredients, R
   - Authentication: Passport
   - Deployment: AWS EC2
 
+<img width="850" height=500 alt="Screenshot 2024-12-06 at 2 27 25 AM" src="https://github.com/user-attachments/assets/4f80b56d-6005-47a7-87a5-3bb87a858473">
+
+
 ## Snapshot
 - Home page
 <img width="850" height=500 alt="home" src="https://github.com/user-attachments/assets/8cc826f8-ad49-4806-a5e2-993440cadb4d">
