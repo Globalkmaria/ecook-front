@@ -83,40 +83,42 @@ Whether you're exploring new recipes or looking for ways to reuse ingredients, R
 ## Skills and Technologies Used
 
 - **Frontend**
+- github: https://github.com/Globalkmaria/ecook-front
   - Skills : Next.js, TypeScript, SCSS
   - Deployment : AWS EC2
 - **Backend**
+- github: https://github.com/Globalkmaria/ecook-back
   - Skills : Node.js
   - Database: MySQL, AWS S3
   - Authentication: Passport
   - Deployment: AWS EC2
 
-<img width="850" height=500 alt="Screenshot 2024-12-06 at 2 27 25 AM" src="https://github.com/user-attachments/assets/4f80b56d-6005-47a7-87a5-3bb87a858473">
-
-
 ## Snapshot
+
+- ERD
+  <img width="850" height=500 alt="Screenshot 2024-12-06 at 2 27 25 AM" src="https://github.com/user-attachments/assets/4f80b56d-6005-47a7-87a5-3bb87a858473">
+
 - Home page
-<img width="850" height=500 alt="home" src="https://github.com/user-attachments/assets/8cc826f8-ad49-4806-a5e2-993440cadb4d">
+  <img width="900" height=500 alt="home" src="https://github.com/user-attachments/assets/8cc826f8-ad49-4806-a5e2-993440cadb4d">
 
 - Recipe page
-<img  width="850" height=500 alt="detail" src="https://github.com/user-attachments/assets/3ba29a9c-dd57-4fab-89fe-f0e20ce3b9ad">
+  <img  width="900" height=500 alt="detail" src="https://github.com/user-attachments/assets/3ba29a9c-dd57-4fab-89fe-f0e20ce3b9ad">
 
 - Add new recipe
- <img  width="850" height=500 alt="newRecipe" src="https://github.com/user-attachments/assets/f245c0f7-6b6d-40ae-8a81-f231d115d822">
+  <img  width="900" height=500 alt="newRecipe" src="https://github.com/user-attachments/assets/f245c0f7-6b6d-40ae-8a81-f231d115d822">
 
-  <img  width="850" height=500 alt="newProduct" src="https://github.com/user-attachments/assets/0649617c-f183-4f88-8bdb-f8d3dbd032cd">
+ <img  width="900" height=500 alt="newProduct" src="https://github.com/user-attachments/assets/0649617c-f183-4f88-8bdb-f8d3dbd032cd">
 
 - Search recipe
-<img  width="850" height=500 alt="search" src="https://github.com/user-attachments/assets/cdd5fe58-c98b-4d51-9b44-a7a14eb1095f">
+  <img  width="900" height=500 alt="search" src="https://github.com/user-attachments/assets/cdd5fe58-c98b-4d51-9b44-a7a14eb1095f">
 
-<img width="850" height=500 alt="products" src="https://github.com/user-attachments/assets/93fece5f-c0d5-421a-8802-09a604706178">
+<img width="900" height=500 alt="products" src="https://github.com/user-attachments/assets/93fece5f-c0d5-421a-8802-09a604706178">
 
 - Profile
-<img  width="850" height=500 alt="profile" src="https://github.com/user-attachments/assets/be3bd52b-8801-481c-bdf6-9763fbc174f6">
-
+  <img  width="900" height=500 alt="profile" src="https://github.com/user-attachments/assets/be3bd52b-8801-481c-bdf6-9763fbc174f6">
 
 - Login
-<img width="850" height=500 alt="login" src="https://github.com/user-attachments/assets/a3ef3b92-3d89-421e-af3e-b7c8f981c108">
+  <img width="900" height=500 alt="login" src="https://github.com/user-attachments/assets/a3ef3b92-3d89-421e-af3e-b7c8f981c108">
 
 - Sign up
-<img  width="850" height=500 alt="signup" src="https://github.com/user-attachments/assets/29888810-c28e-4462-b626-4ba7b7ec873f">
+  <img  width="900" height=500 alt="signup" src="https://github.com/user-attachments/assets/29888810-c28e-4462-b626-4ba7b7ec873f">
