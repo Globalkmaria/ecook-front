@@ -1,4 +1,5 @@
 import { Metadata, Viewport } from 'next';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 import '@/style/global.scss';
 import style from './style.module.scss';
@@ -71,6 +72,7 @@ export default function RootLayout({
           <div id='modal-root' />
         </div>
       </body>
+      <GoogleAnalytics gaId='G-P19WFDWFQH' />
     </html>
   );
 }
