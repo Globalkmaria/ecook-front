@@ -56,8 +56,11 @@ export const deleteRecipe = async (recipeKey: string): FetchResult<null> => {
     if (response.ok) return { ok: true, data: null };
 
     if (response.res.status === 401) {
-      alert('Please login again to use the service');
-      return { ok: false, error: 'Please login again to use the service' };
+      return {
+        ok: false,
+        error: 'Please login again to use the service',
+        res: response.res,
+      };
     }
 
     throw new Error(response.res.statusText);
@@ -91,7 +94,9 @@ export const saveRecipe = async (data: FormData): FetchResult<RecipeDetail> => {
 export const editRecipe = async (
   data: FormData,
   recipeKey: string,
-): FetchResult<RecipeDetail> => {
+): FetchResult<{
+  key: string;
+}> => {
   try {
     const response = await fetchAPI(`/recipes/${recipeKey}`, {
       method: 'PUT',
@@ -101,8 +106,11 @@ export const editRecipe = async (
     if (response.ok) return { ok: true, data: response.data };
 
     if (response.res.status === 401) {
-      alert('Please login again to use the service');
-      return { ok: false, error: 'Please login again to use the service' };
+      return {
+        ok: false,
+        error: 'Please login again to use the service',
+        res: response.res,
+      };
     }
 
     throw new Error(response.res.statusText);

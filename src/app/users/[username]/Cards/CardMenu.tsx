@@ -16,7 +16,8 @@ import { Modal2 } from '@/components/Modal';
 import ModalContainer from '@/components/Modal/ModalContainer';
 
 import RecipeEdit from '../RecipeEdit';
-import { getUserInfo } from '@/helpers/user';
+import useUserInfo from '@/hooks/useUserInfo';
+import useHandleAuthResponse from '@/hooks/useHandleAuthResponse';
 
 interface Props {
   recipeKey: RecipeSimple['key'];
@@ -25,18 +26,17 @@ interface Props {
 function CardMenu({ recipeKey }: Props) {
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useModal();
-  const { username } = getUserInfo();
+  const { username } = useUserInfo();
   const { username: paramUsername } = useParams();
+  const { handleAuthResponse } = useHandleAuthResponse();
 
   if (!username || username !== paramUsername) return null;
 
   const onDelete = async () => {
-    const result = await deleteRecipe(recipeKey);
-    if (result.ok) {
-      router.refresh();
-    } else {
-      console.error(result.error);
-    }
+    handleAuthResponse({
+      request: deleteRecipe(recipeKey),
+      options: { onSuccess: () => router.refresh() },
+    });
   };
 
   return (

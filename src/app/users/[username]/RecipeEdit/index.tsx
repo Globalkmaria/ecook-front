@@ -6,12 +6,19 @@ import style from './style.module.scss';
 import { NewRecipeData, RecipeDetail } from '@/service/recipes/type';
 import { editRecipe, getRecipe } from '@/service/recipes';
 
-import { getRandomId } from '@/utils/generateId';
-
-import NewRecipe, { NewRecipeInitialData } from '@/app/recipes/new/NewRecipe';
+import NewRecipe from '@/app/recipes/new/NewRecipe';
 import { OnSubmitNewRecipe } from '@/app/recipes/new/NewRecipeContainer';
+import {
+  appendProductImgsToFormData,
+  appendRecipeImgToFormData,
+  getEditRecipeInfoData,
+  getEditRecipeInitialValues,
+  getNewProducts,
+  isRequiredFieldsFilled,
+} from './helper';
+import useHandleAuthResponse from '@/hooks/useHandleAuthResponse';
 
-type EditRecipeData = Omit<NewRecipeData, 'img'>;
+export type EditRecipeData = Omit<NewRecipeData, 'img'>;
 
 interface Props {
   recipeKey: string;
@@ -23,6 +30,7 @@ function RecipeEdit({ recipeKey, onCloseModal }: Props) {
   const [loading, setLoading] = useState(false);
   const [loadingRecipe, setLoadingRecipe] = useState(true);
   const [recipe, setRecipe] = useState<RecipeDetail | null>(null);
+  const { handleAuthResponse } = useHandleAuthResponse();
 
   const onSubmit: OnSubmitNewRecipe = async ({
     img,
@@ -31,50 +39,40 @@ function RecipeEdit({ recipeKey, onCloseModal }: Props) {
     textInputs,
     tags,
   }) => {
-    if (!img || !ingredients.length || !steps.length) {
+    if (
+      !isRequiredFieldsFilled({ img, ingredients, steps, textInputs, tags })
+    ) {
       alert('Please fill in all required fields');
       return;
     }
 
-    const newProducts = ingredients
-      .map((item) => item.newProduct)
-      .filter((item) => !!item);
-
     const formData = new FormData();
+    const newProducts = getNewProducts(ingredients);
+    appendProductImgsToFormData(newProducts, formData);
+    appendRecipeImgToFormData(img, formData);
 
-    newProducts.forEach(
-      (product) =>
-        product.img && formData.append(`img_${product.id}`, product.img),
-    );
-
-    img && typeof img !== 'string' && formData.append('img', img);
-
-    const data: EditRecipeData = {
-      ...textInputs,
-      steps: steps.map((item) => item.value),
-      ingredients: ingredients.map((item) => ({
-        name: item.name,
-        quantity: item.quantity,
-        ingredientId: item.productId,
-        newProduct: item.newProduct,
-        productId: item.productId,
-      })),
-      tags: tags,
-    };
+    const data = getEditRecipeInfoData({
+      textInputs,
+      steps,
+      ingredients,
+      tags,
+    });
 
     formData.append('info', JSON.stringify(data));
 
     setLoading(true);
-    const response = await editRecipe(formData, recipeKey);
+    await handleAuthResponse({
+      request: editRecipe(formData, recipeKey),
+      options: {
+        onSuccess: (res) => {
+          onCloseModal();
+          router.refresh();
+          router.push(`/recipes/${res.data.key}`);
+        },
+      },
+    });
+
     setLoading(false);
-
-    if (!response.ok) {
-      alert('Failed to submit recipe');
-      return;
-    }
-
-    onCloseModal();
-    router.push(`/recipes/${recipeKey}`);
   };
 
   const getRecipeData = async () => {
@@ -96,23 +94,7 @@ function RecipeEdit({ recipeKey, onCloseModal }: Props) {
 
   if (loadingRecipe || !recipe) return null;
 
-  const initialData: NewRecipeInitialData = {
-    name: recipe.name,
-    description: recipe.description,
-    hours: recipe.hours === 0 ? '' : recipe.hours.toString(),
-    minutes: recipe.minutes === 0 ? '' : recipe.minutes.toString(),
-    img: recipe.img,
-    ingredients: recipe.ingredients.map((item) => ({
-      id: item.id,
-      name: item.name,
-      quantity: item.quantity,
-      ingredientId: item.ingredientId,
-      productId: item.userProduct?.id ?? null,
-      newProduct: null,
-    })),
-    steps: recipe.steps.map((item) => ({ value: item, id: getRandomId() })),
-    tags: recipe.tags.map((item) => item.name),
-  };
+  const initialData = getEditRecipeInitialValues(recipe);
 
   return (
     <div className={style.container}>
