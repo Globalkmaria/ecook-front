@@ -7,7 +7,6 @@ import { NewRecipeData } from '@/service/recipes/type';
 import { saveRecipe } from '@/service/recipes';
 
 import { getRandomId } from '@/utils/generateId';
-import { getUserInfo } from '@/helpers/user';
 
 import { Step } from './components/Steps';
 import NewRecipe, {
@@ -17,8 +16,9 @@ import NewRecipe, {
   TextInputs,
 } from './NewRecipe';
 import { getNewIngredient } from './helper';
+import useUserInfo from '@/hooks/useUserInfo';
 
-interface SubmitProps {
+export interface NewRecipeSubmitProps {
   img: File | string | null;
   ingredients: NewRecipeIngredientStates;
   steps: Step[];
@@ -26,11 +26,11 @@ interface SubmitProps {
   tags: NewRecipeTags;
 }
 
-export type OnSubmitNewRecipe = (data: SubmitProps) => void;
+export type OnSubmitNewRecipe = (data: NewRecipeSubmitProps) => void;
 
 function NewRecipeContainer() {
   const router = useRouter();
-  const { username } = getUserInfo();
+  const { username } = useUserInfo();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ function NewRecipeContainer() {
     steps,
     textInputs,
     tags,
-  }: SubmitProps) => {
+  }: NewRecipeSubmitProps) => {
     if (!img || !ingredients.length || !steps.length) {
       alert('Please fill in all required fields');
       return;

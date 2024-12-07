@@ -10,7 +10,6 @@ import { signup } from '@/service/auth';
 import { isUsernameAvailable } from '@/service/users';
 
 import { createInputHandler } from '@/utils/createInputHandler';
-import { saveUerInfo } from '@/helpers/user';
 
 import Button from '@/components/Button';
 import { Input } from '@/components/Input';
@@ -102,10 +101,8 @@ function SignupContainer() {
       return;
     }
 
-    saveUerInfo({
-      username: result.data.username,
-      img: result.data.img,
-    });
+    sessionStorage.setItem('username', result.data.username);
+    result.data.img && sessionStorage.setItem('img', result.data.img);
 
     router.push('/');
   };

@@ -10,7 +10,6 @@ import { login } from '@/service/auth';
 
 import Button from '@/components/Button';
 import { Input } from '@/components/Input';
-import { saveUerInfo } from '@/helpers/user';
 
 function LoginContainer() {
   const router = useRouter();
@@ -31,7 +30,8 @@ function LoginContainer() {
       return;
     }
 
-    saveUerInfo(result.data);
+    sessionStorage.setItem('username', result.data.username);
+    result.data.img && sessionStorage.setItem('img', result.data.img);
 
     router.push('/');
   };
