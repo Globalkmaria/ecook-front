@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -67,7 +69,6 @@ function RecipeEdit({ recipeKey, onCloseModal }: Props) {
         onSuccess: (res) => {
           onCloseModal();
           router.refresh();
-          router.push(`/recipes/${res.data.key}`);
         },
       },
     });

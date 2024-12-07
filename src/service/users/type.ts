@@ -5,10 +5,9 @@ export interface User {
   username: string;
 }
 
-export interface Profile {
-  user: User;
-  recipes: RecipeSimple[];
-}
+export type Profile = User & {
+  totalPosts: number;
+};
 
 export interface ResIsUsernameAvailable {
   message: string;
