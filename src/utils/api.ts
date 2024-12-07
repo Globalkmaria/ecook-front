@@ -22,6 +22,14 @@ export const fetchAPI = async (
     credentials: 'include',
   });
 
+  if (300 <= res.status && res.status <= 404) {
+    return {
+      ok: false,
+      data: null,
+      res: res,
+    };
+  }
+
   const contentType = res.headers.get('Content-Type');
   if (contentType && contentType.includes('application/json')) {
     return {
@@ -31,7 +39,7 @@ export const fetchAPI = async (
     };
   }
 
-  // response.status is between 200 and 299
+  // 200 and 299
   if (res.ok) {
     return {
       ok: true,
@@ -40,14 +48,6 @@ export const fetchAPI = async (
     };
   }
 
-  if (300 <= res.status && res.status <= 404) {
-    return {
-      ok: false,
-      data: null,
-      res: res,
-    };
-  }
-
-  // 400 <= response.status < 500
+  // 405 <= response.status < 500
   throw new Error(`Error: ${res.status}`);
 };
