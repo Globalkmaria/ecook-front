@@ -41,6 +41,7 @@ function RecipeEdit({ recipeKey, onCloseModal }: Props) {
     textInputs,
     tags,
   }) => {
+    if (loading) return;
     if (
       !isRequiredFieldsFilled({ img, ingredients, steps, textInputs, tags })
     ) {
@@ -70,10 +71,13 @@ function RecipeEdit({ recipeKey, onCloseModal }: Props) {
           onCloseModal();
           router.refresh();
         },
+        onFailure: () => {
+          alert('Failed to edit recipe');
+          onCloseModal();
+          setLoading(false);
+        },
       },
     });
-
-    setLoading(false);
   };
 
   const getRecipeData = async () => {

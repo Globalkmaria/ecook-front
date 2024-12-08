@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { NewRecipeData } from '@/service/recipes/type';
@@ -17,6 +17,7 @@ import NewRecipe, {
 } from './NewRecipe';
 import { getNewIngredient } from './helper';
 import useUserInfo from '@/hooks/useUserInfo';
+import useHandleAuthResponse from '@/hooks/useHandleAuthResponse';
 
 export interface NewRecipeSubmitProps {
   img: File | string | null;
@@ -32,12 +33,7 @@ function NewRecipeContainer() {
   const router = useRouter();
   const { username } = useUserInfo();
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (!username) {
-      router.push('/login');
-    }
-  }, [username, router]);
+  const { handleAuthResponse } = useHandleAuthResponse();
 
   if (!username) {
     return null;
@@ -50,6 +46,7 @@ function NewRecipeContainer() {
     textInputs,
     tags,
   }: NewRecipeSubmitProps) => {
+    if (loading) return;
     if (!img || !ingredients.length || !steps.length) {
       alert('Please fill in all required fields');
       return;
@@ -84,15 +81,16 @@ function NewRecipeContainer() {
     formData.append('info', JSON.stringify(data));
 
     setLoading(true);
-    const response = await saveRecipe(formData);
-    setLoading(false);
-
-    if (!response.ok) {
-      alert('Failed to submit recipe');
-      return;
-    }
-
-    router.replace(`/recipes/${response.data.key}`);
+    await handleAuthResponse({
+      request: saveRecipe(formData),
+      options: {
+        onSuccess: (res) => router.replace(`/recipes/${res.data.key}`),
+        onFailure: () => {
+          alert('Failed to submit recipe');
+          setLoading(false);
+        },
+      },
+    });
   };
 
   const initialData: NewRecipeInitialData = {
