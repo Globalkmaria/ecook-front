@@ -11,8 +11,9 @@ export const dynamicParams = true;
 
 export async function generateStaticParams() {
   const result = await getHomeRecipes();
+  if (!result.ok) return [];
   return (
-    result.data?.map((recipe) => ({
+    result.data.map((recipe) => ({
       recipeKey: recipe.key,
     })) ?? []
   );

@@ -6,6 +6,8 @@ import Recipe from './Recipe';
 
 async function Recipes() {
   const recipes = await getHomeRecipes();
+  if (!recipes.ok) return null;
+
   return (
     <section className={style.container}>
       {recipes.data?.map((recipe, idx) => (
