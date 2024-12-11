@@ -2,14 +2,14 @@ import { Suspense } from 'react';
 
 import Skeleton from '@/components/Skeleton';
 
-import Search from './SearchContainer';
+import SearchContainer from './SearchContainer';
 
-function Wrapper() {
+function Search() {
   return (
     <Suspense fallback={<Skeleton />}>
-      <Search />
+      <SearchContainer />
     </Suspense>
   );
 }
 
-export default Wrapper;
+export default Search;

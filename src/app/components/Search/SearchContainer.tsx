@@ -12,41 +12,40 @@ import { lightSlugify } from '@/utils/normalize';
 import { Dropbox, DropboxItem, DropboxWrapper } from '@/components/Dropbox';
 import Icon from '@/components/Icon';
 import {
-  SEARCH_MENU_DEFAULT,
   SEARCH_MENU_ITEMS,
   SEARCH_MENU_ITEMS_MAP,
 } from '@/app/const/searchMenu';
+import { getSearchMenuItem, getSearchQuery } from './helper';
 
-function Search() {
+function SearchContainer() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [searchQuery, setSearchQuery] = useState(searchParams.get('q') ?? '');
+  const [searchQuery, setSearchQuery] = useState(
+    getSearchQuery(searchParams.get('q')),
+  );
   const [selectedMenuItem, setSelectedMenuItem] = useState<string>(
-    searchParams.get('type') ?? SEARCH_MENU_DEFAULT,
+    getSearchMenuItem(searchParams.get('type')),
   );
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setSearchQuery(e.target.value);
 
   const onSearch = () => {
-    if (!searchQuery) return;
+    if (!searchQuery.trim()) return;
+
     const query = lightSlugify(searchQuery);
     router.push(`/search?type=${selectedMenuItem}&q=${query}`);
   };
 
-  const onMenuChange = (menuItem: string) => {
-    setSelectedMenuItem(menuItem);
-  };
+  const onMenuChange = (menuItem: string) => setSelectedMenuItem(menuItem);
 
   const onEnterPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      onSearch();
-    }
+    if (e.key === 'Enter') onSearch();
   };
 
   useEffect(() => {
-    setSearchQuery(searchParams.get('q') ?? '');
-    setSelectedMenuItem(searchParams.get('type') ?? SEARCH_MENU_DEFAULT);
+    setSearchQuery(getSearchQuery(searchParams.get('q')));
+    setSelectedMenuItem(getSearchMenuItem(searchParams.get('type')));
   }, [searchParams]);
 
   return (
@@ -72,7 +71,7 @@ function Search() {
   );
 }
 
-export default Search;
+export default SearchContainer;
 
 interface SearchMenuProps {
   onMenuChange: (menuItem: string) => void;
