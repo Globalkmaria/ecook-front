@@ -6,6 +6,7 @@ import { ListItem } from '@/components/List';
 import SearchIconLink from '@/components/SearchIconLink';
 
 import InformationButton from './InformationButton';
+import { getSearchIngredientLink } from '../../helper';
 
 interface Props {
   ingredients: RecipeDetail['ingredients'];
@@ -29,9 +30,7 @@ function Ingredients({ ingredients, onChange, state }: Props) {
               <span className={style.name}>{ingredient.name}</span>
               <span>-</span>
               <span className={style.quantity}>{ingredient.quantity}</span>
-              <SearchIconLink
-                href={`/search?type=ingredient&q=${ingredient.name}`}
-              />
+              <SearchIconLink href={getSearchIngredientLink(ingredient.name)} />
               {ingredient.userProduct && (
                 <InformationButton ingredient={ingredient} />
               )}

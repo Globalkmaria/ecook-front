@@ -17,8 +17,10 @@ import Avatar from '@/components/Avatar';
 import AnchorUnderline from '@/components/Anchor/AnchorUnderline';
 import Ingredients from './components/IngredientList';
 
-import { RECIPE_TABS, RecipeTab } from './const';
 import CustomImage from '@/components/CustomImage';
+
+import { RECIPE_TABS, RecipeTab } from './const';
+import { getSearchTagLink, getUserLink } from './helper';
 
 interface Props {
   recipe: RecipeDetail;
@@ -34,26 +36,27 @@ function Recipe({ recipe }: Props) {
   );
 
   if (!recipe) return null;
+
   const time = formatTime({
     hours: recipe.hours,
     minutes: recipe.minutes,
   });
 
-  const onIngredientsToggle = (id: number) => {
+  const userLink = getUserLink(recipe.user.username);
+
+  const onIngredientsToggle = (id: number) =>
     setIngredientsChecked({
       ...ingredientsChecked,
       [id]: !ingredientsChecked[id],
     });
-  };
 
-  const onStepsToggle = (id: number) => {
+  const onStepsToggle = (id: number) =>
     setStepsChecked({ ...stepsChecked, [id]: !stepsChecked[id] });
-  };
 
   return (
     <div className={style.wrapper}>
       <div>
-        <Link href={`/users/${recipe.user.username}`}>
+        <Link href={userLink}>
           <Avatar user={recipe.user} />
         </Link>
       </div>
@@ -71,8 +74,8 @@ function Recipe({ recipe }: Props) {
             <ChipsContainer className={style['chip-container']}>
               {recipe.tags.map((tag) => (
                 <AnchorUnderline
-                  href={`/search?type=tag&q=${tag.name}`}
-                  key={tag.id}
+                  href={getSearchTagLink(tag.name)}
+                  key={tag.name}
                 >
                   <Chip>{tag.name}</Chip>
                 </AnchorUnderline>

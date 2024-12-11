@@ -1,14 +1,16 @@
 import style from './style.module.scss';
 
 import { joinClassNames } from '@/utils/style';
+import { lightSlugify } from '@/utils/normalize';
 
-import Chip from '@/components/Chip';
-import Icon from '@/components/Icon';
 import { Product as ProductType } from '@/service/products/type';
 import { RecipeProduct } from '@/service/recipes/type';
+
+import Chip from '@/components/Chip';
+import Icon, { IconProps } from '@/components/Icon';
 import SearchIconLink from '@/components/SearchIconLink';
-import { lightSlugify } from '@/utils/normalize';
 import CustomImage from '@/components/CustomImage';
+import { getSearchProductLink } from '../../helper';
 
 interface Props {
   product: RecipeProduct | ProductType;
@@ -30,9 +32,7 @@ function Product({ product, isUserProduct, ingredientName }: Props) {
       )}
 
       <div className={style.search}>
-        <SearchIconLink
-          href={`/search?type=product&q=${lightSlugify(product.name)}`}
-        />
+        <SearchIconLink href={getSearchProductLink(product.name)} />
       </div>
 
       <div className={style['img-box']}>
@@ -61,25 +61,27 @@ interface ProductInfoProps {
   ingredientName: string;
 }
 
+type ProductInfoItems = {
+  icon: IconProps['icon'];
+  value: string | null;
+}[];
+
 export function ProductInfo({ product, ingredientName }: ProductInfoProps) {
+  const productInfoItems: ProductInfoItems = [
+    { icon: 'labelFill', value: ingredientName },
+    { icon: 'label', value: product.name },
+    { icon: 'product', value: product.brand || '' },
+    { icon: 'basket', value: product.purchasedFrom || '' },
+  ];
+
   return (
     <div className={style['product__content']}>
-      <div className={style['product__info']}>
-        <Icon icon='labelFill' />
-        <span>{ingredientName}</span>
-      </div>
-      <div className={style['product__info']}>
-        <Icon icon='label' />
-        <span>{product.name}</span>
-      </div>
-      <div className={style['product__info']}>
-        <Icon icon='product' />
-        <span>{product.brand || ''}</span>
-      </div>
-      <div className={style['product__info']}>
-        <Icon icon='basket' />
-        <span>{product.purchasedFrom || ''}</span>
-      </div>
+      {productInfoItems.map((item, index) => (
+        <div key={index} className={style['product__info']}>
+          <Icon icon={item.icon} />
+          <span>{item.value}</span>
+        </div>
+      ))}
     </div>
   );
 }
