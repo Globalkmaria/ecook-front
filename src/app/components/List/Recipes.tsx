@@ -11,7 +11,7 @@ async function Recipes() {
   return (
     <section className={style.container}>
       {recipes.data?.map((recipe, idx) => (
-        <Recipe key={recipe.id} recipe={recipe} idx={idx} />
+        <Recipe key={recipe.key} recipe={recipe} idx={idx} />
       ))}
     </section>
   );

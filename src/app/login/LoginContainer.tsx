@@ -53,6 +53,7 @@ function LoginContainer() {
           <fieldset>
             <label htmlFor='password'>Password</label>
             <Input
+              autoComplete='current-password'
               type='password'
               id='password'
               onChange={(e) => setPassword(e.target.value)}
