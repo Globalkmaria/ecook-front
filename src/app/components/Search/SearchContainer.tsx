@@ -11,10 +11,7 @@ import { lightSlugify } from '@/utils/normalize';
 
 import { Dropbox, DropboxItem, DropboxWrapper } from '@/components/Dropbox';
 import Icon from '@/components/Icon';
-import {
-  SEARCH_MENU_ITEMS,
-  SEARCH_MENU_ITEMS_MAP,
-} from '@/app/const/searchMenu';
+import { SEARCH_MENU_ITEMS, SEARCH_MENU_ITEMS_MAP } from '@/const/searchMenu';
 import { getSearchMenuItem, getSearchQuery } from './helper';
 
 function SearchContainer() {
