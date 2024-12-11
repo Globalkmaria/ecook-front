@@ -16,12 +16,10 @@ interface Props {
 }
 
 function RecipeList({ recipes, isSuccess }: Props) {
-  if (!isSuccess) {
-    return <Error />;
-  }
-  if (!recipes) {
-    return <NoResult />;
-  }
+  if (!isSuccess) return <Error />;
+
+  if (!recipes) return <NoResult />;
+
   return (
     <ul className={style.list}>
       {recipes.map((recipe) => (

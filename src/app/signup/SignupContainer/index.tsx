@@ -18,9 +18,6 @@ import ImageUploader from '@/components/imageUploader';
 import {
   checkRequiredFieldsAreFilled,
   getSignupFormData,
-  INVALID_EMAIL_MESSAGE,
-  INVALID_PASSWORD_MESSAGE,
-  INVALID_USERNAME_MESSAGE,
   validateEmail,
   validatePassword,
   validateUsername,
@@ -68,13 +65,13 @@ function SignupContainer() {
     setIsLoading(true);
 
     if (!isUsernameValid) {
-      alert('Please validate username');
+      alert(VALIDATE_USERNAME_MESSAGE);
       setIsLoading(false);
       return;
     }
 
     if (!checkRequiredFieldsAreFilled(form)) {
-      alert('Username, name, email and password are required');
+      alert(INVALID_REQUIRED_FIELDS_MESSAGE);
       setIsLoading(false);
       return;
     }
@@ -94,7 +91,6 @@ function SignupContainer() {
     const formData = getSignupFormData(form);
     const result = await signup(formData);
 
-    setIsLoading(false);
     if (!result.ok) {
       alert(result.error);
       setIsLoading(false);
@@ -104,17 +100,20 @@ function SignupContainer() {
     sessionStorage.setItem('username', result.data.username);
     result.data.img && sessionStorage.setItem('img', result.data.img);
 
+    setIsLoading(false);
     router.push('/');
   };
 
   const onValidateUsername = async () => {
     if (!form.username) {
-      alert('Please enter a username');
+      alert(ENTER_USERNAME_MESSAGE);
+      setIsUsernameValid(false);
       return;
     }
 
     if (!validateUsername(form.username)) {
       alert(INVALID_USERNAME_MESSAGE);
+      setIsUsernameValid(false);
       return;
     }
 
@@ -122,11 +121,12 @@ function SignupContainer() {
 
     if (!result.ok) {
       alert(result.error);
+      setIsUsernameValid(false);
       return;
     }
 
     if (!result.data.isAvailable) {
-      alert('Username is already taken. Please try another one.');
+      alert(USERNAME_IS_TAKEN_MESSAGE);
       setIsUsernameValid(false);
       return;
     }
@@ -173,41 +173,20 @@ function SignupContainer() {
               </Button>
             </div>
           </fieldset>
-          <fieldset>
-            <label htmlFor='name'>Name</label>
-            <Input
-              className={style['text-input']}
-              type='text'
-              id='name'
-              name='name'
-              autoComplete='name'
-              onChange={onChange}
-              value={form.name}
-            />
-          </fieldset>
-          <fieldset>
-            <label htmlFor='email'>Email</label>
-            <Input
-              autoComplete='email'
-              className={style['text-input']}
-              name='email'
-              type='email'
-              id='email'
-              onChange={onChange}
-              value={form.email}
-            />
-          </fieldset>
-          <fieldset>
-            <label htmlFor='password'>Password</label>
-            <Input
-              className={style['text-input']}
-              name='password'
-              type='password'
-              id='password'
-              onChange={onChange}
-              value={form.password}
-            />
-          </fieldset>
+          {INFO_ITEMS.map(({ value, label }) => (
+            <fieldset key={value}>
+              <label htmlFor={value}>{label}</label>
+              <Input
+                className={style['text-input']}
+                type={value === 'password' ? 'password' : 'text'}
+                id={value}
+                name={value}
+                autoComplete={value}
+                onChange={onChange}
+                value={form[value]}
+              />
+            </fieldset>
+          ))}
 
           <Button
             onClick={onSignup}
@@ -228,3 +207,24 @@ function SignupContainer() {
 }
 
 export default SignupContainer;
+
+const INFO_ITEMS: {
+  value: keyof Omit<SignupFormState, 'img'>;
+  label: string;
+}[] = [
+  { value: 'name', label: 'Name' },
+  { value: 'email', label: 'Email' },
+  { value: 'password', label: 'Password' },
+];
+
+const INVALID_USERNAME_MESSAGE =
+  'Usernames must start with a letter, can include letters, numbers, underscores (_), or hyphens (-), and must be between 5 and 100 characters long.';
+const INVALID_PASSWORD_MESSAGE =
+  'Your password does not meet the requirements. Please ensure it includes at least 8 characters, 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character.';
+const INVALID_EMAIL_MESSAGE = 'Please enter a valid email address.';
+const INVALID_REQUIRED_FIELDS_MESSAGE =
+  'Username, name, email and password are required';
+const VALIDATE_USERNAME_MESSAGE = 'Please validate username';
+const ENTER_USERNAME_MESSAGE = 'Please enter a username';
+const USERNAME_IS_TAKEN_MESSAGE =
+  'Username is already taken. Please try another one.';
