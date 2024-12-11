@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 
 import style from './Cards.module.scss';
@@ -29,6 +30,15 @@ function CardMenu({ recipeKey }: Props) {
   const { isOpen, onOpen, onClose } = useModal();
   const params = useParams();
   const { handleAuthResponse } = useHandleAuthResponse();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setIsClient(true);
+    }
+  }, []);
+
+  if (!isClient) return null;
 
   if (!checkLoginStatus(params)) return null;
 

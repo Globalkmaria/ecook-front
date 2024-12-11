@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -22,6 +22,15 @@ function NavRightButtons() {
 
   const { username, img } = getUserInfo();
   const isLoggedIn = username !== null;
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setIsClient(true);
+    }
+  }, []);
+
+  if (!isClient) return null;
 
   const onLogout = async () => {
     if (isLoading) return;

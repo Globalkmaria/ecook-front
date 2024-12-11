@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { NewRecipeData } from '@/service/recipes/type';
@@ -36,6 +36,15 @@ function NewRecipeContainer() {
   const { username } = getUserInfo();
   const [loading, setLoading] = useState(false);
   const { handleAuthResponse } = useHandleAuthResponse();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setIsClient(true);
+    }
+  }, []);
+
+  if (!isClient) return null;
 
   if (!username) {
     return null;
