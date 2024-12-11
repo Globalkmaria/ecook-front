@@ -8,7 +8,7 @@ import { getLimitedText } from '@/utils/text';
 import { formatTime } from '@/utils/time';
 
 import Chip, { ChipsContainer } from '@/components/Chip';
-import CustomImage from '@/app/components/CustomImage';
+import CustomImage from '@/components/CustomImage';
 
 interface Props {
   recipes: RecipeSimple[];

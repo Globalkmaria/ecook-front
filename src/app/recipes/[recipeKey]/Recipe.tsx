@@ -18,7 +18,7 @@ import AnchorUnderline from '@/components/Anchor/AnchorUnderline';
 import Ingredients from './components/IngredientList';
 
 import { RECIPE_TABS, RecipeTab } from './const';
-import CustomImage from '@/app/components/CustomImage';
+import CustomImage from '@/components/CustomImage';
 
 interface Props {
   recipe: RecipeDetail;

@@ -1,7 +1,7 @@
 import style from './style.module.scss';
 
 import { joinClassNames } from '@/utils/style';
-import CustomImage from '@/app/components/CustomImage';
+import CustomImage from '@/components/CustomImage';
 
 interface AvatarProps {
   user: {

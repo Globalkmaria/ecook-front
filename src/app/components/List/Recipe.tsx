@@ -7,7 +7,7 @@ import { RecipeSimple } from '@/service/recipes/type';
 import { getLimitedText } from '@/utils/text';
 
 import Chip, { ChipsContainer } from '@/components/Chip';
-import CustomImage from '../CustomImage';
+import CustomImage from '@/components/CustomImage';
 
 interface Props {
   recipe: RecipeSimple;

@@ -8,7 +8,7 @@ import { Product as ProductType } from '@/service/products/type';
 import { RecipeProduct } from '@/service/recipes/type';
 import SearchIconLink from '@/components/SearchIconLink';
 import { lightSlugify } from '@/utils/normalize';
-import CustomImage from '@/app/components/CustomImage';
+import CustomImage from '@/components/CustomImage';
 
 interface Props {
   product: RecipeProduct | ProductType;

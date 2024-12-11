@@ -7,7 +7,7 @@ import Icon from '@/components/Icon';
 
 import { SelectedProductState } from '.';
 import { Product } from '@/service/products/type';
-import CustomImage from '@/app/components/CustomImage';
+import CustomImage from '@/components/CustomImage';
 
 interface ExistingProductProps {
   item: Product;
