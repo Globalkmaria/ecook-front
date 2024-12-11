@@ -9,6 +9,7 @@ import Icon from '@/components/Icon';
 
 import Cards from './Cards/Cards';
 import { getRecipes } from '@/service/recipes';
+import { notFound } from 'next/navigation';
 
 interface Props {
   params: Promise<{ username: string }>;
@@ -31,11 +32,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 async function UserPage({ params }: Props) {
   const { username } = await params;
 
-  if (!username) return null;
+  if (!username) return notFound();
 
   const result = await getProfile(username);
   const recipesResult = await getRecipes(username, 'username');
-  if (!result.ok || !recipesResult.ok) return null;
+  if (!result.ok || !recipesResult.ok) return notFound();
 
   const user = result.data;
   const recipes = recipesResult.data;

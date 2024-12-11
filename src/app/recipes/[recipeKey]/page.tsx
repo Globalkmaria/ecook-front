@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 
 import { getHomeRecipes, getRecipe } from '@/service/recipes';
 
@@ -41,14 +41,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 async function Page({ params }: Props) {
   const { recipeKey } = await params;
-  if (!recipeKey) {
-    redirect('/');
-  }
+  if (!recipeKey) notFound();
 
   const result = await getRecipe(recipeKey);
-  if (!result.ok) {
-    redirect('/');
-  }
+  if (!result.ok) notFound();
 
   return <Recipe recipe={result.data} />;
 }
