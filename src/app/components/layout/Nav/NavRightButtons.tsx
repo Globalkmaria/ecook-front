@@ -8,7 +8,7 @@ import style from './style.module.scss';
 
 import { logout } from '@/service/auth';
 
-import useUserInfo from '@/hooks/useUserInfo';
+import { getUserInfo } from '@/helpers/auth';
 
 import { AvatarImg } from '@/components/Avatar';
 import Anchor from '@/components/Anchor';
@@ -20,7 +20,7 @@ function NavRightButtons() {
   const ref = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { username, img } = useUserInfo();
+  const { username, img } = getUserInfo();
   const isLoggedIn = username !== null;
 
   const onLogout = async () => {
@@ -30,6 +30,7 @@ function NavRightButtons() {
     sessionStorage.clear();
     await logout();
     router.push('/');
+    setIsLoading(false);
   };
 
   return (

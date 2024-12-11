@@ -8,6 +8,10 @@ import { saveRecipe } from '@/service/recipes';
 
 import { getRandomId } from '@/utils/generateId';
 
+import { getUserInfo } from '@/helpers/auth';
+
+import useHandleAuthResponse from '@/hooks/useHandleAuthResponse';
+
 import { Step } from './components/Steps';
 import NewRecipe, {
   NewRecipeIngredientStates,
@@ -16,8 +20,6 @@ import NewRecipe, {
   TextInputs,
 } from './NewRecipe';
 import { getNewIngredient } from './helper';
-import useUserInfo from '@/hooks/useUserInfo';
-import useHandleAuthResponse from '@/hooks/useHandleAuthResponse';
 
 export interface NewRecipeSubmitProps {
   img: File | string | null;
@@ -31,7 +33,7 @@ export type OnSubmitNewRecipe = (data: NewRecipeSubmitProps) => void;
 
 function NewRecipeContainer() {
   const router = useRouter();
-  const { username } = useUserInfo();
+  const { username } = getUserInfo();
   const [loading, setLoading] = useState(false);
   const { handleAuthResponse } = useHandleAuthResponse();
 

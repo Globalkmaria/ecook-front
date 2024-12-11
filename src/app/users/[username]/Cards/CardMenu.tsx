@@ -15,9 +15,11 @@ import { MoreButton } from '@/components/MoreButton';
 import { Modal2 } from '@/components/Modal';
 import ModalContainer from '@/components/Modal/ModalContainer';
 
-import RecipeEdit from '../RecipeEdit';
-import useUserInfo from '@/hooks/useUserInfo';
+import { getUserInfo } from '@/helpers/auth';
+
 import useHandleAuthResponse from '@/hooks/useHandleAuthResponse';
+
+import RecipeEdit from '../RecipeEdit';
 
 interface Props {
   recipeKey: RecipeSimple['key'];
@@ -26,7 +28,7 @@ interface Props {
 function CardMenu({ recipeKey }: Props) {
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useModal();
-  const { username } = useUserInfo();
+  const { username } = getUserInfo();
   const { username: paramUsername } = useParams();
   const { handleAuthResponse } = useHandleAuthResponse();
 
