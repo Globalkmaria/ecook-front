@@ -7,7 +7,7 @@ import { capitalizeFirstLetter } from '@/utils/text';
 
 import Recipe from './Recipe';
 
-export const revalidate = 10800; // 3 hours
+export const revalidate = 86400; // 1 day
 
 export const dynamicParams = true;
 
