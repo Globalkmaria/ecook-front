@@ -1,14 +1,18 @@
 import Link from 'next/link';
+
 import style from './Cards.module.scss';
 
 import { RecipeSimple } from '@/service/recipes/type';
 
 import { formatTime } from '@/utils/time';
+import { getLimitedText } from '@/utils/text';
+
+import { getRecipeLink } from '@/helpers/link';
 
 import Chip, { ChipsContainer } from '@/components/Chip';
-import CardMenu from './CardMenu';
-import { getLimitedText } from '@/utils/text';
 import CustomImage from '@/components/CustomImage';
+
+import CardMenu from './CardMenu';
 
 interface Props {
   recipes: RecipeSimple[];
@@ -33,11 +37,12 @@ interface CardProps {
 function Card({ recipe }: CardProps) {
   const time = formatTime({ hours: recipe.hours, minutes: recipe.minutes });
   const name = getLimitedText(recipe.name, 30);
+  const recipeLink = getRecipeLink(recipe.key);
 
   return (
     <li className={style.wrapper}>
       <CardMenu recipeKey={recipe.key} />
-      <Link href={`/recipes/${recipe.key}`} className={style.card}>
+      <Link href={recipeLink} className={style.card}>
         <div className={style['img-box']}>
           <div className={style['img-wrapper']}>
             <CustomImage

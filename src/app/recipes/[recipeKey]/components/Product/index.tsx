@@ -1,7 +1,8 @@
 import style from './style.module.scss';
 
 import { joinClassNames } from '@/utils/style';
-import { lightSlugify } from '@/utils/normalize';
+
+import { getSearchProductLink } from '@/helpers/link';
 
 import { Product as ProductType } from '@/service/products/type';
 import { RecipeProduct } from '@/service/recipes/type';
@@ -10,7 +11,6 @@ import Chip from '@/components/Chip';
 import Icon, { IconProps } from '@/components/Icon';
 import SearchIconLink from '@/components/SearchIconLink';
 import CustomImage from '@/components/CustomImage';
-import { getSearchProductLink } from '../../helper';
 
 interface Props {
   product: RecipeProduct | ProductType;

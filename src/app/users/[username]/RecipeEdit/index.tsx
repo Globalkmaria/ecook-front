@@ -8,17 +8,17 @@ import style from './style.module.scss';
 import { NewRecipeData, RecipeDetail } from '@/service/recipes/type';
 import { editRecipe, getRecipe } from '@/service/recipes';
 
+import useHandleAuthResponse from '@/hooks/useHandleAuthResponse';
+
 import NewRecipe from '@/app/recipes/new/NewRecipe';
 import { OnSubmitNewRecipe } from '@/app/recipes/new/NewRecipeContainer';
+
 import {
-  appendProductImgsToFormData,
-  appendRecipeImgToFormData,
-  getEditRecipeInfoData,
+  getEditRecipeFormData,
   getEditRecipeInitialValues,
-  getNewProducts,
   isRequiredFieldsFilled,
 } from './helper';
-import useHandleAuthResponse from '@/hooks/useHandleAuthResponse';
+import Skeleton from '@/components/Skeleton';
 
 export type EditRecipeData = Omit<NewRecipeData, 'img'>;
 
@@ -34,36 +34,16 @@ function RecipeEdit({ recipeKey, onCloseModal }: Props) {
   const [recipe, setRecipe] = useState<RecipeDetail | null>(null);
   const { handleAuthResponse } = useHandleAuthResponse();
 
-  const onSubmit: OnSubmitNewRecipe = async ({
-    img,
-    ingredients,
-    steps,
-    textInputs,
-    tags,
-  }) => {
+  const onSubmit: OnSubmitNewRecipe = async (data) => {
     if (loading) return;
-    if (
-      !isRequiredFieldsFilled({ img, ingredients, steps, textInputs, tags })
-    ) {
-      alert('Please fill in all required fields');
+    if (!isRequiredFieldsFilled(data)) {
+      alert(FILL_REQUIRED_FIELDS);
       return;
     }
 
-    const formData = new FormData();
-    const newProducts = getNewProducts(ingredients);
-    appendProductImgsToFormData(newProducts, formData);
-    appendRecipeImgToFormData(img, formData);
-
-    const data = getEditRecipeInfoData({
-      textInputs,
-      steps,
-      ingredients,
-      tags,
-    });
-
-    formData.append('info', JSON.stringify(data));
-
     setLoading(true);
+    const formData = getEditRecipeFormData(data);
+
     await handleAuthResponse({
       request: editRecipe(formData, recipeKey),
       options: {
@@ -84,7 +64,7 @@ function RecipeEdit({ recipeKey, onCloseModal }: Props) {
     const result = await getRecipe(recipeKey);
 
     if (!result.ok) {
-      alert('Something went wrong while getting the recipe.');
+      alert(GET_RECIPE_ERROR_MESSAGE);
       onCloseModal();
       return null;
     }
@@ -97,7 +77,8 @@ function RecipeEdit({ recipeKey, onCloseModal }: Props) {
     getRecipeData();
   }, []);
 
-  if (loadingRecipe || !recipe) return null;
+  if (loadingRecipe) return <Loading />;
+  if (!recipe) return <div>Recipe not found</div>;
 
   const initialData = getEditRecipeInitialValues(recipe);
 
@@ -114,3 +95,15 @@ function RecipeEdit({ recipeKey, onCloseModal }: Props) {
 }
 
 export default RecipeEdit;
+
+export const Loading = () => (
+  <div className={style.loading}>
+    <Skeleton />
+  </div>
+);
+
+// Error messages
+
+const FILL_REQUIRED_FIELDS = 'Please fill in all required fields';
+const GET_RECIPE_ERROR_MESSAGE =
+  'Something went wrong while getting the recipe.';

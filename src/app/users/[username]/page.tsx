@@ -34,25 +34,25 @@ async function UserPage({ params }: Props) {
 
   if (!username) return notFound();
 
-  const result = await getProfile(username);
-  const recipesResult = await getRecipes(username, 'username');
-  if (!result.ok || !recipesResult.ok) return notFound();
+  const [profileResult, recipesResult] = await Promise.all([
+    getProfile(username),
+    getRecipes(username, 'username'),
+  ]);
+  if (!profileResult.ok || !recipesResult.ok) return notFound();
 
-  const user = result.data;
+  const user = profileResult.data;
   const recipes = recipesResult.data;
+  const imgUser = {
+    img: user.img ?? null,
+    username: user.username,
+  };
 
   return (
     <main className={style.wrapper}>
       <div className={style.container}>
         <header className={style.profile}>
           <div className={style.avatar}>
-            <AvatarImg
-              user={{
-                img: user.img ?? null,
-                username: user.username,
-              }}
-              size={100}
-            />
+            <AvatarImg user={imgUser} size={100} />
           </div>
           <div className={style.info}>
             <span className={style.username}>{user.username}</span>

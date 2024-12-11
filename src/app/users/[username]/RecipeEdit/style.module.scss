@@ -3,3 +3,11 @@
 .container {
   margin-top: 20px;
 }
+
+.loading {
+  height: 100%;
+
+  & > div {
+    border-radius: 10px;
+  }
+}

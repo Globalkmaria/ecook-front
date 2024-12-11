@@ -9,6 +9,8 @@ import { RecipeDetail } from '@/service/recipes/type';
 
 import { formatTime } from '@/utils/time';
 
+import { getSearchTagLink, getUserLink } from '@/helpers/link';
+
 import Chip, { ChipsContainer } from '@/components/Chip';
 import { Tab, TabsContainer } from '@/components/Tab';
 import { getListCheckboxInitialState } from '@/components/helpers';
@@ -20,7 +22,6 @@ import Ingredients from './components/IngredientList';
 import CustomImage from '@/components/CustomImage';
 
 import { RECIPE_TABS, RecipeTab } from './const';
-import { getSearchTagLink, getUserLink } from './helper';
 
 interface Props {
   recipe: RecipeDetail;

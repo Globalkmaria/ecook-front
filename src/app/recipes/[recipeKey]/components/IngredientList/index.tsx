@@ -2,11 +2,12 @@ import style from './style.module.scss';
 
 import { RecipeDetail } from '@/service/recipes/type';
 
+import { getSearchIngredientLink } from '@/helpers/link';
+
 import { ListItem } from '@/components/List';
 import SearchIconLink from '@/components/SearchIconLink';
 
 import InformationButton from './InformationButton';
-import { getSearchIngredientLink } from '../../helper';
 
 interface Props {
   ingredients: RecipeDetail['ingredients'];

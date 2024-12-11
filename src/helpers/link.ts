@@ -9,3 +9,5 @@ export const getSearchIngredientLink = (ingredient: string) =>
 
 export const getSearchProductLink = (product: string) =>
   `/search?type=product&q=${lightSlugify(product)}`;
+
+export const getRecipeLink = (recipeKey: string) => `/recipes/${recipeKey}`;

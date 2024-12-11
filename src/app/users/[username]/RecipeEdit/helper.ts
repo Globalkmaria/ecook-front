@@ -33,29 +33,31 @@ export const getEditRecipeInitialValues = (
   tags: recipe.tags.map((item) => item.name),
 });
 
-export const getNewProducts = (
+const getNewProducts = (
   ingredients: NewRecipeIngredientStates,
 ): IngredientNewProduct[] =>
   ingredients.map((item) => item.newProduct).filter((item) => !!item);
 
-export const appendProductImgsToFormData = (
-  products: IngredientNewProduct[],
+const appendProductImgsToFormData = (
+  ingredients: NewRecipeIngredientStates,
   formData: FormData,
 ) => {
-  products.forEach(
+  const newProducts = getNewProducts(ingredients);
+
+  newProducts.forEach(
     (product) =>
       product.img && formData.append(`img_${product.id}`, product.img),
   );
 };
 
-export const appendRecipeImgToFormData = (
+const appendRecipeImgToFormData = (
   img: string | File | null,
   formData: FormData,
 ) => isNewImg(img) && formData.append('img', img);
 
 type InfoData = Omit<NewRecipeSubmitProps, 'img'>;
 
-export const getEditRecipeInfoData = ({
+const getEditRecipeInfoData = ({
   textInputs,
   steps,
   ingredients,
@@ -75,5 +77,20 @@ export const getEditRecipeInfoData = ({
   };
 };
 
-export const isNewImg = (img: string | File | null) =>
+const isNewImg = (img: string | File | null) =>
   !!(img && typeof img !== 'string');
+
+const appendRecipeInfo = (data: NewRecipeSubmitProps, formData: FormData) => {
+  const info = getEditRecipeInfoData(data);
+  formData.append('info', JSON.stringify(info));
+};
+
+export const getEditRecipeFormData = (data: NewRecipeSubmitProps) => {
+  const formData = new FormData();
+
+  appendProductImgsToFormData(data.ingredients, formData);
+  appendRecipeImgToFormData(data.img, formData);
+  appendRecipeInfo(data, formData);
+
+  return formData;
+};

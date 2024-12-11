@@ -6,3 +6,10 @@ export const getUserInfo = () => {
   }
   return { username: null, img: null };
 };
+
+export const checkLoginStatus = (params: { username?: string }) => {
+  if (typeof window !== 'undefined') {
+    return sessionStorage.getItem('username') === params.username;
+  }
+  return false;
+};
