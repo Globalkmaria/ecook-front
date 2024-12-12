@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -41,7 +41,9 @@ export const initialSignupFormState: SignupFormState = {
 
 function SignupContainer() {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingSignup, startTransitionSignup] = useTransition();
+  const [isLoadingVerifyUsername, startTransitionVerifyUsername] =
+    useTransition();
 
   const [isUsernameValid, setIsUsernameValid] = useState(false);
 
@@ -61,84 +63,73 @@ function SignupContainer() {
   };
 
   const onSignup = async () => {
-    if (isLoading) return;
-    setIsLoading(true);
+    if (isLoadingSignup) return;
 
-    if (!isUsernameValid) {
-      alert(VALIDATE_USERNAME_MESSAGE);
-      setIsLoading(false);
-      return;
-    }
+    startTransitionSignup(async () => {
+      if (!isUsernameValid) return alert(VALIDATE_USERNAME_MESSAGE);
 
-    if (!checkRequiredFieldsAreFilled(form)) {
-      alert(INVALID_REQUIRED_FIELDS_MESSAGE);
-      setIsLoading(false);
-      return;
-    }
+      if (!checkRequiredFieldsAreFilled(form))
+        return alert(INVALID_REQUIRED_FIELDS_MESSAGE);
 
-    if (!validatePassword(form.password)) {
-      alert(INVALID_PASSWORD_MESSAGE);
-      setIsLoading(false);
-      return;
-    }
+      if (!validatePassword(form.password))
+        return alert(INVALID_PASSWORD_MESSAGE);
 
-    if (!validateEmail(form.email)) {
-      alert(INVALID_EMAIL_MESSAGE);
-      setIsLoading(false);
-      return;
-    }
+      if (!validateEmail(form.email)) return alert(INVALID_EMAIL_MESSAGE);
 
-    const formData = getSignupFormData(form);
-    const result = await signup(formData);
+      const formData = getSignupFormData(form);
+      const result = await signup(formData);
 
-    if (!result.ok) {
-      alert(result.error);
-      setIsLoading(false);
-      return;
-    }
+      if (!result.ok) return alert(result.error);
 
-    sessionStorage.setItem('username', result.data.username);
-    result.data.img && sessionStorage.setItem('img', result.data.img);
+      sessionStorage.setItem('username', result.data.username);
+      result.data.img && sessionStorage.setItem('img', result.data.img);
 
-    setIsLoading(false);
-    router.push('/');
+      router.push('/');
+    });
   };
 
   const onValidateUsername = async () => {
-    if (!form.username) {
-      alert(ENTER_USERNAME_MESSAGE);
-      setIsUsernameValid(false);
-      return;
-    }
+    if (isUsernameValid) return;
+    if (isLoadingSignup || isLoadingVerifyUsername) return;
 
-    if (!validateUsername(form.username)) {
-      alert(INVALID_USERNAME_MESSAGE);
-      setIsUsernameValid(false);
-      return;
-    }
+    startTransitionVerifyUsername(async () => {
+      if (!form.username) {
+        alert(ENTER_USERNAME_MESSAGE);
+        setIsUsernameValid(false);
+        return;
+      }
 
-    const result = await isUsernameAvailable(form.username);
+      if (!validateUsername(form.username)) {
+        alert(INVALID_USERNAME_MESSAGE);
+        setIsUsernameValid(false);
+        return;
+      }
 
-    if (!result.ok) {
-      alert(result.error);
-      setIsUsernameValid(false);
-      return;
-    }
+      const result = await isUsernameAvailable(form.username);
 
-    if (!result.data.isAvailable) {
-      alert(USERNAME_IS_TAKEN_MESSAGE);
-      setIsUsernameValid(false);
-      return;
-    }
+      if (!result.ok) {
+        alert(result.error);
+        setIsUsernameValid(false);
+        return;
+      }
 
-    setIsUsernameValid(true);
+      if (!result.data.isAvailable) {
+        alert(USERNAME_IS_TAKEN_MESSAGE);
+        setIsUsernameValid(false);
+        return;
+      }
+
+      setIsUsernameValid(true);
+    });
   };
 
   const validateUsernameButtonVariant = isUsernameValid
     ? 'success'
     : 'secondary';
 
-  const submitButtonText = isLoading ? 'Creating Account...' : 'Create Account';
+  const submitButtonText = isLoadingSignup
+    ? 'Creating Account...'
+    : 'Create Account';
 
   return (
     <div className={style.wrapper}>
@@ -168,6 +159,7 @@ function SignupContainer() {
                 variant={validateUsernameButtonVariant}
                 className={style['valid-button']}
                 onClick={onValidateUsername}
+                disabled={isLoadingSignup || isLoadingVerifyUsername}
               >
                 Check Availability
               </Button>
@@ -191,7 +183,7 @@ function SignupContainer() {
           <Button
             onClick={onSignup}
             className={style['submit-btn']}
-            disabled={isLoading}
+            disabled={isLoadingSignup}
           >
             {submitButtonText}
           </Button>

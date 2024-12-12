@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { NewRecipeData } from '@/service/recipes/type';
@@ -34,7 +34,7 @@ export type OnSubmitNewRecipe = (data: NewRecipeSubmitProps) => void;
 function NewRecipeContainer() {
   const router = useRouter();
   const { username } = getUserInfo();
-  const [loading, setLoading] = useState(false);
+  const [isLoading, startTransition] = useTransition();
   const { handleAuthResponse } = useHandleAuthResponse();
   const [isClient, setIsClient] = useState(false);
 
@@ -57,50 +57,50 @@ function NewRecipeContainer() {
     textInputs,
     tags,
   }: NewRecipeSubmitProps) => {
-    if (loading) return;
+    if (isLoading) return;
     if (!img || !ingredients.length || !steps.length) {
       alert('Please fill in all required fields');
       return;
     }
 
-    const newProducts = ingredients
-      .map((item) => item.newProduct)
-      .filter((item) => !!item);
+    startTransition(async () => {
+      const newProducts = ingredients
+        .map((item) => item.newProduct)
+        .filter((item) => !!item);
 
-    const formData = new FormData();
+      const formData = new FormData();
 
-    newProducts.forEach(
-      (product) =>
-        product.img && formData.append(`img_${product.id}`, product.img),
-    );
+      newProducts.forEach(
+        (product) =>
+          product.img && formData.append(`img_${product.id}`, product.img),
+      );
 
-    img && typeof img !== 'string' && formData.append('img', img);
+      img && typeof img !== 'string' && formData.append('img', img);
 
-    const data: Omit<NewRecipeData, 'img'> = {
-      ...textInputs,
-      steps: steps.map((item) => item.value),
-      ingredients: ingredients.map((item) => ({
-        name: item.name,
-        quantity: item.quantity,
-        ingredientId: item.productId,
-        newProduct: item.newProduct,
-        productId: item.productId,
-      })),
-      tags: tags,
-    };
+      const data: Omit<NewRecipeData, 'img'> = {
+        ...textInputs,
+        steps: steps.map((item) => item.value),
+        ingredients: ingredients.map((item) => ({
+          name: item.name,
+          quantity: item.quantity,
+          ingredientId: item.productId,
+          newProduct: item.newProduct,
+          productId: item.productId,
+        })),
+        tags: tags,
+      };
 
-    formData.append('info', JSON.stringify(data));
+      formData.append('info', JSON.stringify(data));
 
-    setLoading(true);
-    await handleAuthResponse({
-      request: saveRecipe(formData),
-      options: {
-        onSuccess: (res) => router.replace(`/recipes/${res.data.key}`),
-        onFailure: () => {
-          alert('Failed to submit recipe');
-          setLoading(false);
+      await handleAuthResponse({
+        request: saveRecipe(formData),
+        options: {
+          onSuccess: (res) => router.replace(`/recipes/${res.data.key}`),
+          onFailure: () => {
+            alert('Failed to submit recipe');
+          },
         },
-      },
+      });
     });
   };
 
@@ -117,7 +117,7 @@ function NewRecipeContainer() {
 
   return (
     <NewRecipe
-      loading={loading}
+      loading={isLoading}
       onSubmit={onSubmit}
       initialData={initialData}
       pageTitle='Create a new recipe'

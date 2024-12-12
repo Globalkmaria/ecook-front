@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 
 import style from './style.module.scss';
@@ -29,55 +29,58 @@ interface Props {
 
 function RecipeEdit({ recipeKey, onCloseModal }: Props) {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
-  const [loadingRecipe, setLoadingRecipe] = useState(true);
+  const [isLoadingSubmit, startTransitionSubmit] = useTransition();
+  const [isLoadingRecipe, startTransitionRecipe] = useTransition();
   const [recipe, setRecipe] = useState<RecipeDetail | null>(null);
   const { handleAuthResponse } = useHandleAuthResponse();
 
   const onSubmit: OnSubmitNewRecipe = async (data) => {
-    if (loading) return;
+    if (isLoadingSubmit) return;
     if (!isRequiredFieldsFilled(data)) {
       alert(FILL_REQUIRED_FIELDS);
       return;
     }
 
-    setLoading(true);
-    const formData = getEditRecipeFormData(data);
+    startTransitionSubmit(async () => {
+      const formData = getEditRecipeFormData(data);
 
-    await handleAuthResponse({
-      request: editRecipe(formData, recipeKey),
-      options: {
-        onSuccess: (res) => {
-          onCloseModal();
-          router.refresh();
+      await handleAuthResponse({
+        request: editRecipe(formData, recipeKey),
+        options: {
+          onSuccess: () => {
+            onCloseModal();
+            router.refresh();
+          },
+          onFailure: () => {
+            alert('Failed to edit recipe');
+            onCloseModal();
+          },
         },
-        onFailure: () => {
-          alert('Failed to edit recipe');
-          onCloseModal();
-          setLoading(false);
-        },
-      },
+      });
     });
   };
 
-  const getRecipeData = async () => {
-    const result = await getRecipe(recipeKey);
+  const getRecipeData = () => {
+    if (isLoadingRecipe) return;
 
-    if (!result.ok) {
-      alert(GET_RECIPE_ERROR_MESSAGE);
-      onCloseModal();
-      return null;
-    }
+    startTransitionRecipe(async () => {
+      const result = await getRecipe(recipeKey);
 
-    setRecipe(result.data);
-    setLoadingRecipe(false);
+      if (!result.ok) {
+        alert(GET_RECIPE_ERROR_MESSAGE);
+        onCloseModal();
+        return;
+      }
+
+      setRecipe(result.data);
+    });
   };
 
   useEffect(() => {
     getRecipeData();
   }, []);
 
-  if (loadingRecipe) return <Loading />;
+  if (isLoadingRecipe) return <Loading />;
   if (!recipe) return <div>Recipe not found</div>;
 
   const initialData = getEditRecipeInitialValues(recipe);
@@ -85,7 +88,7 @@ function RecipeEdit({ recipeKey, onCloseModal }: Props) {
   return (
     <div className={style.container}>
       <NewRecipe
-        loading={loading}
+        loading={isLoadingSubmit}
         onSubmit={onSubmit}
         initialData={initialData}
         pageTitle='Edit Recipe'

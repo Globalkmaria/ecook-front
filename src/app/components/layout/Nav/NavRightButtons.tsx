@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useTransition } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -18,7 +18,7 @@ import Icon from '@/components/Icon';
 function NavRightButtons() {
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, startTransition] = useTransition();
 
   const { username, img } = getUserInfo();
   const isLoggedIn = username !== null;
@@ -34,12 +34,12 @@ function NavRightButtons() {
 
   const onLogout = async () => {
     if (isLoading) return;
-    setIsLoading(true);
 
-    sessionStorage.clear();
-    await logout();
-    router.push('/');
-    setIsLoading(false);
+    startTransition(async () => {
+      await logout();
+      sessionStorage.clear();
+      router.push('/');
+    });
   };
 
   return (
@@ -63,7 +63,9 @@ function NavRightButtons() {
             </Link>
             <DropboxWrapper ref={ref}>
               <Dropbox className={style['profile-dropbox']} containerRef={ref}>
-                <DropboxItem onClick={onLogout}>Logout</DropboxItem>
+                <DropboxItem disabled={isLoading} onClick={onLogout}>
+                  Logout
+                </DropboxItem>
               </Dropbox>
             </DropboxWrapper>
           </div>

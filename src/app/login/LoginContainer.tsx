@@ -1,6 +1,6 @@
 'use client';
 
-import { MouseEventHandler, useState } from 'react';
+import { MouseEventHandler, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -15,25 +15,25 @@ function LoginContainer() {
   const router = useRouter();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, startTransition] = useTransition();
 
   const onLogin: MouseEventHandler = async (e) => {
     e.preventDefault();
     if (isLoading) return;
 
-    setIsLoading(true);
-    const result = await login({ username, password });
+    startTransition(async () => {
+      const result = await login({ username, password });
 
-    if (!result.ok) {
-      alert(result.error);
-      setIsLoading(false);
-      return;
-    }
+      if (!result.ok) {
+        alert(result.error);
+        return;
+      }
 
-    sessionStorage.setItem('username', result.data.username);
-    result.data.img && sessionStorage.setItem('img', result.data.img);
+      sessionStorage.setItem('username', result.data.username);
+      result.data.img && sessionStorage.setItem('img', result.data.img);
 
-    router.push('/');
+      router.push('/');
+    });
   };
 
   return (
