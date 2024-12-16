@@ -7,7 +7,7 @@ import style from './style.module.scss';
 export const metadata: Metadata = {
   title: 'Explore Delicious Recipes | E-COOK',
   description:
-    'Got a recipe everyone loves? Share your creation with the RecipeHub community and inspire food lovers everywhere!',
+    'Got a recipe everyone loves? Share your creation with the E-COOK community and inspire food lovers everywhere!',
   keywords: [
     'cooking ideas',
     'recipe',
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     'share',
   ],
   applicationName: 'E-COOK',
-  authors: [{ name: 'Maria Kim', url: 'https://github.com/Globalkmaria' }],
+  authors: [{ name: 'Maria Kim' }],
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     siteName: 'E-COOK',
     title: 'Explore Delicious Recipes | E-COOK',
     description:
-      'Got a recipe everyone loves? Share your creation with the RecipeHub community and inspire food lovers everywhere!',
+      'Got a recipe everyone loves? Share your creation with the E-COOK community and inspire food lovers everywhere!',
     images: [
       {
         url: 'https://velog.velcdn.com/images/tjdgus0528/post/47e62a5c-e808-40ab-8eb0-850849f08100/image.png',

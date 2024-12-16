@@ -6,7 +6,7 @@ import Nav from '../components/layout/Nav';
 import Footer from '../components/layout/Footer';
 
 export const metadata: Metadata = {
-  title: 'Search Recipes | RecipeHub',
+  title: 'Search Recipes | E-COOK',
   description:
     'Find the perfect recipe for any occasion. Search through a wide variety of delicious recipes shared by food enthusiasts worldwide.',
 };
