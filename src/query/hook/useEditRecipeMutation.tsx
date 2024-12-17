@@ -25,6 +25,7 @@ const useEditRecipeMutation = (recipeKey: string, onCloseModal: () => void) => {
       queryClient.invalidateQueries({ queryKey: ['recipeList', username] });
       queryClient.invalidateQueries({ queryKey: ['recipe', data.key] });
       onCloseModal();
+      router.push(`/recipes/${data.key}`);
     },
     onError: () => alert('Failed to edit recipe'),
     retry: 3,
