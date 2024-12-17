@@ -6,12 +6,11 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { NewRecipeData } from '@/service/recipes/type';
 import { saveRecipe } from '@/service/recipes';
+import { handleApiAuthResponse } from '@/service/utils/handleApiAuthResponse';
 
 import { getRandomId } from '@/utils/generateId';
 
 import { getUserInfo } from '@/helpers/auth';
-
-import useHandleAuthResponse from '@/hooks/useHandleAuthResponse';
 
 import { Step } from './components/Steps';
 import NewRecipe, {
@@ -36,7 +35,6 @@ function NewRecipeContainer() {
   const router = useRouter();
   const { username } = getUserInfo();
   const [isLoading, startTransition] = useTransition();
-  const { handleAuthResponse } = useHandleAuthResponse();
   const [isClient, setIsClient] = useState(false);
   const queryClient = useQueryClient();
 
@@ -94,20 +92,18 @@ function NewRecipeContainer() {
 
       formData.append('info', JSON.stringify(data));
 
-      await handleAuthResponse({
-        request: saveRecipe(formData),
-        options: {
-          onSuccess: (res) => {
-            queryClient.invalidateQueries({
-              queryKey: ['recipeList', username],
-            });
-            router.replace(`/recipes/${res.data.key}`);
-          },
-          onFailure: () => {
-            alert('Failed to submit recipe');
-          },
-        },
-      });
+      const result = await saveRecipe(formData);
+      handleApiAuthResponse(result, router);
+
+      if (result.ok) {
+        queryClient.invalidateQueries({
+          queryKey: ['recipeList', username],
+        });
+        router.replace(`/recipes/${result.data.key}`);
+        return;
+      }
+
+      alert('Failed to submit recipe');
     });
   };
 

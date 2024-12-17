@@ -10,4 +10,6 @@ type FetchErrorResult = {
   res?: Response;
 };
 
-export type FetchResult<T> = Promise<FetchSuccessResult<T> | FetchErrorResult>;
+export type FetchOutcome<T> = FetchSuccessResult<T> | FetchErrorResult;
+
+export type FetchResult<T> = Promise<FetchOutcome<T>>;

@@ -4,6 +4,8 @@ import { useRouter } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { deleteRecipe } from '@/service/recipes';
+import { handleApiAuthResponse } from '@/service/utils/handleApiAuthResponse';
+
 import { getUserInfo } from '@/helpers/auth';
 
 function useDeleteRecipeMutation() {
@@ -14,15 +16,10 @@ function useDeleteRecipeMutation() {
   const result = useMutation({
     mutationFn: async (recipeKey: string) => {
       const response = await deleteRecipe(recipeKey);
-      if (!response.ok) {
-        if (response.res?.status === 401) {
-          sessionStorage.clear();
-          router.push('/login');
-          return null;
-        }
-        throw new Error(response.error);
-      }
-      return response.data;
+      handleApiAuthResponse(response, router);
+
+      if (response.ok) return response.data;
+      throw new Error('Failed to delete recipe');
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['recipeList', username] });

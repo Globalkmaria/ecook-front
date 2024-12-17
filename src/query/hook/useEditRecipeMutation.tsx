@@ -4,6 +4,8 @@ import { useRouter } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { editRecipe } from '@/service/recipes';
+import { handleApiAuthResponse } from '@/service/utils/handleApiAuthResponse';
+
 import { getUserInfo } from '@/helpers/auth';
 
 const useEditRecipeMutation = (recipeKey: string, onCloseModal: () => void) => {
@@ -14,19 +16,14 @@ const useEditRecipeMutation = (recipeKey: string, onCloseModal: () => void) => {
   const result = useMutation({
     mutationFn: async ({ data }: { data: FormData }) => {
       const response = await editRecipe(data, recipeKey);
-      if (!response.ok) {
-        if (response.res?.status === 401) {
-          sessionStorage.clear();
-          router.push('/login');
-          return null;
-        }
-        throw new Error(response.error);
-      }
-      return response.data;
+      handleApiAuthResponse(response, router);
+
+      if (response.ok) return response.data;
+      throw new Error('Failed to edit recipe');
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['recipeList', username] });
-      queryClient.invalidateQueries({ queryKey: ['recipe', data?.key] });
+      queryClient.invalidateQueries({ queryKey: ['recipe', data.key] });
       onCloseModal();
     },
     onError: () => alert('Failed to edit recipe'),
