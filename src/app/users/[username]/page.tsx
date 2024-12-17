@@ -7,12 +7,16 @@ import { getProfile } from '@/service/users';
 import { AvatarImg } from '@/components/Avatar';
 import Icon from '@/components/Icon';
 
-import Cards from './Cards/Cards';
 import { getRecipes } from '@/service/recipes';
 import { notFound } from 'next/navigation';
+import RecipeList from './RecipeList';
+
+export type UserPageParams = {
+  username: string;
+};
 
 interface Props {
-  params: Promise<{ username: string }>;
+  params: Promise<UserPageParams>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -41,11 +45,11 @@ async function UserPage({ params }: Props) {
   if (!profileResult.ok || !recipesResult.ok) return notFound();
 
   const user = profileResult.data;
-  const recipes = recipesResult.data;
   const imgUser = {
     img: user.img ?? null,
     username: user.username,
   };
+  const recipes = recipesResult.data;
 
   return (
     <main className={style.wrapper}>
@@ -72,7 +76,7 @@ async function UserPage({ params }: Props) {
             </span>
           </div>
 
-          <Cards recipes={recipes} />
+          <RecipeList recipes={recipes} />
         </section>
       </div>
     </main>

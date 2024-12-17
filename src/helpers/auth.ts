@@ -2,9 +2,10 @@ export const getUserInfo = () => {
   if (typeof window !== 'undefined') {
     const username = sessionStorage.getItem('username');
     const img = sessionStorage.getItem('img');
-    return { username, img };
+    const isLoggedIn = username !== null;
+    return { username, img, isLoggedIn };
   }
-  return { username: null, img: null };
+  return { username: null, img: null, isLoggedIn: false };
 };
 
 export const checkLoginStatus = (params: { username?: string }) => {

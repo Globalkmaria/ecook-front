@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
+import { useQueryClient } from '@tanstack/react-query';
 
 import { NewRecipeData } from '@/service/recipes/type';
 import { saveRecipe } from '@/service/recipes';
@@ -37,6 +38,7 @@ function NewRecipeContainer() {
   const [isLoading, startTransition] = useTransition();
   const { handleAuthResponse } = useHandleAuthResponse();
   const [isClient, setIsClient] = useState(false);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -95,7 +97,12 @@ function NewRecipeContainer() {
       await handleAuthResponse({
         request: saveRecipe(formData),
         options: {
-          onSuccess: (res) => router.replace(`/recipes/${res.data.key}`),
+          onSuccess: (res) => {
+            queryClient.invalidateQueries({
+              queryKey: ['recipeList', username],
+            });
+            router.replace(`/recipes/${res.data.key}`);
+          },
           onFailure: () => {
             alert('Failed to submit recipe');
           },

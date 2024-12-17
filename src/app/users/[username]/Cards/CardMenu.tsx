@@ -1,15 +1,15 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
 import style from './Cards.module.scss';
 
 import { RecipeSimple } from '@/service/recipes/type';
-import { deleteRecipe } from '@/service/recipes';
+
+import useDeleteRecipe from '@/query/hook/useDeleteRecipeMutation';
 
 import useModal from '@/hooks/useModal';
-import useHandleAuthResponse from '@/hooks/useHandleAuthResponse';
 
 import { checkLoginStatus } from '@/helpers/auth';
 
@@ -26,11 +26,10 @@ interface Props {
 }
 
 function CardMenu({ recipeKey }: Props) {
-  const router = useRouter();
-  const { isOpen, onOpen, onClose } = useModal();
   const params = useParams();
-  const { handleAuthResponse } = useHandleAuthResponse();
+  const { isOpen, onOpen, onClose } = useModal();
   const [isClient, setIsClient] = useState(false);
+  const { mutate } = useDeleteRecipe();
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -42,12 +41,7 @@ function CardMenu({ recipeKey }: Props) {
 
   if (!checkLoginStatus(params)) return null;
 
-  const onDelete = async () => {
-    handleAuthResponse({
-      request: deleteRecipe(recipeKey),
-      options: { onSuccess: () => router.refresh() },
-    });
-  };
+  const onDelete = () => mutate(recipeKey);
 
   const buttons: {
     icon: IconProps['icon'];

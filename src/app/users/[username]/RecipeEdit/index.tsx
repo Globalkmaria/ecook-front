@@ -1,14 +1,18 @@
 'use client';
 
-import { useEffect, useState, useTransition } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 import style from './style.module.scss';
 
-import { NewRecipeData, RecipeDetail } from '@/service/recipes/type';
-import { editRecipe, getRecipe } from '@/service/recipes';
+import { NewRecipeData } from '@/service/recipes/type';
 
-import useHandleAuthResponse from '@/hooks/useHandleAuthResponse';
+import { recipeOptions } from '@/query/recipeOptions';
+import useEditRecipeMutation from '@/query/hook/useEditRecipeMutation';
+
+import { getUserInfo } from '@/helpers/auth';
+
+import Skeleton from '@/components/Skeleton';
 
 import NewRecipe from '@/app/recipes/new/NewRecipe';
 import { OnSubmitNewRecipe } from '@/app/recipes/new/NewRecipeContainer';
@@ -18,7 +22,6 @@ import {
   getEditRecipeInitialValues,
   isRequiredFieldsFilled,
 } from './helper';
-import Skeleton from '@/components/Skeleton';
 
 export type EditRecipeData = Omit<NewRecipeData, 'img'>;
 
@@ -28,59 +31,44 @@ interface Props {
 }
 
 function RecipeEdit({ recipeKey, onCloseModal }: Props) {
-  const router = useRouter();
-  const [isLoadingSubmit, startTransitionSubmit] = useTransition();
-  const [isLoadingRecipe, startTransitionRecipe] = useTransition();
-  const [recipe, setRecipe] = useState<RecipeDetail | null>(null);
-  const { handleAuthResponse } = useHandleAuthResponse();
+  const { isLoggedIn } = getUserInfo();
+  const [isClient, setIsClient] = useState(false);
 
-  const onSubmit: OnSubmitNewRecipe = async (data) => {
-    if (isLoadingSubmit) return;
+  useEffect(() => {
+    if (typeof window !== 'undefined') setIsClient(true);
+  }, []);
+
+  const {
+    data: recipe,
+    isLoading: isLoadingRecipe,
+    error: recipeError,
+  } = useQuery(recipeOptions(recipeKey, isLoggedIn));
+  const { mutate, isPending: isPendingEditRecipe } = useEditRecipeMutation(
+    recipeKey,
+    onCloseModal,
+  );
+
+  const onSubmit: OnSubmitNewRecipe = (data) => {
+    if (isPendingEditRecipe) return;
     if (!isRequiredFieldsFilled(data)) {
       alert(FILL_REQUIRED_FIELDS);
       return;
     }
 
-    startTransitionSubmit(async () => {
-      const formData = getEditRecipeFormData(data);
-
-      await handleAuthResponse({
-        request: editRecipe(formData, recipeKey),
-        options: {
-          onSuccess: () => {
-            onCloseModal();
-            router.refresh();
-          },
-          onFailure: () => {
-            alert('Failed to edit recipe');
-            onCloseModal();
-          },
-        },
-      });
-    });
+    const formData = getEditRecipeFormData(data);
+    mutate({ data: formData });
   };
 
-  const getRecipeData = () => {
-    if (isLoadingRecipe) return;
-
-    startTransitionRecipe(async () => {
-      const result = await getRecipe(recipeKey);
-
-      if (!result.ok) {
-        alert(GET_RECIPE_ERROR_MESSAGE);
-        onCloseModal();
-        return;
-      }
-
-      setRecipe(result.data);
-    });
-  };
-
-  useEffect(() => {
-    getRecipeData();
-  }, []);
+  if (!isClient) return null;
 
   if (isLoadingRecipe) return <Loading />;
+
+  if (recipeError) {
+    alert(GET_RECIPE_ERROR_MESSAGE);
+    onCloseModal();
+    return null;
+  }
+
   if (!recipe) return <div>Recipe not found</div>;
 
   const initialData = getEditRecipeInitialValues(recipe);
@@ -88,7 +76,7 @@ function RecipeEdit({ recipeKey, onCloseModal }: Props) {
   return (
     <div className={style.container}>
       <NewRecipe
-        loading={isLoadingSubmit}
+        loading={isPendingEditRecipe}
         onSubmit={onSubmit}
         initialData={initialData}
         pageTitle='Edit Recipe'
