@@ -124,10 +124,14 @@
     width: 100%;
     flex-grow: 1;
     margin-bottom: 10px;
+  }
 
-    img {
-      object-fit: contain;
-    }
+  .img-placeholder {
+    border-radius: $borderRadiusS;
+  }
+
+  .img {
+    object-fit: contain;
   }
 
   &__info {

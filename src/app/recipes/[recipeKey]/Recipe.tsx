@@ -63,7 +63,12 @@ function Recipe({ recipe }: Props) {
       </div>
       <div className={style.container}>
         <div className={style['img-box']}>
-          <CustomImage src={recipe.img} fill alt={recipe.name} />
+          <CustomImage
+            className={style['img']}
+            src={recipe.img}
+            fill
+            alt={recipe.name}
+          />
         </div>
 
         <div className={style.content}>

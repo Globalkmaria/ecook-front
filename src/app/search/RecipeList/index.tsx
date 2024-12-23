@@ -45,7 +45,8 @@ function Item({ recipe }: ItemProps) {
         <div className={style['img-box']}>
           <div className={style['img-wrapper']}>
             <CustomImage
-              className={style.img}
+              loadingClassName={style['img-placeholder']}
+              imgClassName={style.img}
               src={recipe.img}
               alt={recipe.name}
               fill

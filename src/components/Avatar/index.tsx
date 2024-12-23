@@ -13,17 +13,17 @@ interface AvatarProps {
 }
 
 function Avatar({ user: { img, username }, size = 32 }: AvatarProps) {
-  const userNameImgClassName = joinClassNames(
-    style['username-img'],
-    style['username-img--' + size],
+  const joinedClassName = joinClassNames(
+    style['img-box'],
+    style['img-box--' + size],
   );
   return (
     <div className={style.avatar}>
-      <div className={style['img-box']}>
+      <div className={joinedClassName}>
         {img ? (
           <CustomImage src={img} alt={username} width={size} height={size} />
         ) : (
-          <span className={userNameImgClassName}>{username[0]}</span>
+          <span className={style['username-img']}>{username[0]}</span>
         )}
       </div>
 
@@ -40,19 +40,25 @@ export function AvatarImg({
   hoverable,
 }: AvatarProps) {
   const coverClassName = joinClassNames(style['cover']);
-  const userNameImgClassName = joinClassNames(
-    style['username-img'],
-    style['username-img--' + size],
+  const joinedClassName = joinClassNames(
+    style['img-box'],
+    style['img-box--' + size],
   );
 
   return (
     <div className={style.avatar}>
       {hoverable ? <div className={coverClassName}></div> : null}
-      <div className={style['img-box']}>
+      <div className={joinedClassName}>
         {img ? (
-          <CustomImage src={img} alt={username} width={size} height={size} />
+          <CustomImage
+            loadingClassName={style['img-placeholder']}
+            src={img}
+            alt={username}
+            width={size}
+            height={size}
+          />
         ) : (
-          <span className={userNameImgClassName}>{username[0]}</span>
+          <span className={style['username-img']}>{username[0]}</span>
         )}
       </div>
     </div>

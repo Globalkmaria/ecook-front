@@ -34,7 +34,13 @@ function ExistingProduct({
       <div className={style.product}>
         <div className={style['img-box']}>
           {item.img ? (
-            <CustomImage src={item.img} alt={item.name} fill />
+            <CustomImage
+              src={item.img}
+              alt={item.name}
+              fill
+              loadingClassName={style['img-placeholder']}
+              imgClassName={style['img']}
+            />
           ) : (
             <Icon icon='img' className={style['img-icon']} />
           )}
