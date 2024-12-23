@@ -10,6 +10,10 @@ export interface RecipeSimple {
   key: string;
 }
 
+export type HomeRecipe = RecipeSimple & {
+  user: { username: string };
+};
+
 export interface RecipeProduct {
   id: string;
   name: string;

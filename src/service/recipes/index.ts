@@ -1,5 +1,5 @@
 import { fetchAPI } from '@/utils/api';
-import { RecipeDetail, RecipeSimple } from './type';
+import { HomeRecipe, RecipeDetail, RecipeSimple } from './type';
 import { FetchResult } from '../type';
 
 export const getRecipes = async (
@@ -20,7 +20,7 @@ export const getRecipes = async (
   }
 };
 
-export const getHomeRecipes = async (): FetchResult<RecipeSimple[]> => {
+export const getHomeRecipes = async (): FetchResult<HomeRecipe[]> => {
   try {
     const response = await fetchAPI('/recipes/home');
 

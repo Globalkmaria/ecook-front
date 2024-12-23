@@ -7,7 +7,7 @@ import { getProfile } from '@/service/users';
 import { AvatarImg } from '@/components/Avatar';
 import Icon from '@/components/Icon';
 
-import { getRecipes } from '@/service/recipes';
+import { getHomeRecipes, getRecipes } from '@/service/recipes';
 import { notFound } from 'next/navigation';
 import RecipeList from './RecipeList';
 
@@ -17,6 +17,23 @@ export type UserPageParams = {
 
 interface Props {
   params: Promise<UserPageParams>;
+}
+
+export const revalidate = 86400; // 1 day
+
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+  const result = await getHomeRecipes();
+  if (!result.ok) return [];
+
+  const users = new Set(
+    result.data.map((recipe) => ({
+      username: recipe.user.username,
+    })),
+  );
+
+  return [...users];
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
