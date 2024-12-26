@@ -8,7 +8,7 @@ export const getUserInfo = () => {
   return { username: null, img: null, isLoggedIn: false };
 };
 
-export const checkLoginStatus = (params: { username?: string }) => {
+export const isUsernameMatched = (params: { username?: string }) => {
   if (typeof window !== 'undefined') {
     return sessionStorage.getItem('username') === params.username;
   }

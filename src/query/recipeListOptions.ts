@@ -7,6 +7,7 @@ interface RecipeListOptions {
   type?: string;
   enabled?: boolean;
   initialData: RecipeSimple[];
+  staleTime?: number;
 }
 
 export const recipeListOptions = ({
@@ -14,6 +15,7 @@ export const recipeListOptions = ({
   type = '',
   enabled,
   initialData,
+  staleTime,
 }: RecipeListOptions) =>
   queryOptions({
     queryKey: ['recipeList', query, type],
@@ -26,4 +28,5 @@ export const recipeListOptions = ({
     },
     enabled,
     initialData,
+    staleTime,
   });

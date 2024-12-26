@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 
 import style from './Cards.module.scss';
@@ -10,8 +9,9 @@ import { RecipeSimple } from '@/service/recipes/type';
 import useDeleteRecipe from '@/query/hook/useDeleteRecipeMutation';
 
 import useModal from '@/hooks/useModal';
+import useIsClient from '@/hooks/useIsClient';
 
-import { checkLoginStatus } from '@/helpers/auth';
+import { isUsernameMatched } from '@/helpers/auth';
 
 import Icon, { IconProps } from '@/components/Icon';
 import { DropboxItem } from '@/components/Dropbox';
@@ -28,18 +28,12 @@ interface Props {
 function CardMenu({ recipeKey }: Props) {
   const params = useParams();
   const { isOpen, onOpen, onClose } = useModal();
-  const [isClient, setIsClient] = useState(false);
+  const isClient = useIsClient();
   const { mutate } = useDeleteRecipe();
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setIsClient(true);
-    }
-  }, []);
 
   if (!isClient) return null;
 
-  if (!checkLoginStatus(params)) return null;
+  if (!isUsernameMatched(params)) return null;
 
   const onDelete = () => mutate(recipeKey);
 
