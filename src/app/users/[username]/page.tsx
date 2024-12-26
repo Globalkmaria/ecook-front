@@ -52,52 +52,58 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 async function UserPage({ params }: Props) {
   const { username } = await params;
-
   if (!username) return notFound();
-
-  const [profileResult, recipesResult] = await Promise.all([
-    getProfile(username),
-    getRecipes(username, 'username'),
-  ]);
-  if (!profileResult.ok || !recipesResult.ok) return notFound();
-
-  const user = profileResult.data;
-  const imgUser = {
-    img: user.img ?? null,
-    username: user.username,
-  };
-  const recipes = recipesResult.data;
 
   return (
     <main className={style.wrapper}>
       <div className={style.container}>
-        <header className={style.profile}>
-          <div className={style.avatar}>
-            <AvatarImg user={imgUser} size={100} />
-          </div>
-          <div className={style.info}>
-            <span className={style.username}>{user.username}</span>
-            <span>
-              <span className={style.recipes}>{user.totalPosts}</span>
-              {` recipes`}
-            </span>
-          </div>
-        </header>
-
+        <Header username={username} />
         <hr className={style.border} />
-
-        <section>
-          <div className={style.tabs}>
-            <span className={style.tab}>
-              <Icon icon='grid' /> RECIPES
-            </span>
-          </div>
-
-          <RecipeList recipes={recipes} />
-        </section>
+        <List username={username} />
       </div>
     </main>
   );
 }
 
 export default UserPage;
+
+async function Header({ username }: { username: string }) {
+  const { ok, data: profile } = await getProfile(username);
+
+  if (!ok) return notFound();
+  const imgUser = {
+    img: profile.img ?? null,
+    username: profile.username,
+  };
+
+  return (
+    <header className={style.profile}>
+      <div className={style.avatar}>
+        <AvatarImg user={imgUser} size={100} />
+      </div>
+      <div className={style.info}>
+        <span className={style.username}>{profile.username}</span>
+        <span>
+          <span className={style.recipes}>{profile.totalPosts}</span>
+          {` recipes`}
+        </span>
+      </div>
+    </header>
+  );
+}
+
+async function List({ username }: { username: string }) {
+  const { ok, data: recipes } = await getRecipes(username, 'username');
+
+  if (!ok) return notFound();
+  return (
+    <section>
+      <div className={style.tabs}>
+        <span className={style.tab}>
+          <Icon icon='grid' /> RECIPES
+        </span>
+      </div>
+      <RecipeList recipes={recipes} />
+    </section>
+  );
+}
