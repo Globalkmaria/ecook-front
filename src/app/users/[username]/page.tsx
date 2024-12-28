@@ -1,14 +1,21 @@
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
 
 import style from './style.module.scss';
 
 import { getProfile } from '@/service/users';
+import { getHomeRecipes } from '@/service/recipes';
+
+import { recipeListOptions } from '@/query/recipeListOptions';
 
 import { AvatarImg } from '@/components/Avatar';
 import Icon from '@/components/Icon';
 
-import { getHomeRecipes, getRecipes } from '@/service/recipes';
-import { notFound } from 'next/navigation';
 import RecipeList from './RecipeList';
 
 export type UserPageParams = {
@@ -93,17 +100,24 @@ async function Header({ username }: { username: string }) {
 }
 
 async function List({ username }: { username: string }) {
-  const { ok, data: recipes } = await getRecipes(username, 'username');
+  const queryClient = new QueryClient();
 
-  if (!ok) return notFound();
+  await queryClient.prefetchQuery(
+    recipeListOptions({
+      query: username || '',
+      type: 'username',
+    }),
+  );
   return (
-    <section>
-      <div className={style.tabs}>
-        <span className={style.tab}>
-          <Icon icon='grid' /> RECIPES
-        </span>
-      </div>
-      <RecipeList recipes={recipes} />
-    </section>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <section>
+        <div className={style.tabs}>
+          <span className={style.tab}>
+            <Icon icon='grid' /> RECIPES
+          </span>
+        </div>
+        <RecipeList />
+      </section>
+    </HydrationBoundary>
   );
 }

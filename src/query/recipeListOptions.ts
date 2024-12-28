@@ -1,20 +1,15 @@
 import { getRecipes } from '@/service/recipes';
-import { RecipeSimple } from '@/service/recipes/type';
 import { queryOptions } from '@tanstack/react-query';
 
 interface RecipeListOptions {
   query?: string;
   type?: string;
-  enabled?: boolean;
-  initialData: RecipeSimple[];
   staleTime?: number;
 }
 
 export const recipeListOptions = ({
   query = '',
   type = '',
-  enabled,
-  initialData,
   staleTime,
 }: RecipeListOptions) =>
   queryOptions({
@@ -26,7 +21,5 @@ export const recipeListOptions = ({
 
       return result.data;
     },
-    enabled,
-    initialData,
     staleTime,
   });
