@@ -1,7 +1,10 @@
 'use client';
 
-import { FetchResult, FetchSuccessResult } from '@/service/type';
 import { useRouter } from 'next/navigation';
+
+import { useUserStore } from '@/providers/user-store-provider';
+
+import { FetchResult, FetchSuccessResult } from '@/service/type';
 
 type Props<T> = {
   request: FetchResult<T>;
@@ -13,6 +16,7 @@ type Props<T> = {
 
 function useHandleAuthResponse() {
   const router = useRouter();
+  const resetUser = useUserStore((state) => state.resetUser);
 
   const handleAuthResponse = async <T,>({
     request,
@@ -23,7 +27,7 @@ function useHandleAuthResponse() {
 
       if (!response.ok) {
         if (response.res?.status === 401) {
-          sessionStorage.clear();
+          resetUser();
           router.push('/login');
           return null;
         }

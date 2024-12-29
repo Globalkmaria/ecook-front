@@ -4,14 +4,13 @@ import { useParams } from 'next/navigation';
 
 import style from './Cards.module.scss';
 
+import { useUserStore } from '@/providers/user-store-provider';
+
 import { RecipeSimple } from '@/service/recipes/type';
 
 import useDeleteRecipe from '@/query/hook/useDeleteRecipeMutation';
 
 import useModal from '@/hooks/useModal';
-import useIsClient from '@/hooks/useIsClient';
-
-import { isUsernameMatched } from '@/helpers/auth';
 
 import Icon, { IconProps } from '@/components/Icon';
 import { DropboxItem } from '@/components/Dropbox';
@@ -28,12 +27,11 @@ interface Props {
 function CardMenu({ recipeKey }: Props) {
   const params = useParams();
   const { isOpen, onOpen, onClose } = useModal();
-  const isClient = useIsClient();
   const { mutate } = useDeleteRecipe();
+  const username = useUserStore((state) => state.username);
+  const isLoginUser = params.username === username;
 
-  if (!isClient) return null;
-
-  if (!isUsernameMatched(params)) return null;
+  if (!isLoginUser) return null;
 
   const onDelete = () => mutate(recipeKey);
 

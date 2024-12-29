@@ -1,16 +1,15 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 import style from './style.module.scss';
+
+import { useUserStore } from '@/providers/user-store-provider';
 
 import { NewRecipeData } from '@/service/recipes/type';
 
 import { recipeOptions } from '@/query/recipeOptions';
 import useEditRecipeMutation from '@/query/hook/useEditRecipeMutation';
-
-import { getUserInfo } from '@/helpers/auth';
 
 import Skeleton from '@/components/Skeleton';
 
@@ -31,12 +30,7 @@ interface Props {
 }
 
 function RecipeEdit({ recipeKey, onCloseModal }: Props) {
-  const { isLoggedIn } = getUserInfo();
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') setIsClient(true);
-  }, []);
+  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
 
   const {
     data: recipe,
@@ -58,8 +52,6 @@ function RecipeEdit({ recipeKey, onCloseModal }: Props) {
     const formData = getEditRecipeFormData(data);
     mutate({ data: formData });
   };
-
-  if (!isClient) return null;
 
   if (isLoadingRecipe) return <Loading />;
 

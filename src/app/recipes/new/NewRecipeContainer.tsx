@@ -1,16 +1,16 @@
 'use client';
 
-import { useEffect, useState, useTransition } from 'react';
+import { useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
+
+import { useUserStore } from '@/providers/user-store-provider';
 
 import { NewRecipeData } from '@/service/recipes/type';
 import { saveRecipe } from '@/service/recipes';
 import { handleApiAuthResponse } from '@/service/utils/handleApiAuthResponse';
 
 import { getRandomId } from '@/utils/generateId';
-
-import { getUserInfo } from '@/helpers/auth';
 
 import { Step } from './components/Steps';
 import NewRecipe, {
@@ -33,19 +33,9 @@ export type OnSubmitNewRecipe = (data: NewRecipeSubmitProps) => void;
 
 function NewRecipeContainer() {
   const router = useRouter();
-  const { username } = getUserInfo();
+  const { resetUser, username } = useUserStore((state) => state);
   const [isLoading, startTransition] = useTransition();
-  const [isClient, setIsClient] = useState(false);
   const queryClient = useQueryClient();
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setIsClient(true);
-    }
-  }, []);
-
-  if (!isClient) return null;
-
   if (!username) {
     return null;
   }
@@ -93,7 +83,7 @@ function NewRecipeContainer() {
       formData.append('info', JSON.stringify(data));
 
       const result = await saveRecipe(formData);
-      handleApiAuthResponse(result, router);
+      handleApiAuthResponse(result, router, resetUser);
 
       if (result.ok) {
         queryClient.invalidateQueries({

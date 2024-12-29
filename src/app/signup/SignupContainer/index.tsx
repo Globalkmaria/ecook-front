@@ -3,8 +3,9 @@
 import { useCallback, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-
 import style from './style.module.scss';
+
+import { useUserStore } from '@/providers/user-store-provider';
 
 import { signup } from '@/service/auth';
 import { isUsernameAvailable } from '@/service/users';
@@ -41,6 +42,7 @@ export const initialSignupFormState: SignupFormState = {
 
 function SignupContainer() {
   const router = useRouter();
+  const setUser = useUserStore((state) => state.setUser);
   const [isLoadingSignup, startTransitionSignup] = useTransition();
   const [isLoadingVerifyUsername, startTransitionVerifyUsername] =
     useTransition();
@@ -81,8 +83,11 @@ function SignupContainer() {
 
       if (!result.ok) return alert(result.error);
 
-      sessionStorage.setItem('username', result.data.username);
-      result.data.img && sessionStorage.setItem('img', result.data.img);
+      const user = {
+        username: result.data.username,
+        img: result.data.img ?? null,
+      };
+      setUser(user);
 
       router.push('/');
     });

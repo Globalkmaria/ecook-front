@@ -6,10 +6,11 @@ import { FetchOutcome } from '../type';
 export const handleApiAuthResponse = <T>(
   response: FetchOutcome<T>,
   router: AppRouterInstance,
+  resetUser: () => void,
 ) => {
   if (!response.ok) {
     if (response.res?.status === 401) {
-      sessionStorage.clear();
+      resetUser();
       router.push('/login');
       return null;
     }

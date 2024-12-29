@@ -4,6 +4,8 @@ import { useRef, useTransition } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
+import { useUserStore } from '@/providers/user-store-provider';
+
 import style from './style.module.scss';
 
 import { logout } from '@/service/auth';
@@ -23,13 +25,14 @@ function NavRightButtons({ user }: Props) {
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
   const [isLoading, startTransition] = useTransition();
+  const resetUser = useUserStore((state) => state.resetUser);
 
   const onLogout = async () => {
     if (isLoading) return;
 
     startTransition(async () => {
       await logout();
-      sessionStorage.clear();
+      resetUser();
       router.push('/');
     });
   };
