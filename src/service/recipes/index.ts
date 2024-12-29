@@ -1,6 +1,7 @@
 import { fetchAPI } from '@/utils/api';
 import { HomeRecipe, RecipeDetail, RecipeSimple } from './type';
 import { FetchResult } from '../type';
+import { lightTrim } from '@/utils/normalize';
 
 export const getRecipes = async (
   query?: string,
@@ -8,7 +9,7 @@ export const getRecipes = async (
 ): FetchResult<RecipeSimple[]> => {
   try {
     const response = await fetchAPI(
-      `/recipes?q=${query ?? ''}&type=${type ?? ''}`,
+      `/recipes?q=${lightTrim(query ?? '')}&type=${type ?? ''}`,
     );
 
     if (response.ok) return { ok: true, data: response.data };

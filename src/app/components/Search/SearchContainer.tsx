@@ -7,7 +7,7 @@ import style from './style.module.scss';
 
 import useModal from '@/hooks/useModal';
 
-import { lightSlugify } from '@/utils/normalize';
+import { lightSlugify, lightTrim } from '@/utils/normalize';
 
 import { Dropbox, DropboxItem, DropboxWrapper } from '@/components/Dropbox';
 import Icon from '@/components/Icon';
@@ -31,7 +31,7 @@ function SearchContainer() {
     if (!searchQuery.trim()) return;
 
     const query = lightSlugify(searchQuery);
-    router.push(`/search?type=${selectedMenuItem}&q=${query}`);
+    router.push(`/search?type=${selectedMenuItem}&q=${lightTrim(query)}`);
   };
 
   const onMenuChange = (menuItem: string) => setSelectedMenuItem(menuItem);
