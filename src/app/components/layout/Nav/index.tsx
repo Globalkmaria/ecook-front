@@ -1,10 +1,16 @@
 import style from './style.module.scss';
 
+import { AuthenticatedUser } from '@/app/helper';
+
 import NavRightButtons from './NavRightButtons';
 import Logo from '../Logo';
 import Search from '../../Search';
 
-async function Nav() {
+interface Props {
+  user: AuthenticatedUser;
+}
+
+async function Nav({ user }: Props) {
   return (
     <nav className={style.wrapper}>
       <div className={style.container}>
@@ -14,7 +20,7 @@ async function Nav() {
           <Search />
         </div>
         <div className={style['right-buttons-containers']}>
-          <NavRightButtons />
+          <NavRightButtons user={user} />
         </div>
       </div>
     </nav>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, useTransition } from 'react';
+import { useRef, useTransition } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -8,29 +8,21 @@ import style from './style.module.scss';
 
 import { logout } from '@/service/auth';
 
-import { getUserInfo } from '@/helpers/auth';
+import { AuthenticatedUser } from '@/app/helper';
 
 import { AvatarImg } from '@/components/Avatar';
 import Anchor from '@/components/Anchor';
 import { Dropbox, DropboxItem, DropboxWrapper } from '@/components/Dropbox';
 import Icon from '@/components/Icon';
 
-function NavRightButtons() {
+interface Props {
+  user: AuthenticatedUser;
+}
+
+function NavRightButtons({ user }: Props) {
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
   const [isLoading, startTransition] = useTransition();
-
-  const { username, img } = getUserInfo();
-  const isLoggedIn = username !== null;
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setIsClient(true);
-    }
-  }, []);
-
-  if (!isClient) return null;
 
   const onLogout = async () => {
     if (isLoading) return;
@@ -44,18 +36,18 @@ function NavRightButtons() {
 
   return (
     <div className={style['right-buttons']}>
-      {isLoggedIn ? (
+      {user.isLoggedIn ? (
         <>
           <Anchor href='/recipes/new' className={style.new}>
             <Icon icon='add' className={style['new__icon']} />
             <span className={style['new__text']}>New recipes</span>
           </Anchor>
           <div className={style.profile}>
-            <Link href={`/users/${username}`}>
+            <Link href={`/users/${user.username}`}>
               <AvatarImg
                 user={{
-                  img,
-                  username,
+                  img: user.img,
+                  username: user.username,
                 }}
                 size={48}
                 hoverable
