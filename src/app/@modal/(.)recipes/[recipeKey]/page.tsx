@@ -1,4 +1,4 @@
-import { getHomeRecipes, getRecipe } from '@/services/recipes';
+import { getRecipe } from '@/services/recipes';
 import ModalRecipes from './ModalRecipes';
 
 interface Props {
@@ -11,6 +11,9 @@ async function RecipePage({ params }: Props) {
 
   const result = await getRecipe(recipeKey, {
     cache: 'force-cache',
+    next: {
+      revalidate: 86400, // 1 day
+    },
   });
 
   if (!result.ok) return null;
