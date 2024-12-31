@@ -6,6 +6,8 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { useUserStore } from '@/providers/user-store-provider';
 
+import { QUERY_KEY__PROFILE, QUERY_KEY__RECIPE_LIST } from '@/query';
+
 import { NewRecipeData } from '@/service/recipes/type';
 import { saveRecipe } from '@/service/recipes';
 import { handleApiAuthResponse } from '@/service/utils/handleApiAuthResponse';
@@ -87,10 +89,10 @@ function NewRecipeContainer() {
 
       if (result.ok) {
         queryClient.invalidateQueries({
-          queryKey: ['recipeList', username],
+          queryKey: [QUERY_KEY__RECIPE_LIST, username],
         });
         queryClient.invalidateQueries({
-          queryKey: ['profile', username],
+          queryKey: [QUERY_KEY__PROFILE, username],
         });
         router.replace(`/recipes/${result.data.key}`);
         return;

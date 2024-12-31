@@ -1,6 +1,8 @@
 import { getRecipes } from '@/service/recipes';
 import { queryOptions } from '@tanstack/react-query';
 
+import { QUERY_KEY__RECIPE_LIST } from '@/query';
+
 interface RecipeListOptions {
   query?: string;
   type?: string;
@@ -13,7 +15,7 @@ export const recipeListOptions = ({
   staleTime,
 }: RecipeListOptions) =>
   queryOptions({
-    queryKey: ['recipeList', query, type],
+    queryKey: [QUERY_KEY__RECIPE_LIST, query, type],
     queryFn: async () => {
       const result = await getRecipes(query, type);
 

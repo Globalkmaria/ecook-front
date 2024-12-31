@@ -8,6 +8,8 @@ import { useUserStore } from '@/providers/user-store-provider';
 import { deleteRecipe } from '@/service/recipes';
 import { handleApiAuthResponse } from '@/service/utils/handleApiAuthResponse';
 
+import { QUERY_KEY__PROFILE, QUERY_KEY__RECIPE_LIST } from '@/query';
+
 function useDeleteRecipeMutation() {
   const queryClient = useQueryClient();
   const router = useRouter();
@@ -22,8 +24,12 @@ function useDeleteRecipeMutation() {
       throw new Error('Failed to delete recipe');
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['recipeList', username] });
-      queryClient.invalidateQueries({ queryKey: ['profile', username] });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEY__RECIPE_LIST, username],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEY__PROFILE, username],
+      });
     },
     onError: () => alert('Failed to delete recipe'),
     retry: 3,

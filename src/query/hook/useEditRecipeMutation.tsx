@@ -8,6 +8,8 @@ import { useUserStore } from '@/providers/user-store-provider';
 import { editRecipe } from '@/service/recipes';
 import { handleApiAuthResponse } from '@/service/utils/handleApiAuthResponse';
 
+import { QUERY_KEY__RECIPE, QUERY_KEY__RECIPE_LIST } from '@/query';
+
 const useEditRecipeMutation = (recipeKey: string, onCloseModal: () => void) => {
   const queryClient = useQueryClient();
   const router = useRouter();
@@ -22,8 +24,12 @@ const useEditRecipeMutation = (recipeKey: string, onCloseModal: () => void) => {
       throw new Error('Failed to edit recipe');
     },
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['recipeList', username] });
-      queryClient.invalidateQueries({ queryKey: ['recipe', data.key] });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEY__RECIPE_LIST, username],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEY__RECIPE, data.key],
+      });
       onCloseModal();
       router.push(`/recipes/${data.key}`);
     },

@@ -1,6 +1,8 @@
 import { getProfile } from '@/service/users';
 import { queryOptions } from '@tanstack/react-query';
 
+import { QUERY_KEY__PROFILE } from '@/query';
+
 interface ProfileOptions {
   username: string;
   enabled?: boolean;
@@ -13,7 +15,7 @@ export const profileOptions = ({
   staleTime,
 }: ProfileOptions) =>
   queryOptions({
-    queryKey: ['profile', username],
+    queryKey: [QUERY_KEY__PROFILE, username],
     queryFn: async () => {
       const result = await getProfile(username);
 
