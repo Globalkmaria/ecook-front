@@ -1,10 +1,12 @@
 import style from './style.module.scss';
 
+import { Ingredient } from '@/service/recipes/type';
+
 import { Modal } from '@/components/Modal';
 import useModal from '@/hooks/useModal';
+
 import Product from '../Product';
 import IngredientInformationHeader from './IngredientInformationHeader';
-import { Ingredient } from '@/service/recipes/type';
 
 interface Props {
   ingredient: Ingredient;

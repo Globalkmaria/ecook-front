@@ -17,10 +17,9 @@ import { getListCheckboxInitialState } from '@/components/helpers';
 import CheckboxList from '@/components/CheckboxList';
 import Avatar from '@/components/Avatar';
 import AnchorUnderline from '@/components/Anchor/AnchorUnderline';
-import Ingredients from './components/IngredientList';
-
 import CustomImage from '@/components/CustomImage';
 
+import Ingredients from './components/IngredientList';
 import { RECIPE_TABS, RecipeTab } from './const';
 
 interface Props {

@@ -23,7 +23,9 @@ export const getRecipes = async (
 
 export const getHomeRecipes = async (): FetchResult<HomeRecipe[]> => {
   try {
-    const response = await fetchAPI('/recipes/home');
+    const response = await fetchAPI('/recipes/home', {
+      cache: 'force-cache',
+    });
 
     if (response.ok) return { ok: true, data: response.data };
 
@@ -36,9 +38,10 @@ export const getHomeRecipes = async (): FetchResult<HomeRecipe[]> => {
 
 export const getRecipe = async (
   recipeKey: string,
+  options?: RequestInit,
 ): FetchResult<RecipeDetail> => {
   try {
-    const response = await fetchAPI(`/recipes/${recipeKey}`);
+    const response = await fetchAPI(`/recipes/${recipeKey}`, { ...options });
     if (response.ok) return { ok: true, data: response.data };
 
     throw new Error(response.res.statusText);

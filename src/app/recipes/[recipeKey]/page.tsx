@@ -9,11 +9,10 @@ import Recipe from './Recipe';
 
 export const revalidate = 86400; // 1 day
 
-export const dynamicParams = true;
-
 export async function generateStaticParams() {
   const result = await getHomeRecipes();
   if (!result.ok) return [];
+
   return (
     result.data?.map((recipe) => ({
       recipeKey: recipe.key,
@@ -43,7 +42,9 @@ async function Page({ params }: Props) {
   const { recipeKey } = await params;
   if (!recipeKey) notFound();
 
-  const result = await getRecipe(recipeKey);
+  const result = await getRecipe(recipeKey, {
+    cache: 'force-cache',
+  });
   if (!result.ok) notFound();
 
   return <Recipe recipe={result.data} />;

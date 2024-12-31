@@ -2,9 +2,12 @@ import { fetchAPI } from '@/utils/api';
 import { FetchResult } from '../type';
 import { Profile, ResIsUsernameAvailable } from './type';
 
-export const getProfile = async (username: string): FetchResult<Profile> => {
+export const getProfile = async (
+  username: string,
+  options?: RequestInit,
+): FetchResult<Profile> => {
   try {
-    const response = await fetchAPI(`/users/${username}`);
+    const response = await fetchAPI(`/users/${username}`, { ...options });
     if (response.ok) return { ok: true, data: response.data };
 
     throw new Error(response.res.statusText);

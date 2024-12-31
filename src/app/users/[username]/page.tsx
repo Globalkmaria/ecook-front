@@ -28,8 +28,6 @@ interface Props {
 
 export const revalidate = 86400; // 1 day
 
-export const dynamicParams = true;
-
 export async function generateStaticParams() {
   const result = await getHomeRecipes();
   if (!result.ok) return [];
@@ -108,6 +106,7 @@ async function List({ username }: { username: string }) {
       type: 'username',
     }),
   );
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <section>

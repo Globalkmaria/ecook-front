@@ -7,8 +7,6 @@ interface Props {
 
 export const revalidate = 86400; // 1 day
 
-export const dynamicParams = true;
-
 export async function generateStaticParams() {
   const result = await getHomeRecipes();
   if (!result.ok) return [];
@@ -23,7 +21,10 @@ async function RecipePage({ params }: Props) {
   const { recipeKey } = await params;
   if (!recipeKey) return null;
 
-  const result = await getRecipe(recipeKey);
+  const result = await getRecipe(recipeKey, {
+    cache: 'force-cache',
+  });
+
   if (!result.ok) return null;
 
   return <ModalRecipes recipe={result.data} />;
