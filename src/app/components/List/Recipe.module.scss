@@ -1,4 +1,4 @@
-@use '@/style/theme' as *;
+@use '@/styles/theme' as *;
 
 @for $i from 1 through 18 {
   .item--#{$i} {

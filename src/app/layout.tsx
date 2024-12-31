@@ -4,7 +4,7 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import Providers from '@/providers';
 import { UserStoreProvider } from '@/providers/user-store-provider';
 
-import '@/style/global.scss';
+import '@/styles/global.scss';
 import style from './style.module.scss';
 
 export const metadata: Metadata = {
