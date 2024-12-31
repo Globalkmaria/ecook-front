@@ -12,35 +12,6 @@
   max-width: $layoutMaxWidth;
 }
 
-.profile {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.avatar {
-  flex: 1;
-  display: flex;
-  justify-content: end;
-}
-
-.info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.username {
-  margin-bottom: 10px;
-  font-size: 1.2rem;
-  font-weight: 500;
-}
-
-.recipes {
-  font-weight: 500;
-}
-
 .border {
   margin-top: 40px;
   border-top: 1px solid $grey400;

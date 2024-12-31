@@ -12,11 +12,12 @@ import { getProfile } from '@/service/users';
 import { getHomeRecipes } from '@/service/recipes';
 
 import { recipeListOptions } from '@/query/recipeListOptions';
+import { profileOptions } from '@/query/profileOptions';
 
-import { AvatarImg } from '@/components/Avatar';
 import Icon from '@/components/Icon';
 
 import RecipeList from './RecipeList';
+import UserProfile from './UserProfile';
 
 export type UserPageParams = {
   username: string;
@@ -59,12 +60,32 @@ async function UserPage({ params }: Props) {
   const { username } = await params;
   if (!username) return notFound();
 
+  const queryClient = new QueryClient();
+
+  await Promise.all([
+    queryClient.prefetchQuery(
+      recipeListOptions({
+        query: username || '',
+        type: 'username',
+        staleTime: 180000, // 3 minutes
+      }),
+    ),
+    queryClient.prefetchQuery(
+      profileOptions({
+        username,
+        staleTime: 180000, // 3 minutes
+      }),
+    ),
+  ]);
+
   return (
     <main className={style.wrapper}>
       <div className={style.container}>
-        <Header username={username} />
-        <hr className={style.border} />
-        <List username={username} />
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <UserProfile />
+          <hr className={style.border} />
+          <List />
+        </HydrationBoundary>
       </div>
     </main>
   );
@@ -72,51 +93,15 @@ async function UserPage({ params }: Props) {
 
 export default UserPage;
 
-async function Header({ username }: { username: string }) {
-  const { ok, data: profile } = await getProfile(username);
-
-  if (!ok) return notFound();
-  const imgUser = {
-    img: profile.img ?? null,
-    username: profile.username,
-  };
-
+async function List() {
   return (
-    <header className={style.profile}>
-      <div className={style.avatar}>
-        <AvatarImg user={imgUser} size={100} />
-      </div>
-      <div className={style.info}>
-        <span className={style.username}>{profile.username}</span>
-        <span>
-          <span className={style.recipes}>{profile.totalPosts}</span>
-          {` recipes`}
+    <section>
+      <div className={style.tabs}>
+        <span className={style.tab}>
+          <Icon icon='grid' /> RECIPES
         </span>
       </div>
-    </header>
-  );
-}
-
-async function List({ username }: { username: string }) {
-  const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery(
-    recipeListOptions({
-      query: username || '',
-      type: 'username',
-    }),
-  );
-
-  return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <section>
-        <div className={style.tabs}>
-          <span className={style.tab}>
-            <Icon icon='grid' /> RECIPES
-          </span>
-        </div>
-        <RecipeList />
-      </section>
-    </HydrationBoundary>
+      <RecipeList />
+    </section>
   );
 }

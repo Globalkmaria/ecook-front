@@ -23,10 +23,11 @@ function useDeleteRecipeMutation() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['recipeList', username] });
+      queryClient.invalidateQueries({ queryKey: ['profile', username] });
     },
     onError: () => alert('Failed to delete recipe'),
     retry: 3,
-    retryDelay: 10000, // 10 seconds
+    retryDelay: 5000, // 5 seconds
   });
 
   return result;

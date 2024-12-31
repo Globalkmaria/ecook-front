@@ -89,6 +89,9 @@ function NewRecipeContainer() {
         queryClient.invalidateQueries({
           queryKey: ['recipeList', username],
         });
+        queryClient.invalidateQueries({
+          queryKey: ['profile', username],
+        });
         router.replace(`/recipes/${result.data.key}`);
         return;
       }
