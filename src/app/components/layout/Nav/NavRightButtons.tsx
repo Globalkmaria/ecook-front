@@ -10,22 +10,22 @@ import style from './style.module.scss';
 
 import { logout } from '@/service/auth';
 
-import { AuthenticatedUser } from '@/app/helper';
-
 import { AvatarImg } from '@/components/Avatar';
 import Anchor from '@/components/Anchor';
 import { Dropbox, DropboxItem, DropboxWrapper } from '@/components/Dropbox';
 import Icon from '@/components/Icon';
 
-interface Props {
-  user: AuthenticatedUser;
-}
-
-function NavRightButtons({ user }: Props) {
+function NavRightButtons() {
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
   const [isLoading, startTransition] = useTransition();
-  const resetUser = useUserStore((state) => state.resetUser);
+  const { resetUser, username, img, isLoggedIn } = useUserStore(
+    (state) => state,
+  );
+  const user = {
+    username: username ?? '',
+    img,
+  };
 
   const onLogout = async () => {
     if (isLoading) return;
@@ -39,22 +39,15 @@ function NavRightButtons({ user }: Props) {
 
   return (
     <div className={style['right-buttons']}>
-      {user.isLoggedIn ? (
+      {isLoggedIn ? (
         <>
           <Anchor href='/recipes/new' className={style.new}>
             <Icon icon='add' className={style['new__icon']} />
             <span className={style['new__text']}>New recipes</span>
           </Anchor>
           <div className={style.profile}>
-            <Link href={`/users/${user.username}`}>
-              <AvatarImg
-                user={{
-                  img: user.img,
-                  username: user.username,
-                }}
-                size={48}
-                hoverable
-              />
+            <Link href={`/users/${username}`}>
+              <AvatarImg user={user} size={48} hoverable />
             </Link>
             <DropboxWrapper ref={ref}>
               <Dropbox className={style['profile-dropbox']} containerRef={ref}>
