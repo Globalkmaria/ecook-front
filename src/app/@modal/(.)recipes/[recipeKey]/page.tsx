@@ -5,18 +5,6 @@ interface Props {
   params: Promise<{ recipeKey: string }>;
 }
 
-export const revalidate = 86400; // 1 day
-
-export async function generateStaticParams() {
-  const result = await getHomeRecipes();
-  if (!result.ok) return [];
-  return (
-    result.data.map((recipe) => ({
-      recipeKey: recipe.key,
-    })) ?? []
-  );
-}
-
 async function RecipePage({ params }: Props) {
   const { recipeKey } = await params;
   if (!recipeKey) return null;
