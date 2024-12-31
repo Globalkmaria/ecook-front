@@ -6,7 +6,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { useUserStore } from '@/providers/user-store-provider';
 
-import { QUERY_KEY__PROFILE, QUERY_KEY__RECIPE_LIST } from '@/query';
+import { QUERY_KEY__PROFILE, QUERY_KEY__RECIPE_LIST } from '@/queries';
 
 import { NewRecipeData } from '@/services/recipes/type';
 import { saveRecipe } from '@/services/recipes';

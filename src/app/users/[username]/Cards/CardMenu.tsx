@@ -8,7 +8,7 @@ import { useUserStore } from '@/providers/user-store-provider';
 
 import { RecipeSimple } from '@/services/recipes/type';
 
-import useDeleteRecipe from '@/query/hook/useDeleteRecipeMutation';
+import useDeleteRecipe from '@/queries/hooks/useDeleteRecipeMutation';
 
 import useModal from '@/hooks/useModal';
 

@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { notFound, useParams } from 'next/navigation';
 
-import { recipeListOptions } from '@/query/recipeListOptions';
+import { recipeListOptions } from '@/queries/recipeListOptions';
 
 import Cards from './Cards/Cards';
 import { UserPageParams } from './page';

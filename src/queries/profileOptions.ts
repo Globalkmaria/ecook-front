@@ -1,7 +1,7 @@
 import { getProfile } from '@/services/users';
 import { queryOptions } from '@tanstack/react-query';
 
-import { QUERY_KEY__PROFILE } from '@/query';
+import { QUERY_KEY__PROFILE } from '@/queries';
 
 interface ProfileOptions {
   username: string;

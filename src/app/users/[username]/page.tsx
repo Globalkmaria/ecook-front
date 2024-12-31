@@ -11,8 +11,8 @@ import style from './style.module.scss';
 import { getProfile } from '@/services/users';
 import { getHomeRecipes } from '@/services/recipes';
 
-import { recipeListOptions } from '@/query/recipeListOptions';
-import { profileOptions } from '@/query/profileOptions';
+import { recipeListOptions } from '@/queries/recipeListOptions';
+import { profileOptions } from '@/queries/profileOptions';
 
 import Icon from '@/components/Icon';
 

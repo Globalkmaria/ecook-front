@@ -5,40 +5,38 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { useUserStore } from '@/providers/user-store-provider';
 
-import { editRecipe } from '@/services/recipes';
+import { deleteRecipe } from '@/services/recipes';
 import { handleApiAuthResponse } from '@/services/utils/handleApiAuthResponse';
 
-import { QUERY_KEY__RECIPE, QUERY_KEY__RECIPE_LIST } from '@/query';
+import { QUERY_KEY__PROFILE, QUERY_KEY__RECIPE_LIST } from '@/queries';
 
-const useEditRecipeMutation = (recipeKey: string, onCloseModal: () => void) => {
+function useDeleteRecipeMutation() {
   const queryClient = useQueryClient();
   const router = useRouter();
   const { resetUser, username } = useUserStore((state) => state);
 
   const result = useMutation({
-    mutationFn: async ({ data }: { data: FormData }) => {
-      const response = await editRecipe(data, recipeKey);
+    mutationFn: async (recipeKey: string) => {
+      const response = await deleteRecipe(recipeKey);
       handleApiAuthResponse(response, router, resetUser);
 
       if (response.ok) return response.data;
-      throw new Error('Failed to edit recipe');
+      throw new Error('Failed to delete recipe');
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEY__RECIPE_LIST, username],
       });
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEY__RECIPE, data.key],
+        queryKey: [QUERY_KEY__PROFILE, username],
       });
-      onCloseModal();
-      router.push(`/recipes/${data.key}`);
     },
-    onError: () => alert('Failed to edit recipe'),
+    onError: () => alert('Failed to delete recipe'),
     retry: 3,
-    retryDelay: 10000, // 10 seconds
+    retryDelay: 5000, // 5 seconds
   });
 
   return result;
-};
+}
 
-export default useEditRecipeMutation;
+export default useDeleteRecipeMutation;

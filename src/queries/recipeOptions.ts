@@ -1,7 +1,7 @@
 import { getRecipe } from '@/services/recipes';
 import { queryOptions } from '@tanstack/react-query';
 
-import { QUERY_KEY__RECIPE } from '@/query';
+import { QUERY_KEY__RECIPE } from '@/queries';
 
 export const recipeOptions = (key: string, enabled: boolean) =>
   queryOptions({

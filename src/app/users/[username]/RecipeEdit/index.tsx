@@ -8,8 +8,8 @@ import { useUserStore } from '@/providers/user-store-provider';
 
 import { NewRecipeData } from '@/services/recipes/type';
 
-import { recipeOptions } from '@/query/recipeOptions';
-import useEditRecipeMutation from '@/query/hook/useEditRecipeMutation';
+import { recipeOptions } from '@/queries/recipeOptions';
+import useEditRecipeMutation from '@/queries/hooks/useEditRecipeMutation';
 
 import Skeleton from '@/components/Skeleton';
 
