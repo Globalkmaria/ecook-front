@@ -8,7 +8,7 @@ import { useUserStore } from '@/providers/user-store-provider';
 
 import style from './style.module.scss';
 
-import { logout } from '@/service/auth';
+import { logout } from '@/services/auth';
 
 import { AvatarImg } from '@/components/Avatar';
 import Anchor from '@/components/Anchor';

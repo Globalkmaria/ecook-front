@@ -1,4 +1,4 @@
-import { getProfile } from '@/service/users';
+import { getProfile } from '@/services/users';
 import { queryOptions } from '@tanstack/react-query';
 
 import { QUERY_KEY__PROFILE } from '@/query';

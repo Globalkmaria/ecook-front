@@ -1,4 +1,4 @@
-import { getRecipes } from '@/service/recipes';
+import { getRecipes } from '@/services/recipes';
 import RecipeList from './RecipeList';
 import { SearchParams } from './page';
 

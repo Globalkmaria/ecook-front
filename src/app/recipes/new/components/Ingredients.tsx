@@ -9,7 +9,7 @@ import {
 
 import style from './style.module.scss';
 
-import { NewRecipeIngredient } from '@/service/recipes/type';
+import { NewRecipeIngredient } from '@/services/recipes/type';
 
 import useModal from '@/hooks/useModal';
 import { validateLengthAndExecute } from '@/utils/validation';

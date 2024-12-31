@@ -6,7 +6,7 @@ import style from './style.module.scss';
 
 import { useUserStore } from '@/providers/user-store-provider';
 
-import { NewRecipeData } from '@/service/recipes/type';
+import { NewRecipeData } from '@/services/recipes/type';
 
 import { recipeOptions } from '@/query/recipeOptions';
 import useEditRecipeMutation from '@/query/hook/useEditRecipeMutation';

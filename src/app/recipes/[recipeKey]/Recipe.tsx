@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 import style from './Recipe.module.scss';
 
-import { RecipeDetail } from '@/service/recipes/type';
+import { RecipeDetail } from '@/services/recipes/type';
 
 import { formatTime } from '@/utils/time';
 

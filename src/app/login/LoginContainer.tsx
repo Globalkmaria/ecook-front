@@ -8,7 +8,7 @@ import { useUserStore } from '@/providers/user-store-provider';
 
 import style from './LoginContainer.module.scss';
 
-import { login } from '@/service/auth';
+import { login } from '@/services/auth';
 
 import Button from '@/components/Button';
 import { Input } from '@/components/Input';

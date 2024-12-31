@@ -7,8 +7,8 @@ import style from './style.module.scss';
 
 import { useUserStore } from '@/providers/user-store-provider';
 
-import { signup } from '@/service/auth';
-import { isUsernameAvailable } from '@/service/users';
+import { signup } from '@/services/auth';
+import { isUsernameAvailable } from '@/services/users';
 
 import { createInputHandler } from '@/utils/createInputHandler';
 

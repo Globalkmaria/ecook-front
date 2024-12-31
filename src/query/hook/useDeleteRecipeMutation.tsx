@@ -5,8 +5,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { useUserStore } from '@/providers/user-store-provider';
 
-import { deleteRecipe } from '@/service/recipes';
-import { handleApiAuthResponse } from '@/service/utils/handleApiAuthResponse';
+import { deleteRecipe } from '@/services/recipes';
+import { handleApiAuthResponse } from '@/services/utils/handleApiAuthResponse';
 
 import { QUERY_KEY__PROFILE, QUERY_KEY__RECIPE_LIST } from '@/query';
 

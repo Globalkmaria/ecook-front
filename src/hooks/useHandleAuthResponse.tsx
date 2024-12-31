@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import { useUserStore } from '@/providers/user-store-provider';
 
-import { FetchResult, FetchSuccessResult } from '@/service/type';
+import { FetchResult, FetchSuccessResult } from '@/services/type';
 
 type Props<T> = {
   request: FetchResult<T>;

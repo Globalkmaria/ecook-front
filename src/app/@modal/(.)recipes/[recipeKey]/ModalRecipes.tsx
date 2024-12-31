@@ -4,7 +4,7 @@ import style from './style.module.scss';
 
 import { Modal2 } from '@/components/Modal';
 import { useRouter } from 'next/navigation';
-import { RecipeDetail } from '@/service/recipes/type';
+import { RecipeDetail } from '@/services/recipes/type';
 import Recipe from '@/app/recipes/[recipeKey]/Recipe';
 
 interface Props {

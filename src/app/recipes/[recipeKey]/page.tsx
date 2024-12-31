@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { getHomeRecipes, getRecipe } from '@/service/recipes';
+import { getHomeRecipes, getRecipe } from '@/services/recipes';
 
 import { capitalizeFirstLetter } from '@/utils/text';
 

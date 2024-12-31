@@ -8,8 +8,8 @@ import {
 
 import style from './style.module.scss';
 
-import { getProfile } from '@/service/users';
-import { getHomeRecipes } from '@/service/recipes';
+import { getProfile } from '@/services/users';
+import { getHomeRecipes } from '@/services/recipes';
 
 import { recipeListOptions } from '@/query/recipeListOptions';
 import { profileOptions } from '@/query/profileOptions';

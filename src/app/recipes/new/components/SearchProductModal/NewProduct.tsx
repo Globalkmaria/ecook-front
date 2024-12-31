@@ -4,7 +4,7 @@ import style from './style.module.scss';
 
 import { Input } from '@/components/Input';
 import ImageUploader from '@/components/imageUploader';
-import { IngredientNewProduct } from '@/service/recipes/type';
+import { IngredientNewProduct } from '@/services/recipes/type';
 import { NEW_PRODUCT_ID, SelectedProductState } from '.';
 import Icon from '@/components/Icon';
 

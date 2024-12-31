@@ -8,8 +8,8 @@ import {
 
 import style from './style.module.scss';
 
-import { Product } from '@/service/products/type';
-import { IngredientNewProduct } from '@/service/recipes/type';
+import { Product } from '@/services/products/type';
+import { IngredientNewProduct } from '@/services/recipes/type';
 
 import useModal from '@/hooks/useModal';
 
@@ -25,7 +25,7 @@ import NewProduct from './NewProduct';
 import ExistingProduct from './ExistingProduct';
 import { NewRecipeIngredientState } from '../../NewRecipe';
 import { INGREDIENT_TEXT_LIMIT, OnSelectProductProps } from '../Ingredients';
-import { getProducts } from '@/service/products';
+import { getProducts } from '@/services/products';
 
 interface Props {
   control: ReturnType<typeof useModal>;

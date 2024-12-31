@@ -6,7 +6,7 @@ import { ProductInfo } from '@/app/recipes/[recipeKey]/components/Product';
 import Icon from '@/components/Icon';
 
 import { SelectedProductState } from '.';
-import { Product } from '@/service/products/type';
+import { Product } from '@/services/products/type';
 import CustomImage from '@/components/CustomImage';
 
 interface ExistingProductProps {

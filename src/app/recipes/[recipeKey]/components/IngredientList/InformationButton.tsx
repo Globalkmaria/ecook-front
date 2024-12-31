@@ -1,6 +1,6 @@
 import style from './style.module.scss';
 
-import { Ingredient } from '@/service/recipes/type';
+import { Ingredient } from '@/services/recipes/type';
 
 import useModal from '@/hooks/useModal';
 

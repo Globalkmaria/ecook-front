@@ -1,6 +1,6 @@
 import style from './style.module.scss';
 
-import { RecipeDetail } from '@/service/recipes/type';
+import { RecipeDetail } from '@/services/recipes/type';
 
 import { getSearchIngredientLink } from '@/helpers/link';
 

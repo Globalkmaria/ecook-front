@@ -4,7 +4,7 @@ import { ChangeEventHandler, useCallback, useState } from 'react';
 
 import style from './style.module.scss';
 
-import { NewRecipeData, NewRecipeIngredient } from '@/service/recipes/type';
+import { NewRecipeData, NewRecipeIngredient } from '@/services/recipes/type';
 
 import { ChipListInput, Input } from '@/components/Input';
 import Button from '@/components/Button';

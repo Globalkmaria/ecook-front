@@ -8,9 +8,9 @@ import { useUserStore } from '@/providers/user-store-provider';
 
 import { QUERY_KEY__PROFILE, QUERY_KEY__RECIPE_LIST } from '@/query';
 
-import { NewRecipeData } from '@/service/recipes/type';
-import { saveRecipe } from '@/service/recipes';
-import { handleApiAuthResponse } from '@/service/utils/handleApiAuthResponse';
+import { NewRecipeData } from '@/services/recipes/type';
+import { saveRecipe } from '@/services/recipes';
+import { handleApiAuthResponse } from '@/services/utils/handleApiAuthResponse';
 
 import { getRandomId } from '@/utils/generateId';
 
