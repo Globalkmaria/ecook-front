@@ -4,9 +4,9 @@ import { useRef, useTransition } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-import { useUserStore } from '@/providers/user-store-provider';
-
 import style from './style.module.scss';
+
+import { useUserStore } from '@/providers/user-store-provider';
 
 import { logout } from '@/services/auth';
 

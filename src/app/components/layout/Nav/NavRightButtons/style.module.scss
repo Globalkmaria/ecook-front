@@ -1,0 +1,7 @@
+@use '@/styles/theme.scss' as *;
+
+.right-buttons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}

@@ -15,7 +15,7 @@ export default function GlobalError({
       <body>
         <h2>Something went wrong!</h2>
         <button onClick={() => reset()}>Try again</button>
-        <AnchorUnderline href='/'>Return to home</AnchorUnderline>
+        <AnchorUnderline href='/'>Return home</AnchorUnderline>
       </body>
     </html>
   );
