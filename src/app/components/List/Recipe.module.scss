@@ -38,14 +38,15 @@
   }
 
   &__name {
-    display: block;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     font-family: $font-libre;
     font-style: italic;
-    font-size: 5rem;
+    font-size: 4.8rem;
     font-weight: 500;
   }
 
@@ -56,8 +57,8 @@
       animation: showBorderAnimation 1s forwards;
     }
 
-    h2 {
-      animation: leftToRightAnimation 3.5s infinite linear;
+    .hover-content__name {
+      animation: leftToRightAnimation 6s infinite linear;
     }
   }
 

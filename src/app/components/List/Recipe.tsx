@@ -4,7 +4,7 @@ import style from './Recipe.module.scss';
 
 import { RecipeSimple } from '@/services/recipes/type';
 
-import { getLimitedText } from '@/utils/text';
+import { getLimitedWords } from '@/utils/text';
 
 import Chip, { ChipsContainer } from '@/components/Chip';
 import CustomImage from '@/components/CustomImage';
@@ -15,7 +15,7 @@ interface Props {
 }
 
 function Recipe({ recipe, idx }: Props) {
-  const limitedName = getLimitedText(recipe.name, 20);
+  const splittedWord = getLimitedWords(recipe.name, 3);
 
   return (
     <Link
@@ -28,7 +28,11 @@ function Recipe({ recipe, idx }: Props) {
           <div className={style['hover-content__img-box']}>
             <CustomImage src={recipe.img} fill alt={recipe.name} />
           </div>
-          <h2 className={style['hover-content__name']}>{limitedName}</h2>
+          <div className={style['hover-content__name']}>
+            {splittedWord.map((word, idx) => (
+              <span key={idx}>{word}</span>
+            ))}
+          </div>
         </div>
 
         <div className={style['img-wrapper']}>

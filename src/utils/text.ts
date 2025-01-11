@@ -4,3 +4,10 @@ export const getLimitedText = (text: string, limit: number): string => {
 
 export const capitalizeFirstLetter = (text: string): string =>
   text.charAt(0).toUpperCase() + text.slice(1);
+
+export const getLimitedWords = (text: string, limit: number): string[] => {
+  const splittedWord = text.split(' ');
+  return splittedWord.length > limit
+    ? [...splittedWord.slice(0, limit - 1), `${splittedWord[limit - 1]}...`]
+    : splittedWord;
+};
