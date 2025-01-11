@@ -12,7 +12,7 @@ function NewRecipeModal() {
   const onDismiss = () => router.back();
 
   return (
-    <Modal2 isOpen={true} onClose={onDismiss}>
+    <Modal2 isOpen={true} onClose={onDismiss} closeOnOutSideClick={false}>
       <div className={style.container}>
         <NewRecipeContainer />
       </div>

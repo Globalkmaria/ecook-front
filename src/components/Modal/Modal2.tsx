@@ -16,6 +16,7 @@ interface Props {
   onClose?: () => void;
   title?: string;
   id?: string;
+  closeOnOutSideClick?: boolean;
 }
 
 function Modal2({
@@ -23,16 +24,21 @@ function Modal2({
   wrapperId,
   isOpen = true,
   onClose = () => {},
+  closeOnOutSideClick = true,
   title = '',
   id,
 }: Props) {
   const modalBackground = useRef<HTMLDivElement>(null);
   const modalContent = useRef<HTMLDivElement>(null);
+  const closeButton = useRef<HTMLButtonElement>(null);
+
   useEscapeKey({ onClose, target: modalBackground, portalId: wrapperId });
   useHideScroll({ isOpen });
 
-  const onClick = (e: MouseEvent<HTMLDivElement>) => {
+  const onOutsideClick = (e: MouseEvent<HTMLDivElement>) => {
     if (
+      closeOnOutSideClick &&
+      !closeButton.current?.contains(e.target as Node) &&
       !modalContent.current?.contains(e.target as Node) &&
       modalBackground.current?.contains(e.target as Node)
     ) {
@@ -51,10 +57,15 @@ function Modal2({
       <div
         tabIndex={-1}
         className={`${style.container} ${isOpen ? '' : style['container--close']} ${style.modal2}`}
-        onClick={onClick}
+        onClick={onOutsideClick}
         ref={modalBackground}
       >
-        <button type='button' className={style['modal2__close-button']}>
+        <button
+          ref={closeButton}
+          type='button'
+          className={style['modal2__close-button']}
+          onClick={onClose}
+        >
           <Icon icon='close' />
         </button>
 
