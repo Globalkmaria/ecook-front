@@ -22,6 +22,10 @@ export const fetchAPI = async (
     credentials: 'include',
   });
 
+  if (405 <= res.status && res.status <= 500) {
+    throw new Error('Server Error');
+  }
+
   if (300 <= res.status && res.status <= 404) {
     return {
       ok: false,
@@ -48,6 +52,5 @@ export const fetchAPI = async (
     };
   }
 
-  // 405 <= response.status < 500
   throw new Error(`Error: ${res.status}`);
 };
