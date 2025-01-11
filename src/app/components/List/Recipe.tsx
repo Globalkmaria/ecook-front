@@ -19,7 +19,7 @@ function Recipe({ recipe, idx }: Props) {
 
   return (
     <Link
-      className={style[`item--${idx}`]}
+      className={style[`item--${idx + 1}`]}
       scroll={false}
       href={`/recipes/${recipe.key}`}
     >
