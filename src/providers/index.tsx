@@ -3,13 +3,14 @@
 import { getQueryClient } from '@/queries/get-query-client';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { ClientStoreProvider } from './client-store-provider';
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const queryClient = getQueryClient();
 
   return (
     <QueryClientProvider client={queryClient}>
-      {children}
+      <ClientStoreProvider>{children}</ClientStoreProvider>
       <ReactQueryDevtools />
     </QueryClientProvider>
   );

@@ -3,8 +3,9 @@
 import { useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
+import { useShallow } from 'zustand/shallow';
 
-import { useUserStore } from '@/providers/user-store-provider';
+import { useClientStore } from '@/providers/client-store-provider';
 
 import { QUERY_KEY__PROFILE, QUERY_KEY__RECIPE_LIST } from '@/queries';
 
@@ -35,7 +36,9 @@ export type OnSubmitNewRecipe = (data: NewRecipeSubmitProps) => void;
 
 function NewRecipeContainer() {
   const router = useRouter();
-  const { resetUser, username } = useUserStore((state) => state);
+  const [resetUser, username] = useClientStore(
+    useShallow((state) => [state.resetUser, state.username]),
+  );
   const [isLoading, startTransition] = useTransition();
   const queryClient = useQueryClient();
   if (!username) {

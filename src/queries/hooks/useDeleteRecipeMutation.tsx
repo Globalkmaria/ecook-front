@@ -2,8 +2,9 @@
 
 import { useRouter } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useShallow } from 'zustand/shallow';
 
-import { useUserStore } from '@/providers/user-store-provider';
+import { useClientStore } from '@/providers/client-store-provider';
 
 import { deleteRecipe } from '@/services/recipes';
 import { handleApiAuthResponse } from '@/services/utils/handleApiAuthResponse';
@@ -13,7 +14,9 @@ import { QUERY_KEY__PROFILE, QUERY_KEY__RECIPE_LIST } from '@/queries';
 function useDeleteRecipeMutation() {
   const queryClient = useQueryClient();
   const router = useRouter();
-  const { resetUser, username } = useUserStore((state) => state);
+  const [resetUser, username] = useClientStore(
+    useShallow((state) => [state.resetUser, state.username]),
+  );
 
   const result = useMutation({
     mutationFn: async (recipeKey: string) => {

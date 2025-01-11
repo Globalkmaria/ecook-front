@@ -4,7 +4,7 @@ import { useParams } from 'next/navigation';
 
 import style from './Cards.module.scss';
 
-import { useUserStore } from '@/providers/user-store-provider';
+import { useClientStore } from '@/providers/client-store-provider';
 
 import { RecipeSimple } from '@/services/recipes/type';
 
@@ -28,7 +28,7 @@ function CardMenu({ recipeKey }: Props) {
   const params = useParams();
   const { isOpen, onOpen, onClose } = useModal();
   const { mutate } = useDeleteRecipe();
-  const username = useUserStore((state) => state.username);
+  const username = useClientStore((state) => state.username);
   const isLoginUser = params.username === username;
 
   if (!isLoginUser) return null;

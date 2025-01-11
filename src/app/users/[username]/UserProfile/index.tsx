@@ -7,14 +7,14 @@ import style from './style.module.scss';
 
 import { profileOptions } from '@/queries/profileOptions';
 
-import { useUserStore } from '@/providers/user-store-provider';
+import { useClientStore } from '@/providers/client-store-provider';
 
 import { AvatarImg } from '@/components/Avatar';
 
 import { UserPageParams } from '../page';
 
 function UserProfile() {
-  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
+  const isLoggedIn = useClientStore((state) => state.isLoggedIn);
   const params = useParams<UserPageParams>();
 
   const {

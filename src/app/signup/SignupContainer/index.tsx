@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import style from './style.module.scss';
 
-import { useUserStore } from '@/providers/user-store-provider';
+import { useClientStore } from '@/providers/client-store-provider';
 
 import { signup } from '@/services/auth';
 import { isUsernameAvailable } from '@/services/users';
@@ -42,7 +42,7 @@ export const initialSignupFormState: SignupFormState = {
 
 function SignupContainer() {
   const router = useRouter();
-  const setUser = useUserStore((state) => state.setUser);
+  const setUser = useClientStore((state) => state.setUser);
   const [isLoadingSignup, startTransitionSignup] = useTransition();
   const [isLoadingVerifyUsername, startTransitionVerifyUsername] =
     useTransition();

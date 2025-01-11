@@ -1,5 +1,4 @@
-import { createStore } from 'zustand';
-import { devtools, persist } from 'zustand/middleware';
+import { StateCreator } from 'zustand';
 
 export type UserState = {
   username: string | null;
@@ -16,25 +15,20 @@ type User = Pick<UserState, 'username' | 'img'>;
 
 export type UserStore = UserState & UserAction;
 
-const initialState: UserState = {
+const initialUserState: UserState = {
   username: null,
   img: null,
   isLoggedIn: false,
 };
 
-export const createUserStore = (initState: UserState = initialState) =>
-  createStore<UserStore>()(
-    persist(
-      devtools((set) => ({
-        ...initState,
-        setUser: ({ username, img }: User) =>
-          set(
-            (state) => ({ ...state, username, img, isLoggedIn: true }),
-            undefined,
-            'user/setUser',
-          ),
-        resetUser: () => set(() => initialState, undefined, 'user/resetUser'),
-      })),
-      { name: 'userStore' },
-    ),
-  );
+export const createUserSlice: StateCreator<
+  UserStore,
+  [['zustand/devtools', never]],
+  [],
+  UserStore
+> = (set, get) => ({
+  ...initialUserState,
+  setUser: ({ username, img }: User) =>
+    set(() => ({ username, img, isLoggedIn: true }), undefined, 'user/setUser'),
+  resetUser: () => set(() => initialUserState, undefined, 'user/resetUser'),
+});

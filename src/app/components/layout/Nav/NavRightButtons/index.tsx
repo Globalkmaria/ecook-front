@@ -3,10 +3,11 @@
 import { useRef, useTransition } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useShallow } from 'zustand/shallow';
 
 import style from './style.module.scss';
 
-import { useUserStore } from '@/providers/user-store-provider';
+import { useClientStore } from '@/providers/client-store-provider';
 
 import { logout } from '@/services/auth';
 
@@ -19,9 +20,15 @@ function NavRightButtons() {
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
   const [isLoading, startTransition] = useTransition();
-  const { resetUser, username, img, isLoggedIn } = useUserStore(
-    (state) => state,
+  const [resetUser, username, img, isLoggedIn] = useClientStore(
+    useShallow((state) => [
+      state.resetUser,
+      state.username,
+      state.img,
+      state.isLoggedIn,
+    ]),
   );
+
   const user = {
     username: username ?? '',
     img,

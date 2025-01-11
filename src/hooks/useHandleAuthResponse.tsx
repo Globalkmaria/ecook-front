@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
-import { useUserStore } from '@/providers/user-store-provider';
+import { useClientStore } from '@/providers/client-store-provider';
 
 import { FetchResult, FetchSuccessResult } from '@/services/type';
 
@@ -16,7 +16,7 @@ type Props<T> = {
 
 function useHandleAuthResponse() {
   const router = useRouter();
-  const resetUser = useUserStore((state) => state.resetUser);
+  const resetUser = useClientStore((state) => state.resetUser);
 
   const handleAuthResponse = async <T,>({
     request,

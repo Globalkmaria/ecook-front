@@ -4,7 +4,7 @@ import { MouseEventHandler, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-import { useUserStore } from '@/providers/user-store-provider';
+import { useClientStore } from '@/providers/client-store-provider';
 
 import style from './LoginContainer.module.scss';
 
@@ -18,7 +18,7 @@ function LoginContainer() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, startTransition] = useTransition();
-  const setUser = useUserStore((state) => state.setUser);
+  const setUser = useClientStore((state) => state.setUser);
 
   const onLogin: MouseEventHandler = async (e) => {
     e.preventDefault();

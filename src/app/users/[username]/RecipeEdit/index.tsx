@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import style from './style.module.scss';
 
-import { useUserStore } from '@/providers/user-store-provider';
+import { useClientStore } from '@/providers/client-store-provider';
 
 import { NewRecipeData } from '@/services/recipes/type';
 
@@ -30,7 +30,7 @@ interface Props {
 }
 
 function RecipeEdit({ recipeKey, onCloseModal }: Props) {
-  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
+  const isLoggedIn = useClientStore((state) => state.isLoggedIn);
 
   const {
     data: recipe,

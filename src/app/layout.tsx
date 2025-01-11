@@ -2,7 +2,6 @@ import { Metadata, Viewport } from 'next';
 import { GoogleAnalytics } from '@next/third-parties/google';
 
 import Providers from '@/providers';
-import { UserStoreProvider } from '@/providers/user-store-provider';
 
 import '@/styles/global.scss';
 import style from './style.module.scss';
@@ -69,13 +68,11 @@ export default function RootLayout({
       </head>
       <body>
         <Providers>
-          <UserStoreProvider>
-            <div className={style.layout_container}>
-              {children}
-              {modal}
-              <div id='modal-root' />
-            </div>
-          </UserStoreProvider>
+          <div className={style.layout_container}>
+            {children}
+            {modal}
+            <div id='modal-root' />
+          </div>
         </Providers>
       </body>
       <GoogleAnalytics gaId='G-P19WFDWFQH' />
