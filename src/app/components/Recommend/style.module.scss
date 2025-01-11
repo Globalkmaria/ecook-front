@@ -1,0 +1,117 @@
+@use '@/styles/theme.scss' as *;
+
+.header {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  overflow: hidden;
+  border-radius: 5px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid $black;
+  position: relative;
+  min-height: 300px;
+}
+
+.recommend-list {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  overflow: overlay;
+}
+
+.recommend-item {
+  position: relative;
+  display: block;
+  width: 300px;
+  height: 300px;
+
+  @media #{$laptop} {
+    width: 200px;
+    height: 200px;
+  }
+
+  .hover-darker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $blurryBlack200;
+    border-radius: 10px;
+    opacity: 0;
+  }
+
+  &:hover {
+    .hover-darker {
+      opacity: 1;
+    }
+  }
+}
+
+.img {
+  object-fit: cover;
+
+  img {
+    border-radius: 10px;
+  }
+}
+
+.img-overlay {
+  position: absolute;
+  display: flex;
+  align-items: end;
+  height: 80px;
+  width: 100%;
+  color: $white;
+  border-radius: 0 0 10px 10px;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0),
+    $blurryBlack600,
+    $blurryBlack900
+  );
+  bottom: 0;
+  left: 0;
+
+  h2 {
+    padding: 10px;
+    height: 50px;
+    width: 280px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    @media #{$laptop} {
+      width: 180px;
+    }
+  }
+}
+
+.see-more {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background: $grey100;
+
+  &:hover {
+    background: $grey300;
+  }
+}

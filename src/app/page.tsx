@@ -3,13 +3,14 @@ import style from './style.module.scss';
 import HomeNav from './components/layout/HomeNav';
 
 import HomeHeader from './components/HomeHeader';
-import Recipes from './components/List/Recipes';
 import Footer from './components/layout/Footer';
 import Search from './components/Search';
+import Recommend from './components/Recommend';
+import Recent from './components/Recent';
 
 export const revalidate = 86400; // 1 day
 
-export default function HomePage() {
+export default async function HomePage() {
   return (
     <>
       <HomeNav />
@@ -21,7 +22,8 @@ export default function HomePage() {
               <Search />
             </div>
           </div>
-          <Recipes />
+          <Recommend />
+          <Recent />
         </div>
       </div>
       <Footer />

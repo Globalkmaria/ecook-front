@@ -1,7 +1,15 @@
 @use '@/styles/theme' as *;
 
-.container {
-  margin-top: 40px;
+.recent {
+  margin-top: 30px;
+}
+
+.title {
+  font-size: 1.2rem;
+}
+
+.list {
+  margin-top: 20px;
   display: grid;
   gap: 2rem;
   grid-template-columns: repeat(5, 1fr);
