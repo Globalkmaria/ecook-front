@@ -5,13 +5,10 @@ import Link from 'next/link';
 
 import style from './style.module.scss';
 
-import {
-  RecipeRecommendations,
-  RecommendRecipe,
-} from '@/services/recommend/type';
+import { RecipeRecommendations } from '@/services/recommend/type';
 
 import { Tab2, TabsContainer2 } from '@/components/Tab2';
-import CustomImage from '@/components/CustomImage';
+import Card from '@/components/Card';
 
 import { GroupedRecipesByType } from './helper';
 
@@ -65,42 +62,24 @@ function RecipeList({
   return (
     <ul className={style['recommend-list']}>
       {recipes.map((recipe) => (
-        <li key={recipe.key}>
-          <RecommendItem recipe={recipe} />
+        <li key={recipe.key} className={style['item']}>
+          <Card
+            data={recipe}
+            imageProps={{ sizes: '(max-width: 1024px) 300px, 200px' }}
+          />
         </li>
       ))}
-      <li>
+      <li className={style['item']}>
         <SeeMoreLink link={`/search?type=tag&q=${type}`} />
       </li>
     </ul>
   );
 }
 
-function RecommendItem({ recipe }: { recipe: RecommendRecipe }) {
-  return (
-    <Link
-      scroll={false}
-      href={`/recipes/${recipe.key}`}
-      className={style['recommend-item']}
-    >
-      <CustomImage
-        src={recipe.img}
-        fill
-        alt={recipe.name}
-        className={style['img']}
-      />
-      <div className={style['hover-darker']} />
-      <div className={style['img-overlay']}>
-        <h2>{recipe.name}</h2>
-      </div>
-    </Link>
-  );
-}
-
 function SeeMoreLink({ link }: { link: string }) {
   return (
-    <Link href={link} className={style['recommend-item']}>
-      <h2 className={style['see-more']}>See more</h2>
+    <Link href={link} className={style['see-more']}>
+      <h2>See more</h2>
     </Link>
   );
 }
