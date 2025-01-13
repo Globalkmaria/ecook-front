@@ -1,7 +1,8 @@
 import { fetchAPI } from '@/utils/api';
+
 import { RecipeDetail } from './type';
 import { FetchResult } from '../type';
-import { RecipeSimple } from './type';
+import { RecommendRecipe } from '../recommend/type';
 
 export const getRecipe = async (
   recipeKey: string,
@@ -72,9 +73,10 @@ export const editRecipe = async (
 
 export const getRecipeRecommendations = async (
   recipeKey: string,
-): FetchResult<RecipeSimple[]> => {
+  options?: RequestInit,
+): FetchResult<RecommendRecipe[]> => {
   try {
-    const response = await fetchAPI(`/recipes/${recipeKey}/recommend`);
+    const response = await fetchAPI(`/recipes/${recipeKey}/recommend`, options);
 
     if (response.ok) return { ok: true, data: response.data };
 

@@ -1,4 +1,4 @@
-import { getRecipe } from '@/services/recipe';
+import { getRecipe, getRecipeRecommendations } from '@/services/recipe';
 import ModalRecipes from './ModalRecipes';
 
 interface Props {
@@ -9,16 +9,28 @@ async function RecipePage({ params }: Props) {
   const { recipeKey } = await params;
   if (!recipeKey) return null;
 
-  const result = await getRecipe(recipeKey, {
+  const recipeResult = await getRecipe(recipeKey, {
     cache: 'force-cache',
     next: {
       revalidate: 86400, // 1 day
     },
   });
 
-  if (!result.ok) return null;
+  const recommendResult = await getRecipeRecommendations(recipeKey, {
+    cache: 'force-cache',
+    next: {
+      revalidate: 86400, // 1 day
+    },
+  });
 
-  return <ModalRecipes recipe={result.data} />;
+  if (!recipeResult.ok) return null;
+
+  return (
+    <ModalRecipes
+      recipe={recipeResult.data}
+      recommendList={recommendResult.data}
+    />
+  );
 }
 
 export default RecipePage;

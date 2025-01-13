@@ -2,11 +2,11 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { getHomeRecipes } from '@/services/recipes';
+import { getRecipe, getRecipeRecommendations } from '@/services/recipe';
 
 import { capitalizeFirstLetter } from '@/utils/text';
-import Recipe from './Recipe';
+
 import RecipePageContainer from './RecipePageContainer';
-import { getRecipe } from '@/services/recipe';
 
 export const revalidate = 86400; // 1 day
 
@@ -21,8 +21,12 @@ export async function generateStaticParams() {
   );
 }
 
+export type RecipePageParams = {
+  recipeKey: string;
+};
+
 interface Props {
-  params: Promise<{ recipeKey: string }>;
+  params: Promise<RecipePageParams>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -43,12 +47,24 @@ async function Page({ params }: Props) {
   const { recipeKey } = await params;
   if (!recipeKey) notFound();
 
-  const result = await getRecipe(recipeKey, {
+  const recipeResult = await getRecipe(recipeKey, {
     cache: 'force-cache',
   });
-  if (!result.ok) notFound();
+  const recommendResult = await getRecipeRecommendations(recipeKey, {
+    cache: 'force-cache',
+    next: {
+      revalidate: 86400, // 1 day
+    },
+  });
 
-  return <RecipePageContainer recipe={result.data} />;
+  if (!recipeResult.ok) notFound();
+
+  return (
+    <RecipePageContainer
+      recipe={recipeResult.data}
+      recommendList={recommendResult.data}
+    />
+  );
 }
 
 export default Page;

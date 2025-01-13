@@ -5,20 +5,14 @@ import { RecommendRecipe } from '@/services/recommend/type';
 
 interface Props {
   recipe: RecipeDetail;
+  recommendList: RecommendRecipe[];
 }
 
-function RecipePageContainer({ recipe }: Props) {
-  const recommend: RecommendRecipe = {
-    name: recipe.name,
-    key: recipe.key,
-    img: recipe.img,
-    user: recipe.user,
-  };
-  const list = Array(20).fill(recommend);
+function RecipePageContainer({ recipe, recommendList }: Props) {
   return (
     <div>
       <Recipe recipe={recipe} />
-      <Recommend list={list} />
+      <Recommend recommendList={recommendList} />
     </div>
   );
 }

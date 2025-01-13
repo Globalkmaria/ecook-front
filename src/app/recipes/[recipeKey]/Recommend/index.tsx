@@ -1,25 +1,18 @@
-'use client';
-
-import Card from '@/components/Card';
 import style from './style.module.scss';
+
 import { RecommendRecipe } from '@/services/recommend/type';
 
+import List from './List';
+
 interface Props {
-  list: RecommendRecipe[];
+  recommendList: RecommendRecipe[];
 }
 
-function Recommend({ list }: Props) {
+function Recommend({ recommendList }: Props) {
   return (
     <section className={style['recommend']}>
       <h2 className={style['title']}>Explore more recipes</h2>
-
-      <ul className={style['list']}>
-        {list.map((item, index) => (
-          <li className={style['item']} key={index}>
-            <Card data={item} key={index} />
-          </li>
-        ))}
-      </ul>
+      <List recommendList={recommendList} />
     </section>
   );
 }
