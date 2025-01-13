@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
-import { createUserSlice, UserStore } from './user-store';
+import { createUserSlice, UserStore } from './slices/userSlice';
 
 export type ClientStore = UserStore;
 
