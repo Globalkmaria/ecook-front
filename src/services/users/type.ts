@@ -1,4 +1,4 @@
-import { RecipeSimple } from '../recipes/type';
+import { RecipeSimple } from '../recipe/type';
 
 export interface User {
   img?: string;

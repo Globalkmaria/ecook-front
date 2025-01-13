@@ -1,4 +1,4 @@
-import { getRecipe } from '@/services/recipes';
+import { getRecipe } from '@/services/recipe';
 import { queryOptions } from '@tanstack/react-query';
 
 import { QUERY_KEY__RECIPE } from '@/queries';

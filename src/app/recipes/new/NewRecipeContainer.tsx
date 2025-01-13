@@ -10,7 +10,7 @@ import { useClientStore } from '@/providers/client-store-provider';
 import { QUERY_KEY__PROFILE, QUERY_KEY__RECIPE_LIST } from '@/queries';
 
 import { NewRecipeData } from '@/services/recipes/type';
-import { saveRecipe } from '@/services/recipes';
+import { createRecipe } from '@/services/recipes';
 import { handleApiAuthResponse } from '@/services/utils/handleApiAuthResponse';
 
 import { getRandomId } from '@/utils/generateId';
@@ -87,7 +87,7 @@ function NewRecipeContainer() {
 
       formData.append('info', JSON.stringify(data));
 
-      const result = await saveRecipe(formData);
+      const result = await createRecipe(formData);
       handleApiAuthResponse(result, router, resetUser);
 
       if (result.ok) {

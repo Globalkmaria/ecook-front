@@ -1,4 +1,4 @@
-import { getRecipe } from '@/services/recipes';
+import { getRecipe } from '@/services/recipe';
 import ModalRecipes from './ModalRecipes';
 
 interface Props {

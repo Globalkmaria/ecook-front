@@ -1,11 +1,12 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { getHomeRecipes, getRecipe } from '@/services/recipes';
+import { getHomeRecipes } from '@/services/recipes';
 
 import { capitalizeFirstLetter } from '@/utils/text';
-
 import Recipe from './Recipe';
+import RecipePageContainer from './RecipePageContainer';
+import { getRecipe } from '@/services/recipe';
 
 export const revalidate = 86400; // 1 day
 
@@ -47,7 +48,7 @@ async function Page({ params }: Props) {
   });
   if (!result.ok) notFound();
 
-  return <Recipe recipe={result.data} />;
+  return <RecipePageContainer recipe={result.data} />;
 }
 
 export default Page;

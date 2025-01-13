@@ -32,7 +32,7 @@ function Card({ data, imageProps }: CardProps) {
         src={data.img}
         fill
         alt={data.name}
-        className={style['img']}
+        imgClassName={style['img']}
         {...imageProps}
       />
       <div className={style['hover-darker']} />

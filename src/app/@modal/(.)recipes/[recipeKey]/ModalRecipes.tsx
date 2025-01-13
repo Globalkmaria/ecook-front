@@ -4,8 +4,8 @@ import style from './style.module.scss';
 
 import { Modal2 } from '@/components/Modal';
 import { useRouter } from 'next/navigation';
-import { RecipeDetail } from '@/services/recipes/type';
-import Recipe from '@/app/recipes/[recipeKey]/Recipe';
+import { RecipeDetail } from '@/services/recipe/type';
+import RecipePageContainer from '@/app/recipes/[recipeKey]/RecipePageContainer';
 
 interface Props {
   recipe: RecipeDetail;
@@ -17,7 +17,7 @@ function ModalRecipes({ recipe }: Props) {
   return (
     <Modal2 isOpen={true} onClose={onDismiss}>
       <div className={style.container}>
-        <Recipe recipe={recipe} />
+        <RecipePageContainer recipe={recipe} />
       </div>
     </Modal2>
   );

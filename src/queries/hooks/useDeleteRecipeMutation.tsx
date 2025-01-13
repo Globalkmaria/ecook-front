@@ -6,7 +6,7 @@ import { useShallow } from 'zustand/shallow';
 
 import { useClientStore } from '@/providers/client-store-provider';
 
-import { deleteRecipe } from '@/services/recipes';
+import { deleteRecipe } from '@/services/recipe';
 import { handleApiAuthResponse } from '@/services/utils/handleApiAuthResponse';
 
 import { QUERY_KEY__PROFILE, QUERY_KEY__RECIPE_LIST } from '@/queries';
