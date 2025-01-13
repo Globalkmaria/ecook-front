@@ -6,7 +6,6 @@ import { useState } from 'react';
 import style from './style.module.scss';
 
 import { RecipeDetail } from '@/services/recipe/type';
-
 import { formatTime } from '@/utils/time';
 
 import { getSearchTagLink, getUserLink } from '@/helpers/link';

@@ -1,18 +1,25 @@
 'use client';
+import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'next/navigation';
 
 import style from './style.module.scss';
 
-import { RecommendRecipe } from '@/services/recommend/type';
+import { recipeRecommendOptions } from '@/queries/recipeRecommendOptions';
 
 import Card from '@/components/Card';
 
-interface Props {
-  recommendList: RecommendRecipe[];
-}
-function List({ recommendList }: Props) {
+import { RecipePageParams } from '../page';
+
+function List() {
+  const params = useParams<RecipePageParams>();
+  const { data, isError } = useQuery(
+    recipeRecommendOptions({ key: params.recipeKey }),
+  );
+  if (!data || isError) return null;
+
   return (
     <ul className={style['list']}>
-      {recommendList?.map((item, index) => (
+      {data?.map((item, index) => (
         <li className={style['item']} key={index}>
           <Card data={item} key={index} />
         </li>

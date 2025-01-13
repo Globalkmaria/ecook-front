@@ -1,5 +1,7 @@
-import { getRecipe, getRecipeRecommendations } from '@/services/recipe';
 import ModalRecipes from './ModalRecipes';
+import { QueryClient } from '@tanstack/react-query';
+import { recipeOptions } from '@/queries/recipeOptions';
+import { recipeRecommendOptions } from '@/queries/recipeRecommendOptions';
 
 interface Props {
   params: Promise<{ recipeKey: string }>;
@@ -9,28 +11,13 @@ async function RecipePage({ params }: Props) {
   const { recipeKey } = await params;
   if (!recipeKey) return null;
 
-  const recipeResult = await getRecipe(recipeKey, {
-    cache: 'force-cache',
-    next: {
-      revalidate: 86400, // 1 day
-    },
-  });
+  const queryClient = new QueryClient();
+  await Promise.all([
+    queryClient.prefetchQuery(recipeOptions(recipeKey)),
+    queryClient.prefetchQuery(recipeRecommendOptions({ key: recipeKey })),
+  ]);
 
-  const recommendResult = await getRecipeRecommendations(recipeKey, {
-    cache: 'force-cache',
-    next: {
-      revalidate: 86400, // 1 day
-    },
-  });
-
-  if (!recipeResult.ok) return null;
-
-  return (
-    <ModalRecipes
-      recipe={recipeResult.data}
-      recommendList={recommendResult.data}
-    />
-  );
+  return <ModalRecipes />;
 }
 
 export default RecipePage;

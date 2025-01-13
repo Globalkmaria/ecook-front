@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { getHomeRecipes } from '@/services/recipes';
-import { getRecipe, getRecipeRecommendations } from '@/services/recipe';
+import { getRecipe } from '@/services/recipe';
 
 import { capitalizeFirstLetter } from '@/utils/text';
 
@@ -47,24 +47,7 @@ async function Page({ params }: Props) {
   const { recipeKey } = await params;
   if (!recipeKey) notFound();
 
-  const recipeResult = await getRecipe(recipeKey, {
-    cache: 'force-cache',
-  });
-  const recommendResult = await getRecipeRecommendations(recipeKey, {
-    cache: 'force-cache',
-    next: {
-      revalidate: 86400, // 1 day
-    },
-  });
-
-  if (!recipeResult.ok) notFound();
-
-  return (
-    <RecipePageContainer
-      recipe={recipeResult.data}
-      recommendList={recommendResult.data}
-    />
-  );
+  return <RecipePageContainer />;
 }
 
 export default Page;

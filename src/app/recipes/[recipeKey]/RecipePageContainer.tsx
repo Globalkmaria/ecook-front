@@ -1,18 +1,23 @@
-import { RecipeDetail } from '@/services/recipe/type';
+'use client';
+
+import { useParams } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+
+import { recipeOptions } from '@/queries/recipeOptions';
+
 import Recipe from './Recipe';
 import Recommend from './Recommend';
-import { RecommendRecipe } from '@/services/recommend/type';
+import { RecipePageParams } from './page';
 
-interface Props {
-  recipe: RecipeDetail;
-  recommendList: RecommendRecipe[];
-}
+function RecipePageContainer() {
+  const params = useParams<RecipePageParams>();
+  const { data: recipe, isError } = useQuery(recipeOptions(params.recipeKey));
+  if (!recipe || isError) return null;
 
-function RecipePageContainer({ recipe, recommendList }: Props) {
   return (
     <div>
       <Recipe recipe={recipe} />
-      <Recommend recommendList={recommendList} />
+      <Recommend />
     </div>
   );
 }
