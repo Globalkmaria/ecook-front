@@ -8,6 +8,10 @@ export interface RecipeSimple {
   minutes: number;
   tags: { id: string; name: string }[];
   key: string;
+  user: {
+    username: string;
+    img: string | null;
+  };
 }
 
 export interface RecipeDetail {

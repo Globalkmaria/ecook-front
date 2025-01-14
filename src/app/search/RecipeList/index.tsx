@@ -9,6 +9,7 @@ import { formatTime } from '@/utils/time';
 
 import Chip, { ChipsContainer } from '@/components/Chip';
 import CustomImage from '@/components/CustomImage';
+import Avatar from '@/components/Avatar';
 
 interface Props {
   recipes: RecipeSimple[];
@@ -42,6 +43,11 @@ function Item({ recipe }: ItemProps) {
   return (
     <li className={style.wrapper}>
       <Link href={`/recipes/${recipe.key}`} className={style.card}>
+        <div className={style['top-overlay']}>
+          <div className={style['avatar']}>
+            <Avatar user={recipe.user} />
+          </div>
+        </div>
         <div className={style['img-box']}>
           <div className={style['img-wrapper']}>
             <CustomImage
