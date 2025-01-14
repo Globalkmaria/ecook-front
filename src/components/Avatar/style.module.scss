@@ -56,10 +56,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 20px;
   height: 32px;
   width: 32px;
   background-color: $grey400;
+  border-radius: 50%;
+  font-size: 20px;
 }
 
 .username {
