@@ -86,23 +86,27 @@ Whether you're exploring new recipes or looking for ways to reuse ingredients, E
 - Github: https://github.com/Globalkmaria/ecook-front
   - Skills : Next.js, TypeScript, TanStack Query, Zustand, SCSS
   - Deployment : AWS EC2
+  - Http2
+ 
 - **Backend**
 - Github: https://github.com/Globalkmaria/ecook-back
   - Skills : Node.js, TypeScript
   - Database: MySQL, AWS S3
   - Authentication: Passport
   - Deployment: AWS EC2
+  - Http2
 
 ## Snapshot
 
 - ERD
-  <img width="850" height=500 alt="Screenshot 2024-12-06 at 2 27 25 AM" src="https://github.com/user-attachments/assets/4f80b56d-6005-47a7-87a5-3bb87a858473">
+
+<img width="850" height=500 alt="Screenshot 2024-12-06 at 2 27 25 AM" src="https://github.com/user-attachments/assets/4f80b56d-6005-47a7-87a5-3bb87a858473">
 
 - Home page
-  <img width="900" height=500 alt="home" src="https://github.com/user-attachments/assets/8cc826f8-ad49-4806-a5e2-993440cadb4d">
+<img width="900" alt="Screenshot 2025-01-14 at 2 44 50 PM" src="https://github.com/user-attachments/assets/2c3ffc7c-330d-49b8-abb4-3766e2584044" />
 
 - Recipe page
-  <img  width="900" height=500 alt="detail" src="https://github.com/user-attachments/assets/3ba29a9c-dd57-4fab-89fe-f0e20ce3b9ad">
+<img width="900" alt="Screenshot 2025-01-14 at 2 43 08 PM" src="https://github.com/user-attachments/assets/bf1403bb-56d0-4b25-a9bf-a5bfe9c49517" />
 
 - Add new recipe
   <img  width="900" height=500 alt="newRecipe" src="https://github.com/user-attachments/assets/f245c0f7-6b6d-40ae-8a81-f231d115d822">
@@ -110,7 +114,8 @@ Whether you're exploring new recipes or looking for ways to reuse ingredients, E
  <img  width="900" height=500 alt="newProduct" src="https://github.com/user-attachments/assets/0649617c-f183-4f88-8bdb-f8d3dbd032cd">
 
 - Search recipe
-  <img  width="900" height=500 alt="search" src="https://github.com/user-attachments/assets/cdd5fe58-c98b-4d51-9b44-a7a14eb1095f">
+<img width="900" alt="Screenshot 2025-01-14 at 2 43 31 PM" src="https://github.com/user-attachments/assets/0445451c-8ba9-4ae2-992d-19fa94740744" />
+
 
 <img width="900" height=500 alt="products" src="https://github.com/user-attachments/assets/93fece5f-c0d5-421a-8802-09a604706178">
 
