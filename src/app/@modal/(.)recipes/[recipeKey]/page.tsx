@@ -1,7 +1,13 @@
-import ModalRecipes from './ModalRecipes';
-import { QueryClient } from '@tanstack/react-query';
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
+
 import { recipeOptions } from '@/queries/recipeOptions';
 import { recipeRecommendOptions } from '@/queries/recipeRecommendOptions';
+
+import ModalRecipes from './ModalRecipes';
 
 interface Props {
   params: Promise<{ recipeKey: string }>;
@@ -17,7 +23,11 @@ async function RecipePage({ params }: Props) {
     queryClient.prefetchQuery(recipeRecommendOptions({ key: recipeKey })),
   ]);
 
-  return <ModalRecipes />;
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <ModalRecipes />
+    </HydrationBoundary>
+  );
 }
 
 export default RecipePage;
