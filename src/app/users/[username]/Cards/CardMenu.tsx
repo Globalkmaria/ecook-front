@@ -6,7 +6,7 @@ import style from './Cards.module.scss';
 
 import { useClientStore } from '@/providers/client-store-provider';
 
-import { RecipeSimple } from '@/services/recipes/type';
+import { RecipeSimple } from '@/services/recipe/type';
 
 import useDeleteRecipe from '@/queries/hooks/useDeleteRecipeMutation';
 

@@ -1,11 +1,20 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
 
-import { getHomeRecipes, getRecipe } from '@/services/recipes';
+import { getHomeRecipes } from '@/services/recipes';
+import { getRecipe } from '@/services/recipe';
+
+import { recipeOptions } from '@/queries/recipeOptions';
+import { recipeRecommendOptions } from '@/queries/recipeRecommendOptions';
 
 import { capitalizeFirstLetter } from '@/utils/text';
 
-import Recipe from './Recipe';
+import RecipePageContainer from './RecipePageContainer';
 
 export const revalidate = 86400; // 1 day
 
@@ -20,8 +29,12 @@ export async function generateStaticParams() {
   );
 }
 
+export type RecipePageParams = {
+  recipeKey: string;
+};
+
 interface Props {
-  params: Promise<{ recipeKey: string }>;
+  params: Promise<RecipePageParams>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -42,12 +55,18 @@ async function Page({ params }: Props) {
   const { recipeKey } = await params;
   if (!recipeKey) notFound();
 
-  const result = await getRecipe(recipeKey, {
-    cache: 'force-cache',
-  });
-  if (!result.ok) notFound();
+  const queryClient = new QueryClient();
 
-  return <Recipe recipe={result.data} />;
+  await Promise.all([
+    queryClient.prefetchQuery(recipeOptions({ key: recipeKey })),
+    queryClient.prefetchQuery(recipeRecommendOptions({ key: recipeKey })),
+  ]);
+
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <RecipePageContainer />
+    </HydrationBoundary>
+  );
 }
 
 export default Page;

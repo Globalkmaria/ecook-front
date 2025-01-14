@@ -3,8 +3,7 @@
 import { createContext, useContext, useRef } from 'react';
 import { useStore } from 'zustand';
 
-import { UserStore } from '@/stores/user-store';
-import { createClientStore } from '@/stores/clientStore';
+import { createClientStore, ClientStore } from '@/stores/clientStore';
 
 export type ClientStoreApi = ReturnType<typeof createClientStore>;
 
@@ -17,22 +16,22 @@ export interface ClientStoreProviderProps {
 }
 
 export const ClientStoreProvider = ({ children }: ClientStoreProviderProps) => {
-  const userStore = useRef<ClientStoreApi>();
-  if (!userStore.current) {
-    userStore.current = createClientStore();
+  const clientStore = useRef<ClientStoreApi>();
+  if (!clientStore.current) {
+    clientStore.current = createClientStore();
   }
   return (
-    <ClientStoreContext.Provider value={userStore.current}>
+    <ClientStoreContext.Provider value={clientStore.current}>
       {children}
     </ClientStoreContext.Provider>
   );
 };
 
-export const useClientStore = <T,>(selector: (store: UserStore) => T): T => {
+export const useClientStore = <T,>(selector: (store: ClientStore) => T): T => {
   const clientStoreContext = useContext(ClientStoreContext);
 
   if (!clientStoreContext) {
-    throw new Error('useUserStore must be used within a ClientStoreProvider');
+    throw new Error('useClientStore must be used within a ClientStoreProvider');
   }
 
   return useStore(clientStoreContext, selector);

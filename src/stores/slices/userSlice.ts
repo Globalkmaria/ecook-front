@@ -1,12 +1,12 @@
 import { StateCreator } from 'zustand';
 
-export type UserState = {
+type UserState = {
   username: string | null;
   img: string | null;
   isLoggedIn: boolean;
 };
 
-export type UserAction = {
+type UserAction = {
   setUser: ({ username, img }: User) => void;
   resetUser: () => void;
 };

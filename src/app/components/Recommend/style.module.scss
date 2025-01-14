@@ -35,80 +35,26 @@
   overflow: overlay;
 }
 
-.recommend-item {
-  position: relative;
-  display: block;
+.item {
+  display: flex;
   width: 300px;
   height: 300px;
+  flex-shrink: 0;
 
   @media #{$laptop} {
     width: 200px;
     height: 200px;
   }
-
-  .hover-darker {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: $blurryBlack200;
-    border-radius: 10px;
-    opacity: 0;
-  }
-
-  &:hover {
-    .hover-darker {
-      opacity: 1;
-    }
-  }
-}
-
-.img {
-  object-fit: cover;
-
-  img {
-    border-radius: 10px;
-  }
-}
-
-.img-overlay {
-  position: absolute;
-  display: flex;
-  align-items: end;
-  height: 80px;
-  width: 100%;
-  color: $white;
-  border-radius: 0 0 10px 10px;
-  background: linear-gradient(
-    rgba(0, 0, 0, 0),
-    $blurryBlack600,
-    $blurryBlack900
-  );
-  bottom: 0;
-  left: 0;
-
-  h2 {
-    padding: 10px;
-    height: 50px;
-    width: 280px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-
-    @media #{$laptop} {
-      width: 180px;
-    }
-  }
 }
 
 .see-more {
+  border-radius: 10px;
   display: flex;
-  height: 100%;
-  width: 100%;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+
   background: $grey100;
 
   &:hover {

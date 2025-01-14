@@ -3,7 +3,8 @@ import {
   NewRecipeInitialData,
 } from '@/app/recipes/new/NewRecipe';
 import { NewRecipeSubmitProps } from '@/app/recipes/new/NewRecipeContainer';
-import { IngredientNewProduct, RecipeDetail } from '@/services/recipes/type';
+import { IngredientNewProduct } from '@/services/recipes/type';
+import { RecipeDetail } from '@/services/recipe/type';
 import { getRandomId } from '@/utils/generateId';
 import { EditRecipeData } from '.';
 

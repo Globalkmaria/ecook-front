@@ -1,4 +1,12 @@
-import { getRecipe } from '@/services/recipes';
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
+
+import { recipeOptions } from '@/queries/recipeOptions';
+import { recipeRecommendOptions } from '@/queries/recipeRecommendOptions';
+
 import ModalRecipes from './ModalRecipes';
 
 interface Props {
@@ -9,16 +17,17 @@ async function RecipePage({ params }: Props) {
   const { recipeKey } = await params;
   if (!recipeKey) return null;
 
-  const result = await getRecipe(recipeKey, {
-    cache: 'force-cache',
-    next: {
-      revalidate: 86400, // 1 day
-    },
-  });
+  const queryClient = new QueryClient();
+  await Promise.all([
+    queryClient.prefetchQuery(recipeOptions({ key: recipeKey })),
+    queryClient.prefetchQuery(recipeRecommendOptions({ key: recipeKey })),
+  ]);
 
-  if (!result.ok) return null;
-
-  return <ModalRecipes recipe={result.data} />;
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <ModalRecipes />
+    </HydrationBoundary>
+  );
 }
 
 export default RecipePage;

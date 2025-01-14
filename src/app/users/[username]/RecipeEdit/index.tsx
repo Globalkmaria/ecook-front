@@ -4,8 +4,6 @@ import { useQuery } from '@tanstack/react-query';
 
 import style from './style.module.scss';
 
-import { useClientStore } from '@/providers/client-store-provider';
-
 import { NewRecipeData } from '@/services/recipes/type';
 
 import { recipeOptions } from '@/queries/recipeOptions';
@@ -30,13 +28,11 @@ interface Props {
 }
 
 function RecipeEdit({ recipeKey, onCloseModal }: Props) {
-  const isLoggedIn = useClientStore((state) => state.isLoggedIn);
-
   const {
     data: recipe,
     isLoading: isLoadingRecipe,
     error: recipeError,
-  } = useQuery(recipeOptions(recipeKey, isLoggedIn));
+  } = useQuery(recipeOptions({ key: recipeKey }));
   const { mutate, isPending: isPendingEditRecipe } = useEditRecipeMutation(
     recipeKey,
     onCloseModal,

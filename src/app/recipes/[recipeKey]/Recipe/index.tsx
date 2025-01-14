@@ -3,10 +3,9 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-import style from './Recipe.module.scss';
+import style from './style.module.scss';
 
-import { RecipeDetail } from '@/services/recipes/type';
-
+import { RecipeDetail } from '@/services/recipe/type';
 import { formatTime } from '@/utils/time';
 
 import { getSearchTagLink, getUserLink } from '@/helpers/link';
@@ -19,8 +18,8 @@ import Avatar from '@/components/Avatar';
 import AnchorUnderline from '@/components/Anchor/AnchorUnderline';
 import CustomImage from '@/components/CustomImage';
 
-import Ingredients from './components/IngredientList';
-import { RECIPE_TABS, RecipeTab } from './const';
+import Ingredients from '../components/IngredientList';
+import { RECIPE_TABS, RecipeTab } from '../const';
 
 interface Props {
   recipe: RecipeDetail;
@@ -54,7 +53,7 @@ function Recipe({ recipe }: Props) {
     setStepsChecked({ ...stepsChecked, [id]: !stepsChecked[id] });
 
   return (
-    <div className={style.wrapper}>
+    <section className={style.wrapper}>
       <div>
         <Link href={userLink}>
           <Avatar user={recipe.user} />
@@ -121,7 +120,7 @@ function Recipe({ recipe }: Props) {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
