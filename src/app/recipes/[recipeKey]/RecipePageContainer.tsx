@@ -11,7 +11,9 @@ import { RecipePageParams } from './page';
 
 function RecipePageContainer() {
   const params = useParams<RecipePageParams>();
-  const { data: recipe, isError } = useQuery(recipeOptions(params.recipeKey));
+  const { data: recipe, isError } = useQuery(
+    recipeOptions({ key: params.recipeKey }),
+  );
   if (!recipe || isError) return null;
 
   return (

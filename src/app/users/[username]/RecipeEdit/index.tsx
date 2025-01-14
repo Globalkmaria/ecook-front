@@ -32,7 +32,7 @@ function RecipeEdit({ recipeKey, onCloseModal }: Props) {
     data: recipe,
     isLoading: isLoadingRecipe,
     error: recipeError,
-  } = useQuery(recipeOptions(recipeKey));
+  } = useQuery(recipeOptions({ key: recipeKey }));
   const { mutate, isPending: isPendingEditRecipe } = useEditRecipeMutation(
     recipeKey,
     onCloseModal,

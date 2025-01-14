@@ -13,7 +13,7 @@ async function RecipePage({ params }: Props) {
 
   const queryClient = new QueryClient();
   await Promise.all([
-    queryClient.prefetchQuery(recipeOptions(recipeKey)),
+    queryClient.prefetchQuery(recipeOptions({ key: recipeKey })),
     queryClient.prefetchQuery(recipeRecommendOptions({ key: recipeKey })),
   ]);
 

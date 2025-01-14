@@ -4,11 +4,13 @@ import { queryOptions } from '@tanstack/react-query';
 import { QUERY_KEY__RECIPE } from '@/queries';
 import { RecipeDetail } from '@/services/recipe/type';
 
-export const recipeOptions = (
-  key: string,
-  initialData?: RecipeDetail,
-  staleTime = 86400,
-) =>
+interface Props {
+  key: string;
+  initialData?: RecipeDetail;
+  staleTime?: number;
+}
+
+export const recipeOptions = ({ key, initialData, staleTime }: Props) =>
   queryOptions({
     queryKey: [QUERY_KEY__RECIPE, key],
     queryFn: async () => {
