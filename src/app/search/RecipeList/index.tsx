@@ -13,14 +13,9 @@ import Avatar from '@/components/Avatar';
 
 interface Props {
   recipes: RecipeSimple[];
-  isSuccess: boolean;
 }
 
-function RecipeList({ recipes, isSuccess }: Props) {
-  if (!isSuccess) return <Error />;
-
-  if (!recipes.length) return <NoResult />;
-
+function RecipeList({ recipes }: Props) {
   return (
     <ul className={style.list}>
       {recipes.map((recipe) => (
@@ -73,28 +68,5 @@ function Item({ recipe }: ItemProps) {
         </div>
       </Link>
     </li>
-  );
-}
-
-function NoResult() {
-  return (
-    <div className={style['no-result']}>
-      <span>Oops! We couldn’t find any recipes that match your search. 🥺</span>
-      <span>
-        Try refining your keywords or explore some of our popular recipes for
-        inspiration!
-      </span>
-    </div>
-  );
-}
-
-function Error() {
-  return (
-    <div className={style['no-result']}>
-      <span>Oops! Something went wrong.</span>
-      <span>
-        Please double-check your search keywords or try again later. 🥺
-      </span>
-    </div>
   );
 }
