@@ -1,15 +1,15 @@
-import { IngredientNewProduct } from '@/services/recipes/type';
 import { RecipeDetail } from '@/services/recipe/type';
 
 import { getRandomId } from '@/utils/generateId';
 
-import {
-  NewRecipeIngredientStates,
-  NewRecipeInitialData,
-} from '@/app/components/NewRecipe';
+import { NewRecipeInitialData } from '@/app/components/NewRecipe';
 import { NewRecipeSubmitProps } from '@/app/components/NewRecipe';
 
 import { EditRecipeData } from '.';
+import {
+  appendProductImgsToFormData,
+  appendRecipeImgToFormData,
+} from '@/app/recipes/new/helper';
 
 export const checkRequiredFieldsFilled = (data: NewRecipeSubmitProps) =>
   data.img &&
@@ -37,28 +37,6 @@ export const getEditRecipeInitialValues = (
   tags: recipe.tags.map((item) => item.name),
 });
 
-const getNewProducts = (
-  ingredients: NewRecipeIngredientStates,
-): IngredientNewProduct[] =>
-  ingredients.map((item) => item.newProduct).filter((item) => !!item);
-
-const appendProductImgsToFormData = (
-  ingredients: NewRecipeIngredientStates,
-  formData: FormData,
-) => {
-  const newProducts = getNewProducts(ingredients);
-
-  newProducts.forEach(
-    (product) =>
-      product.img && formData.append(`img_${product.id}`, product.img),
-  );
-};
-
-const appendRecipeImgToFormData = (
-  img: string | File | null,
-  formData: FormData,
-) => isNewImg(img) && formData.append('img', img);
-
 type InfoData = Omit<NewRecipeSubmitProps, 'img'>;
 
 const getEditRecipeInfoData = ({
@@ -80,9 +58,6 @@ const getEditRecipeInfoData = ({
     tags: tags,
   };
 };
-
-const isNewImg = (img: string | File | null) =>
-  !!(img && typeof img !== 'string');
 
 const appendRecipeInfo = (data: NewRecipeSubmitProps, formData: FormData) => {
   const info = getEditRecipeInfoData(data);

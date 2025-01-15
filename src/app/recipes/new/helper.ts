@@ -27,7 +27,7 @@ export const getNewRecipeInitialData = (): NewRecipeInitialData => ({
   tags: [],
 });
 
-const appendProductImgsToFormData = (
+export const appendProductImgsToFormData = (
   ingredients: NewRecipeSubmitProps['ingredients'],
   formData: FormData,
 ): FormData => {
@@ -41,11 +41,13 @@ const appendProductImgsToFormData = (
   return formData;
 };
 
-const appendRecipeImgToFormData = (
+export const appendRecipeImgToFormData = (
   img: NewRecipeSubmitProps['img'],
   formData: FormData,
 ): FormData => {
-  if (img && typeof img !== 'string') formData.append('img', img);
+  const isNewImg = !!(img && typeof img !== 'string');
+  if (isNewImg) formData.append('img', img);
+
   return formData;
 };
 
