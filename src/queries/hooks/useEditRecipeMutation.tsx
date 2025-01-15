@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useShallow } from 'zustand/shallow';
 
-import { revalidateRecipeDetailInformation } from '@/app/actions/revalidate';
+import { revalidateRecipeDetailInformation } from '@/actions/revalidate';
 
 import { useClientStore } from '@/providers/client-store-provider';
 
@@ -36,7 +36,7 @@ const useEditRecipeMutation = (recipeKey: string, onCloseModal: () => void) => {
         queryKey: [QUERY_KEY__RECIPE, data.key],
       });
       onCloseModal();
-      await revalidateRecipeDetailInformation(data.key);
+      await revalidateRecipeDetailInformation(recipeKey);
     },
     onError: () => alert('Failed to edit recipe'),
     retry: 3,
