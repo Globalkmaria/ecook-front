@@ -19,11 +19,9 @@ import Button, { ButtonProps } from '@/components/Button';
 
 import { RemoveButton } from './buttons';
 import SearchProductModal from './SearchProductModal';
-import { onFieldChange } from '../helper';
-import {
-  NewRecipeIngredientState,
-  NewRecipeIngredientStates,
-} from '../../../components/NewRecipe';
+
+import { NewRecipeIngredientState, NewRecipeIngredientStates } from '..';
+import { onFieldChange } from '@/app/recipes/new/helper';
 
 export type OnSelectProductProps = ({
   product,

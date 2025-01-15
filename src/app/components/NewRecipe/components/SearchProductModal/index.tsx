@@ -24,7 +24,10 @@ import IngredientInformationHeader from '@/app/recipes/[recipeKey]/components/In
 import NewProduct from './NewProduct';
 import ExistingProduct from './ExistingProduct';
 import { NewRecipeIngredientState } from '../../../../components/NewRecipe';
-import { INGREDIENT_TEXT_LIMIT, OnSelectProductProps } from '../Ingredients';
+import {
+  INGREDIENT_TEXT_LIMIT,
+  OnSelectProductProps,
+} from '../RecipeIngredientsContent';
 import { getProducts } from '@/services/products';
 
 interface Props {

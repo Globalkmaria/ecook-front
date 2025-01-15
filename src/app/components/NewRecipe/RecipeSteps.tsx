@@ -6,7 +6,7 @@ import { getRandomId } from '@/utils/generateId';
 import { validateLengthAndExecute } from '@/utils/validation';
 
 import { onFieldChange } from '@/app/recipes/new/helper';
-import Steps, { Step } from './components/Steps';
+import RecipeStepsContent, { Step } from './components/RecipeStepsContent';
 import { AddButton } from './components/buttons';
 
 interface Props {
@@ -36,7 +36,11 @@ function RecipeSteps({ steps, setSteps }: Props) {
     <div className={style.box}>
       <h3>Steps*</h3>
       <div className={style.box__content}>
-        <Steps steps={steps} onRemove={onRemoveStep} onChange={onStepChange} />
+        <RecipeStepsContent
+          steps={steps}
+          onRemove={onRemoveStep}
+          onChange={onStepChange}
+        />
         <AddButton onClick={onAddStep}>Add a step</AddButton>
       </div>
     </div>

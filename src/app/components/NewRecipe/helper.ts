@@ -1,5 +1,5 @@
 import { NewRecipeIngredientStates } from '.';
-import { Step } from './components/Steps';
+import { Step } from './components/RecipeStepsContent';
 
 export const getValidIngredients = (ingredients: NewRecipeIngredientStates) =>
   ingredients.filter(

@@ -5,7 +5,7 @@ import style from './style.module.scss';
 import { getNewIngredient } from '@/app/recipes/new/helper';
 
 import { NewRecipeIngredientStates } from '.';
-import Ingredients from './components/Ingredients';
+import RecipeIngredientsContent from './components/RecipeIngredientsContent';
 import { AddButton } from './components/buttons';
 
 interface RecipeIngredientsProps {
@@ -31,7 +31,7 @@ function RecipeIngredients({
     <div className={style.box}>
       <h3>Ingredients*</h3>
       <div className={style.box__content}>
-        <Ingredients
+        <RecipeIngredientsContent
           setIngredients={setIngredients}
           onRemove={onRemoveIngredient}
           ingredients={ingredients}

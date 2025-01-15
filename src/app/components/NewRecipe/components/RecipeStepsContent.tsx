@@ -16,7 +16,7 @@ export interface StepsProps {
   onChange: (id: string, fieldName: string, value: string) => void;
 }
 
-function Steps({ steps, onRemove, onChange }: StepsProps) {
+function RecipeStepsContent({ steps, onRemove, onChange }: StepsProps) {
   return (
     <ol className={style.steps}>
       {steps.map((item) => (
@@ -31,7 +31,7 @@ function Steps({ steps, onRemove, onChange }: StepsProps) {
   );
 }
 
-export default memo(Steps);
+export default memo(RecipeStepsContent);
 
 interface StepProps {
   item: Step;
