@@ -17,7 +17,7 @@ export const getProfile = async (
   }
 };
 
-export const isUsernameAvailable = async (
+export const checkUsernameAvailability = async (
   username: string,
 ): FetchResult<ResIsUsernameAvailable> => {
   try {
