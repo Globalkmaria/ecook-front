@@ -1,12 +1,13 @@
+import { useCallback } from 'react';
+
 import style from './style.module.scss';
 
 import { getRandomId } from '@/utils/generateId';
 import { validateLengthAndExecute } from '@/utils/validation';
 
 import { onFieldChange } from '@/app/recipes/new/helper';
-import { AddButton } from '@/app/recipes/new/components/buttons';
-import Steps, { Step } from '@/app/recipes/new/components/Steps';
-import { useCallback } from 'react';
+import Steps, { Step } from './components/Steps';
+import { AddButton } from './components/buttons';
 
 interface Props {
   steps: Step[];

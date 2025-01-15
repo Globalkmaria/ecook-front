@@ -15,24 +15,11 @@ import { handleApiAuthResponse } from '@/services/utils/handleApiAuthResponse';
 
 import { getRandomId } from '@/utils/generateId';
 
-import { Step } from './components/Steps';
 import NewRecipe, {
-  NewRecipeIngredientStates,
   NewRecipeInitialData,
-  NewRecipeTags,
-  TextInputs,
-} from '../../components/NewRecipe';
+  NewRecipeSubmitProps,
+} from '@/app/components/NewRecipe';
 import { getNewIngredient } from './helper';
-
-export interface NewRecipeSubmitProps {
-  img: File | string | null;
-  ingredients: NewRecipeIngredientStates;
-  steps: Step[];
-  textInputs: TextInputs;
-  tags: NewRecipeTags;
-}
-
-export type OnSubmitNewRecipe = (data: NewRecipeSubmitProps) => void;
 
 function NewRecipeContainer() {
   const router = useRouter();

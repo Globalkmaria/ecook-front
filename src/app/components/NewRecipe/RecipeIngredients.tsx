@@ -3,10 +3,10 @@ import { useCallback } from 'react';
 import style from './style.module.scss';
 
 import { getNewIngredient } from '@/app/recipes/new/helper';
-import Ingredients from '@/app/recipes/new/components/Ingredients';
-import { AddButton } from '@/app/recipes/new/components/buttons';
 
 import { NewRecipeIngredientStates } from '.';
+import Ingredients from './components/Ingredients';
+import { AddButton } from './components/buttons';
 
 interface RecipeIngredientsProps {
   setIngredients: React.Dispatch<

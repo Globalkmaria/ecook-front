@@ -1,11 +1,14 @@
+import { IngredientNewProduct } from '@/services/recipes/type';
+import { RecipeDetail } from '@/services/recipe/type';
+
+import { getRandomId } from '@/utils/generateId';
+
 import {
   NewRecipeIngredientStates,
   NewRecipeInitialData,
 } from '@/app/components/NewRecipe';
-import { NewRecipeSubmitProps } from '@/app/recipes/new/NewRecipeContainer';
-import { IngredientNewProduct } from '@/services/recipes/type';
-import { RecipeDetail } from '@/services/recipe/type';
-import { getRandomId } from '@/utils/generateId';
+import { NewRecipeSubmitProps } from '@/app/components/NewRecipe';
+
 import { EditRecipeData } from '.';
 
 export const checkRequiredFieldsFilled = (data: NewRecipeSubmitProps) =>

@@ -13,12 +13,21 @@ import ImageUploaderWithReset from '@/components/imageUploader/ImageUploaderWith
 import { createInputHandler } from '@/utils/createInputHandler';
 import { withTextLengthLimit } from '@/utils/validation';
 
-import { Step } from '../../recipes/new/components/Steps';
-import { OnSubmitNewRecipe } from '../../recipes/new/NewRecipeContainer';
 import RecipeSteps from './RecipeSteps';
 import RecipeIngredients from './RecipeIngredients';
 import RecipeTime from './RecipeTime';
 import { getValidAndTrimmedSteps, getValidIngredients } from './helper';
+import { Step } from './components/Steps';
+
+export interface NewRecipeSubmitProps {
+  img: File | string | null;
+  ingredients: NewRecipeIngredientStates;
+  steps: Step[];
+  textInputs: TextInputs;
+  tags: NewRecipeTags;
+}
+
+export type OnSubmitNewRecipe = (data: NewRecipeSubmitProps) => void;
 
 export type TextInputs = Pick<
   NewRecipeData,
@@ -76,7 +85,7 @@ function NewRecipe({ initialData, onSubmit, loading, pageTitle }: Props) {
     [],
   );
 
-  const onFormSubmit = () => {
+  const onFormSubmit = () =>
     onSubmit({
       img,
       ingredients: getValidIngredients(ingredients),
@@ -84,7 +93,6 @@ function NewRecipe({ initialData, onSubmit, loading, pageTitle }: Props) {
       textInputs,
       tags: tagsState[0],
     });
-  };
 
   return (
     <div className={style.container}>
