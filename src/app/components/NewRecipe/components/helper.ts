@@ -6,10 +6,10 @@ import {
 
 export const removeProductInfoFromSelectedIngredient = (
   ingredients: NewRecipeIngredientStates,
-  selectedIngredient: NewRecipeIngredientState,
+  selectedIngredientId: NewRecipeIngredientState['id'],
 ) =>
   ingredients.map((item) =>
-    item.id === selectedIngredient.id
+    item.id === selectedIngredientId
       ? {
           ...item,
           newProduct: null,

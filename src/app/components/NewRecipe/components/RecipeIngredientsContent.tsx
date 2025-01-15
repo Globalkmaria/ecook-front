@@ -62,7 +62,7 @@ function RecipeIngredientsContent({ ingredients, setIngredients }: Props) {
 
     if (product === null) {
       setIngredients((prev) =>
-        removeProductInfoFromSelectedIngredient(prev, selectedIngredient),
+        removeProductInfoFromSelectedIngredient(prev, selectedIngredient.id),
       );
       return;
     }
@@ -79,6 +79,15 @@ function RecipeIngredientsContent({ ingredients, setIngredients }: Props) {
     setSelectedIngredient(null);
     searchProductModalControl.onClose();
   };
+
+  const onResetSelectedProduct = useCallback(
+    (ingredientId: string) => {
+      setIngredients((prev) =>
+        removeProductInfoFromSelectedIngredient(prev, ingredientId),
+      );
+    },
+    [setIngredients],
+  );
 
   const onClickSearchProduct = useCallback(
     (ingredient: NewRecipeIngredientState) => {
@@ -104,6 +113,7 @@ function RecipeIngredientsContent({ ingredients, setIngredients }: Props) {
             onRemove={onRemove}
             item={item}
             onClickSearchProduct={onClickSearchProduct}
+            onResetSelectedProduct={onResetSelectedProduct}
           />
         ))}
       </ul>
@@ -125,6 +135,7 @@ interface IngredientProps {
   onRemove: (id: string) => void;
   onChange: (id: string, fieldName: string, value: string) => void;
   onClickSearchProduct: (ingredient: NewRecipeIngredientState) => void;
+  onResetSelectedProduct: (ingredientId: string) => void;
 }
 
 const Ingredient = memo(function Ingredient({
@@ -132,6 +143,7 @@ const Ingredient = memo(function Ingredient({
   onRemove,
   onChange,
   onClickSearchProduct,
+  onResetSelectedProduct,
 }: IngredientProps) {
   const productSelected = item.productId ?? item.newProduct?.name;
 
@@ -151,13 +163,15 @@ const Ingredient = memo(function Ingredient({
       () => onChange(item.id, e.target.name, e.target.value),
     );
 
-  const onNameChange: ChangeEventHandler<HTMLInputElement> = (e) =>
+  const onNameChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    onResetSelectedProduct(item.id);
     validateLengthAndExecute(
       INGREDIENT_TEXT_LIMIT,
       'Ingredient name',
       e.target.value,
       () => onChange(item.id, e.target.name, e.target.value),
     );
+  };
 
   return (
     <li className={style.ingredient}>
