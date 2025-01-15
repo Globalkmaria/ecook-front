@@ -44,6 +44,7 @@ function Card({ recipe }: CardProps) {
       <div className={style['card-menu']}>
         <CardMenu recipeKey={recipe.key} />
       </div>
+
       <Link href={recipeLink} className={style.card}>
         <div className={style['img-box']}>
           <div className={style['img-wrapper']}>

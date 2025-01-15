@@ -8,7 +8,7 @@ import { RecipeDetail } from '@/services/recipe/type';
 import { getRandomId } from '@/utils/generateId';
 import { EditRecipeData } from '.';
 
-export const isRequiredFieldsFilled = (data: NewRecipeSubmitProps) =>
+export const checkRequiredFieldsFilled = (data: NewRecipeSubmitProps) =>
   data.img &&
   data.ingredients.length &&
   data.steps.length &&

@@ -17,7 +17,7 @@ import { OnSubmitNewRecipe } from '@/app/recipes/new/NewRecipeContainer';
 import {
   getEditRecipeFormData,
   getEditRecipeInitialValues,
-  isRequiredFieldsFilled,
+  checkRequiredFieldsFilled,
 } from './helper';
 
 export type EditRecipeData = Omit<NewRecipeData, 'img'>;
@@ -33,6 +33,7 @@ function RecipeEdit({ recipeKey, onCloseModal }: Props) {
     isLoading: isLoadingRecipe,
     error: recipeError,
   } = useQuery(recipeOptions({ key: recipeKey }));
+
   const { mutate, isPending: isPendingEditRecipe } = useEditRecipeMutation(
     recipeKey,
     onCloseModal,
@@ -40,7 +41,7 @@ function RecipeEdit({ recipeKey, onCloseModal }: Props) {
 
   const onSubmit: OnSubmitNewRecipe = (data) => {
     if (isPendingEditRecipe) return;
-    if (!isRequiredFieldsFilled(data)) {
+    if (!checkRequiredFieldsFilled(data)) {
       alert(FILL_REQUIRED_FIELDS);
       return;
     }

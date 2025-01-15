@@ -26,10 +26,10 @@ interface Props {
 
 function CardMenu({ recipeKey }: Props) {
   const params = useParams();
-  const { isOpen, onOpen, onClose } = useModal();
+  const editModal = useModal();
   const { mutate } = useDeleteRecipe();
-  const username = useClientStore((state) => state.username);
-  const isLoginUser = params.username === username;
+  const loginUserUsername = useClientStore((state) => state.username);
+  const isLoginUser = params.username === loginUserUsername;
 
   if (!isLoginUser) return null;
 
@@ -43,7 +43,7 @@ function CardMenu({ recipeKey }: Props) {
     {
       icon: 'edit',
       text: 'Edit',
-      onClick: onOpen,
+      onClick: editModal.onOpen,
     },
     {
       icon: 'trash',
@@ -68,10 +68,13 @@ function CardMenu({ recipeKey }: Props) {
         </MoreButton>
       </div>
 
-      {isOpen && (
-        <Modal2 isOpen={isOpen} onClose={onClose}>
+      {editModal.isOpen && (
+        <Modal2 isOpen={editModal.isOpen} onClose={editModal.onClose}>
           <ModalContainer>
-            <RecipeEdit recipeKey={recipeKey} onCloseModal={onClose} />
+            <RecipeEdit
+              recipeKey={recipeKey}
+              onCloseModal={editModal.onClose}
+            />
           </ModalContainer>
         </Modal2>
       )}
