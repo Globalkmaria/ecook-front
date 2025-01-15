@@ -107,7 +107,7 @@ function SearchProductModal({ control, onSelectProduct, ingredient }: Props) {
             {searchedIngredient?.products?.map((product) => (
               <ExistingProduct
                 key={product.id}
-                item={product}
+                product={product}
                 ingredientName={searchedIngredient?.name}
                 selectedProduct={selectedProduct}
                 setSelectedProduct={setSelectedProduct}

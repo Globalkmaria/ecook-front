@@ -12,44 +12,42 @@ import CustomImage from '@/components/CustomImage';
 import { SelectedProductState } from '.';
 
 interface ExistingProductProps {
-  item: Product;
+  product: Product;
   selectedProduct: SelectedProductState;
   ingredientName: string;
-  searchedIngredientId?: string;
   setSelectedProduct: React.Dispatch<
     React.SetStateAction<SelectedProductState>
   >;
 }
 
 function ExistingProduct({
-  item,
+  product,
   selectedProduct,
   ingredientName,
-  searchedIngredientId,
   setSelectedProduct,
 }: ExistingProductProps) {
   const onClick = () => {
-    if (!searchedIngredientId) return;
+    if (!ingredientName) return;
 
-    if (selectedProduct?.productId === item.id) {
+    if (selectedProduct?.productId === product.id) {
       setSelectedProduct(null);
       return;
     }
 
     setSelectedProduct({
-      ingredientId: item.ingredientId,
-      name: item.name,
-      productId: item.id,
+      ingredientId: product.ingredientId,
+      name: product.name,
+      productId: product.id,
       newProduct: null,
     });
   };
 
-  const id = item.id.toString();
-  const checked = selectedProduct?.productId === item.id;
-  const img = item.img ? (
+  const id = product.id.toString();
+  const checked = selectedProduct?.productId === product.id;
+  const img = product.img ? (
     <CustomImage
-      src={item.img}
-      alt={item.name}
+      src={product.img}
+      alt={product.name}
       fill
       loadingClassName={style['img-placeholder']}
       imgClassName={style['img']}
@@ -71,7 +69,10 @@ function ExistingProduct({
         <div className={style['img-box']}>{img}</div>
 
         <div className={style['product__info']}>
-          <ProductInfoContent product={item} ingredientName={ingredientName} />
+          <ProductInfoContent
+            product={product}
+            ingredientName={ingredientName}
+          />
         </div>
       </div>
     </li>
