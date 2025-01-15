@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import style from './Cards.module.scss';
+import style from './style.module.scss';
 
 import { RecipeSimple } from '@/services/recipe/type';
 
@@ -41,7 +41,9 @@ function Card({ recipe }: CardProps) {
 
   return (
     <li className={style.wrapper}>
-      <CardMenu recipeKey={recipe.key} />
+      <div className={style['card-menu']}>
+        <CardMenu recipeKey={recipe.key} />
+      </div>
       <Link href={recipeLink} className={style.card}>
         <div className={style['img-box']}>
           <div className={style['img-wrapper']}>

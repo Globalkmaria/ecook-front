@@ -1,27 +1,5 @@
 @use '@/styles/theme.scss' as *;
 
-// Card Menu
-
-.more-button {
-  z-index: 1;
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 10px;
-  cursor: pointer;
-  visibility: hidden;
-
-  // more icon button style
-  & > div > button {
-    background: $blurry900;
-    border-radius: 50%;
-
-    &:hover {
-      background-color: $blurry700;
-    }
-  }
-}
-
 // Cards
 
 .list {
@@ -45,10 +23,21 @@
       filter: brightness(0.8);
     }
 
-    .more-button {
+    .card-menu {
       visibility: visible;
     }
   }
+}
+
+.card-menu {
+  visibility: hidden;
+
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 10px;
+  cursor: pointer;
 }
 
 .card {

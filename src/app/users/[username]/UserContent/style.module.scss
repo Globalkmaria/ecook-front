@@ -1,0 +1,13 @@
+@use '@/styles/theme.scss' as *;
+
+.tabs {
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  font-weight: 500;
+}
+
+.tab {
+  display: flex;
+  gap: 10px;
+}

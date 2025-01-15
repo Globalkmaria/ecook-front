@@ -31,7 +31,7 @@ function UserProfile() {
 
   if (error || (isLoading && !profile)) return notFound();
 
-  const imgUser = {
+  const userImgInfo = {
     username: profile?.username ?? '',
     img: profile?.img,
   };
@@ -39,7 +39,7 @@ function UserProfile() {
   return (
     <header className={style.profile}>
       <div className={style.avatar}>
-        <AvatarImg user={imgUser} size={100} />
+        <AvatarImg user={userImgInfo} size={100} />
       </div>
       <div className={style.info}>
         <span className={style.username}>{profile?.username}</span>

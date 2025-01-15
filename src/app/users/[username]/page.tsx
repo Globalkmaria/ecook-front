@@ -14,10 +14,8 @@ import { getHomeRecipes } from '@/services/recipes';
 import { recipeListOptions } from '@/queries/recipeListOptions';
 import { profileOptions } from '@/queries/profileOptions';
 
-import Icon from '@/components/Icon';
-
-import RecipeList from './RecipeList';
 import UserProfile from './UserProfile';
+import UserContent from './UserContent';
 
 export type UserPageParams = {
   username: string;
@@ -84,7 +82,7 @@ async function UserPage({ params }: Props) {
         <HydrationBoundary state={dehydrate(queryClient)}>
           <UserProfile />
           <hr className={style.border} />
-          <List />
+          <UserContent />
         </HydrationBoundary>
       </div>
     </main>
@@ -92,16 +90,3 @@ async function UserPage({ params }: Props) {
 }
 
 export default UserPage;
-
-async function List() {
-  return (
-    <section>
-      <div className={style.tabs}>
-        <span className={style.tab}>
-          <Icon icon='grid' /> RECIPES
-        </span>
-      </div>
-      <RecipeList />
-    </section>
-  );
-}

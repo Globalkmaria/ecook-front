@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 
-import style from './Cards.module.scss';
+import style from './style.module.scss';
 
 import { useClientStore } from '@/providers/client-store-provider';
 
@@ -18,7 +18,7 @@ import { MoreButton } from '@/components/MoreButton';
 import { Modal2 } from '@/components/Modal';
 import ModalContainer from '@/components/Modal/ModalContainer';
 
-import RecipeEdit from '../RecipeEdit';
+import RecipeEdit from './RecipeEdit';
 
 interface Props {
   recipeKey: RecipeSimple['key'];
