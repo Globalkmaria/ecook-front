@@ -72,6 +72,7 @@ function NewRecipe({ initialData, onSubmit, loading, pageTitle }: Props) {
   const isSubmittable = img && ingredients[0].name && steps[0].value.length;
   const submitButtonText = loading ? 'Submitting...' : 'Submit';
   const disableButton = !isSubmittable || loading;
+  const imgLoaderMode = initialData.img ? 'edit' : 'new';
 
   const onTextInputChange = createInputHandler(setTextInputs);
 
@@ -142,7 +143,7 @@ function NewRecipe({ initialData, onSubmit, loading, pageTitle }: Props) {
               onChange={setImg}
               imgValue={img}
               initialImg={initialData.img}
-              mode={initialData.img ? 'edit' : 'new'}
+              mode={imgLoaderMode}
             />
           </div>
         </div>

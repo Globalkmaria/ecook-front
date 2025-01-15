@@ -4,7 +4,7 @@ import style from './style.module.scss';
 
 import { Product } from '@/services/products/type';
 
-import { ProductInfo } from '@/app/recipes/[recipeKey]/components/Product';
+import { ProductInfoContent } from '@/app/recipes/[recipeKey]/components/Product';
 
 import Icon from '@/components/Icon';
 import CustomImage from '@/components/CustomImage';
@@ -71,7 +71,7 @@ function ExistingProduct({
         <div className={style['img-box']}>{img}</div>
 
         <div className={style['product__info']}>
-          <ProductInfo product={item} ingredientName={ingredientName} />
+          <ProductInfoContent product={item} ingredientName={ingredientName} />
         </div>
       </div>
     </li>

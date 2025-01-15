@@ -43,18 +43,19 @@ export type OnSelectProductProps = ({
 
 interface Props {
   ingredients: NewRecipeIngredientStates;
-  onRemove: (id: string) => void;
   setIngredients: Dispatch<SetStateAction<NewRecipeIngredientStates>>;
 }
 
-function RecipeIngredientsContent({
-  ingredients,
-  onRemove,
-  setIngredients,
-}: Props) {
+function RecipeIngredientsContent({ ingredients, setIngredients }: Props) {
   const searchProductModalControl = useModal();
   const [selectedIngredient, setSelectedIngredient] =
     useState<NewRecipeIngredientState | null>(null);
+
+  const onRemove = useCallback(
+    (id: string) =>
+      setIngredients(ingredients.filter((item) => item.id !== id)),
+    [ingredients],
+  );
 
   const onSelectProduct: OnSelectProductProps = ({ product, ingredient }) => {
     if (selectedIngredient === null) return;

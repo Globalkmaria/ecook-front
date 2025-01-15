@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { memo, useCallback } from 'react';
 
 import style from './style.module.scss';
 
@@ -19,21 +19,21 @@ function RecipeIngredients({
   setIngredients,
   ingredients,
 }: RecipeIngredientsProps) {
-  const onAddIngredient = () =>
-    setIngredients((preIngredients) => [...preIngredients, getNewIngredient()]);
-
-  const onRemoveIngredient = useCallback(
-    (id: string) =>
-      setIngredients(ingredients.filter((item) => item.id !== id)),
-    [ingredients],
+  const onAddIngredient = useCallback(
+    () =>
+      setIngredients((preIngredients) => [
+        ...preIngredients,
+        getNewIngredient(),
+      ]),
+    [],
   );
+
   return (
     <div className={style.box}>
       <h3>Ingredients*</h3>
       <div className={style.box__content}>
         <RecipeIngredientsContent
           setIngredients={setIngredients}
-          onRemove={onRemoveIngredient}
           ingredients={ingredients}
         />
         <AddButton onClick={onAddIngredient}>Add a ingredient</AddButton>
@@ -42,4 +42,4 @@ function RecipeIngredients({
   );
 }
 
-export default RecipeIngredients;
+export default memo(RecipeIngredients);

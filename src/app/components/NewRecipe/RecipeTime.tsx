@@ -1,6 +1,6 @@
 import style from './style.module.scss';
 
-import { ChangeEventHandler, useCallback } from 'react';
+import { ChangeEventHandler, memo } from 'react';
 
 import {
   validatePositiveInteger,
@@ -18,33 +18,27 @@ interface RecipeTimeProps {
 }
 
 function RecipeTime({ textInputs, setTextInputs }: RecipeTimeProps) {
-  const onHoursChange: ChangeEventHandler<HTMLInputElement> = useCallback(
-    (e) => {
-      const { name, value } = e.target;
+  const onHoursChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const { name, value } = e.target;
 
-      validateWithAlertAndExecute(
-        validatePositiveInteger,
-        'Please enter a valid time',
-        value,
-        () => setTextInputs((prev) => ({ ...prev, [name]: value })),
-      );
-    },
-    [],
-  );
+    validateWithAlertAndExecute(
+      validatePositiveInteger,
+      'Please enter a valid time',
+      value,
+      () => setTextInputs((prev) => ({ ...prev, [name]: value })),
+    );
+  };
 
-  const onMinusesChange: ChangeEventHandler<HTMLInputElement> = useCallback(
-    (e) => {
-      const { name, value } = e.target;
+  const onMinusesChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const { name, value } = e.target;
 
-      validateWithAlertAndExecute(
-        validateMinutes,
-        'Please enter a valid time',
-        value,
-        () => setTextInputs((prev) => ({ ...prev, [name]: value })),
-      );
-    },
-    [],
-  );
+    validateWithAlertAndExecute(
+      validateMinutes,
+      'Please enter a valid time',
+      value,
+      () => setTextInputs((prev) => ({ ...prev, [name]: value })),
+    );
+  };
 
   return (
     <div className={style.box}>
@@ -75,4 +69,4 @@ function RecipeTime({ textInputs, setTextInputs }: RecipeTimeProps) {
   );
 }
 
-export default RecipeTime;
+export default memo(RecipeTime);

@@ -1,10 +1,13 @@
-import { ChangeEventHandler, memo } from 'react';
+import { ChangeEventHandler, memo, useCallback } from 'react';
 
 import style from './style.module.scss';
 
 import { Input } from '@/components/Input';
 
 import { RemoveButton } from './buttons';
+
+import { validateLengthAndExecute } from '@/utils/validation';
+import { onFieldChange } from '@/app/recipes/new/helper';
 
 export interface Step {
   id: string;
@@ -13,11 +16,24 @@ export interface Step {
 
 export interface StepsProps {
   steps: Step[];
-  onRemove: (id: string) => void;
-  onChange: (id: string, fieldName: string, value: string) => void;
+  setSteps: React.Dispatch<React.SetStateAction<Step[]>>;
 }
 
-function RecipeStepsContent({ steps, onRemove, onChange }: StepsProps) {
+function RecipeStepsContent({ steps, setSteps }: StepsProps) {
+  const onRemove = useCallback(
+    (id: string) =>
+      setSteps((preSteps) => preSteps.filter((item) => item.id !== id)),
+    [setSteps],
+  );
+
+  const onChange = useCallback(
+    (id: string, fieldName: string, value: string) => {
+      validateLengthAndExecute(150, 'Step', value, () =>
+        onFieldChange(setSteps, id, fieldName, value),
+      );
+    },
+    [setSteps],
+  );
   return (
     <ol className={style.steps}>
       {steps.map((item) => (
@@ -40,7 +56,7 @@ interface StepProps {
   onChange: (id: string, fieldName: string, value: string) => void;
 }
 
-function Step({ item, onRemove, onChange }: StepProps) {
+const Step = memo(function Step({ item, onRemove, onChange }: StepProps) {
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) =>
     onChange(item.id, 'value', e.target.value);
 
@@ -58,4 +74,4 @@ function Step({ item, onRemove, onChange }: StepProps) {
       <RemoveButton onClick={() => onRemove(item.id)} />
     </li>
   );
-}
+});

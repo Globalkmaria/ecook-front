@@ -1,11 +1,9 @@
-import { useCallback } from 'react';
+import { memo, useCallback } from 'react';
 
 import style from './style.module.scss';
 
 import { getRandomId } from '@/utils/generateId';
-import { validateLengthAndExecute } from '@/utils/validation';
 
-import { onFieldChange } from '@/app/recipes/new/helper';
 import RecipeStepsContent, { Step } from './components/RecipeStepsContent';
 import { AddButton } from './components/buttons';
 
@@ -15,36 +13,21 @@ interface Props {
 }
 
 function RecipeSteps({ steps, setSteps }: Props) {
-  const onAddStep = () =>
-    setSteps((preSteps) => [...preSteps, { id: getRandomId(), value: '' }]);
-
-  const onRemoveStep = useCallback(
-    (id: string) =>
-      setSteps((preSteps) => preSteps.filter((item) => item.id !== id)),
-    [setSteps],
-  );
-  const onStepChange = useCallback(
-    (id: string, fieldName: string, value: string) => {
-      validateLengthAndExecute(150, 'Step', value, () =>
-        onFieldChange(setSteps, id, fieldName, value),
-      );
-    },
-    [setSteps],
+  const onAddStep = useCallback(
+    () =>
+      setSteps((preSteps) => [...preSteps, { id: getRandomId(), value: '' }]),
+    [],
   );
 
   return (
     <div className={style.box}>
       <h3>Steps*</h3>
       <div className={style.box__content}>
-        <RecipeStepsContent
-          steps={steps}
-          onRemove={onRemoveStep}
-          onChange={onStepChange}
-        />
+        <RecipeStepsContent steps={steps} setSteps={setSteps} />
         <AddButton onClick={onAddStep}>Add a step</AddButton>
       </div>
     </div>
   );
 }
 
-export default RecipeSteps;
+export default memo(RecipeSteps);

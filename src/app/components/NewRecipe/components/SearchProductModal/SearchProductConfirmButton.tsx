@@ -2,8 +2,6 @@ import style from './style.module.scss';
 
 import { IngredientNewProduct } from '@/services/recipes/type';
 
-import useModal from '@/hooks/useModal';
-
 import Button from '@/components/Button';
 
 import {
