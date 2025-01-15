@@ -55,8 +55,10 @@ function SearchProductModal({ control, onSelectProduct, ingredient }: Props) {
     getNewProductInitialState(ingredient),
   );
 
+  const isProductSearched = !!searchedIngredient?.name;
+
   const searchIngredient = async () => {
-    if (searchInput.trim() === '') {
+    if (!searchInput.trim()) {
       setSearchedIngredient(null);
       return;
     }
@@ -93,10 +95,9 @@ function SearchProductModal({ control, onSelectProduct, ingredient }: Props) {
           <IngredientInformationHeader />
 
           <ul className={style.list}>
-            {!!searchedIngredient?.name && (
+            {isProductSearched && (
               <NewProduct
                 newProductState={newProduct}
-                ingredientName={searchedIngredient?.name}
                 setNewProduct={setNewProduct}
                 searchedIngredient={searchedIngredient}
                 selectedProduct={selectedProduct}
@@ -113,6 +114,7 @@ function SearchProductModal({ control, onSelectProduct, ingredient }: Props) {
               />
             ))}
           </ul>
+
           <SearchProductConfirmButton
             selectedProduct={selectedProduct}
             onSelectProduct={onSelectProduct}

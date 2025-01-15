@@ -15,7 +15,6 @@ import Icon from '@/components/Icon';
 interface NewProductProps {
   selectedProduct: SelectedProductState;
   newProductState: IngredientNewProduct;
-  ingredientName?: string;
   setNewProduct: React.Dispatch<React.SetStateAction<IngredientNewProduct>>;
   searchedIngredient: SearchedIngredientState;
   setSelectedProduct: React.Dispatch<
@@ -26,7 +25,6 @@ interface NewProductProps {
 function NewProduct({
   selectedProduct,
   newProductState,
-  ingredientName,
   setNewProduct,
   searchedIngredient,
   setSelectedProduct,
@@ -85,7 +83,7 @@ function NewProduct({
           </div>
           <div className={style['input-container']}>
             <Icon icon='labelFill' />
-            <span>{ingredientName}</span>
+            <span>{searchedIngredient?.name}</span>
           </div>
           <div className={style['input-container']}>
             <Icon icon='label' />
