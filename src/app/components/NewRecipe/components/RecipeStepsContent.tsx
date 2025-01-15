@@ -7,7 +7,7 @@ import { Input } from '@/components/Input';
 import { RemoveButton } from './buttons';
 
 import { validateLengthAndExecute } from '@/utils/validation';
-import { onFieldChange } from '@/app/recipes/new/helper';
+import { onFieldChange } from './helper';
 
 export interface Step {
   id: string;

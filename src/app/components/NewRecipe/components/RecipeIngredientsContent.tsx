@@ -18,11 +18,11 @@ import { validateLengthAndExecute } from '@/utils/validation';
 import Button, { ButtonProps } from '@/components/Button';
 import { Input } from '@/components/Input';
 
-import { onFieldChange } from '@/app/recipes/new/helper';
 import SearchProductModal from './SearchProductModal';
 import { RemoveButton } from './buttons';
 import {
   addProductInfoToSelectedIngredient,
+  onFieldChange,
   removeProductInfoFromSelectedIngredient,
 } from './helper';
 import { NewRecipeIngredientState, NewRecipeIngredientStates } from '..';

@@ -42,3 +42,16 @@ export const addProductInfoToSelectedIngredient = ({
         }
       : item,
   );
+
+export const onFieldChange = <T extends { id: string }>(
+  setState: React.Dispatch<React.SetStateAction<T[]>>,
+  id: string,
+  fieldName: string,
+  value: string,
+) => {
+  setState((prev) =>
+    prev.map((item) =>
+      item.id === id ? { ...item, [fieldName]: value } : item,
+    ),
+  );
+};
