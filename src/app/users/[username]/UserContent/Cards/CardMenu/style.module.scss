@@ -1,0 +1,13 @@
+@use '@/styles/theme.scss' as *;
+
+.more-button {
+  // more icon button style
+  & > div > button {
+    background: $blurry900;
+    border-radius: 50%;
+
+    &:hover {
+      background-color: $blurry700;
+    }
+  }
+}

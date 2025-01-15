@@ -17,3 +17,14 @@
   max-width: $layoutMaxWidth;
   padding: 10px 32px;
 }
+
+.no-result {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-weight: 500;
+  gap: 5px;
+}

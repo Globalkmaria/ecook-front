@@ -23,6 +23,12 @@ function Product({ product, isUserProduct, ingredientName }: Props) {
     ? joinClassNames(style['product--user'], style.product)
     : style.product;
 
+  const img = product.img ? (
+    <CustomImage src={product.img} alt={product.name} fill />
+  ) : (
+    <Icon icon='img' className={style['img-icon']} />
+  );
+
   return (
     <div className={productClassName}>
       {isUserProduct && (
@@ -35,15 +41,9 @@ function Product({ product, isUserProduct, ingredientName }: Props) {
         <SearchIconLink href={getSearchProductLink(product.name)} />
       </div>
 
-      <div className={style['img-box']}>
-        {product.img ? (
-          <CustomImage src={product.img} alt={product.name} fill />
-        ) : (
-          <Icon icon='img' className={style['img-icon']} />
-        )}
-      </div>
+      <div className={style['img-box']}>{img}</div>
 
-      <ProductInfo ingredientName={ingredientName} product={product} />
+      <ProductInfoContent ingredientName={ingredientName} product={product} />
     </div>
   );
 }
@@ -56,7 +56,7 @@ interface ProductInfo {
   purchasedFrom?: string | null;
 }
 
-interface ProductInfoProps {
+interface ProductInfoContentProps {
   product: ProductInfo;
   ingredientName: string;
 }
@@ -66,7 +66,10 @@ type ProductInfoItems = {
   value: string | null;
 }[];
 
-export function ProductInfo({ product, ingredientName }: ProductInfoProps) {
+export function ProductInfoContent({
+  product,
+  ingredientName,
+}: ProductInfoContentProps) {
   const productInfoItems: ProductInfoItems = [
     { icon: 'labelFill', value: ingredientName },
     { icon: 'label', value: product.name },

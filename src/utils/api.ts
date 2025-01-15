@@ -34,6 +34,7 @@ export const fetchAPI = async (
     };
   }
 
+  // 200 and 299
   const contentType = res.headers.get('Content-Type');
   if (contentType && contentType.includes('application/json')) {
     return {
@@ -43,7 +44,6 @@ export const fetchAPI = async (
     };
   }
 
-  // 200 and 299
   if (res.ok) {
     return {
       ok: true,

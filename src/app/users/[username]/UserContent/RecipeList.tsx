@@ -5,8 +5,9 @@ import { notFound, useParams } from 'next/navigation';
 
 import { recipeListOptions } from '@/queries/recipeListOptions';
 
-import Cards from './Cards/Cards';
-import { UserPageParams } from './page';
+import { UserPageParams } from '../page';
+
+import Cards from './Cards';
 
 function RecipeList() {
   const params = useParams<UserPageParams>();

@@ -5,48 +5,72 @@ import style from './style.module.scss';
 import { Input } from '@/components/Input';
 import ImageUploader from '@/components/imageUploader';
 import { IngredientNewProduct } from '@/services/recipes/type';
-import { NEW_PRODUCT_ID, SelectedProductState } from '.';
+import {
+  NEW_PRODUCT_ID,
+  SearchedIngredientState,
+  SelectedProductState,
+} from '.';
 import Icon from '@/components/Icon';
 
 interface NewProductProps {
-  onClick: () => void;
-  onInputChange: ChangeEventHandler<HTMLInputElement>;
-  id: string;
-  selectedProductId: SelectedProductState['productId'];
+  selectedProduct: SelectedProductState;
   newProductState: IngredientNewProduct;
-  onNewProductImgChange: (img: File | null) => void;
-  ingredientName?: string;
+  setNewProduct: React.Dispatch<React.SetStateAction<IngredientNewProduct>>;
+  searchedIngredient: SearchedIngredientState;
+  setSelectedProduct: React.Dispatch<
+    React.SetStateAction<SelectedProductState>
+  >;
 }
 
 function NewProduct({
-  onClick,
-  id,
-  selectedProductId,
-  onInputChange,
+  selectedProduct,
   newProductState,
-  onNewProductImgChange,
-  ingredientName,
+  setNewProduct,
+  searchedIngredient,
+  setSelectedProduct,
 }: NewProductProps) {
   const contentRef = useRef<HTMLDivElement>(null);
 
-  const handleClick: MouseEventHandler = (e) => {
-    if (
-      contentRef.current?.contains(e.target as Node) &&
-      selectedProductId === NEW_PRODUCT_ID
-    )
+  const onCheckBoxClick = () => {
+    if (!searchedIngredient) return;
+
+    if (selectedProduct?.productId === NEW_PRODUCT_ID) {
+      setSelectedProduct(null);
+      return;
+    }
+
+    setSelectedProduct({
+      ingredientId: searchedIngredient.id ?? null,
+      name: newProductState.name,
+      productId: NEW_PRODUCT_ID,
+      newProduct: newProductState,
+    });
+  };
+
+  const onInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const { name, value } = e.target;
+    setNewProduct((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const onNewProductImgChange = (img: File | null) =>
+    setNewProduct((prev) => ({ ...prev, img }));
+
+  const onItemClick: MouseEventHandler = (e) => {
+    const clickInsideContent = contentRef.current?.contains(e.target as Node);
+    if (clickInsideContent && selectedProduct?.productId === NEW_PRODUCT_ID)
       return;
 
-    onClick();
+    onCheckBoxClick();
   };
 
   return (
-    <li className={style['product-container']} onClick={handleClick}>
+    <li className={style['product-container']} onClick={onItemClick}>
       <input
         className={style.checkbox}
         type='checkbox'
-        id={id}
-        checked={selectedProductId === id}
-        onChange={() => onClick()}
+        id={NEW_PRODUCT_ID}
+        checked={selectedProduct?.productId === NEW_PRODUCT_ID}
+        onChange={() => onCheckBoxClick()}
       />
       <div className={style['new-product']}>
         <h3>Add new product</h3>
@@ -59,7 +83,7 @@ function NewProduct({
           </div>
           <div className={style['input-container']}>
             <Icon icon='labelFill' />
-            <span>{ingredientName}</span>
+            <span>{searchedIngredient?.name}</span>
           </div>
           <div className={style['input-container']}>
             <Icon icon='label' />

@@ -12,77 +12,84 @@ import style from './style.module.scss';
 import { NewRecipeIngredient } from '@/services/recipes/type';
 
 import useModal from '@/hooks/useModal';
+
 import { validateLengthAndExecute } from '@/utils/validation';
 
-import { Input } from '@/components/Input';
 import Button, { ButtonProps } from '@/components/Button';
+import { Input } from '@/components/Input';
 
-import { RemoveButton } from './buttons';
 import SearchProductModal from './SearchProductModal';
-import { onFieldChange } from '../helper';
+import { RemoveButton } from './buttons';
 import {
-  NewRecipeIngredientState,
-  NewRecipeIngredientStates,
-} from '../NewRecipe';
+  addProductInfoToSelectedIngredient,
+  onFieldChange,
+  removeProductInfoFromSelectedIngredient,
+} from './helper';
+import { NewRecipeIngredientState, NewRecipeIngredientStates } from '..';
+
+export type SelectedProductInfo = Omit<NewRecipeIngredient, 'quantity'> | null;
+export type SelectedIngredientInfo = {
+  name: string;
+  id?: string | null;
+} | null;
 
 export type OnSelectProductProps = ({
   product,
   ingredient,
 }: {
-  product: Omit<NewRecipeIngredient, 'quantity'> | null;
-  ingredient: {
-    name: string;
-    id?: string | null;
-  } | null;
+  product: SelectedProductInfo;
+  ingredient: SelectedIngredientInfo;
 }) => void;
 
 interface Props {
   ingredients: NewRecipeIngredientStates;
-  onRemove: (id: string) => void;
   setIngredients: Dispatch<SetStateAction<NewRecipeIngredientStates>>;
 }
 
-function Ingredients({ ingredients, onRemove, setIngredients }: Props) {
+function RecipeIngredientsContent({ ingredients, setIngredients }: Props) {
   const searchProductModalControl = useModal();
   const [selectedIngredient, setSelectedIngredient] =
     useState<NewRecipeIngredientState | null>(null);
+
+  const onRemove = useCallback(
+    (id: string) => {
+      if (ingredients.length === 1) return;
+      setIngredients(ingredients.filter((item) => item.id !== id));
+    },
+    [ingredients, ingredients.length],
+  );
 
   const onSelectProduct: OnSelectProductProps = ({ product, ingredient }) => {
     if (selectedIngredient === null) return;
 
     if (product === null) {
       setIngredients((prev) =>
-        prev.map((item) =>
-          item.id === selectedIngredient.id
-            ? {
-                ...item,
-                newProduct: null,
-                productId: null,
-              }
-            : item,
-        ),
+        removeProductInfoFromSelectedIngredient(prev, selectedIngredient.id),
       );
-
       return;
     }
 
     setIngredients((prev) =>
-      prev.map((item) =>
-        item.id === selectedIngredient.id
-          ? {
-              ...item,
-              name: ingredient?.name ?? '',
-              ingredientId: ingredient?.id ?? null,
-              productId: product.productId ?? null,
-              newProduct: product.newProduct ?? null,
-            }
-          : item,
-      ),
+      addProductInfoToSelectedIngredient({
+        ingredients: prev,
+        selectedIngredient,
+        selectedProductInfo: product,
+        selectedIngredientInfo: ingredient,
+      }),
     );
 
     setSelectedIngredient(null);
     searchProductModalControl.onClose();
   };
+
+  const onResetSelectedProduct = useCallback(
+    (ingredientId: string) => {
+      setIngredients((prev) =>
+        removeProductInfoFromSelectedIngredient(prev, ingredientId),
+      );
+    },
+    [setIngredients],
+  );
 
   const onClickSearchProduct = useCallback(
     (ingredient: NewRecipeIngredientState) => {
@@ -108,6 +115,7 @@ function Ingredients({ ingredients, onRemove, setIngredients }: Props) {
             onRemove={onRemove}
             item={item}
             onClickSearchProduct={onClickSearchProduct}
+            onResetSelectedProduct={onResetSelectedProduct}
           />
         ))}
       </ul>
@@ -122,13 +130,14 @@ function Ingredients({ ingredients, onRemove, setIngredients }: Props) {
   );
 }
 
-export default memo(Ingredients);
+export default memo(RecipeIngredientsContent);
 
 interface IngredientProps {
   item: NewRecipeIngredientState;
   onRemove: (id: string) => void;
   onChange: (id: string, fieldName: string, value: string) => void;
   onClickSearchProduct: (ingredient: NewRecipeIngredientState) => void;
+  onResetSelectedProduct: (ingredientId: string) => void;
 }
 
 const Ingredient = memo(function Ingredient({
@@ -136,6 +145,7 @@ const Ingredient = memo(function Ingredient({
   onRemove,
   onChange,
   onClickSearchProduct,
+  onResetSelectedProduct,
 }: IngredientProps) {
   const productSelected = item.productId ?? item.newProduct?.name;
 
@@ -155,13 +165,15 @@ const Ingredient = memo(function Ingredient({
       () => onChange(item.id, e.target.name, e.target.value),
     );
 
-  const onNameChange: ChangeEventHandler<HTMLInputElement> = (e) =>
+  const onNameChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    onResetSelectedProduct(item.id);
     validateLengthAndExecute(
       INGREDIENT_TEXT_LIMIT,
       'Ingredient name',
       e.target.value,
       () => onChange(item.id, e.target.name, e.target.value),
     );
+  };
 
   return (
     <li className={style.ingredient}>
