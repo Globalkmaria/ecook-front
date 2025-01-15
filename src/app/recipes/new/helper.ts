@@ -1,5 +1,11 @@
 import { getRandomId } from '@/utils/generateId';
-import { NewRecipeIngredientState } from '../../components/NewRecipe';
+
+import {
+  NewRecipeIngredientState,
+  NewRecipeInitialData,
+  NewRecipeSubmitProps,
+} from '@/app/components/NewRecipe';
+import { NewRecipeData } from '@/services/recipes/type';
 
 export const getNewIngredient = (): NewRecipeIngredientState => ({
   id: getRandomId(),
@@ -9,3 +15,81 @@ export const getNewIngredient = (): NewRecipeIngredientState => ({
   productId: null,
   newProduct: null,
 });
+
+export const getNewRecipeInitialData = (): NewRecipeInitialData => ({
+  name: '',
+  description: '',
+  hours: '',
+  minutes: '',
+  img: null,
+  ingredients: [getNewIngredient()],
+  steps: [{ id: getRandomId(), value: '' }],
+  tags: [],
+});
+
+const appendProductImgsToFormData = (
+  ingredients: NewRecipeSubmitProps['ingredients'],
+  formData: FormData,
+): FormData => {
+  ingredients.forEach(
+    ({ newProduct }) =>
+      newProduct &&
+      newProduct.img &&
+      formData.append(`img_${newProduct.id}`, newProduct.img),
+  );
+
+  return formData;
+};
+
+const appendRecipeImgToFormData = (
+  img: NewRecipeSubmitProps['img'],
+  formData: FormData,
+): FormData => {
+  if (img && typeof img !== 'string') formData.append('img', img);
+  return formData;
+};
+
+const getSteps = (steps: NewRecipeSubmitProps['steps']) =>
+  steps.map((item) => item.value);
+
+const getIngredients = (ingredients: NewRecipeSubmitProps['ingredients']) =>
+  ingredients.map((item) => ({
+    name: item.name,
+    quantity: item.quantity,
+    ingredientId: item.productId,
+    newProduct: item.newProduct,
+    productId: item.productId,
+  }));
+
+const appendRecipeInformationToFormData = (
+  data: NewRecipeSubmitProps,
+  formData: FormData,
+) => {
+  const info: Omit<NewRecipeData, 'img'> = {
+    ...data.textInputs,
+    steps: getSteps(data.steps),
+    ingredients: getIngredients(data.ingredients),
+    tags: data.tags,
+  };
+
+  formData.append('info', JSON.stringify(info));
+  return formData;
+};
+
+export const getNewRecipeSubmitFormData = (
+  data: NewRecipeSubmitProps,
+): FormData => {
+  const formData = new FormData();
+
+  appendProductImgsToFormData(data.ingredients, formData);
+  appendRecipeImgToFormData(data.img, formData);
+  appendRecipeInformationToFormData(data, formData);
+
+  return formData;
+};
+
+export const validateNewRecipeData = (data: NewRecipeSubmitProps) =>
+  data.img &&
+  data.ingredients.length &&
+  data.steps.length &&
+  data.textInputs.name.trim();

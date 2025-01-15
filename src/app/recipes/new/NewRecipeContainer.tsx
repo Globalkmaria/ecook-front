@@ -9,17 +9,15 @@ import { useClientStore } from '@/providers/client-store-provider';
 
 import { QUERY_KEY__PROFILE, QUERY_KEY__RECIPE_LIST } from '@/queries';
 
-import { NewRecipeData } from '@/services/recipes/type';
 import { createRecipe } from '@/services/recipes';
 import { handleApiAuthResponse } from '@/services/utils/handleApiAuthResponse';
 
-import { getRandomId } from '@/utils/generateId';
-
-import NewRecipe, {
-  NewRecipeInitialData,
-  NewRecipeSubmitProps,
-} from '@/app/components/NewRecipe';
-import { getNewIngredient } from './helper';
+import NewRecipe, { NewRecipeSubmitProps } from '@/app/components/NewRecipe';
+import {
+  getNewRecipeInitialData,
+  getNewRecipeSubmitFormData,
+  validateNewRecipeData,
+} from './helper';
 
 function NewRecipeContainer() {
   const router = useRouter();
@@ -28,80 +26,40 @@ function NewRecipeContainer() {
   );
   const [isLoading, startTransition] = useTransition();
   const queryClient = useQueryClient();
+
   if (!username) {
-    return null;
+    router.replace('/login');
+    return;
   }
 
-  const onSubmit = async ({
-    img,
-    ingredients,
-    steps,
-    textInputs,
-    tags,
-  }: NewRecipeSubmitProps) => {
+  const onSubmit = async (data: NewRecipeSubmitProps) => {
     if (isLoading) return;
-    if (!img || !ingredients.length || !steps.length) {
+    if (!validateNewRecipeData(data)) {
       alert('Please fill in all required fields');
       return;
     }
 
     startTransition(async () => {
-      const newProducts = ingredients
-        .map((item) => item.newProduct)
-        .filter((item) => !!item);
-
-      const formData = new FormData();
-
-      newProducts.forEach(
-        (product) =>
-          product.img && formData.append(`img_${product.id}`, product.img),
-      );
-
-      img && typeof img !== 'string' && formData.append('img', img);
-
-      const data: Omit<NewRecipeData, 'img'> = {
-        ...textInputs,
-        steps: steps.map((item) => item.value),
-        ingredients: ingredients.map((item) => ({
-          name: item.name,
-          quantity: item.quantity,
-          ingredientId: item.productId,
-          newProduct: item.newProduct,
-          productId: item.productId,
-        })),
-        tags: tags,
-      };
-
-      formData.append('info', JSON.stringify(data));
-
+      const formData = getNewRecipeSubmitFormData(data);
       const result = await createRecipe(formData);
       handleApiAuthResponse(result, router, resetUser);
 
-      if (result.ok) {
-        queryClient.invalidateQueries({
-          queryKey: [QUERY_KEY__RECIPE_LIST, username],
-        });
-        queryClient.invalidateQueries({
-          queryKey: [QUERY_KEY__PROFILE, username],
-        });
-        router.replace(`/recipes/${result.data.key}`);
+      if (!result.ok) {
+        alert('Failed to submit recipe');
         return;
       }
 
-      alert('Failed to submit recipe');
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEY__RECIPE_LIST, username],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEY__PROFILE, username],
+      });
+      router.replace(`/recipes/${result.data.key}`);
     });
   };
 
-  const initialData: NewRecipeInitialData = {
-    name: '',
-    description: '',
-    hours: '',
-    minutes: '',
-    img: null,
-    ingredients: [getNewIngredient()],
-    steps: [{ id: getRandomId(), value: '' }],
-    tags: [],
-  };
+  const initialData = getNewRecipeInitialData();
 
   return (
     <NewRecipe
