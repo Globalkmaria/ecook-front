@@ -16,7 +16,11 @@ import { withTextLengthLimit } from '@/utils/validation';
 import RecipeSteps from './RecipeSteps';
 import RecipeIngredients from './RecipeIngredients';
 import RecipeTime from './RecipeTime';
-import { getValidAndTrimmedSteps, getValidIngredients } from './helper';
+import {
+  checkIfAllFieldsAreFilled,
+  getValidAndTrimmedSteps,
+  getValidIngredients,
+} from './helper';
 import { Step } from './components/RecipeStepsContent';
 
 export interface NewRecipeSubmitProps {
@@ -48,6 +52,8 @@ export type NewRecipeInitialData = Omit<
   ingredients: NewRecipeIngredientStates;
 };
 
+export type ImgState = File | string | null;
+
 interface Props {
   initialData: NewRecipeInitialData;
   onSubmit: OnSubmitNewRecipe;
@@ -63,13 +69,19 @@ function NewRecipe({ initialData, onSubmit, loading, pageTitle }: Props) {
     minutes: initialData.minutes,
   });
   const tagsState = useState<NewRecipeTags>(initialData.tags);
-  const [img, setImg] = useState<File | string | null>(initialData.img);
+  const [img, setImg] = useState<ImgState>(initialData.img);
   const [ingredients, setIngredients] = useState<NewRecipeIngredientStates>(
     initialData.ingredients,
   );
   const [steps, setSteps] = useState<Step[]>(initialData.steps);
 
-  const isSubmittable = img && ingredients[0].name && steps[0].value.length;
+  const isSubmittable = checkIfAllFieldsAreFilled({
+    textInputs,
+    img,
+    ingredients,
+    steps,
+  });
+
   const submitButtonText = loading ? 'Submitting...' : 'Submit';
   const disableButton = !isSubmittable || loading;
   const imgLoaderMode = initialData.img ? 'edit' : 'new';
