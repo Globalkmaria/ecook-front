@@ -21,9 +21,11 @@ export interface StepsProps {
 
 function RecipeStepsContent({ steps, setSteps }: StepsProps) {
   const onRemove = useCallback(
-    (id: string) =>
-      setSteps((preSteps) => preSteps.filter((item) => item.id !== id)),
-    [setSteps],
+    (id: string) => {
+      if (steps.length === 1) return;
+      setSteps((preSteps) => preSteps.filter((item) => item.id !== id));
+    },
+    [setSteps, steps.length],
   );
 
   const onChange = useCallback(

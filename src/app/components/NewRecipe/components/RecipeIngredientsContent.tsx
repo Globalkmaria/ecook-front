@@ -52,9 +52,11 @@ function RecipeIngredientsContent({ ingredients, setIngredients }: Props) {
     useState<NewRecipeIngredientState | null>(null);
 
   const onRemove = useCallback(
-    (id: string) =>
-      setIngredients(ingredients.filter((item) => item.id !== id)),
-    [ingredients],
+    (id: string) => {
+      if (ingredients.length === 1) return;
+      setIngredients(ingredients.filter((item) => item.id !== id));
+    },
+    [ingredients, ingredients.length],
   );
 
   const onSelectProduct: OnSelectProductProps = ({ product, ingredient }) => {
