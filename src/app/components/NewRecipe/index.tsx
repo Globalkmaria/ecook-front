@@ -10,21 +10,15 @@ import { ChipListInput, Input } from '@/components/Input';
 import Button from '@/components/Button';
 import ImageUploaderWithReset from '@/components/imageUploader/ImageUploaderWithReset';
 
-import { getRandomId } from '@/utils/generateId';
 import { createInputHandler } from '@/utils/createInputHandler';
-import {
-  validateLengthAndExecute,
-  validatePositiveInteger,
-  validateWithAlertAndExecute,
-  withTextLengthLimit,
-} from '@/utils/validation';
-import { validateMinutes } from '@/utils/time';
+import { withTextLengthLimit } from '@/utils/validation';
 
-import Ingredients from './components/Ingredients';
-import { AddButton } from './components/buttons';
-import Steps, { Step } from './components/Steps';
-import { getNewIngredient, onFieldChange } from './helper';
-import { OnSubmitNewRecipe } from './NewRecipeContainer';
+import { Step } from '../../recipes/new/components/Steps';
+import { OnSubmitNewRecipe } from '../../recipes/new/NewRecipeContainer';
+import RecipeSteps from './RecipeSteps';
+import RecipeIngredients from './RecipeIngredients';
+import RecipeTime from './RecipeTime';
+import { getValidAndTrimmedSteps, getValidIngredients } from './helper';
 
 export type TextInputs = Pick<
   NewRecipeData,
@@ -59,7 +53,6 @@ function NewRecipe({ initialData, onSubmit, loading, pageTitle }: Props) {
     hours: initialData.hours,
     minutes: initialData.minutes,
   });
-
   const tagsState = useState<NewRecipeTags>(initialData.tags);
   const [img, setImg] = useState<File | string | null>(initialData.img);
   const [ingredients, setIngredients] = useState<NewRecipeIngredientStates>(
@@ -83,77 +76,11 @@ function NewRecipe({ initialData, onSubmit, loading, pageTitle }: Props) {
     [],
   );
 
-  const onHoursChange: ChangeEventHandler<HTMLInputElement> = useCallback(
-    (e) => {
-      const { name, value } = e.target;
-
-      validateWithAlertAndExecute(
-        validatePositiveInteger,
-        'Please enter a valid time',
-        value,
-        () => setTextInputs((prev) => ({ ...prev, [name]: value })),
-      );
-    },
-    [],
-  );
-
-  const onMinusesChange: ChangeEventHandler<HTMLInputElement> = useCallback(
-    (e) => {
-      const { name, value } = e.target;
-
-      validateWithAlertAndExecute(
-        validateMinutes,
-        'Please enter a valid time',
-        value,
-        () => setTextInputs((prev) => ({ ...prev, [name]: value })),
-      );
-    },
-    [],
-  );
-
-  const onAddIngredient = useCallback(
-    () =>
-      setIngredients((preIngredients) => [
-        ...preIngredients,
-        getNewIngredient(),
-      ]),
-    [],
-  );
-
-  const onRemoveIngredient = useCallback(
-    (id: string) =>
-      setIngredients(ingredients.filter((item) => item.id !== id)),
-    [ingredients],
-  );
-
-  const onAddStep = useCallback(
-    () =>
-      setSteps((preSteps) => [...preSteps, { id: getRandomId(), value: '' }]),
-    [],
-  );
-
-  const onRemoveStep = useCallback(
-    (id: string) =>
-      setSteps((preSteps) => preSteps.filter((item) => item.id !== id)),
-    [],
-  );
-
-  const onStepChange = useCallback(
-    (id: string, fieldName: string, value: string) => {
-      validateLengthAndExecute(150, 'Step', value, () =>
-        onFieldChange(setSteps, id, fieldName, value),
-      );
-    },
-    [],
-  );
-
   const onFormSubmit = () => {
     onSubmit({
       img,
-      ingredients: ingredients.filter(
-        (ingredient) => ingredient.name.trim() || ingredient.quantity.trim(),
-      ),
-      steps: steps.filter((step) => step.value.trim()),
+      ingredients: getValidIngredients(ingredients),
+      steps: getValidAndTrimmedSteps(steps),
       textInputs,
       tags: tagsState[0],
     });
@@ -188,32 +115,7 @@ function NewRecipe({ initialData, onSubmit, loading, pageTitle }: Props) {
           />
         </div>
 
-        <div className={style.box}>
-          <label htmlFor='time'>
-            <h3>Time</h3>
-          </label>
-
-          <div className={style.time}>
-            <div className={style['time-item']}>
-              Hours:
-              <Input
-                id='hours'
-                name='hours'
-                onChange={onHoursChange}
-                value={textInputs.hours}
-              />
-            </div>
-            <div className={style['time-item']}>
-              Minutes:
-              <Input
-                id='minutes'
-                name='minutes'
-                onChange={onMinusesChange}
-                value={textInputs.minutes}
-              />
-            </div>
-          </div>
-        </div>
+        <RecipeTime textInputs={textInputs} setTextInputs={setTextInputs} />
 
         <div className={style.box}>
           <h3>Tags</h3>
@@ -237,29 +139,11 @@ function NewRecipe({ initialData, onSubmit, loading, pageTitle }: Props) {
           </div>
         </div>
 
-        <div className={style.box}>
-          <h3>Ingredients*</h3>
-          <div className={style.box__content}>
-            <Ingredients
-              setIngredients={setIngredients}
-              onRemove={onRemoveIngredient}
-              ingredients={ingredients}
-            />
-            <AddButton onClick={onAddIngredient}>Add a ingredient</AddButton>
-          </div>
-        </div>
-
-        <div className={style.box}>
-          <h3>Steps*</h3>
-          <div className={style.box__content}>
-            <Steps
-              steps={steps}
-              onRemove={onRemoveStep}
-              onChange={onStepChange}
-            />
-            <AddButton onClick={onAddStep}>Add a step</AddButton>
-          </div>
-        </div>
+        <RecipeIngredients
+          setIngredients={setIngredients}
+          ingredients={ingredients}
+        />
+        <RecipeSteps steps={steps} setSteps={setSteps} />
 
         <Button
           disabled={disableButton}

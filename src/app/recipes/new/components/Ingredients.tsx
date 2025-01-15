@@ -23,7 +23,7 @@ import { onFieldChange } from '../helper';
 import {
   NewRecipeIngredientState,
   NewRecipeIngredientStates,
-} from '../NewRecipe';
+} from '../../../components/NewRecipe';
 
 export type OnSelectProductProps = ({
   product,

@@ -11,7 +11,7 @@ import useEditRecipeMutation from '@/queries/hooks/useEditRecipeMutation';
 
 import Skeleton from '@/components/Skeleton';
 
-import NewRecipe from '@/app/recipes/new/NewRecipe';
+import NewRecipe from '@/app/components/NewRecipe';
 import { OnSubmitNewRecipe } from '@/app/recipes/new/NewRecipeContainer';
 
 import {

@@ -21,7 +21,7 @@ import NewRecipe, {
   NewRecipeInitialData,
   NewRecipeTags,
   TextInputs,
-} from './NewRecipe';
+} from '../../components/NewRecipe';
 import { getNewIngredient } from './helper';
 
 export interface NewRecipeSubmitProps {

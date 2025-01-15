@@ -1,7 +1,7 @@
 import {
   NewRecipeIngredientStates,
   NewRecipeInitialData,
-} from '@/app/recipes/new/NewRecipe';
+} from '@/app/components/NewRecipe';
 import { NewRecipeSubmitProps } from '@/app/recipes/new/NewRecipeContainer';
 import { IngredientNewProduct } from '@/services/recipes/type';
 import { RecipeDetail } from '@/services/recipe/type';

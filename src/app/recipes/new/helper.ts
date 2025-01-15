@@ -1,6 +1,6 @@
 import { getRandomId } from '@/utils/generateId';
 import { Dispatch, SetStateAction } from 'react';
-import { NewRecipeIngredientState } from './NewRecipe';
+import { NewRecipeIngredientState } from '../../components/NewRecipe';
 
 export const onFieldChange = <T extends { id: string }>(
   setState: Dispatch<SetStateAction<T[]>>,
