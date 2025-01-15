@@ -5,6 +5,7 @@ import style from './style.module.scss';
 import { Product } from '@/services/products/type';
 
 import { ProductInfo } from '@/app/recipes/[recipeKey]/components/Product';
+
 import Icon from '@/components/Icon';
 import CustomImage from '@/components/CustomImage';
 
@@ -12,24 +13,44 @@ import { SelectedProductState } from '.';
 
 interface ExistingProductProps {
   item: Product;
-  selectedProductId?: SelectedProductState['productId'];
-  onClick: (product: Product) => void;
+  selectedProduct: SelectedProductState;
   ingredientName: string;
+  searchedIngredientId?: string;
+  setSelectedProduct: React.Dispatch<
+    React.SetStateAction<SelectedProductState>
+  >;
 }
 
 function ExistingProduct({
   item,
-  selectedProductId,
-  onClick,
+  selectedProduct,
   ingredientName,
+  searchedIngredientId,
+  setSelectedProduct,
 }: ExistingProductProps) {
+  const onClick = (product: Product) => {
+    if (!searchedIngredientId) return;
+
+    if (selectedProduct?.productId === product.id) {
+      setSelectedProduct(null);
+      return;
+    }
+
+    setSelectedProduct({
+      ingredientId: product.ingredientId,
+      name: product.name,
+      productId: product.id,
+      newProduct: null,
+    });
+  };
+
   return (
     <li className={style['product-container']} onClick={() => onClick(item)}>
       <input
         className={style.checkbox}
         type='checkbox'
         id={item.id.toString()}
-        checked={selectedProductId === item.id}
+        checked={selectedProduct?.productId === item.id}
         onChange={() => onClick(item)}
       />
       <div className={style.product}>
