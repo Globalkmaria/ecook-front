@@ -3,6 +3,7 @@ import { ChangeEventHandler, memo } from 'react';
 import style from './style.module.scss';
 
 import { Input } from '@/components/Input';
+
 import { RemoveButton } from './buttons';
 
 export interface Step {

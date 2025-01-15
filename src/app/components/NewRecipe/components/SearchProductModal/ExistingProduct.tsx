@@ -2,12 +2,13 @@ import { memo } from 'react';
 
 import style from './style.module.scss';
 
+import { Product } from '@/services/products/type';
+
 import { ProductInfo } from '@/app/recipes/[recipeKey]/components/Product';
 import Icon from '@/components/Icon';
+import CustomImage from '@/components/CustomImage';
 
 import { SelectedProductState } from '.';
-import { Product } from '@/services/products/type';
-import CustomImage from '@/components/CustomImage';
 
 interface ExistingProductProps {
   item: Product;
