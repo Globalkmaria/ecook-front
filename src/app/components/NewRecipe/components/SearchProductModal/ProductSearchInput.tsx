@@ -8,17 +8,29 @@ import Button from '@/components/Button';
 import { Input } from '@/components/Input';
 
 import { INGREDIENT_TEXT_LIMIT } from '../RecipeIngredientsContent';
+import { SelectedProductState } from '.';
+
+interface Props {
+  searchInput: string;
+  setSearchInput: (value: string) => void;
+  searchIngredient: () => void;
+  setSelectedProduct: React.Dispatch<
+    React.SetStateAction<SelectedProductState>
+  >;
+}
 
 function ProductSearchInput({
   searchInput,
   setSearchInput,
-  handleSearchSubmit,
-}: {
-  searchInput: string;
-  setSearchInput: (value: string) => void;
-  handleSearchSubmit: () => void;
-}) {
-  const handleSearchInputChange: ChangeEventHandler<HTMLInputElement> = (e) =>
+  searchIngredient,
+  setSelectedProduct,
+}: Props) {
+  const onSearchSubmit = () => {
+    searchIngredient();
+    setSelectedProduct(null);
+  };
+
+  const onInputChange: ChangeEventHandler<HTMLInputElement> = (e) =>
     validateLengthAndExecute(
       INGREDIENT_TEXT_LIMIT,
       'Ingredient name',
@@ -26,8 +38,8 @@ function ProductSearchInput({
       () => setSearchInput(e.target.value),
     );
 
-  const handleInputKeydown: KeyboardEventHandler<HTMLInputElement> = (e) => {
-    if (e.key === 'Enter') handleSearchSubmit();
+  const onInputKeydown: KeyboardEventHandler<HTMLInputElement> = (e) => {
+    if (e.key === 'Enter') onSearchSubmit();
   };
 
   return (
@@ -37,10 +49,10 @@ function ProductSearchInput({
         name='search'
         placeholder='Search product with ingredient name'
         value={searchInput}
-        onChange={handleSearchInputChange}
-        onKeyDown={handleInputKeydown}
+        onChange={onInputChange}
+        onKeyDown={onInputKeydown}
       />
-      <Button variant='secondary' onClick={handleSearchSubmit}>
+      <Button variant='secondary' onClick={onSearchSubmit}>
         Search
       </Button>
     </div>

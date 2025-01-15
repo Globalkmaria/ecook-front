@@ -74,11 +74,6 @@ function SearchProductModal({ control, onSelectProduct, ingredient }: Props) {
     });
   };
 
-  const handleSearchSubmit = () => {
-    searchIngredient();
-    setSelectedProduct(null);
-  };
-
   useEffect(() => {
     searchIngredient();
   }, []);
@@ -91,7 +86,8 @@ function SearchProductModal({ control, onSelectProduct, ingredient }: Props) {
           <ProductSearchInput
             searchInput={searchInput}
             setSearchInput={setSearchInput}
-            handleSearchSubmit={handleSearchSubmit}
+            searchIngredient={searchIngredient}
+            setSelectedProduct={setSelectedProduct}
           />
 
           <IngredientInformationHeader />

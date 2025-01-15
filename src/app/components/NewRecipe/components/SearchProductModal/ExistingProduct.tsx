@@ -28,45 +28,47 @@ function ExistingProduct({
   searchedIngredientId,
   setSelectedProduct,
 }: ExistingProductProps) {
-  const onClick = (product: Product) => {
+  const onClick = () => {
     if (!searchedIngredientId) return;
 
-    if (selectedProduct?.productId === product.id) {
+    if (selectedProduct?.productId === item.id) {
       setSelectedProduct(null);
       return;
     }
 
     setSelectedProduct({
-      ingredientId: product.ingredientId,
-      name: product.name,
-      productId: product.id,
+      ingredientId: item.ingredientId,
+      name: item.name,
+      productId: item.id,
       newProduct: null,
     });
   };
 
+  const id = item.id.toString();
+  const checked = selectedProduct?.productId === item.id;
+  const img = item.img ? (
+    <CustomImage
+      src={item.img}
+      alt={item.name}
+      fill
+      loadingClassName={style['img-placeholder']}
+      imgClassName={style['img']}
+    />
+  ) : (
+    <Icon icon='img' className={style['img-icon']} />
+  );
+
   return (
-    <li className={style['product-container']} onClick={() => onClick(item)}>
+    <li className={style['product-container']} onClick={onClick}>
       <input
         className={style.checkbox}
         type='checkbox'
-        id={item.id.toString()}
-        checked={selectedProduct?.productId === item.id}
-        onChange={() => onClick(item)}
+        id={id}
+        checked={checked}
+        onChange={onClick}
       />
       <div className={style.product}>
-        <div className={style['img-box']}>
-          {item.img ? (
-            <CustomImage
-              src={item.img}
-              alt={item.name}
-              fill
-              loadingClassName={style['img-placeholder']}
-              imgClassName={style['img']}
-            />
-          ) : (
-            <Icon icon='img' className={style['img-icon']} />
-          )}
-        </div>
+        <div className={style['img-box']}>{img}</div>
 
         <div className={style['product__info']}>
           <ProductInfo product={item} ingredientName={ingredientName} />
