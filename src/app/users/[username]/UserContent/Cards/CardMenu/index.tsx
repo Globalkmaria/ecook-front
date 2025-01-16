@@ -28,7 +28,7 @@ function CardMenu({ recipeKey }: Props) {
   const params = useParams();
   const editModal = useModal();
   const { mutate } = useDeleteRecipe();
-  const loginUserUsername = useClientStore((state) => state.username);
+  const loginUserUsername = useClientStore((state) => state.user.username);
   const isLoginUser = params.username === loginUserUsername;
 
   if (!isLoginUser) return null;

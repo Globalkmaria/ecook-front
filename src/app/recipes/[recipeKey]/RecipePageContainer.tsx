@@ -1,6 +1,6 @@
 'use client';
 
-import { useParams } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 
 import { recipeOptions } from '@/queries/recipeOptions';
@@ -14,7 +14,9 @@ function RecipePageContainer() {
   const { data: recipe, isError } = useQuery(
     recipeOptions({ key: params.recipeKey }),
   );
-  if (!recipe || isError) return null;
+
+  if (isError) throw new Error('Failed to load recipe');
+  if (!recipe) return notFound();
 
   return (
     <div>

@@ -16,6 +16,7 @@ import { profileOptions } from '@/queries/profileOptions';
 
 import UserProfile from './UserProfile';
 import UserContent from './UserContent';
+import { ECOOK_LOGO_URL } from '@/const/contLinks';
 
 export type UserPageParams = {
   username: string;
@@ -51,6 +52,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `User Profile - Explore Recipes by ${data.username} | E-COOK`,
     description: `Check out recipes shared by ${data.username} on E-COOK. Discover their culinary creations and find inspiration for your next meal.'`,
+    openGraph: {
+      images: [
+        {
+          url: data.img ?? ECOOK_LOGO_URL,
+          width: 600,
+          height: 400,
+        },
+      ],
+    },
   };
 }
 

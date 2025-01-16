@@ -1,9 +1,11 @@
 import { StateCreator } from 'zustand';
 
 type UserState = {
-  username: string | null;
-  img: string | null;
-  isLoggedIn: boolean;
+  user: {
+    username: string | null;
+    img: string | null;
+    isLoggedIn: boolean;
+  };
 };
 
 type UserAction = {
@@ -11,24 +13,39 @@ type UserAction = {
   resetUser: () => void;
 };
 
-type User = Pick<UserState, 'username' | 'img'>;
+type User = Pick<UserState['user'], 'username' | 'img'>;
 
 export type UserStore = UserState & UserAction;
 
 const initialUserState: UserState = {
-  username: null,
-  img: null,
-  isLoggedIn: false,
+  user: {
+    username: null,
+    img: null,
+    isLoggedIn: false,
+  },
 };
 
 export const createUserSlice: StateCreator<
   UserStore,
-  [['zustand/devtools', never]],
+  [['zustand/devtools', never], ['zustand/immer', never]],
   [],
   UserStore
 > = (set, get) => ({
   ...initialUserState,
   setUser: ({ username, img }: User) =>
-    set(() => ({ username, img, isLoggedIn: true }), undefined, 'user/setUser'),
-  resetUser: () => set(() => initialUserState, undefined, 'user/resetUser'),
+    set(
+      (state) => {
+        state.user = { username, img, isLoggedIn: true };
+      },
+      undefined,
+      'user/setUser',
+    ),
+  resetUser: () =>
+    set(
+      (state) => {
+        state.user = { ...initialUserState.user };
+      },
+      undefined,
+      'user/resetUser',
+    ),
 });

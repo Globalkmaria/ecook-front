@@ -22,11 +22,11 @@ export async function generateStaticParams() {
   const result = await getHomeRecipes();
   if (!result.ok) return [];
 
-  return (
+  const recipeKeys =
     result.data?.map((recipe) => ({
       recipeKey: recipe.key,
-    })) ?? []
-  );
+    })) ?? [];
+  return recipeKeys;
 }
 
 export type RecipePageParams = {
@@ -48,6 +48,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${capitalizeFirstLetter(recipe.name)} - E-COOK`,
     description: `Discover ${recipe.name} recipe. Learn how to make it step-by-step!`,
+    openGraph: {
+      images: [
+        {
+          url: recipe.img,
+          width: 600,
+          height: 400,
+        },
+      ],
+    },
   };
 }
 

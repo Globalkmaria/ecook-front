@@ -7,12 +7,11 @@ import style from './style.module.scss';
 
 import useModal from '@/hooks/useModal';
 
-import { lightSlugify, lightTrim } from '@/utils/normalize';
-
 import { Dropbox, DropboxItem, DropboxWrapper } from '@/components/Dropbox';
 import Icon from '@/components/Icon';
 import { SEARCH_MENU_ITEMS, SEARCH_MENU_ITEMS_MAP } from '@/const/searchMenu';
-import { getSearchMenuItem, getSearchQuery } from './helper';
+
+import { getSearchMenuItem, getSearchQuery, getSearchURL } from './helper';
 
 function SearchContainer() {
   const router = useRouter();
@@ -30,8 +29,7 @@ function SearchContainer() {
   const onSearch = () => {
     if (!searchQuery.trim()) return;
 
-    const query = lightSlugify(searchQuery);
-    router.push(`/search?type=${selectedMenuItem}&q=${lightTrim(query)}`);
+    router.push(getSearchURL(selectedMenuItem, searchQuery));
   };
 
   const onMenuChange = (menuItem: string) => setSelectedMenuItem(menuItem);
@@ -40,9 +38,13 @@ function SearchContainer() {
     if (e.key === 'Enter') onSearch();
   };
 
-  useEffect(() => {
+  const initSearchStates = () => {
     setSearchQuery(getSearchQuery(searchParams.get('q')));
     setSelectedMenuItem(getSearchMenuItem(searchParams.get('type')));
+  };
+
+  useEffect(() => {
+    initSearchStates();
   }, [searchParams]);
 
   return (
@@ -82,7 +84,7 @@ function SearchMenu({ onMenuChange, selectedMenuItem }: SearchMenuProps) {
 
   const menuArrow = isOpen ? <Icon icon='up' /> : <Icon icon='down' />;
 
-  const onClick = (value: string) => {
+  const onMenuItemSelect = (value: string) => {
     onMenuChange(value);
     onClose();
   };
@@ -99,7 +101,7 @@ function SearchMenu({ onMenuChange, selectedMenuItem }: SearchMenuProps) {
             <DropboxItem
               key={menuItem.value}
               selected={selectedMenuItem === menuItem.value}
-              onClick={() => onClick(menuItem.value)}
+              onClick={() => onMenuItemSelect(menuItem.value)}
             >
               <span>{menuItem.label}</span>
             </DropboxItem>

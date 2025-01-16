@@ -1,4 +1,4 @@
-import { fetchAPI } from '@/utils/api';
+import { fetchAPI } from '@/services/api';
 import { User } from '../users/type';
 import { FetchResult } from '../type';
 

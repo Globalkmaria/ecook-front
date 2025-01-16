@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://www.ecook.online/',
+    url: 'https://www.ecook.online',
     siteName: 'E-COOK',
     title: 'Explore Delicious Recipes | E-COOK',
     description:
