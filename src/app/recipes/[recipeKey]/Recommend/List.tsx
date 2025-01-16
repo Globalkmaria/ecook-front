@@ -15,11 +15,12 @@ function List() {
   const { data, isError } = useQuery(
     recipeRecommendOptions({ key: params.recipeKey }),
   );
-  if (!data || isError) return null;
+  if (isError) <Error />;
+  if (!data) return null;
 
   return (
     <ul className={style['list']}>
-      {data?.map((item, index) => (
+      {data.map((item, index) => (
         <li className={style['item']} key={index}>
           <Card data={item} key={index} />
         </li>
@@ -29,3 +30,7 @@ function List() {
 }
 
 export default List;
+
+function Error() {
+  return <div>Failed to load recommendations. Try again later.</div>;
+}

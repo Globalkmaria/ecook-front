@@ -34,8 +34,6 @@ function Recipe({ recipe }: Props) {
     getListCheckboxInitialState(recipe.steps),
   );
 
-  if (!recipe) return null;
-
   const time = formatTime({
     hours: recipe.hours,
     minutes: recipe.minutes,
