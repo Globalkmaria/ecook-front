@@ -22,7 +22,7 @@ import {
 function NewRecipeContainer() {
   const router = useRouter();
   const [resetUser, username] = useClientStore(
-    useShallow((state) => [state.resetUser, state.username]),
+    useShallow((state) => [state.resetUser, state.user.username]),
   );
   const [isLoading, startTransition] = useTransition();
   const queryClient = useQueryClient();

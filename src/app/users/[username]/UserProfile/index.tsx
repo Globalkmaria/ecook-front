@@ -14,7 +14,7 @@ import { AvatarImg } from '@/components/Avatar';
 import { UserPageParams } from '../page';
 
 function UserProfile() {
-  const isLoggedIn = useClientStore((state) => state.isLoggedIn);
+  const isLoggedIn = useClientStore((state) => state.user.isLoggedIn);
   const params = useParams<UserPageParams>();
 
   const {

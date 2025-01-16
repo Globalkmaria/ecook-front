@@ -23,9 +23,9 @@ function NavRightButtons() {
   const [resetUser, username, img, isLoggedIn] = useClientStore(
     useShallow((state) => [
       state.resetUser,
-      state.username,
-      state.img,
-      state.isLoggedIn,
+      state.user.username,
+      state.user.img,
+      state.user.isLoggedIn,
     ]),
   );
 

@@ -15,7 +15,7 @@ function useDeleteRecipeMutation() {
   const queryClient = useQueryClient();
   const router = useRouter();
   const [resetUser, username] = useClientStore(
-    useShallow((state) => [state.resetUser, state.username]),
+    useShallow((state) => [state.resetUser, state.user.username]),
   );
 
   const result = useMutation({
