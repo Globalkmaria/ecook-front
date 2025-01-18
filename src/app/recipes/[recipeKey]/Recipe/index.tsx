@@ -15,6 +15,7 @@ import { Tab, TabsContainer } from '@/components/Tab';
 import Avatar from '@/components/Avatar';
 import AnchorUnderline from '@/components/Anchor/AnchorUnderline';
 import CustomImage from '@/components/CustomImage';
+import { getListCheckboxInitialState } from '@/components/CheckboxList/helper';
 
 import Ingredients from './IngredientList';
 import { RECIPE_TABS, RecipeTab } from '../const';
@@ -30,7 +31,6 @@ function Recipe({ recipe }: Props) {
     minutes: recipe.minutes,
   });
   const userLink = getUserLink(recipe.user.username);
-
   return (
     <section className={style.wrapper}>
       <div>
@@ -78,6 +78,10 @@ export default Recipe;
 
 function ContentBody({ recipe }: { recipe: RecipeDetail }) {
   const [tab, setTab] = useState<RecipeTab>('Ingredients');
+  const stepsState = useState(getListCheckboxInitialState(recipe.steps));
+  const ingredientsState = useState(
+    getListCheckboxInitialState(recipe.ingredients),
+  );
 
   return (
     <div className={style['content__body']}>
@@ -91,9 +95,14 @@ function ContentBody({ recipe }: { recipe: RecipeDetail }) {
 
       <div className={style.info}>
         {tab === 'Ingredients' && (
-          <Ingredients ingredients={recipe.ingredients} />
+          <Ingredients
+            ingredients={recipe.ingredients}
+            state={ingredientsState}
+          />
         )}
-        {tab === 'Steps' && <StepList steps={recipe.steps} />}
+        {tab === 'Steps' && (
+          <StepList state={stepsState} steps={recipe.steps} />
+        )}
       </div>
     </div>
   );

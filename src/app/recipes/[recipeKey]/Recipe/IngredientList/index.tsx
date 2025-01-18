@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback } from 'react';
 
 import style from './style.module.scss';
 
@@ -8,22 +8,22 @@ import { getSearchIngredientLink } from '@/helpers/link';
 
 import { ListItem } from '@/components/List';
 import SearchIconLink from '@/components/SearchIconLink';
-import { getListCheckboxInitialState } from '@/components/CheckboxList/helper';
 
 import InformationButton from './InformationButton';
 
 interface Props {
+  state: [
+    Record<string, boolean>,
+    React.Dispatch<React.SetStateAction<Record<string, boolean>>>,
+  ];
   ingredients: RecipeDetail['ingredients'];
 }
 
-function Ingredients({ ingredients }: Props) {
-  const [ingredientsChecked, setIngredientsChecked] = useState(
-    getListCheckboxInitialState(ingredients),
-  );
-
+function Ingredients({ ingredients, state }: Props) {
+  const [checkedList, setCheckedList] = state;
   const onIngredientsToggle = useCallback(
     (index: number) =>
-      setIngredientsChecked((prev) => ({
+      setCheckedList((prev) => ({
         ...prev,
         [index]: !prev[index],
       })),
@@ -37,7 +37,7 @@ function Ingredients({ ingredients }: Props) {
           key={index}
           ingredient={ingredient}
           onChange={onIngredientsToggle}
-          selected={ingredientsChecked[index]}
+          selected={checkedList[index]}
           index={index}
         />
       ))}
