@@ -88,12 +88,8 @@ function Recipe({ recipe }: Props) {
 
           <div className={style['content__body']}>
             <TabsContainer>
-              {RECIPE_TABS.map((item) => (
-                <Tab
-                  key={item}
-                  selected={item === tab}
-                  onClick={() => setTab(item)}
-                >
+              {RECIPE_TABS.map((item, index) => (
+                <Tab key={item} index={index} onClick={() => setTab(item)}>
                   {item}
                 </Tab>
               ))}
