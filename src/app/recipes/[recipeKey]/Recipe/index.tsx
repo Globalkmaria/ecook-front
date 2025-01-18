@@ -12,43 +12,24 @@ import { getSearchTagLink, getUserLink } from '@/helpers/link';
 
 import Chip, { ChipsContainer } from '@/components/Chip';
 import { Tab, TabsContainer } from '@/components/Tab';
-import { getListCheckboxInitialState } from '@/components/helpers';
-import CheckboxList from '@/components/CheckboxList';
 import Avatar from '@/components/Avatar';
 import AnchorUnderline from '@/components/Anchor/AnchorUnderline';
 import CustomImage from '@/components/CustomImage';
 
 import Ingredients from '../components/IngredientList';
 import { RECIPE_TABS, RecipeTab } from '../const';
+import StepList from './StepList';
 
 interface Props {
   recipe: RecipeDetail;
 }
 
 function Recipe({ recipe }: Props) {
-  const [tab, setTab] = useState<RecipeTab>('Ingredients');
-  const [ingredientsChecked, setIngredientsChecked] = useState(
-    getListCheckboxInitialState(recipe.ingredients),
-  );
-  const [stepsChecked, setStepsChecked] = useState(
-    getListCheckboxInitialState(recipe.steps),
-  );
-
   const time = formatTime({
     hours: recipe.hours,
     minutes: recipe.minutes,
   });
-
   const userLink = getUserLink(recipe.user.username);
-
-  const onIngredientsToggle = (id: number) =>
-    setIngredientsChecked({
-      ...ingredientsChecked,
-      [id]: !ingredientsChecked[id],
-    });
-
-  const onStepsToggle = (id: number) =>
-    setStepsChecked({ ...stepsChecked, [id]: !stepsChecked[id] });
 
   return (
     <section className={style.wrapper}>
@@ -86,32 +67,7 @@ function Recipe({ recipe }: Props) {
           </div>
           <div className={style.time}>{time}</div>
 
-          <div className={style['content__body']}>
-            <TabsContainer>
-              {RECIPE_TABS.map((item, index) => (
-                <Tab key={item} index={index} onClick={() => setTab(item)}>
-                  {item}
-                </Tab>
-              ))}
-            </TabsContainer>
-
-            <div className={style.info}>
-              {tab === 'Ingredients' && (
-                <Ingredients
-                  state={ingredientsChecked}
-                  ingredients={recipe.ingredients}
-                  onChange={onIngredientsToggle}
-                />
-              )}
-              {tab === 'Steps' && (
-                <CheckboxList
-                  state={stepsChecked}
-                  items={recipe.steps}
-                  onChange={onStepsToggle}
-                />
-              )}
-            </div>
-          </div>
+          <ContentBody recipe={recipe} />
         </div>
       </div>
     </section>
@@ -119,3 +75,26 @@ function Recipe({ recipe }: Props) {
 }
 
 export default Recipe;
+
+function ContentBody({ recipe }: { recipe: RecipeDetail }) {
+  const [tab, setTab] = useState<RecipeTab>('Ingredients');
+
+  return (
+    <div className={style['content__body']}>
+      <TabsContainer>
+        {RECIPE_TABS.map((item, index) => (
+          <Tab key={item} index={index} onClick={() => setTab(item)}>
+            {item}
+          </Tab>
+        ))}
+      </TabsContainer>
+
+      <div className={style.info}>
+        {tab === 'Ingredients' && (
+          <Ingredients ingredients={recipe.ingredients} />
+        )}
+        {tab === 'Steps' && <StepList steps={recipe.steps} />}
+      </div>
+    </div>
+  );
+}
