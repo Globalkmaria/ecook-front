@@ -16,7 +16,7 @@ import Avatar from '@/components/Avatar';
 import AnchorUnderline from '@/components/Anchor/AnchorUnderline';
 import CustomImage from '@/components/CustomImage';
 
-import Ingredients from '../components/IngredientList';
+import Ingredients from './IngredientList';
 import { RECIPE_TABS, RecipeTab } from '../const';
 import StepList from './StepList';
 

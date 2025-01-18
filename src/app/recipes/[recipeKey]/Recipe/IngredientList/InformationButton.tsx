@@ -4,7 +4,7 @@ import { Ingredient } from '@/services/recipe/type';
 
 import useModal from '@/hooks/useModal';
 
-import IngredientInformationModal from '../IngredientInformation';
+import IngredientInformationModal from './IngredientInformation';
 import Icon from '@/components/Icon';
 
 interface Props {
