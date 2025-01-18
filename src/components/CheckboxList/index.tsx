@@ -1,25 +1,50 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 
 import style from './style.module.scss';
 
 import { ListItem } from '@/components/List';
 
+import { getListCheckboxInitialState } from './helper';
+
 interface CheckboxListProps {
   items: readonly string[];
-  state: Record<string, boolean>;
+  state?: Record<string, boolean>;
   onChange?: (index: number) => void;
 }
 
-function CheckboxList({ items, state, onChange }: CheckboxListProps) {
+function CheckboxList({
+  items,
+  state: outerState,
+  onChange,
+}: CheckboxListProps) {
+  const [innerState, setInnerState] = useState(
+    getListCheckboxInitialState(items),
+  );
+
+  const handleOnChange = (index: number) => {
+    if (outerState === undefined) {
+      setInnerState((prev) => ({
+        ...prev,
+        [index]: !prev[index],
+      }));
+    }
+
+    if (onChange) {
+      onChange(index);
+    }
+  };
+
+  const state = outerState ?? innerState;
+
   return (
     <ul>
-      {items.map((item, i) => (
+      {items.map((item, index) => (
         <Item
-          key={i}
+          key={index}
           item={item}
-          checked={state[i]}
-          index={i}
-          onChange={onChange}
+          checked={state[index]}
+          index={index}
+          onChange={handleOnChange}
         />
       ))}
     </ul>

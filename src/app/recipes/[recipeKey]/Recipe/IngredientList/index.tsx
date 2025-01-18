@@ -8,7 +8,7 @@ import { getSearchIngredientLink } from '@/helpers/link';
 
 import { ListItem } from '@/components/List';
 import SearchIconLink from '@/components/SearchIconLink';
-import { getListCheckboxInitialState } from '@/components/helpers';
+import { getListCheckboxInitialState } from '@/components/CheckboxList/helper';
 
 import InformationButton from './InformationButton';
 
