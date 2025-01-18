@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactEventHandler, useState } from 'react';
+import { memo, ReactEventHandler, useState } from 'react';
 import Image, { ImageProps } from 'next/image';
 
 import style from './style.module.scss';
@@ -57,4 +57,4 @@ const CustomImage = ({
   );
 };
 
-export default CustomImage;
+export default memo(CustomImage);
