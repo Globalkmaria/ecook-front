@@ -51,7 +51,11 @@ export const createRecipe = async (
 
     if (response.res.status === 401) {
       alert('Please login again to use the service');
-      return { ok: false, error: 'Please login again to use the service' };
+      return {
+        ok: false,
+        error: 'Please login again to use the service',
+        res: response.res,
+      };
     }
 
     throw new Error(response.res.statusText);

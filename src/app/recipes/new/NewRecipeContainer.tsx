@@ -27,12 +27,12 @@ function NewRecipeContainer() {
   const [isLoading, startTransition] = useTransition();
   const queryClient = useQueryClient();
 
-  if (!username) {
-    router.replace('/login');
-    return;
-  }
-
   const onSubmit = async (data: NewRecipeSubmitProps) => {
+    if (!username) {
+      router.replace('/login');
+      return;
+    }
+
     if (isLoading) return;
     if (!validateNewRecipeData(data)) {
       alert('Please fill in all required fields');
