@@ -8,33 +8,31 @@ import { getListCheckboxInitialState } from './helper';
 
 interface CheckboxListProps {
   items: readonly string[];
-  state?: Record<string, boolean>;
+  checkedItems?: Record<string, boolean>;
   onChange?: (index: number) => void;
 }
 
 function CheckboxList({
   items,
-  state: outerState,
+  checkedItems: outerCheckedItems,
   onChange,
 }: CheckboxListProps) {
-  const [innerState, setInnerState] = useState(
+  const [innerCheckedItems, setInnerCheckedItems] = useState(
     getListCheckboxInitialState(items),
   );
 
   const handleOnChange = (index: number) => {
-    if (outerState === undefined) {
-      setInnerState((prev) => ({
+    if (outerCheckedItems === undefined) {
+      setInnerCheckedItems((prev) => ({
         ...prev,
         [index]: !prev[index],
       }));
     }
 
-    if (onChange) {
-      onChange(index);
-    }
+    onChange && onChange(index);
   };
 
-  const state = outerState ?? innerState;
+  const finalCheckedItems = outerCheckedItems ?? innerCheckedItems;
 
   return (
     <ul>
@@ -42,7 +40,7 @@ function CheckboxList({
         <Item
           key={index}
           item={item}
-          checked={state[index]}
+          checked={finalCheckedItems[index]}
           index={index}
           onChange={handleOnChange}
         />
