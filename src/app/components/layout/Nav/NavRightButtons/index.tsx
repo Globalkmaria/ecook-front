@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useTransition } from 'react';
+import { useEffect, useRef, useState, useTransition } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useShallow } from 'zustand/shallow';
@@ -23,6 +23,13 @@ function NavRightButtons() {
   const [resetUser, user] = useClientStore(
     useShallow((state) => [state.resetUser, state.user]),
   );
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return null;
 
   const userImgInfo = {
     username: user.username ?? '',
