@@ -1,8 +1,7 @@
 import { memo, useCallback } from 'react';
 
 import style from './style.module.scss';
-
-import { getNewIngredient } from '@/app/recipes/new/helper';
+import { getNewIngredient } from '@/app/sn/recipes/new/helper';
 
 import { NewRecipeIngredientStates } from '.';
 import RecipeIngredientsContent from './components/RecipeIngredientsContent';

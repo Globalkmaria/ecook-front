@@ -9,7 +9,8 @@ import { getProducts } from '@/services/products';
 import useModal from '@/hooks/useModal';
 
 import { Modal } from '@/components/Modal';
-import IngredientInformationHeader from '@/app/recipes/[recipeKey]/Recipe/IngredientList/IngredientInformation/IngredientInformationHeader';
+
+import IngredientInformationHeader from '@/app/sn/recipes/[recipeKey]/Recipe/IngredientList/IngredientInformation/IngredientInformationHeader';
 
 import { NewRecipeIngredientState } from '../..';
 import NewProduct from './NewProduct';
