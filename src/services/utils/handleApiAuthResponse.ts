@@ -1,6 +1,9 @@
 'use client';
 
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+
+import { LOGIN_LINK } from '@/helpers/link';
+
 import { FetchOutcome } from '../type';
 
 export const handleApiAuthResponse = <T>(
@@ -11,7 +14,7 @@ export const handleApiAuthResponse = <T>(
   if (!response.ok) {
     if (response.res?.status === 401) {
       resetUser();
-      router.push('/login');
+      router.push(LOGIN_LINK);
       return null;
     }
   }

@@ -7,6 +7,8 @@ import { useShallow } from 'zustand/shallow';
 
 import { useClientStore } from '@/providers/client-store-provider';
 
+import { getRecipeLink, LOGIN_LINK } from '@/helpers/link';
+
 import { QUERY_KEY__PROFILE, QUERY_KEY__RECIPE_LIST } from '@/queries';
 
 import { createRecipe } from '@/services/recipes';
@@ -29,7 +31,7 @@ function NewRecipeContainer() {
 
   const onSubmit = async (data: NewRecipeSubmitProps) => {
     if (!username) {
-      router.replace('/login');
+      router.replace(LOGIN_LINK);
       return;
     }
 
@@ -55,7 +57,7 @@ function NewRecipeContainer() {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEY__PROFILE, username],
       });
-      router.replace(`/recipes/${result.data.key}`);
+      router.replace(getRecipeLink(result.data.key));
     });
   };
 

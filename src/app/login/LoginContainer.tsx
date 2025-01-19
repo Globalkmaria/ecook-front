@@ -10,6 +10,8 @@ import style from './LoginContainer.module.scss';
 
 import { login } from '@/services/auth';
 
+import { HOME_LINK, SIGNUP_LINK } from '@/helpers/link';
+
 import Button from '@/components/Button';
 import { Input } from '@/components/Input';
 
@@ -37,7 +39,7 @@ function LoginContainer() {
         img: result.data.img ?? null,
       };
       setUser(user);
-      router.push('/');
+      router.push(HOME_LINK);
     });
   };
 
@@ -72,7 +74,7 @@ function LoginContainer() {
 
           <div className={style.register}>
             <p>{`Don't have an account?`}</p>
-            <Link href='/signup'>Sign up</Link>
+            <Link href={SIGNUP_LINK}>Sign up</Link>
           </div>
         </form>
       </div>

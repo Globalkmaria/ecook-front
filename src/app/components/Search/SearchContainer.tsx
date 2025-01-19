@@ -7,11 +7,13 @@ import style from './style.module.scss';
 
 import useModal from '@/hooks/useModal';
 
+import { getSearchURL } from '@/helpers/link';
+
 import { Dropbox, DropboxItem, DropboxWrapper } from '@/components/Dropbox';
 import Icon from '@/components/Icon';
 import { SEARCH_MENU_ITEMS, SEARCH_MENU_ITEMS_MAP } from '@/const/searchMenu';
 
-import { getSearchMenuItem, getSearchQuery, getSearchURL } from './helper';
+import { getSearchMenuItem, getSearchQuery } from './helper';
 
 function SearchContainer() {
   const router = useRouter();

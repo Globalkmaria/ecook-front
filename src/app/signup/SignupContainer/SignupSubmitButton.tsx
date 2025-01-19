@@ -1,14 +1,17 @@
+import { useRouter } from 'next/navigation';
+
 import style from './style.module.scss';
 
 import { useClientStore } from '@/providers/client-store-provider';
 
 import { signup } from '@/services/auth';
 
-import { getSignupFormData, validateSignupFormAndAlert } from './helper';
+import { HOME_LINK } from '@/helpers/link';
+
+import Button from '@/components/Button';
 
 import { SignupFormState } from '.';
-import Button from '@/components/Button';
-import { useRouter } from 'next/navigation';
+import { getSignupFormData, validateSignupFormAndAlert } from './helper';
 
 interface Props {
   isLoadingSignup: boolean;
@@ -47,7 +50,7 @@ function SignupSubmitButton({
       };
       setUser(user);
 
-      router.push('/');
+      router.push(HOME_LINK);
     });
   };
 
