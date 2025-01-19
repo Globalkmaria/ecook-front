@@ -1,10 +1,12 @@
+import { ImageProps } from 'next/image';
 import Link from 'next/link';
 
 import style from './style.module.scss';
 
+import { getRecipeLink } from '@/helpers/link';
+
 import CustomImage from '../CustomImage';
 import Avatar from '../Avatar';
-import { ImageProps } from 'next/image';
 
 interface Data {
   name: string;
@@ -25,7 +27,7 @@ function Card({ data, imageProps }: CardProps) {
   return (
     <Link
       scroll={false}
-      href={`/recipes/${data.key}`}
+      href={getRecipeLink(data.key)}
       className={style['card']}
     >
       <CustomImage

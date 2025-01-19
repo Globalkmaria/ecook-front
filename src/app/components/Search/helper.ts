@@ -10,8 +10,3 @@ export const getSearchQuery = (value: string | null) =>
 
 export const getSearchMenuItem = (value: string | null) =>
   value && SEARCH_MENU_VALUES.includes(value) ? value : SEARCH_MENU_DEFAULT;
-
-export const getSearchURL = (type: string, query: string) => {
-  const sluggedQuery = lightSlugify(query);
-  return `/search?type=${type}&q=${sluggedQuery}`;
-};

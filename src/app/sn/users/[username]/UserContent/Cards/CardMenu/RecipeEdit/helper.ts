@@ -9,7 +9,7 @@ import { EditRecipeData } from '.';
 import {
   appendProductImgsToFormData,
   appendRecipeImgToFormData,
-} from '@/app/recipes/new/helper';
+} from '@/app/sn/recipes/new/helper';
 
 export const checkRequiredFieldsFilled = (data: NewRecipeSubmitProps) =>
   data.img &&

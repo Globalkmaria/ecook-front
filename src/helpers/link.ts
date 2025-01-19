@@ -1,13 +1,26 @@
 import { lightSlugify } from '@/utils/normalize';
 
-export const getUserLink = (username: string) => `/users/${username}`;
+export const getUserLink = (username: string) => `/sn/users/${username}`;
 
-export const getSearchTagLink = (tag: string) => `/search?type=tag&q=${tag}`;
+export const getSearchTagLink = (tag: string) => `/sn/search?type=tag&q=${tag}`;
 
 export const getSearchIngredientLink = (ingredient: string) =>
-  `/search?type=ingredient&q=${ingredient}`;
+  `/sn/search?type=ingredient&q=${ingredient}`;
 
 export const getSearchProductLink = (product: string) =>
-  `/search?type=product&q=${lightSlugify(product)}`;
+  `/sn/search?type=product&q=${lightSlugify(product)}`;
 
-export const getRecipeLink = (recipeKey: string) => `/recipes/${recipeKey}`;
+export const getSearchURL = (type: string, query: string) => {
+  const sluggedQuery = lightSlugify(query);
+  return `/sn/search?type=${type}&q=${sluggedQuery}`;
+};
+
+export const getRecipeLink = (recipeKey: string) => `/sn/recipes/${recipeKey}`;
+
+export const NEW_RECIPE_LINK = `/sn/recipes/new`;
+
+export const SIGNUP_LINK = `/signup`;
+
+export const LOGIN_LINK = `/login`;
+
+export const HOME_LINK = `/`;

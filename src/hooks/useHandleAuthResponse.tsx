@@ -6,6 +6,8 @@ import { useClientStore } from '@/providers/client-store-provider';
 
 import { FetchResult, FetchSuccessResult } from '@/services/type';
 
+import { LOGIN_LINK } from '@/helpers/link';
+
 type Props<T> = {
   request: FetchResult<T>;
   options: {
@@ -28,7 +30,7 @@ function useHandleAuthResponse() {
       if (!response.ok) {
         if (response.res?.status === 401) {
           resetUser();
-          router.push('/login');
+          router.push(LOGIN_LINK);
           return null;
         }
         if (options.onFailure)

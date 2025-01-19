@@ -7,6 +7,8 @@ import { RecipeSimple } from '@/services/recipe/type';
 import { getLimitedText } from '@/utils/text';
 import { formatTime } from '@/utils/time';
 
+import { getRecipeLink } from '@/helpers/link';
+
 import Chip, { ChipsContainer } from '@/components/Chip';
 import CustomImage from '@/components/CustomImage';
 import Avatar from '@/components/Avatar';
@@ -37,7 +39,7 @@ function Item({ recipe }: ItemProps) {
 
   return (
     <li className={style.wrapper}>
-      <Link href={`/recipes/${recipe.key}`} className={style.card}>
+      <Link href={getRecipeLink(recipe.key)} className={style.card}>
         <div className={style['top-overlay']}>
           <div className={style['avatar']}>
             <Avatar user={recipe.user} />

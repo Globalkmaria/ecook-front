@@ -7,6 +7,8 @@ import style from './style.module.scss';
 
 import { createInputHandler } from '@/utils/createInputHandler';
 
+import { LOGIN_LINK } from '@/helpers/link';
+
 import { Input } from '@/components/Input';
 import ImageUploader from '@/components/imageUploader';
 
@@ -103,7 +105,7 @@ function SignupContainer() {
 
           <div className={style.register}>
             <p>Already have an account?</p>
-            <Link href='/login'>Sign In</Link>
+            <Link href={LOGIN_LINK}>Sign In</Link>
           </div>
         </div>
       </div>

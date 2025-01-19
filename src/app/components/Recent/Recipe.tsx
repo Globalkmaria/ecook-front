@@ -6,6 +6,8 @@ import { RecipeSimple } from '@/services/recipe/type';
 
 import { getLimitedWords } from '@/utils/text';
 
+import { getRecipeLink } from '@/helpers/link';
+
 import Chip, { ChipsContainer } from '@/components/Chip';
 import CustomImage from '@/components/CustomImage';
 
@@ -21,7 +23,7 @@ function Recipe({ recipe, idx }: Props) {
     <Link
       className={style[`item--${idx + 1}`]}
       scroll={false}
-      href={`/recipes/${recipe.key}`}
+      href={getRecipeLink(recipe.key)}
     >
       <div className={style.container}>
         <div className={style['hover-content']}>

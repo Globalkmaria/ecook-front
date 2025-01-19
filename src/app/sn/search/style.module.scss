@@ -1,11 +1,5 @@
 @use '@/styles/theme.scss' as *;
 
-.layout-container {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
 .wrapper {
   width: 100%;
   height: 100%;

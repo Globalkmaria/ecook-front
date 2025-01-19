@@ -11,6 +11,14 @@ import { useClientStore } from '@/providers/client-store-provider';
 
 import { logout } from '@/services/auth';
 
+import {
+  NEW_RECIPE_LINK,
+  getUserLink,
+  HOME_LINK,
+  LOGIN_LINK,
+  SIGNUP_LINK,
+} from '@/helpers/link';
+
 import { AvatarImg } from '@/components/Avatar';
 import Anchor from '@/components/Anchor';
 import { Dropbox, DropboxItem, DropboxWrapper } from '@/components/Dropbox';
@@ -42,7 +50,7 @@ function NavRightButtons() {
     startTransition(async () => {
       await logout();
       resetUser();
-      router.push('/');
+      router.push(HOME_LINK);
     });
   };
 
@@ -50,12 +58,12 @@ function NavRightButtons() {
 
   return (
     <div className={style['right-buttons']}>
-      <Anchor href='/recipes/new' className={style.new}>
+      <Anchor href={NEW_RECIPE_LINK} className={style.new}>
         <Icon icon='add' className={style['new__icon']} />
         <span className={style['new__text']}>New recipes</span>
       </Anchor>
       <div className={style.profile}>
-        <Link href={`/users/${user.username}`}>
+        <Link href={getUserLink(user.username ?? '')}>
           <AvatarImg user={userImgInfo} size={48} hoverable />
         </Link>
         <DropboxWrapper ref={ref}>
@@ -75,10 +83,10 @@ export default NavRightButtons;
 function NotLoggedInMenu() {
   return (
     <div className={style['right-buttons']}>
-      <Anchor variant='secondary' href='/signup'>
+      <Anchor variant='secondary' href={SIGNUP_LINK}>
         Sign up
       </Anchor>
-      <Anchor href='/login'>Login</Anchor>
+      <Anchor href={LOGIN_LINK}>Login</Anchor>
     </div>
   );
 }
