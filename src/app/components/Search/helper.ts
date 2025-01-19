@@ -13,5 +13,5 @@ export const getSearchMenuItem = (value: string | null) =>
 
 export const getSearchURL = (type: string, query: string) => {
   const sluggedQuery = lightSlugify(query);
-  return `/search?type=${type}&q=${sluggedQuery}`;
+  return `/sn/search?type=${type}&q=${sluggedQuery}`;
 };
