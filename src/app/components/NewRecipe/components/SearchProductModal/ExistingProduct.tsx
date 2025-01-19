@@ -4,7 +4,7 @@ import style from './style.module.scss';
 
 import { Product } from '@/services/products/type';
 
-import { ProductInfoContent } from '@/app/recipes/[recipeKey]/components/Product';
+import { ProductInfoContent } from '@/app/recipes/[recipeKey]/Recipe/IngredientList/IngredientInformation/Product';
 
 import Icon from '@/components/Icon';
 import CustomImage from '@/components/CustomImage';

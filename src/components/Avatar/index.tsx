@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import style from './style.module.scss';
 
 import { joinClassNames } from '@/utils/style';
@@ -32,9 +34,9 @@ function Avatar({ user: { img, username }, size = 32 }: AvatarProps) {
   );
 }
 
-export default Avatar;
+export default memo(Avatar);
 
-export function AvatarImg({
+export const AvatarImg = memo(function AvatarImg({
   user: { img, username },
   size = 32,
   hoverable,
@@ -63,4 +65,4 @@ export function AvatarImg({
       </div>
     </div>
   );
-}
+});

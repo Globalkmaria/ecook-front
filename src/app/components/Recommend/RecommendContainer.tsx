@@ -30,12 +30,8 @@ function RecommendContainer({
         <h2 className={style['title']}>Tag ideas : </h2>
         <div className={style['tabs']}>
           <TabsContainer2>
-            {types.map((tag) => (
-              <Tab2
-                selected={selectedTag === tag}
-                onClick={() => onTabChange(tag)}
-                key={tag}
-              >
+            {types.map((tag, index) => (
+              <Tab2 index={index} onClick={() => onTabChange(tag)} key={tag}>
                 {tag}
               </Tab2>
             ))}

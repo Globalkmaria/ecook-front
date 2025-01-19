@@ -50,8 +50,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const data = result.data;
   return {
-    title: `User Profile - Explore Recipes by ${data.username} | E-COOK`,
-    description: `Check out recipes shared by ${data.username} on E-COOK. Discover their culinary creations and find inspiration for your next meal.'`,
+    title: `${data.username}`,
+    description: `Check out recipes shared by ${data.username} on E-COOK.`,
     openGraph: {
       images: [
         {
