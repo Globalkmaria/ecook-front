@@ -32,13 +32,9 @@ export async function generateStaticParams() {
   const result = await getHomeRecipes();
   if (!result.ok) return [];
 
-  const users = new Set(
-    result.data.map((recipe) => ({
-      username: recipe.user.username,
-    })),
-  );
+  const users = new Set(result.data.map((recipe) => recipe.user.username));
 
-  return [...users];
+  return [...users].map((username) => ({ username }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
