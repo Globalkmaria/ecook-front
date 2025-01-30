@@ -8,14 +8,18 @@ import { recipeListOptions } from '@/queries/recipeListOptions';
 import { UserPageParams } from '../page';
 
 import Cards from './Cards';
+import { useClientStore } from '@/providers/client-store-provider';
 
 function RecipeList() {
   const params = useParams<UserPageParams>();
+  const username = useClientStore((state) => state.user.username);
+  const isUserProfile = params.username === username;
 
   const { data, error } = useQuery(
     recipeListOptions({
       query: params.username || '',
       type: 'username',
+      enabled: isUserProfile,
       staleTime: 180000, // 3 minutes
     }),
   );

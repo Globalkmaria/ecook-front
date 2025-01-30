@@ -11,12 +11,14 @@ import style from './style.module.scss';
 import { getProfile } from '@/services/users';
 import { getHomeRecipes } from '@/services/recipes';
 
+import { ECOOK_LOGO_URL } from '@/const/contLinks';
+
+import { productsOptions } from '@/queries/productsOptions';
 import { recipeListOptions } from '@/queries/recipeListOptions';
 import { profileOptions } from '@/queries/profileOptions';
 
 import UserProfile from './UserProfile';
 import UserContent from './UserContent';
-import { ECOOK_LOGO_URL } from '@/const/contLinks';
 
 export type UserPageParams = {
   username: string;
@@ -68,6 +70,12 @@ async function UserPage({ params }: Props) {
 
   await Promise.all([
     queryClient.prefetchQuery(
+      profileOptions({
+        username,
+        staleTime: 180000, // 3 minutes
+      }),
+    ),
+    queryClient.prefetchQuery(
       recipeListOptions({
         query: username || '',
         type: 'username',
@@ -75,9 +83,10 @@ async function UserPage({ params }: Props) {
       }),
     ),
     queryClient.prefetchQuery(
-      profileOptions({
-        username,
-        staleTime: 180000, // 3 minutes
+      productsOptions({
+        type: 'username',
+        q: username || '',
+        staleTime: 180000,
       }),
     ),
   ]);
