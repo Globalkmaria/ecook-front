@@ -1,6 +1,6 @@
 export interface Product {
   id: string;
-  ingredientId: string;
+  ingredient: { id: string; name: string };
   userId: string;
   name: string;
   brand: string;
@@ -9,4 +9,5 @@ export interface Product {
   img: string;
   createdAt: Date;
   updatedAt: Date;
+  key: string;
 }

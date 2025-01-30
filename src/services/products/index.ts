@@ -2,17 +2,21 @@ import { fetchAPI } from '@/services/api';
 import { FetchResult } from '../type';
 import { Product } from './type';
 
-type ProductQueryType = 'ingredientName';
+export type ProductQueryType = 'ingredientName' | 'username';
 
-export const getProducts = async (
-  type: ProductQueryType,
-  q: string,
-): FetchResult<{
-  ingredientId: string;
-  products: Product[];
-}> => {
+export const getProducts = async ({
+  type,
+  q,
+  options,
+}: {
+  type: ProductQueryType;
+  q: string;
+  options?: RequestInit;
+}): FetchResult<Product[]> => {
   try {
-    const response = await fetchAPI(`/products?type=${type}&q=${q}`);
+    const response = await fetchAPI(`/products?type=${type}&q=${q}`, {
+      ...options,
+    });
 
     if (response.ok) return { ok: true, data: response.data };
 
