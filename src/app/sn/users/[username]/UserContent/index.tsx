@@ -1,20 +1,49 @@
+'use client';
+
+import { useState } from 'react';
+
 import style from './style.module.scss';
 
 import Icon from '@/components/Icon';
+import { Tab, TabsContainer } from '@/components/Tab';
+import { IconButtonType } from '@/components/Icon/const';
 
 import RecipeList from './RecipeList';
+import ProductList from './ProductList';
 
 function UserContent() {
+  const [tabIndex, setTabIndex] = useState(0);
+  const handleTabChange = (index: number) => setTabIndex(index);
+
   return (
     <section>
-      <div className={style.tabs}>
-        <span className={style.tab}>
-          <Icon icon='grid' /> RECIPES
-        </span>
+      <TabsContainer>
+        {TABS.map((tab, index) => (
+          <Tab key={index} index={index} onClick={() => handleTabChange(index)}>
+            <Icon icon={tab.icon} /> {tab.label}
+          </Tab>
+        ))}
+      </TabsContainer>
+      <div className={style.content}>
+        {tabIndex === 0 && <RecipeList />}
+        {tabIndex === 1 && <ProductList />}
       </div>
-      <RecipeList />
     </section>
   );
 }
 
 export default UserContent;
+
+const TABS: {
+  icon: IconButtonType;
+  label: string;
+}[] = [
+  {
+    icon: 'grid',
+    label: 'RECIPES',
+  },
+  {
+    icon: 'grid',
+    label: 'PRODUCTS',
+  },
+];

@@ -17,6 +17,9 @@ export const getSearchURL = (type: string, query: string) => {
 
 export const getRecipeLink = (recipeKey: string) => `/sn/recipes/${recipeKey}`;
 
+export const getProductLink = (productKey: string) =>
+  `/sn/products/${productKey}`;
+
 export const NEW_RECIPE_LINK = `/sn/recipes/new`;
 
 export const SIGNUP_LINK = `/signup`;

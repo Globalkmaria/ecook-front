@@ -5,10 +5,11 @@ import Image, { ImageProps } from 'next/image';
 
 import style from './style.module.scss';
 
-import Skeleton from '../Skeleton';
 import { joinClassNames } from '@/utils/style';
 
-interface CustomImageProps extends Omit<ImageProps, 'src'> {
+import Skeleton from '../Skeleton';
+
+export interface CustomImageProps extends Omit<ImageProps, 'src'> {
   src: string;
   fallbackSrc?: string;
   loadingClassName?: string;
