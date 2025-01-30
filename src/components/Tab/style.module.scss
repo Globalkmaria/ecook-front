@@ -4,12 +4,18 @@
   flex: 1;
   padding: 0.5rem 1rem;
   cursor: pointer;
-  font-weight: 500;
   border-bottom: 2px solid transparent;
   color: $black;
+  font-weight: 500;
+  transition: all 0.2s;
 
   &--selected {
     border-bottom: 2px solid $black;
+  }
+
+  &:hover:not(&--selected) {
+    border-bottom: 2px solid $grey300;
+    color: $grey600;
   }
 }
 

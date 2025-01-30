@@ -15,18 +15,24 @@ function UserContent() {
   const [tabIndex, setTabIndex] = useState(0);
   const handleTabChange = (index: number) => setTabIndex(index);
 
+  const CurrentList = TABS[tabIndex].Component;
   return (
     <section>
-      <TabsContainer>
+      <TabsContainer className={style.tabs}>
         {TABS.map((tab, index) => (
-          <Tab key={index} index={index} onClick={() => handleTabChange(index)}>
-            <Icon icon={tab.icon} /> {tab.label}
+          <Tab
+            className={style['tab']}
+            key={index}
+            index={index}
+            onClick={() => handleTabChange(index)}
+          >
+            <Icon icon={tab.icon} />
+            <span className={style['text']}>{tab.label}</span>
           </Tab>
         ))}
       </TabsContainer>
       <div className={style.content}>
-        {tabIndex === 0 && <RecipeList />}
-        {tabIndex === 1 && <ProductList />}
+        <CurrentList />
       </div>
     </section>
   );
@@ -37,13 +43,16 @@ export default UserContent;
 const TABS: {
   icon: IconButtonType;
   label: string;
+  Component: () => JSX.Element;
 }[] = [
   {
     icon: 'grid',
     label: 'RECIPES',
+    Component: RecipeList,
   },
   {
-    icon: 'grid',
+    icon: 'product',
     label: 'PRODUCTS',
+    Component: ProductList,
   },
 ];
