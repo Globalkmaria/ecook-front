@@ -1,7 +1,10 @@
 'use client';
 
 import { createContext, useContext, useState } from 'react';
+
 import style from './style.module.scss';
+
+import { joinClassNames } from '@/utils/style';
 
 const TabContext = createContext<
   | {
@@ -19,11 +22,10 @@ export function TabsContainer({
   className?: string;
 }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const joinedClassName = joinClassNames(style['tabs-container'], className);
   return (
     <TabContext.Provider value={{ selectedIndex, setSelectedIndex }}>
-      <div className={`${style['tabs-container']} ${className ?? ''}`}>
-        {children}
-      </div>
+      <div className={joinedClassName}>{children}</div>
     </TabContext.Provider>
   );
 }
@@ -49,12 +51,14 @@ export function Tab({ children, onClick, className, index }: TabProps) {
     onClick?.();
   };
 
+  const joinedClassName = joinClassNames(
+    style['tab'],
+    selectedClass,
+    className,
+  );
+
   return (
-    <button
-      onClick={handleClick}
-      type='button'
-      className={`${style.tab} ${selectedClass} ${className ?? ''}`}
-    >
+    <button onClick={handleClick} type='button' className={joinedClassName}>
       {children}
     </button>
   );
