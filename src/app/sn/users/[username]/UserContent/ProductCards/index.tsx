@@ -2,7 +2,7 @@ import style from './style.module.scss';
 
 import { Product } from '@/services/products/type';
 
-import { getRecipeLink } from '@/helpers/link';
+import { getProductLink } from '@/helpers/link';
 
 import ImgCard, { ImgCardProps } from '@/components/ImgCard';
 
@@ -27,7 +27,7 @@ function Card({ product }: { product: Product }) {
     src: product.img,
     alt: product.name,
   };
-  const link = getRecipeLink(product.key);
+  const link = getProductLink(product.key);
 
   return (
     <li className={style['card']}>

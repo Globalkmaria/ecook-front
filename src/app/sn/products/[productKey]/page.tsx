@@ -12,12 +12,12 @@ import { productOptions } from '@/queries/productOptions';
 
 export const revalidate = 86400; // 1 day
 
-export type RecipePageParams = {
+export type ProductPageParams = {
   productKey: string;
 };
 
 interface Props {
-  params: Promise<RecipePageParams>;
+  params: Promise<ProductPageParams>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
