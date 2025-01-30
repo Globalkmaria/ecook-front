@@ -7,8 +7,9 @@ import style from './style.module.scss';
 
 import { productOptions } from '@/queries/productOptions';
 
-import ProductInformation from './ProductInformation';
 import { ProductPageParams } from '../page';
+import ProductInformation from './ProductInformation';
+import ProductRecommend from './ProductRecommend';
 
 function ProductPageContainer() {
   const params = useParams<ProductPageParams>();
@@ -22,6 +23,7 @@ function ProductPageContainer() {
   return (
     <div className={style['container']}>
       <ProductInformation product={product} />
+      <ProductRecommend />
     </div>
   );
 }

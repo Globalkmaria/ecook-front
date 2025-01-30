@@ -1,14 +1,19 @@
-import { capitalizeFirstLetter } from '@/utils/text';
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import ProductPageContainer from './ProductPageContainer';
+
 import { getProduct } from '@/services/product';
+
 import { productOptions } from '@/queries/productOptions';
+import { productRecommendOptions } from '@/queries/productRecommendOptions';
+
+import { capitalizeFirstLetter } from '@/utils/text';
+
+import ProductPageContainer from './ProductPageContainer';
 
 export const revalidate = 86400; // 1 day
 
@@ -51,6 +56,7 @@ async function Page({ params }: Props) {
 
   await Promise.all([
     queryClient.prefetchQuery(productOptions({ key: productKey })),
+    queryClient.prefetchQuery(productRecommendOptions({ key: productKey })),
   ]);
 
   return (

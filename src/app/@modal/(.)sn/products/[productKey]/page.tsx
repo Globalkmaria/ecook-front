@@ -5,6 +5,7 @@ import {
 } from '@tanstack/react-query';
 
 import { productOptions } from '@/queries/productOptions';
+import { productRecommendOptions } from '@/queries/productRecommendOptions';
 
 import { ProductPageParams } from '@/app/sn/products/[productKey]/page';
 
@@ -22,6 +23,7 @@ async function ProductPage({ params }: Props) {
 
   await Promise.all([
     queryClient.prefetchQuery(productOptions({ key: productKey })),
+    queryClient.prefetchQuery(productRecommendOptions({ key: productKey })),
   ]);
 
   return (
