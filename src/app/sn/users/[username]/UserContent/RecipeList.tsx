@@ -5,10 +5,12 @@ import { notFound, useParams } from 'next/navigation';
 
 import { recipeListOptions } from '@/queries/recipeListOptions';
 
+import { useClientStore } from '@/providers/client-store-provider';
+
 import { UserPageParams } from '../page';
 
 import Cards from './Cards';
-import { useClientStore } from '@/providers/client-store-provider';
+import NoContent from './NoContent';
 
 function RecipeList() {
   const params = useParams<UserPageParams>();
@@ -25,6 +27,7 @@ function RecipeList() {
   );
 
   if (error) return notFound();
+  if (data?.length === 0) return <NoContent />;
 
   return <Cards recipes={data ?? []} />;
 }

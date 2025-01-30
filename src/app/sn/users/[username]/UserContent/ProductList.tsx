@@ -3,9 +3,11 @@ import { useQuery } from '@tanstack/react-query';
 
 import { productsOptions } from '@/queries/productsOptions';
 
+import { useClientStore } from '@/providers/client-store-provider';
+
 import { UserPageParams } from '../page';
 import ProductCards from './ProductCards';
-import { useClientStore } from '@/providers/client-store-provider';
+import NoContent from './NoContent';
 
 function ProductList() {
   const params = useParams<UserPageParams>();
@@ -22,6 +24,7 @@ function ProductList() {
   );
 
   if (error) return notFound();
+  if (data?.length === 0) return <NoContent />;
 
   return <ProductCards products={data ?? []} />;
 }
