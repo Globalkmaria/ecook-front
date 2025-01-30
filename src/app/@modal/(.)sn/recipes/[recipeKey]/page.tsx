@@ -7,7 +7,7 @@ import {
 import { recipeOptions } from '@/queries/recipeOptions';
 import { recipeRecommendOptions } from '@/queries/recipeRecommendOptions';
 
-import ModalRecipes from './ModalRecipes';
+import ModalRecipe from './ModalRecipe';
 
 interface Props {
   params: Promise<{ recipeKey: string }>;
@@ -25,7 +25,7 @@ async function RecipePage({ params }: Props) {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <ModalRecipes />
+      <ModalRecipe />
     </HydrationBoundary>
   );
 }

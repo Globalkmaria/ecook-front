@@ -7,7 +7,7 @@ import { Modal2 } from '@/components/Modal';
 
 import RecipePageContainer from '@/app/sn/recipes/[recipeKey]/RecipePageContainer';
 
-function ModalRecipes() {
+function ModalRecipe() {
   const router = useRouter();
   const onDismiss = () => router.back();
 
@@ -20,4 +20,4 @@ function ModalRecipes() {
   );
 }
 
-export default ModalRecipes;
+export default ModalRecipe;
