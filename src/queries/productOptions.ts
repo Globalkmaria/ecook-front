@@ -7,18 +7,24 @@ import { getProduct } from '@/services/product';
 
 interface Props {
   key: string;
-  initialData?: Product;
   staleTime?: number;
+  nextRevalidateTime?: number;
+  enabled?: boolean;
 }
 
-export const productOptions = ({ key, initialData, staleTime }: Props) =>
+export const productOptions = ({
+  key,
+  staleTime = 86400000, // 24 hours , MS
+  nextRevalidateTime = 86400, // 24 hours , S
+  enabled = false,
+}: Props) =>
   queryOptions({
     queryKey: [QUERY_KEY__PRODUCTS, key],
     queryFn: async () => {
       const result = await getProduct(key, {
         cache: 'force-cache',
         next: {
-          revalidate: 86400, // 1 day
+          revalidate: nextRevalidateTime,
         },
       });
 
@@ -26,6 +32,6 @@ export const productOptions = ({ key, initialData, staleTime }: Props) =>
 
       return result.data;
     },
-    initialData,
     staleTime,
+    enabled,
   });
