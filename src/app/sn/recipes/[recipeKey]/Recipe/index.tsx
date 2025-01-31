@@ -10,12 +10,11 @@ import { formatTime } from '@/utils/time';
 
 import { getSearchTagLink, getUserLink } from '@/helpers/link';
 
-import Chip, { ChipsContainer } from '@/components/Chip';
 import { Tab, TabsContainer } from '@/components/Tab';
 import Avatar from '@/components/Avatar';
-import AnchorUnderline from '@/components/Anchor/AnchorUnderline';
 import CustomImage from '@/components/CustomImage';
 import { getListCheckboxInitialState } from '@/components/CheckboxList/helper';
+import AnchorChips from '@/components/AnchorChip';
 
 import Ingredients from './IngredientList';
 import { RECIPE_TABS, RecipeTab } from '../const';
@@ -54,16 +53,16 @@ function Recipe({ recipe }: Props) {
             <p className={style['content__description']}>
               {recipe.description}
             </p>
-            <ChipsContainer className={style['chip-container']}>
+            <AnchorChips.Container className={style['chip-container']}>
               {recipe.tags.map((tag) => (
-                <AnchorUnderline
+                <AnchorChips.Chip
                   href={getSearchTagLink(tag.name)}
                   key={tag.name}
                 >
-                  <Chip>{tag.name}</Chip>
-                </AnchorUnderline>
+                  {tag.name}
+                </AnchorChips.Chip>
               ))}
-            </ChipsContainer>
+            </AnchorChips.Container>
           </div>
           <div className={style.time}>{time}</div>
 
