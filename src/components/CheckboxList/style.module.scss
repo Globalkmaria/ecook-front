@@ -1,9 +1,24 @@
+@use '@/styles/theme' as *;
+
 .item {
   display: flex;
   align-items: flex-start;
 
+  &:hover .label {
+    color: $grey600;
+  }
+
+  .label {
+    line-height: 24px;
+    word-break: break-all;
+
+    &--selected {
+      color: $grey600;
+    }
+  }
+
   input {
-    margin-top: 3px;
+    height: 24px;
     margin-right: 1rem;
   }
 }

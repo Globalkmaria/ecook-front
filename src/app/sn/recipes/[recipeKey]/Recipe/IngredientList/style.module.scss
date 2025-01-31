@@ -5,8 +5,7 @@
 }
 
 .content {
-  display: flex;
-  flex-wrap: wrap;
+  display: inline-block;
 }
 
 .name {
@@ -17,6 +16,8 @@
   margin-left: 6px;
   margin-right: 10px;
 }
+
+// InformationButton component
 
 .icon {
   display: inline-block;

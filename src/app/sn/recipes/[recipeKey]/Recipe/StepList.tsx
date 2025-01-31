@@ -1,8 +1,8 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 
 import { RecipeDetail } from '@/services/recipe/type';
 
-import CheckboxList from '@/components/CheckboxList';
+import Checkbox from '@/components/CheckboxList';
 
 interface Props {
   state: [
@@ -21,7 +21,7 @@ function StepList({ state, steps }: Props) {
   );
 
   return (
-    <CheckboxList
+    <Checkbox.List
       checkedItems={checkedSteps}
       items={steps}
       onChange={onStepsToggle}
