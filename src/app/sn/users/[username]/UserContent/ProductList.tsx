@@ -18,7 +18,6 @@ function ProductList() {
     productsOptions({
       type: 'username',
       q: params.username || '',
-      staleTime: 180000, // 3 minutes
       enabled: isUserProfile,
     }),
   );

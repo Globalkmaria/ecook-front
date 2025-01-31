@@ -8,11 +8,13 @@ interface RecipeListOptions {
   key: string;
   staleTime?: number;
   enabled?: boolean;
+  nextRevalidateTime?: number;
 }
 
 export const productRecommendOptions = ({
   key,
-  staleTime = 864000000, // 24 hours , MS
+  staleTime = 86400000, // 24 hours , MS
+  nextRevalidateTime = 86400, // 24 hours , S
   enabled = false,
 }: RecipeListOptions) =>
   queryOptions({
@@ -21,7 +23,7 @@ export const productRecommendOptions = ({
       const result = await getProductRecommendations(key, {
         cache: 'force-cache',
         next: {
-          revalidate: staleTime / 1000,
+          revalidate: nextRevalidateTime,
         },
       });
 

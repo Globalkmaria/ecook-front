@@ -6,13 +6,15 @@ import { QUERY_KEY__RECIPE, QUERY_KEY__RECOMMEND } from '@/queries';
 
 interface RecipeListOptions {
   key: string;
-  staleTime?: number;
   enabled?: boolean;
+  staleTime?: number;
+  nextRevalidateTime?: number;
 }
 
 export const recipeRecommendOptions = ({
   key,
-  staleTime = 86400, // 24 hours
+  staleTime = 86400000, // 24 hours , MS
+  nextRevalidateTime = 86400, // 24 hours , S
   enabled = false,
 }: RecipeListOptions) =>
   queryOptions({
@@ -21,7 +23,7 @@ export const recipeRecommendOptions = ({
       const result = await getRecipeRecommendations(key, {
         cache: 'force-cache',
         next: {
-          revalidate: staleTime,
+          revalidate: nextRevalidateTime,
         },
       });
 

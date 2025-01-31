@@ -22,7 +22,6 @@ function RecipeList() {
       query: params.username || '',
       type: 'username',
       enabled: isUserProfile,
-      staleTime: 180000, // 3 minutes
     }),
   );
 

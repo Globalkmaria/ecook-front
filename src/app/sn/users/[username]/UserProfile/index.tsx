@@ -26,7 +26,6 @@ function UserProfile() {
     profileOptions({
       username: params.username,
       enabled: isUserProfile,
-      staleTime: 180000, // 3 minutes
     }),
   );
 
