@@ -14,8 +14,9 @@ import { AvatarImg } from '@/components/Avatar';
 import { UserPageParams } from '../page';
 
 function UserProfile() {
-  const isLoggedIn = useClientStore((state) => state.user.isLoggedIn);
   const params = useParams<UserPageParams>();
+  const username = useClientStore((state) => state.user.username);
+  const isUserProfile = params.username === username;
 
   const {
     data: profile,
@@ -24,8 +25,7 @@ function UserProfile() {
   } = useQuery(
     profileOptions({
       username: params.username,
-      enabled: isLoggedIn,
-      staleTime: 180000, // 3 minutes
+      enabled: isUserProfile,
     }),
   );
 

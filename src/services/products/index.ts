@@ -2,23 +2,27 @@ import { fetchAPI } from '@/services/api';
 import { FetchResult } from '../type';
 import { Product } from './type';
 
-type ProductQueryType = 'ingredientName';
+export type ProductQueryType = 'ingredientName' | 'username';
 
-export const getProducts = async (
-  type: ProductQueryType,
-  q: string,
-): FetchResult<{
-  ingredientId: string;
-  products: Product[];
-}> => {
+export const getProducts = async ({
+  type,
+  q,
+  options,
+}: {
+  type: ProductQueryType;
+  q: string;
+  options?: RequestInit;
+}): FetchResult<Product[]> => {
   try {
-    const response = await fetchAPI(`/products?type=${type}&q=${q}`);
+    const response = await fetchAPI(`/products?type=${type}&q=${q}`, {
+      ...options,
+    });
 
     if (response.ok) return { ok: true, data: response.data };
 
     throw new Error(response.res.statusText);
   } catch (e) {
-    console.error('Failed to get recipes', e);
-    return { ok: false, error: 'Failed to get recipes' };
+    console.error('Failed to get products', e);
+    return { ok: false, error: 'Failed to get products' };
   }
 };

@@ -6,6 +6,10 @@
 
 .title {
   font-size: 1.2rem;
+
+  @media #{$laptop} {
+    font-size: 1rem;
+  }
 }
 
 .list {

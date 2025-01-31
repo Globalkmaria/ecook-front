@@ -34,7 +34,7 @@ function ExistingProduct({
     }
 
     setSelectedProduct({
-      ingredientId: product.ingredientId,
+      ingredientId: product.ingredient.id,
       name: product.name,
       productId: product.id,
       newProduct: null,

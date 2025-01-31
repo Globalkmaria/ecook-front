@@ -1,22 +1,87 @@
-import { memo, useState } from 'react';
+import { LabelHTMLAttributes, memo, useState } from 'react';
 
 import style from './style.module.scss';
 
-import { ListItem } from '@/components/List';
+import { joinClassNames } from '@/utils/style';
 
 import { getListCheckboxInitialState } from './helper';
 
-interface CheckboxListProps {
+const Container = memo(function Container({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return <ul className={className}>{children}</ul>;
+});
+
+interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
+  children: React.ReactNode;
+  selected?: boolean;
+}
+
+const Label = memo(function Label({
+  children,
+  className,
+  selected,
+  ...restProps
+}: LabelProps) {
+  const joinedClassName = joinClassNames(
+    style.label,
+    selected ? style['label--selected'] : '',
+    className,
+  );
+
+  return (
+    <label className={joinedClassName} {...restProps}>
+      {children}
+    </label>
+  );
+});
+
+interface ItemProps {
+  onChange?: (id: number) => void;
+  checked: boolean;
+  index: number;
+  children?: React.ReactNode;
+  className?: string;
+}
+
+const Item = memo(function Item({
+  onChange,
+  checked,
+  index,
+  children,
+  className,
+}: ItemProps) {
+  const joinedClassName = joinClassNames(style.item, className);
+  return (
+    <li className={joinedClassName}>
+      <input
+        onChange={() => onChange && onChange(index)}
+        checked={checked}
+        type='checkbox'
+        id={index.toString()}
+      />
+      {children}
+    </li>
+  );
+});
+
+// Full implementation of CheckboxList component
+
+interface ListProps {
   items: readonly string[];
   checkedItems?: Record<string, boolean>;
   onChange?: (index: number) => void;
 }
 
-function CheckboxList({
+const List = memo(function List({
   items,
   checkedItems: outerCheckedItems,
   onChange,
-}: CheckboxListProps) {
+}: ListProps) {
   const [innerCheckedItems, setInnerCheckedItems] = useState(
     getListCheckboxInitialState(items),
   );
@@ -35,39 +100,28 @@ function CheckboxList({
   const finalCheckedItems = outerCheckedItems ?? innerCheckedItems;
 
   return (
-    <ul>
+    <Container>
       {items.map((item, index) => (
         <Item
           key={index}
-          item={item}
           checked={finalCheckedItems[index]}
           index={index}
           onChange={handleOnChange}
-        />
+        >
+          <Label selected={finalCheckedItems[index]} htmlFor={index.toString()}>
+            {item}
+          </Label>
+        </Item>
       ))}
-    </ul>
-  );
-}
-
-export default CheckboxList;
-
-interface ItemProps {
-  item: string;
-  onChange?: (id: number) => void;
-  checked: boolean;
-  index: number;
-}
-
-const Item = memo(function Item({ item, onChange, checked, index }: ItemProps) {
-  return (
-    <ListItem className={style.item}>
-      <input
-        onChange={() => onChange && onChange(index)}
-        checked={checked}
-        type='checkbox'
-        id={index.toString()}
-      />
-      <label htmlFor={index.toString()}>{item}</label>
-    </ListItem>
+    </Container>
   );
 });
+
+const Checkbox = {
+  List,
+  Container,
+  Item,
+  Label,
+};
+
+export default Checkbox;

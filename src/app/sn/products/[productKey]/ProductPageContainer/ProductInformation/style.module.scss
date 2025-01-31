@@ -1,0 +1,83 @@
+@use '@/styles/theme.scss' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin-top: 1rem;
+
+  @media #{$laptop} {
+    flex-direction: column;
+    overflow: overlay;
+  }
+}
+
+.name {
+  display: block;
+  margin-bottom: 20px;
+  font-weight: 500;
+  font-style: italic;
+  font-size: 4rem;
+  text-align: center;
+
+  @media #{$mobile} {
+    font-size: 2rem;
+  }
+}
+
+.img-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 400px;
+
+  @media #{$laptop} {
+    margin: 0;
+    min-height: 300px;
+    flex: none;
+  }
+
+  @media #{$mobile} {
+    min-height: 250px;
+  }
+
+  .img {
+    min-height: inherit;
+    height: 100px;
+
+    img {
+      object-fit: contain;
+    }
+  }
+}
+
+.info {
+  margin-top: 20px;
+  display: flex;
+}
+
+.contents {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: $front-size-10;
+  font-size: 1rem;
+}
+
+.content {
+  display: flex;
+
+  &__title {
+    flex: 0 0 150px;
+    margin-right: $front-size-10;
+    display: flex;
+    align-items: start;
+    gap: $front-size-10;
+    font-weight: 500;
+    text-wrap: nowrap;
+  }
+
+  &__description {
+    flex-grow: 1;
+  }
+}

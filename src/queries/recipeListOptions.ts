@@ -7,12 +7,14 @@ interface RecipeListOptions {
   query?: string;
   type?: string;
   staleTime?: number;
+  enabled?: boolean;
 }
 
 export const recipeListOptions = ({
   query = '',
   type = '',
   staleTime,
+  enabled,
 }: RecipeListOptions) =>
   queryOptions({
     queryKey: [QUERY_KEY__RECIPE_LIST, query, type],
@@ -24,4 +26,5 @@ export const recipeListOptions = ({
       return result.data;
     },
     staleTime,
+    enabled: !!enabled,
   });

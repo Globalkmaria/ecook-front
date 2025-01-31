@@ -64,16 +64,19 @@ function SearchProductModal({ control, onSelectProduct, ingredient }: Props) {
       return;
     }
 
-    const result = await getProducts('ingredientName', searchInput);
+    const result = await getProducts({
+      type: 'ingredientName',
+      q: searchInput,
+    });
     if (!result.ok) {
       alert('Something went wrong while searching for the products.');
       return;
     }
 
     setSearchedIngredient({
-      id: result.data.ingredientId ?? null,
+      id: result.data[0]?.ingredient.id ?? null,
       name: searchInput,
-      products: result.data.products,
+      products: result.data,
     });
   };
 

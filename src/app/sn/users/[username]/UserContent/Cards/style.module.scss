@@ -4,12 +4,16 @@
 
 .list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(336px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
   gap: 36px;
   word-break: break-all;
 
-  @media #{$mobile} {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  @media #{$laptop} {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+
+  @media #{$tablet} {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   }
 }
 
@@ -41,6 +45,7 @@
 }
 
 .card {
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;

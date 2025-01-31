@@ -6,8 +6,8 @@ import { Ingredient, RecipeDetail } from '@/services/recipe/type';
 
 import { getSearchIngredientLink } from '@/helpers/link';
 
-import { ListItem } from '@/components/List';
 import SearchIconLink from '@/components/SearchIconLink';
+import Checkbox from '@/components/CheckboxList';
 
 import InformationButton from './InformationButton';
 
@@ -31,7 +31,7 @@ function Ingredients({ ingredients, state }: Props) {
   );
 
   return (
-    <ul>
+    <Checkbox.Container>
       {ingredients.map((ingredient, index) => (
         <IngredientItem
           key={index}
@@ -41,7 +41,7 @@ function Ingredients({ ingredients, state }: Props) {
           index={index}
         />
       ))}
-    </ul>
+    </Checkbox.Container>
   );
 }
 
@@ -61,24 +61,23 @@ const IngredientItem = memo(function IngredientItem({
   index,
 }: IngredientProps) {
   return (
-    <ListItem className={style.item}>
-      <input
-        onChange={() => onChange(index)}
-        checked={selected}
-        type='checkbox'
-        id={index.toString()}
-      />
+    <Checkbox.Item
+      checked={selected}
+      onChange={() => onChange(index)}
+      className={style.item}
+      index={index}
+    >
       <div className={style.content}>
-        <label htmlFor={index.toString()}>
+        <Checkbox.Label selected={selected} htmlFor={index.toString()}>
           <span className={style.name}>{ingredient.name}</span>
           <span>-</span>
           <span className={style.quantity}>{ingredient.quantity}</span>
-          <SearchIconLink href={getSearchIngredientLink(ingredient.name)} />
-          {ingredient.userProduct && (
-            <InformationButton ingredient={ingredient} />
-          )}
-        </label>
+        </Checkbox.Label>
+        <SearchIconLink href={getSearchIngredientLink(ingredient.name)} />
+        {ingredient.userProduct && (
+          <InformationButton ingredient={ingredient} />
+        )}
       </div>
-    </ListItem>
+    </Checkbox.Item>
   );
 });

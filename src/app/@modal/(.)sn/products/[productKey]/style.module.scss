@@ -1,0 +1,8 @@
+@use '@/styles/theme' as *;
+
+.container {
+  max-width: $layoutMaxWidth;
+  width: 80vw;
+  height: 90vh;
+  overflow-y: overlay;
+}

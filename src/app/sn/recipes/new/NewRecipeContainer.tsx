@@ -9,7 +9,12 @@ import { useClientStore } from '@/providers/client-store-provider';
 
 import { getRecipeLink, LOGIN_LINK } from '@/helpers/link';
 
-import { QUERY_KEY__PROFILE, QUERY_KEY__RECIPE_LIST } from '@/queries';
+import {
+  QUERY_KEY__PRODUCTS,
+  QUERY_KEY__PROFILE,
+  QUERY_KEY__RECIPE_LIST,
+  QUERY_KEY__USERNAME,
+} from '@/queries';
 
 import { createRecipe } from '@/services/recipes';
 import { handleApiAuthResponse } from '@/services/utils/handleApiAuthResponse';
@@ -57,6 +62,10 @@ function NewRecipeContainer() {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEY__PROFILE, username],
       });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEY__PRODUCTS, QUERY_KEY__USERNAME, username],
+      });
+
       router.replace(getRecipeLink(result.data.key));
     });
   };
