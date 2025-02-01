@@ -1,17 +1,13 @@
 import { RecipeRecommendations } from '@/services/recommend/type';
 
-export type GroupedRecipesByType = Record<
-  string,
-  RecipeRecommendations['recipes']
->;
+export const transformRecommendRecipeData = (data: RecipeRecommendations) => {
+  const types = Object.keys(data);
 
-export const groupRecipesByType = (data: RecipeRecommendations[]) => {
-  const groupedRecipesByType = data.reduce((acc, curr) => {
-    acc[curr.type] = curr.recipes;
-    return acc;
-  }, {} as GroupedRecipesByType);
+  const result = types.map((type) => ({
+    title: type[0].toLocaleUpperCase() + type.slice(1),
+    groupedRecipesByType: data[type],
+    options: Object.keys(data[type]),
+  }));
 
-  const types = Object.keys(groupedRecipesByType);
-
-  return { groupedRecipesByType, types };
+  return result;
 };
