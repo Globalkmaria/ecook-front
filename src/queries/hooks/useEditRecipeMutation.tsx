@@ -4,10 +4,8 @@ import { useRouter } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useShallow } from 'zustand/shallow';
 
-import {
-  revalidateRecipeDetailInformation,
-  revalidateUserPage,
-} from '@/actions/revalidate';
+import { revalidateTagRecipeDetail } from '@/actions/revalidate';
+import { getRecipePageTag } from '@/actions/helpers';
 
 import { useClientStore } from '@/providers/client-store-provider';
 
@@ -41,12 +39,13 @@ const useEditRecipeMutation = (recipeKey: string, onCloseModal: () => void) => {
         queryKey: [QUERY_KEY__RECIPE_LIST, username],
       });
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEY__RECIPE, data.key],
-      });
-      queryClient.invalidateQueries({
         queryKey: [QUERY_KEY__PRODUCTS, QUERY_KEY__USERNAME, username],
       });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEY__RECIPE, data.key],
+      });
 
+      await revalidateTagRecipeDetail(getRecipePageTag(data.key));
       onCloseModal();
     },
     onError: () => alert('Failed to edit recipe'),
