@@ -1,19 +1,24 @@
 import { getRandomId } from '@/utils/generateId';
+
+import { IngredientNewProduct } from '@/services/recipes/type';
+
+import { NewRecipeIngredientState } from '../..';
+import { OnSelectProductProps } from '../RecipeIngredientsContent';
 import {
   NEW_PRODUCT_ID,
   SearchedIngredientState,
   SelectedProductState,
 } from '.';
-import { NewRecipeIngredientState } from '../..';
-import { IngredientNewProduct } from '@/services/recipes/type';
 
 export const getSelectedProductInitialState = (
   ingredient: NewRecipeIngredientState,
-) =>
+): SelectedProductState =>
   (ingredient.productId ?? ingredient.newProduct?.id)
     ? {
-        ...ingredient,
+        ingredientId: ingredient.id,
+        ingredientName: ingredient.ingredientName,
         productId: ingredient.productId ?? NEW_PRODUCT_ID,
+        newProduct: null,
       }
     : null;
 
@@ -39,10 +44,11 @@ export const getIngredientWithNewProduct = ({
   selectedProduct: NonNullable<SelectedProductState>;
   searchedIngredient: SearchedIngredientState;
   newProduct: IngredientNewProduct | null;
-}) => ({
+}): OnSelectProductProps => ({
   // removing new product fake product id
   product: {
     ...selectedProduct,
+    ingredientName: searchedIngredient?.name ?? '',
     productId: null,
     newProduct,
   },
@@ -54,19 +60,17 @@ export const getIngredientWithNewProduct = ({
 
 export const getIngredientWithExistingProduct = ({
   selectedProduct,
-  searchedIngredient,
 }: {
   selectedProduct: NonNullable<SelectedProductState>;
-  searchedIngredient: SearchedIngredientState;
-}) => ({
+}): OnSelectProductProps => ({
   product: {
-    name: selectedProduct.name,
+    ingredientName: selectedProduct.ingredientName,
     ingredientId: selectedProduct.ingredientId,
     productId: selectedProduct.productId,
     newProduct: null,
   },
   ingredient: {
-    name: searchedIngredient?.name ?? '',
-    id: searchedIngredient?.id,
+    name: selectedProduct.ingredientName,
+    id: selectedProduct.ingredientId,
   },
 });

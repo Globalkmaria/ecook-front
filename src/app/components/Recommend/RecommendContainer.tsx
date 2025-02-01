@@ -12,16 +12,16 @@ import { getSearchTagLink } from '@/helpers/link';
 import { Tab2, TabsContainer2 } from '@/components/Tab2';
 import Card from '@/components/Card';
 
-import { GroupedRecipesByType } from './helper';
-
 function RecommendContainer({
   groupedRecipesByType,
-  types,
+  options,
+  title,
 }: {
-  groupedRecipesByType: GroupedRecipesByType;
-  types: string[];
+  groupedRecipesByType: RecipeRecommendations[number];
+  options: string[];
+  title: string;
 }) {
-  const [selectedTag, setTab] = useState(types[0]);
+  const [selectedTag, setTab] = useState(options[0]);
   const onTabChange = (newTab: string) => {
     setTab(newTab);
   };
@@ -29,10 +29,10 @@ function RecommendContainer({
   return (
     <section>
       <div className={style['header']}>
-        <h2 className={style['title']}>Tag ideas : </h2>
+        <h2 className={style['title']}>{title} ideas : </h2>
         <div className={style['tabs']}>
           <TabsContainer2>
-            {types.map((tag, index) => (
+            {options.map((tag, index) => (
               <Tab2 index={index} onClick={() => onTabChange(tag)} key={tag}>
                 {tag}
               </Tab2>
@@ -54,7 +54,7 @@ function RecipeList({
   recipes,
   type,
 }: {
-  recipes: RecipeRecommendations['recipes'];
+  recipes: RecipeRecommendations[number][string];
   type: string;
 }) {
   return (

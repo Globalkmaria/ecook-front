@@ -7,7 +7,7 @@ import {
 export const removeProductInfoFromSelectedIngredient = (
   ingredients: NewRecipeIngredientStates,
   selectedIngredientId: NewRecipeIngredientState['id'],
-) =>
+): NewRecipeIngredientStates =>
   ingredients.map((item) =>
     item.id === selectedIngredientId
       ? {
@@ -27,16 +27,15 @@ interface AddProductProps {
 
 export const addProductInfoToSelectedIngredient = ({
   ingredients,
-  selectedIngredientInfo,
   selectedIngredient,
   selectedProductInfo,
-}: AddProductProps) =>
+}: AddProductProps): NewRecipeIngredientStates =>
   ingredients.map((item) =>
     item.id === selectedIngredient.id
       ? {
           ...item,
-          name: selectedIngredientInfo?.name ?? '',
-          ingredientId: selectedIngredientInfo?.id ?? null,
+          ingredientName: selectedProductInfo?.ingredientName ?? '',
+          ingredientId: selectedProductInfo?.ingredientId ?? null,
           productId: selectedProductInfo?.productId ?? null,
           newProduct: selectedProductInfo?.newProduct ?? null,
         }

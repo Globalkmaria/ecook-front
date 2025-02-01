@@ -9,7 +9,7 @@ import {
   SearchedIngredientState,
   SelectedProductState,
 } from '.';
-import { OnSelectProductProps } from '../RecipeIngredientsContent';
+import { OnSelectProduct } from '../RecipeIngredientsContent';
 import {
   getIngredientWithExistingProduct,
   getIngredientWithNewProduct,
@@ -17,7 +17,7 @@ import {
 
 interface Props {
   selectedProduct: SelectedProductState;
-  onSelectProduct: OnSelectProductProps;
+  onSelectProduct: OnSelectProduct;
   searchedIngredient: SearchedIngredientState;
   newProduct: IngredientNewProduct;
   onClose: () => void;
@@ -56,12 +56,16 @@ function SearchProductConfirmButton({
       );
       onClose();
       return;
-    }
+    } else {
+      // existing product
 
-    onSelectProduct(
-      getIngredientWithExistingProduct({ selectedProduct, searchedIngredient }),
-    );
-    onClose();
+      onSelectProduct(
+        getIngredientWithExistingProduct({
+          selectedProduct,
+        }),
+      );
+      onClose();
+    }
   };
 
   const confirmButtonTitle = selectedProduct

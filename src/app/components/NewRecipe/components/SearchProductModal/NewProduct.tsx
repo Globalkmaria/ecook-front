@@ -5,12 +5,13 @@ import style from './style.module.scss';
 import { Input } from '@/components/Input';
 import ImageUploader from '@/components/imageUploader';
 import { IngredientNewProduct } from '@/services/recipes/type';
+import Icon from '@/components/Icon';
+
 import {
   NEW_PRODUCT_ID,
   SearchedIngredientState,
   SelectedProductState,
 } from '.';
-import Icon from '@/components/Icon';
 
 interface NewProductProps {
   selectedProduct: SelectedProductState;
@@ -40,8 +41,8 @@ function NewProduct({
     }
 
     setSelectedProduct({
-      ingredientId: searchedIngredient.id ?? null,
-      name: newProductState.name,
+      ingredientId: searchedIngredient.id,
+      ingredientName: searchedIngredient.name,
       productId: NEW_PRODUCT_ID,
       newProduct: newProductState,
     });

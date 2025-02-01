@@ -18,18 +18,14 @@ function UserProfile() {
   const username = useClientStore((state) => state.user.username);
   const isUserProfile = params.username === username;
 
-  const {
-    data: profile,
-    error,
-    isLoading,
-  } = useQuery(
+  const { data: profile, error } = useQuery(
     profileOptions({
       username: params.username,
       enabled: isUserProfile,
     }),
   );
 
-  if (error || (isLoading && !profile)) return notFound();
+  if (error || !profile) return notFound();
 
   const userImgInfo = {
     username: profile?.username ?? '',

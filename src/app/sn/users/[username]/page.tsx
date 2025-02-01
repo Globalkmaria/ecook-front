@@ -10,6 +10,7 @@ import style from './style.module.scss';
 
 import { getProfile } from '@/services/users';
 import { getHomeRecipes } from '@/services/recipes';
+import { PRODUCT_TYPES } from '@/services/products';
 
 import { ECOOK_LOGO_URL } from '@/const/contLinks';
 
@@ -84,7 +85,7 @@ async function UserPage({ params }: Props) {
     ),
     queryClient.prefetchQuery(
       productsOptions({
-        type: 'username',
+        type: PRODUCT_TYPES.USERNAME,
         q: username || '',
         staleTime: 180000,
       }),

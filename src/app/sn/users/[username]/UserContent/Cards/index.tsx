@@ -5,7 +5,6 @@ import style from './style.module.scss';
 import { RecipeSimple } from '@/services/recipe/type';
 
 import { formatTime } from '@/utils/time';
-import { getLimitedText } from '@/utils/text';
 
 import { getRecipeLink } from '@/helpers/link';
 
@@ -36,7 +35,6 @@ interface CardProps {
 
 function Card({ recipe }: CardProps) {
   const time = formatTime({ hours: recipe.hours, minutes: recipe.minutes });
-  const name = getLimitedText(recipe.name, 30);
   const recipeLink = getRecipeLink(recipe.key);
 
   return (
@@ -59,7 +57,7 @@ function Card({ recipe }: CardProps) {
         </div>
 
         <div className={style.info}>
-          <span className={style.title}>{name}</span>
+          <span className={style.title}>{recipe.name}</span>
           <span className={style.time}>{time}</span>
           <div className={style.chip}>
             <ChipsContainer>

@@ -1,8 +1,11 @@
-import { getRecipe } from '@/services/recipe';
 import { queryOptions } from '@tanstack/react-query';
 
-import { QUERY_KEY__RECIPE } from '@/queries';
+import { getRecipePageTag } from '@/actions/helpers';
+
+import { getRecipe } from '@/services/recipe';
 import { RecipeDetail } from '@/services/recipe/type';
+
+import { QUERY_KEY__RECIPE } from '@/queries';
 
 interface Props {
   key: string;
@@ -24,6 +27,7 @@ export const recipeOptions = ({
         cache: 'force-cache',
         next: {
           revalidate: nextRevalidateTime,
+          tags: [getRecipePageTag(key)],
         },
       });
 

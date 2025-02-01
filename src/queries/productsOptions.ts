@@ -29,7 +29,7 @@ export const productsOptions = ({
 
       if (!result.ok) throw new Error(result.error);
 
-      return result.data;
+      return result.data.products;
     },
     initialData,
     staleTime,
