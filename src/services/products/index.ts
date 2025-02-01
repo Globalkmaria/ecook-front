@@ -4,7 +4,7 @@ import { Product } from './type';
 
 export const PRODUCT_TYPES = {
   INGREDIENT: 'ingredient',
-  PRODUCT: 'product',
+  USERNAME: 'username',
 } as const;
 
 export type ProductQueryType =

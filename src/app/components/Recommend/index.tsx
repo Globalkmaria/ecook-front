@@ -13,6 +13,7 @@ async function Recommend() {
     <>
       {recommendations.map((recommendation) => (
         <RecommendContainer
+          key={recommendation.title}
           title={recommendation.title}
           groupedRecipesByType={recommendation.groupedRecipesByType}
           options={recommendation.options}

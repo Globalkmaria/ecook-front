@@ -3,6 +3,8 @@ import { useQuery } from '@tanstack/react-query';
 
 import { productsOptions } from '@/queries/productsOptions';
 
+import { PRODUCT_TYPES } from '@/services/products';
+
 import { useClientStore } from '@/providers/client-store-provider';
 
 import { UserPageParams } from '../page';
@@ -16,7 +18,7 @@ function ProductList() {
 
   const { data, error } = useQuery(
     productsOptions({
-      type: 'username',
+      type: PRODUCT_TYPES.USERNAME,
       q: params.username || '',
       enabled: isUserProfile,
     }),
