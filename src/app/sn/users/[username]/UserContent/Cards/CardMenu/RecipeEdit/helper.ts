@@ -27,9 +27,9 @@ export const getEditRecipeInitialValues = (
   img: recipe.img,
   ingredients: recipe.ingredients.map((item) => ({
     id: item.id,
-    name: item.name,
     quantity: item.quantity,
     ingredientId: item.ingredientId,
+    ingredientName: item.name,
     productId: item.userProduct?.id ?? null,
     newProduct: null,
   })),
@@ -49,11 +49,11 @@ const getEditRecipeInfoData = ({
     ...textInputs,
     steps: steps.map((item) => item.value),
     ingredients: ingredients.map((item) => ({
-      name: item.name,
+      name: item.ingredientName,
       quantity: item.quantity,
       ingredientId: item.productId,
-      newProduct: item.newProduct,
       productId: item.productId,
+      newProduct: item.newProduct,
     })),
     tags: tags,
   };

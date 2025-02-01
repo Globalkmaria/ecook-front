@@ -33,13 +33,15 @@ export type SelectedIngredientInfo = {
   id?: string | null;
 } | null;
 
-export type OnSelectProductProps = ({
-  product,
-  ingredient,
-}: {
+export type OnSelectProductProps = {
   product: SelectedProductInfo;
   ingredient: SelectedIngredientInfo;
-}) => void;
+};
+
+export type OnSelectProduct = ({
+  product,
+  ingredient,
+}: OnSelectProductProps) => void;
 
 interface Props {
   ingredients: NewRecipeIngredientStates;
@@ -59,7 +61,7 @@ function RecipeIngredientsContent({ ingredients, setIngredients }: Props) {
     [ingredients, ingredients.length],
   );
 
-  const onSelectProduct: OnSelectProductProps = ({ product, ingredient }) => {
+  const onSelectProduct: OnSelectProduct = ({ product, ingredient }) => {
     if (selectedIngredient === null) return;
 
     if (product === null) {
@@ -192,9 +194,9 @@ const Ingredient = memo(function Ingredient({
           className={style['ingredient__name']}
           placeholder='Ingredient name'
           type='text'
-          id='name'
-          name='name'
-          value={item.name}
+          id='ingredientName'
+          name='ingredientName'
+          value={item.ingredientName}
         />
       </div>
       <div className={style['ingredient__buttons']}>

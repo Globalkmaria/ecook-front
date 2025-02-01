@@ -5,18 +5,18 @@ export type HomeRecipe = RecipeSimple & {
 };
 
 export interface IngredientNewProduct {
+  id: string;
   name: string;
   brand: string | null;
   purchasedFrom: string | null;
   link: string | null;
   img: File | null;
-  id: string;
 }
 
 export interface NewRecipeIngredient {
-  name: string;
   quantity: string;
   ingredientId: string | null;
+  ingredientName: string;
   productId: string | null;
   newProduct: IngredientNewProduct | null;
 }
@@ -29,5 +29,24 @@ export interface NewRecipeData {
   steps: string[];
   img: File | null;
   ingredients: NewRecipeIngredient[];
+  tags: string[];
+}
+
+export interface NewRecipeIngredientServer {
+  name: string;
+  quantity: string;
+  ingredientId: string | null;
+  productId: string | null;
+  newProduct: IngredientNewProduct | null;
+}
+
+export interface NewRecipeDataServer {
+  name: string;
+  description: string;
+  hours: string;
+  minutes: string;
+  steps: string[];
+  img: File | null;
+  ingredients: NewRecipeIngredientServer[];
   tags: string[];
 }

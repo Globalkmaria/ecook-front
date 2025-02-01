@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import style from './style.module.scss';
 
-import { NewRecipeData } from '@/services/recipes/type';
+import { NewRecipeDataServer } from '@/services/recipes/type';
 
 import { recipeOptions } from '@/queries/recipeOptions';
 import useEditRecipeMutation from '@/queries/hooks/useEditRecipeMutation';
@@ -20,7 +20,7 @@ import {
   checkRequiredFieldsFilled,
 } from './helper';
 
-export type EditRecipeData = Omit<NewRecipeData, 'img'>;
+export type EditRecipeData = Omit<NewRecipeDataServer, 'img'>;
 
 interface Props {
   recipeKey: string;

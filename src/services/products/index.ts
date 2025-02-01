@@ -12,7 +12,10 @@ export const getProducts = async ({
   type: ProductQueryType;
   q: string;
   options?: RequestInit;
-}): FetchResult<Product[]> => {
+}): FetchResult<{
+  ingredientId: string | null;
+  products: Product[];
+}> => {
   try {
     const response = await fetchAPI(`/products?type=${type}&q=${q}`, {
       ...options,

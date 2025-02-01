@@ -15,7 +15,7 @@ import IngredientInformationHeader from '@/app/sn/recipes/[recipeKey]/Recipe/Ing
 import { NewRecipeIngredientState } from '../..';
 import NewProduct from './NewProduct';
 import ExistingProduct from './ExistingProduct';
-import { OnSelectProductProps } from '../RecipeIngredientsContent';
+import { OnSelectProduct } from '../RecipeIngredientsContent';
 import {
   getNewProductInitialState,
   getSelectedProductInitialState,
@@ -25,7 +25,7 @@ import SearchProductConfirmButton from './SearchProductConfirmButton';
 
 interface Props {
   control: ReturnType<typeof useModal>;
-  onSelectProduct: OnSelectProductProps;
+  onSelectProduct: OnSelectProduct;
   ingredient: NewRecipeIngredientState;
 }
 
@@ -34,7 +34,7 @@ export const NEW_PRODUCT_ID = 'new';
 // 'selectedProduct.productId' shows type and status of selected product. new | existing id | null
 export type SelectedProductState = {
   ingredientId: string | null;
-  name: string;
+  ingredientName: string;
   productId: string | typeof NEW_PRODUCT_ID | null;
   newProduct: IngredientNewProduct | null;
 } | null;
@@ -49,7 +49,9 @@ function SearchProductModal({ control, onSelectProduct, ingredient }: Props) {
   const [selectedProduct, setSelectedProduct] = useState<SelectedProductState>(
     getSelectedProductInitialState(ingredient),
   );
-  const [searchInput, setSearchInput] = useState(ingredient.name);
+  const [searchInput, setSearchInput] = useState(
+    ingredient.ingredientName ?? '',
+  );
   const [searchedIngredient, setSearchedIngredient] =
     useState<SearchedIngredientState>(null);
   const [newProduct, setNewProduct] = useState<IngredientNewProduct>(
@@ -74,9 +76,9 @@ function SearchProductModal({ control, onSelectProduct, ingredient }: Props) {
     }
 
     setSearchedIngredient({
-      id: result.data[0]?.ingredient.id ?? null,
+      id: result.data.ingredientId,
       name: searchInput,
-      products: result.data,
+      products: result.data.products,
     });
   };
 
@@ -112,7 +114,6 @@ function SearchProductModal({ control, onSelectProduct, ingredient }: Props) {
               <ExistingProduct
                 key={product.id}
                 product={product}
-                ingredientName={searchedIngredient?.name}
                 selectedProduct={selectedProduct}
                 setSelectedProduct={setSelectedProduct}
               />

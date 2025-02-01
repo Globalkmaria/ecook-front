@@ -3,7 +3,8 @@ import { Step } from './components/RecipeStepsContent';
 
 export const getValidIngredients = (ingredients: NewRecipeIngredientStates) =>
   ingredients.filter(
-    (ingredient) => ingredient.name.trim() || ingredient.quantity.trim(),
+    (ingredient) =>
+      ingredient.ingredientName.trim() || ingredient.quantity.trim(),
   );
 
 export const getValidAndTrimmedSteps = (steps: Step[]) =>
@@ -27,5 +28,5 @@ export const checkIfAllFieldsAreFilled = ({
 }) =>
   textInputs.name.trim() &&
   img &&
-  ingredients[0].name.trim() &&
+  ingredients[0].ingredientName.trim() &&
   steps[0].value.trim().length;

@@ -5,11 +5,14 @@ import {
   NewRecipeInitialData,
   NewRecipeSubmitProps,
 } from '@/app/components/NewRecipe';
-import { NewRecipeData } from '@/services/recipes/type';
+import {
+  NewRecipeDataServer,
+  NewRecipeIngredientServer,
+} from '@/services/recipes/type';
 
 export const getNewIngredient = (): NewRecipeIngredientState => ({
   id: getRandomId(),
-  name: '',
+  ingredientName: '',
   quantity: '',
   ingredientId: null,
   productId: null,
@@ -54,9 +57,11 @@ export const appendRecipeImgToFormData = (
 const getSteps = (steps: NewRecipeSubmitProps['steps']) =>
   steps.map((item) => item.value);
 
-const getIngredients = (ingredients: NewRecipeSubmitProps['ingredients']) =>
+const getIngredients = (
+  ingredients: NewRecipeSubmitProps['ingredients'],
+): NewRecipeIngredientServer[] =>
   ingredients.map((item) => ({
-    name: item.name,
+    name: item.ingredientName,
     quantity: item.quantity,
     ingredientId: item.productId,
     newProduct: item.newProduct,
@@ -67,7 +72,7 @@ const appendRecipeInformationToFormData = (
   data: NewRecipeSubmitProps,
   formData: FormData,
 ) => {
-  const info: Omit<NewRecipeData, 'img'> = {
+  const info: Omit<NewRecipeDataServer, 'img'> = {
     ...data.textInputs,
     steps: getSteps(data.steps),
     ingredients: getIngredients(data.ingredients),

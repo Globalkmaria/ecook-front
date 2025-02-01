@@ -13,7 +13,6 @@ import { SelectedProductState } from '.';
 interface ExistingProductProps {
   product: Product;
   selectedProduct: SelectedProductState;
-  ingredientName: string;
   setSelectedProduct: React.Dispatch<
     React.SetStateAction<SelectedProductState>
   >;
@@ -22,12 +21,9 @@ interface ExistingProductProps {
 function ExistingProduct({
   product,
   selectedProduct,
-  ingredientName,
   setSelectedProduct,
 }: ExistingProductProps) {
   const onClick = () => {
-    if (!ingredientName) return;
-
     if (selectedProduct?.productId === product.id) {
       setSelectedProduct(null);
       return;
@@ -35,7 +31,7 @@ function ExistingProduct({
 
     setSelectedProduct({
       ingredientId: product.ingredient.id,
-      name: product.name,
+      ingredientName: product.ingredient.name,
       productId: product.id,
       newProduct: null,
     });
@@ -70,7 +66,7 @@ function ExistingProduct({
         <div className={style['product__info']}>
           <ProductInfoContent
             product={product}
-            ingredientName={ingredientName}
+            ingredientName={product.ingredient.name}
           />
         </div>
       </div>
