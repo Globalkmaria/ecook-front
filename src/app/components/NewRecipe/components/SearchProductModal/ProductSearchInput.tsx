@@ -7,8 +7,8 @@ import { validateLengthAndExecute } from '@/utils/validation';
 import Button from '@/components/Button';
 import { Input } from '@/components/Input';
 
-import { INGREDIENT_TEXT_LIMIT } from '../RecipeIngredientsContent';
 import { SelectedProductState } from '.';
+import { INGREDIENT_TEXT_LIMIT } from '../RecipeIngredient';
 
 interface Props {
   searchInput: string;

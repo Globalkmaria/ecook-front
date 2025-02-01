@@ -4,7 +4,7 @@ import style from './style.module.scss';
 
 import { Product } from '@/services/products/type';
 import { IngredientNewProduct } from '@/services/recipes/type';
-import { getProducts } from '@/services/products';
+import { getProducts, PRODUCT_TYPES } from '@/services/products';
 
 import useModal from '@/hooks/useModal';
 
@@ -67,7 +67,7 @@ function SearchProductModal({ control, onSelectProduct, ingredient }: Props) {
     }
 
     const result = await getProducts({
-      type: 'ingredientName',
+      type: PRODUCT_TYPES.INGREDIENT,
       q: searchInput,
     });
     if (!result.ok) {

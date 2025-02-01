@@ -2,7 +2,13 @@ import { fetchAPI } from '@/services/api';
 import { FetchResult } from '../type';
 import { Product } from './type';
 
-export type ProductQueryType = 'ingredientName' | 'username';
+export const PRODUCT_TYPES = {
+  INGREDIENT: 'ingredient',
+  PRODUCT: 'product',
+} as const;
+
+export type ProductQueryType =
+  (typeof PRODUCT_TYPES)[keyof typeof PRODUCT_TYPES];
 
 export const getProducts = async ({
   type,
