@@ -1,5 +1,10 @@
 import { RecipeSimple } from '../recipe/type';
 
+export type GetRecipesRes = {
+  search: RecipeSimple[];
+  recommend: RecipeSimple[];
+};
+
 export type HomeRecipe = RecipeSimple & {
   user: { username: string };
 };

@@ -26,9 +26,9 @@ function RecipeList() {
   );
 
   if (error) return notFound();
-  if (data?.length === 0) return <NoContent />;
+  if (data?.search?.length === 0) return <NoContent />;
 
-  return <Cards recipes={data ?? []} />;
+  return <Cards recipes={data?.search ?? []} />;
 }
 
 export default RecipeList;

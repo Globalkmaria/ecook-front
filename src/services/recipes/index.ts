@@ -1,14 +1,15 @@
 import { fetchAPI } from '@/services/api';
-import { HomeRecipe } from './type';
-import { RecipeDetail } from '../recipe/type';
-import { RecipeSimple } from '../recipe/type';
-import { FetchResult } from '../type';
+
 import { lightTrim } from '@/utils/normalize';
+
+import { GetRecipesRes, HomeRecipe } from './type';
+import { RecipeDetail } from '../recipe/type';
+import { FetchResult } from '../type';
 
 export const getRecipes = async (
   query?: string,
   type?: string,
-): FetchResult<RecipeSimple[]> => {
+): FetchResult<GetRecipesRes> => {
   try {
     const response = await fetchAPI(
       `/recipes?q=${lightTrim(query ?? '')}&type=${type ?? ''}`,
