@@ -1,6 +1,7 @@
 import style from './style.module.scss';
 
 import { getRecipes } from '@/services/recipes';
+import { RecipeSimple } from '@/services/recipe/type';
 
 import RecipeList from './RecipeList';
 import { SearchParams } from './page';
@@ -15,9 +16,10 @@ async function RecipeListWrapper({ searchParamsData }: Props) {
   const recipes = await getRecipes(q, type);
 
   if (!recipes.ok) return <Error />;
-  if (!recipes.data.length) return <NoResult />;
+  if (!recipes.data.search.length)
+    return <NoResult recipes={recipes.data.recommend} />;
 
-  return <RecipeList recipes={recipes.data} />;
+  return <RecipeList recipes={recipes.data.search} />;
 }
 
 export default RecipeListWrapper;
@@ -33,14 +35,16 @@ function Error() {
   );
 }
 
-function NoResult() {
+function NoResult({ recipes }: { recipes: RecipeSimple[] }) {
   return (
-    <div className={style['no-result']}>
-      <span>Oops! We couldn’t find any recipes that match your search. 🥺</span>
-      <span>
-        Try refining your keywords or explore some of our popular recipes for
-        inspiration!
-      </span>
+    <div>
+      <div className={style['no-result']}>
+        <span>
+          Oops! We couldn’t find any recipes that match your search. 🥺
+        </span>
+      </div>
+      <h3 className={style['title']}>Explore the Latest Recipes</h3>
+      <RecipeList recipes={recipes} />
     </div>
   );
 }

@@ -22,3 +22,12 @@
   font-weight: 500;
   gap: 5px;
 }
+
+.title {
+  margin: 40px 0 20px;
+  font-size: 1.2rem;
+
+  @media #{$laptop} {
+    font-size: 1rem;
+  }
+}

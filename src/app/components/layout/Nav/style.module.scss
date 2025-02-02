@@ -1,6 +1,7 @@
 @use '@/styles/theme.scss' as *;
 
 .wrapper {
+  z-index: 9;
   width: 100%;
 }
 
