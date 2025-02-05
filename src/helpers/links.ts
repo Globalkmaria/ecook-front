@@ -1,3 +1,4 @@
+import { SearchMenuValue } from '@/const/searchMenu';
 import { lightSlugify } from '@/utils/normalize';
 
 export const getUserLink = (username: string) => `/sn/users/${username}`;
@@ -10,7 +11,7 @@ export const getSearchIngredientLink = (ingredient: string) =>
 export const getSearchProductLink = (product: string) =>
   `/sn/search?type=product&q=${lightSlugify(product)}`;
 
-export const getSearchURL = (type: string, query: string) => {
+export const getSearchURL = (type: SearchMenuValue, query: string) => {
   const sluggedQuery = lightSlugify(query);
   return `/sn/search?type=${type}&q=${sluggedQuery}`;
 };
