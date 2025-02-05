@@ -62,6 +62,13 @@
   height: 200px;
 }
 
+.helper-text {
+  margin-top: 5px;
+  display: block;
+  font-size: 0.9rem;
+  color: $grey600;
+}
+
 .register {
   margin-top: 10px;
   display: flex;
