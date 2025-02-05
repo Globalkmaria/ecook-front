@@ -7,7 +7,7 @@ import style from './style.module.scss';
 
 import useModal from '@/hooks/useModal';
 
-import { getSearchURL } from '@/helpers/link';
+import { getSearchURL } from '@/helpers/links';
 
 import { Dropbox, DropboxItem, DropboxWrapper } from '@/components/Dropbox';
 import Icon from '@/components/Icon';

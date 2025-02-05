@@ -7,7 +7,7 @@ import style from './style.module.scss';
 
 import { createInputHandler } from '@/utils/createInputHandler';
 
-import { LOGIN_LINK } from '@/helpers/link';
+import { LOGIN_LINK } from '@/helpers/links';
 
 import { Input } from '@/components/Input';
 import ImageUploader from '@/components/imageUploader';

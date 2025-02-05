@@ -1,6 +1,6 @@
 import style from './style.module.scss';
 
-import { HOME_LINK } from '@/helpers/link';
+import { HOME_LINK } from '@/helpers/links';
 
 import AnchorUnderline from '../Anchor/AnchorUnderline';
 import Button from '../Button';

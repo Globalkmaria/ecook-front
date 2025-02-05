@@ -10,7 +10,7 @@ import style from './LoginContainer.module.scss';
 
 import { login } from '@/services/auth';
 
-import { HOME_LINK, SIGNUP_LINK } from '@/helpers/link';
+import { HOME_LINK, SIGNUP_LINK } from '@/helpers/links';
 
 import Button from '@/components/Button';
 import { Input } from '@/components/Input';

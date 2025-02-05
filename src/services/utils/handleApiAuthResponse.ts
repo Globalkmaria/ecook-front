@@ -2,7 +2,7 @@
 
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
-import { LOGIN_LINK } from '@/helpers/link';
+import { LOGIN_LINK } from '@/helpers/links';
 
 import { FetchOutcome } from '../type';
 

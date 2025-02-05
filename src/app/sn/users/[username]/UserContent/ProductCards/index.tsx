@@ -2,7 +2,7 @@ import style from './style.module.scss';
 
 import { Product } from '@/services/products/type';
 
-import { getProductLink } from '@/helpers/link';
+import { getProductLink } from '@/helpers/links';
 
 import ImgCard, { ImgCardProps } from '@/components/ImgCard';
 

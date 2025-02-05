@@ -7,7 +7,7 @@ import { PRODUCT_TYPES } from '@/services/products';
 
 import { productsOptions } from '@/queries/productsOptions';
 
-import { getProductLink } from '@/helpers/link';
+import { getProductLink } from '@/helpers/links';
 
 import ImgCard from '@/components/ImgCard';
 

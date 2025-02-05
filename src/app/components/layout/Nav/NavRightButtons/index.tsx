@@ -17,7 +17,7 @@ import {
   HOME_LINK,
   LOGIN_LINK,
   SIGNUP_LINK,
-} from '@/helpers/link';
+} from '@/helpers/links';
 
 import { AvatarImg } from '@/components/Avatar';
 import Anchor from '@/components/Anchor';

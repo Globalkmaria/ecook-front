@@ -2,7 +2,7 @@ import style from './style.module.scss';
 
 import { joinClassNames } from '@/utils/style';
 
-import { getSearchProductLink } from '@/helpers/link';
+import { getSearchProductLink } from '@/helpers/links';
 
 import { Product as ProductType } from '@/services/products/type';
 import { RecipeProduct } from '@/services/recipe/type';

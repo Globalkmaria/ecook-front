@@ -6,7 +6,7 @@ import { useClientStore } from '@/providers/client-store-provider';
 
 import { signup } from '@/services/auth';
 
-import { HOME_LINK } from '@/helpers/link';
+import { HOME_LINK } from '@/helpers/links';
 
 import Button from '@/components/Button';
 

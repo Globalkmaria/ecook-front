@@ -7,7 +7,7 @@ import { useShallow } from 'zustand/shallow';
 
 import { useClientStore } from '@/providers/client-store-provider';
 
-import { getRecipeLink, LOGIN_LINK } from '@/helpers/link';
+import { getRecipeLink, LOGIN_LINK } from '@/helpers/links';
 
 import {
   QUERY_KEY__PRODUCTS,
