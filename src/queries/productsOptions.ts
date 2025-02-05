@@ -1,8 +1,9 @@
 import { queryOptions } from '@tanstack/react-query';
 
-import { QUERY_KEY__PRODUCTS } from '@/queries';
 import { getProducts, ProductQueryType } from '@/services/products';
 import { Product } from '@/services/products/type';
+
+import { generateProductListQueryKey } from '@/queries';
 
 interface Props {
   q: string;
@@ -22,7 +23,7 @@ export const productsOptions = ({
   enabled,
 }: Props) =>
   queryOptions({
-    queryKey: [QUERY_KEY__PRODUCTS, { type, q }],
+    queryKey: generateProductListQueryKey({ type, query: q }),
     queryFn: async () => {
       const result = await getProducts({
         type,
