@@ -78,7 +78,7 @@ async function UserPage({ params }: Props) {
     ),
     queryClient.prefetchQuery(
       recipeListOptions({
-        query: username || '',
+        query: username,
         type: 'username',
         staleTime: 180000, // 3 minutes
       }),

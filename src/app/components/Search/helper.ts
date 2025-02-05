@@ -3,11 +3,7 @@ import {
   SEARCH_MENU_VALUES,
   SearchMenuValue,
 } from '@/const/searchMenu';
-import {
-  lightSlugify,
-  lightTrim,
-  replaceHyphensWithSpaces,
-} from '@/utils/normalize';
+import { lightTrim, replaceHyphensWithSpaces } from '@/utils/normalize';
 
 export const getSearchQuery = (value: string | null) =>
   lightTrim(replaceHyphensWithSpaces(value ?? ''));

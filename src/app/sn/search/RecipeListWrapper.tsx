@@ -2,6 +2,7 @@ import style from './style.module.scss';
 
 import { getRecipes } from '@/services/recipes';
 import { RecipeSimple } from '@/services/recipe/type';
+import { checkSearchType } from '@/services/recipes/helper';
 
 import RecipeList from './RecipeList';
 import { SearchParams } from './page';
@@ -12,6 +13,9 @@ interface Props {
 
 async function RecipeListWrapper({ searchParamsData }: Props) {
   const { q, type } = searchParamsData;
+
+  if (!checkSearchType(type)) return <TypeNotFound />;
+  if (!q) return <NoSearch />;
 
   const recipes = await getRecipes(q, type);
 
@@ -31,6 +35,24 @@ function Error() {
       <span>
         Please double-check your search keywords or try again later. 🥺
       </span>
+    </div>
+  );
+}
+
+function TypeNotFound() {
+  return (
+    <div className={style['no-result']}>
+      <span>Oops! Something went wrong.</span>
+      <span>Please double-check your search type. 🥺</span>
+    </div>
+  );
+}
+
+function NoSearch() {
+  return (
+    <div className={style['no-result']}>
+      <span>Oops! Something went wrong.</span>
+      <span>Please enter a search keyword. 🥺</span>
     </div>
   );
 }

@@ -6,11 +6,15 @@ import { GetRecipesRes, HomeRecipe } from './type';
 import { RecipeDetail } from '../recipe/type';
 import { FetchResult } from '../type';
 import { createAsyncErrorMessage, withSafeAsync } from '../utils';
+import { RecipeListSearchType } from './helper';
 
 export const getRecipes = withSafeAsync(
-  async (query?: string, type?: string): FetchResult<GetRecipesRes> => {
+  async (
+    query: string,
+    type: RecipeListSearchType,
+  ): FetchResult<GetRecipesRes> => {
     const response = await fetchAPI(
-      `/recipes?q=${lightTrim(query ?? '')}&type=${type ?? ''}`,
+      `/recipes?q=${lightTrim(query)}&type=${type}`,
     );
 
     if (response.ok) return { ok: true, data: response.data };
