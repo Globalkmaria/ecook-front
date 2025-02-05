@@ -102,8 +102,8 @@ Whether you're exploring new recipes or looking for ways to reuse ingredients, E
 
 
 - ERD
+![cooking erd](https://github.com/user-attachments/assets/1eee367b-7964-40cb-a785-13f6a6d84985)
 
-![cooking (1)](https://github.com/user-attachments/assets/5ba581d0-bdd7-4720-8f90-6050ea290233)
 
 - Home page
 <img width="900" alt="Screenshot 2025-01-14 at 2 44 50 PM" src="https://github.com/user-attachments/assets/2c3ffc7c-330d-49b8-abb4-3766e2584044" />
