@@ -10,6 +10,7 @@ import { productOptions } from '@/queries/productOptions';
 import { ProductPageParams } from '../page';
 import ProductInformation from './ProductInformation';
 import ProductRecommend from './ProductRecommend';
+import OtherProducts from './OtherProducts';
 
 function ProductPageContainer() {
   const params = useParams<ProductPageParams>();
@@ -23,6 +24,7 @@ function ProductPageContainer() {
   return (
     <div className={style['container']}>
       <ProductInformation product={product} />
+      <OtherProducts />
       <ProductRecommend />
     </div>
   );

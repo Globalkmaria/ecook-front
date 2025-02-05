@@ -7,7 +7,7 @@ import { RecipeSimple } from '@/services/recipe/type';
 import { getLimitedText } from '@/utils/text';
 import { formatTime } from '@/utils/time';
 
-import { getRecipeLink } from '@/helpers/link';
+import { getRecipeLink } from '@/helpers/links';
 
 import Chip, { ChipsContainer } from '@/components/Chip';
 import CustomImage from '@/components/CustomImage';

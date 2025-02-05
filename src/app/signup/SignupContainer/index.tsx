@@ -7,7 +7,7 @@ import style from './style.module.scss';
 
 import { createInputHandler } from '@/utils/createInputHandler';
 
-import { LOGIN_LINK } from '@/helpers/link';
+import { LOGIN_LINK } from '@/helpers/links';
 
 import { Input } from '@/components/Input';
 import ImageUploader from '@/components/imageUploader';
@@ -54,12 +54,15 @@ function SignupContainer() {
       <div className={style.container}>
         <h1>Sign up to E-COOK</h1>
         <div className={style.form}>
-          <div className={style['img-uploader']}>
-            <ImageUploader
-              onChange={onImgChange}
-              imgValue={form.img}
-              maxSizeKB={200}
-            />
+          <div>
+            <div className={style['img-uploader']}>
+              <ImageUploader
+                onChange={onImgChange}
+                imgValue={form.img}
+                maxSizeKB={200}
+              />
+            </div>
+            <span className={style['helper-text']}>* Image is optional</span>
           </div>
 
           <fieldset>

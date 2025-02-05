@@ -7,13 +7,12 @@ import { useShallow } from 'zustand/shallow';
 
 import { useClientStore } from '@/providers/client-store-provider';
 
-import { getRecipeLink, LOGIN_LINK } from '@/helpers/link';
+import { getRecipeLink, LOGIN_LINK } from '@/helpers/links';
 
 import {
-  QUERY_KEY__PRODUCTS,
-  QUERY_KEY__PROFILE,
-  QUERY_KEY__RECIPE_LIST,
-  QUERY_KEY__USERNAME,
+  generateProductListQueryKey,
+  generateRecipeListQueryKey,
+  generateUserProfileQueryKey,
 } from '@/queries';
 
 import { createRecipe } from '@/services/recipes';
@@ -57,13 +56,19 @@ function NewRecipeContainer() {
       }
 
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEY__RECIPE_LIST, username],
+        queryKey: generateRecipeListQueryKey({
+          query: 'username',
+          type: username,
+        }),
       });
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEY__PROFILE, username],
+        queryKey: generateUserProfileQueryKey(username),
       });
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEY__PRODUCTS, QUERY_KEY__USERNAME, username],
+        queryKey: generateProductListQueryKey({
+          type: 'username',
+          query: username,
+        }),
       });
 
       router.replace(getRecipeLink(result.data.key));

@@ -13,11 +13,12 @@ import { editRecipe } from '@/services/recipe';
 import { handleApiAuthResponse } from '@/services/utils/handleApiAuthResponse';
 
 import {
-  QUERY_KEY__PRODUCTS,
-  QUERY_KEY__RECIPE,
-  QUERY_KEY__RECIPE_LIST,
-  QUERY_KEY__USERNAME,
+  generateProductListQueryKey,
+  generateRecipeListQueryKey,
+  generateRecipeQueryKey,
 } from '@/queries';
+
+import { LOGIN_LINK } from '@/helpers/links';
 
 const useEditRecipeMutation = (recipeKey: string, onCloseModal: () => void) => {
   const queryClient = useQueryClient();
@@ -35,14 +36,26 @@ const useEditRecipeMutation = (recipeKey: string, onCloseModal: () => void) => {
       throw new Error('Failed to edit recipe');
     },
     onSuccess: async (data) => {
+      if (!username) {
+        alert('Please login to edit recipe');
+        router.replace(LOGIN_LINK);
+        return;
+      }
+
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEY__RECIPE_LIST, username],
+        queryKey: generateRecipeListQueryKey({
+          query: 'username',
+          type: username,
+        }),
       });
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEY__PRODUCTS, QUERY_KEY__USERNAME, username],
+        queryKey: generateProductListQueryKey({
+          type: 'username',
+          query: username,
+        }),
       });
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEY__RECIPE, data.key],
+        queryKey: generateRecipeQueryKey(data.key),
       });
 
       await revalidateTagRecipeDetail(getRecipePageTag(data.key));

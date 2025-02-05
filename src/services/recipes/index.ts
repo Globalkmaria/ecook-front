@@ -5,39 +5,43 @@ import { lightTrim } from '@/utils/normalize';
 import { GetRecipesRes, HomeRecipe } from './type';
 import { RecipeDetail } from '../recipe/type';
 import { FetchResult } from '../type';
+import { createAsyncErrorMessage, withSafeAsync } from '../utils';
+import { RecipeListSearchType } from './helper';
 
-export const getRecipes = async (
-  query?: string,
-  type?: string,
-): FetchResult<GetRecipesRes> => {
-  try {
+export const getRecipes = withSafeAsync(
+  async (
+    query: string,
+    type: RecipeListSearchType,
+  ): FetchResult<GetRecipesRes> => {
     const response = await fetchAPI(
-      `/recipes?q=${lightTrim(query ?? '')}&type=${type ?? ''}`,
+      `/recipes?q=${lightTrim(query)}&type=${type}`,
     );
 
     if (response.ok) return { ok: true, data: response.data };
 
-    throw new Error(response.res.statusText);
-  } catch (e) {
-    console.error('Failed to fetch recipes', e);
-    return { ok: false, error: 'Failed to fetch recipes', data: [] };
-  }
-};
+    throw new Error(
+      createAsyncErrorMessage(response.res, `Failed to fetch recipes`),
+    );
+  },
+  {
+    search: [],
+    recommend: [],
+  },
+);
 
-export const getHomeRecipes = async (): FetchResult<HomeRecipe[]> => {
-  try {
-    const response = await fetchAPI('/recipes/home', {
-      cache: 'force-cache',
-    });
+export const getHomeRecipes = withSafeAsync(async (): FetchResult<
+  HomeRecipe[]
+> => {
+  const response = await fetchAPI('/recipes/home', {
+    cache: 'force-cache',
+  });
 
-    if (response.ok) return { ok: true, data: response.data };
+  if (response.ok) return { ok: true, data: response.data };
 
-    throw new Error(response.res.statusText);
-  } catch (e) {
-    console.error('Failed to fetch recipes', e);
-    return { ok: false, error: 'Failed to fetch recipes', data: [] };
-  }
-};
+  throw new Error(
+    createAsyncErrorMessage(response.res, `Failed to fetch home recipes`),
+  );
+}, []);
 
 export const createRecipe = async (
   data: FormData,

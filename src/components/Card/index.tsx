@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import style from './style.module.scss';
 
-import { getRecipeLink } from '@/helpers/link';
+import { getRecipeLink } from '@/helpers/links';
 
 import CustomImage from '../CustomImage';
 import Avatar from '../Avatar';

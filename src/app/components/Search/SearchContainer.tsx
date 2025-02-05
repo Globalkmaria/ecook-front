@@ -7,11 +7,15 @@ import style from './style.module.scss';
 
 import useModal from '@/hooks/useModal';
 
-import { getSearchURL } from '@/helpers/link';
+import { getSearchURL } from '@/helpers/links';
 
 import { Dropbox, DropboxItem, DropboxWrapper } from '@/components/Dropbox';
 import Icon from '@/components/Icon';
-import { SEARCH_MENU_ITEMS, SEARCH_MENU_ITEMS_MAP } from '@/const/searchMenu';
+import {
+  SEARCH_MENU_ITEMS,
+  SEARCH_MENU_ITEMS_MAP,
+  SearchMenuValue,
+} from '@/const/searchMenu';
 
 import { getSearchMenuItem, getSearchQuery } from './helper';
 
@@ -21,7 +25,7 @@ function SearchContainer() {
   const [searchQuery, setSearchQuery] = useState(
     getSearchQuery(searchParams.get('q')),
   );
-  const [selectedMenuItem, setSelectedMenuItem] = useState<string>(
+  const [selectedMenuItem, setSelectedMenuItem] = useState<SearchMenuValue>(
     getSearchMenuItem(searchParams.get('type')),
   );
 
@@ -34,7 +38,8 @@ function SearchContainer() {
     router.push(getSearchURL(selectedMenuItem, searchQuery));
   };
 
-  const onMenuChange = (menuItem: string) => setSelectedMenuItem(menuItem);
+  const onMenuChange = (menuItem: SearchMenuValue) =>
+    setSelectedMenuItem(menuItem);
 
   const onEnterPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') onSearch();
@@ -75,7 +80,7 @@ function SearchContainer() {
 export default SearchContainer;
 
 interface SearchMenuProps {
-  onMenuChange: (menuItem: string) => void;
+  onMenuChange: (menuItem: SearchMenuValue) => void;
   selectedMenuItem: string;
 }
 
@@ -86,7 +91,7 @@ function SearchMenu({ onMenuChange, selectedMenuItem }: SearchMenuProps) {
 
   const menuArrow = isOpen ? <Icon icon='up' /> : <Icon icon='down' />;
 
-  const onMenuItemSelect = (value: string) => {
+  const onMenuItemSelect = (value: SearchMenuValue) => {
     onMenuChange(value);
     onClose();
   };

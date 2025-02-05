@@ -8,7 +8,7 @@ import style from './style.module.scss';
 import { RecipeDetail } from '@/services/recipe/type';
 import { formatTime } from '@/utils/time';
 
-import { getSearchTagLink, getUserLink } from '@/helpers/link';
+import { getSearchTagLink, getUserLink } from '@/helpers/links';
 
 import { Tab, TabsContainer } from '@/components/Tab';
 import Avatar from '@/components/Avatar';

@@ -6,7 +6,7 @@ import { RecipeSimple } from '@/services/recipe/type';
 
 import { getLimitedWords } from '@/utils/text';
 
-import { getRecipeLink } from '@/helpers/link';
+import { getRecipeLink } from '@/helpers/links';
 
 import Chip, { ChipsContainer } from '@/components/Chip';
 import CustomImage from '@/components/CustomImage';

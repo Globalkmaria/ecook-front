@@ -4,7 +4,7 @@ import style from './style.module.scss';
 
 import { Ingredient, RecipeDetail } from '@/services/recipe/type';
 
-import { getSearchIngredientLink } from '@/helpers/link';
+import { getSearchIngredientLink } from '@/helpers/links';
 
 import SearchIconLink from '@/components/SearchIconLink';
 import Checkbox from '@/components/CheckboxList';

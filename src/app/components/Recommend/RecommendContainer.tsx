@@ -7,7 +7,7 @@ import style from './style.module.scss';
 
 import { RecipeRecommendations } from '@/services/recommend/type';
 
-import { getSearchTagLink } from '@/helpers/link';
+import { getSearchTagLink } from '@/helpers/links';
 
 import { Tab2, TabsContainer2 } from '@/components/Tab2';
 import Card from '@/components/Card';

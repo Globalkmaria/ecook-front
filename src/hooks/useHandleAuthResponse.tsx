@@ -6,7 +6,7 @@ import { useClientStore } from '@/providers/client-store-provider';
 
 import { FetchResult, FetchSuccessResult } from '@/services/type';
 
-import { LOGIN_LINK } from '@/helpers/link';
+import { LOGIN_LINK } from '@/helpers/links';
 
 type Props<T> = {
   request: FetchResult<T>;

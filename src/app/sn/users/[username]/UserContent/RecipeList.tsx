@@ -19,7 +19,7 @@ function RecipeList() {
 
   const { data, error } = useQuery(
     recipeListOptions({
-      query: params.username || '',
+      query: params.username,
       type: 'username',
       enabled: isUserProfile,
     }),

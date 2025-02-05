@@ -3,8 +3,9 @@ import { FetchResult } from '../type';
 import { Product } from './type';
 
 export const PRODUCT_TYPES = {
-  INGREDIENT: 'ingredient',
+  INGREDIENT: 'ingredientName',
   USERNAME: 'username',
+  PRODUCT_KEY: 'productKey',
 } as const;
 
 export type ProductQueryType =

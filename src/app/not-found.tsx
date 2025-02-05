@@ -1,6 +1,6 @@
 import style from './notFound.module.scss';
 
-import { HOME_LINK } from '@/helpers/link';
+import { HOME_LINK } from '@/helpers/links';
 
 import AnchorUnderline from '@/components/Anchor/AnchorUnderline';
 
