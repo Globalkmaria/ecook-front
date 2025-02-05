@@ -20,7 +20,7 @@ export const productsOptions = ({
   enabled,
 }: Props) =>
   queryOptions({
-    queryKey: [QUERY_KEY__PRODUCTS, type, q],
+    queryKey: [QUERY_KEY__PRODUCTS, { type, q }],
     queryFn: async () => {
       const result = await getProducts({
         type,
