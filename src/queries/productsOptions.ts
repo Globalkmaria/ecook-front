@@ -10,12 +10,14 @@ interface Props {
   staleTime?: number;
   type: ProductQueryType;
   enabled?: boolean;
+  nextRevalidateTime?: number;
 }
 
 export const productsOptions = ({
   initialData,
   staleTime,
   type,
+  nextRevalidateTime,
   q,
   enabled,
 }: Props) =>
@@ -25,6 +27,11 @@ export const productsOptions = ({
       const result = await getProducts({
         type,
         q,
+        options: {
+          next: {
+            revalidate: nextRevalidateTime,
+          },
+        },
       });
 
       if (!result.ok) throw new Error(result.error);

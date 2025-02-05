@@ -31,6 +31,7 @@ async function ProductPage({ params }: Props) {
       productsOptions({
         type: PRODUCT_TYPES.PRODUCT_KEY,
         q: productKey,
+        nextRevalidateTime: 86400,
       }),
     ),
   ]);
