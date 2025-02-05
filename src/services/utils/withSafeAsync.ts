@@ -1,10 +1,10 @@
 import { FetchResult } from '../type';
 
-function withSafeAsync<T>(
-  fn: (...args: any) => FetchResult<T>,
+function withSafeAsync<T, U extends V[], V>(
+  fn: (...args: U) => FetchResult<T>,
   defaultData?: T,
-): (...args: any) => FetchResult<T> {
-  return async function (...args: any): FetchResult<T> {
+): (...args: U) => FetchResult<T> {
+  return async function (...args: U): FetchResult<T> {
     try {
       return await fn(...args);
     } catch (error) {
