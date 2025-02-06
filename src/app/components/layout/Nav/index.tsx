@@ -2,7 +2,7 @@ import style from './style.module.scss';
 
 import NavRightButtons from './NavRightButtons';
 import Logo from '../Logo';
-import Search from '../../Search';
+import Search from '../../common/Search';
 
 function Nav() {
   return (

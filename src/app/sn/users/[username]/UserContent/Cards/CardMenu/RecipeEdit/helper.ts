@@ -2,8 +2,8 @@ import { RecipeDetail } from '@/services/recipe/type';
 
 import { getRandomId } from '@/utils/generateId';
 
-import { NewRecipeInitialData } from '@/app/components/NewRecipe';
-import { NewRecipeSubmitProps } from '@/app/components/NewRecipe';
+import { NewRecipeInitialData } from '@/app/components/common/NewRecipe';
+import { NewRecipeSubmitProps } from '@/app/components/common/NewRecipe';
 
 import { EditRecipeData } from '.';
 import {

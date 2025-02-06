@@ -4,7 +4,7 @@ import style from './style.module.scss';
 
 import { RecipeSimple } from '@/services/recipe/type';
 
-import RecipeImgAndInfoCard from '@/app/components/RecipeImgAndInfoCard';
+import RecipeImgAndInfoCard from '@/app/components/common/RecipeImgAndInfoCard';
 
 import { getCountText } from './helper';
 

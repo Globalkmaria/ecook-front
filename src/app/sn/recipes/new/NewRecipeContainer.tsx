@@ -18,7 +18,9 @@ import {
 import { createRecipe } from '@/services/recipes';
 import { handleApiAuthResponse } from '@/services/utils/handleApiAuthResponse';
 
-import NewRecipe, { NewRecipeSubmitProps } from '@/app/components/NewRecipe';
+import NewRecipe, {
+  NewRecipeSubmitProps,
+} from '@/app/components/common/NewRecipe';
 import {
   getNewRecipeInitialData,
   getNewRecipeSubmitFormData,
