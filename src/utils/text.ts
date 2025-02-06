@@ -11,3 +11,6 @@ export const getLimitedWords = (text: string, limit: number): string[] => {
     ? [...splittedWord.slice(0, limit - 1), `${splittedWord[limit - 1]}...`]
     : splittedWord;
 };
+
+export const pluralize = (text: string, count: number): string =>
+  count > 1 ? text + 's' : text;

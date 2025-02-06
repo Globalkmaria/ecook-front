@@ -5,3 +5,4 @@ export const QUERY_KEY__RECOMMEND = 'recommend';
 export const QUERY_KEY__PRODUCT_LIST = 'products';
 export const QUERY_KEY__PRODUCT = 'product';
 export const QUERY_KEY__USERNAME = 'username';
+export const QUERY_KEY__BOOKMARKS = 'bookmarks';

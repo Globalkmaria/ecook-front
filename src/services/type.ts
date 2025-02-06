@@ -1,7 +1,6 @@
-export type FetchSuccessResult<T> = {
-  data: T;
-  ok: true;
-};
+export type FetchSuccessResult<T = undefined> = T extends undefined
+  ? { ok: true }
+  : { data: T; ok: true };
 
 type FetchErrorResult = {
   error?: string;
@@ -12,4 +11,4 @@ type FetchErrorResult = {
 
 export type FetchOutcome<T> = FetchSuccessResult<T> | FetchErrorResult;
 
-export type FetchResult<T> = Promise<FetchOutcome<T>>;
+export type FetchResult<T = undefined> = Promise<FetchOutcome<T>>;

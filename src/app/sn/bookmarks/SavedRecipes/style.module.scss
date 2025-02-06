@@ -1,8 +1,22 @@
 @use '@/styles/theme.scss' as *;
 
-// List
+.header {
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: $front-size-20;
+  font-weight: 600;
+}
+
+.count {
+  display: block;
+  margin-top: 10px;
+}
 
 .list {
+  margin-top: 20px;
+
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(336px, 1fr));
   gap: 36px;

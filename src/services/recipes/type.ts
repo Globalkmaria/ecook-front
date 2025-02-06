@@ -5,10 +5,6 @@ export type GetRecipesRes = {
   recommend: RecipeSimple[];
 };
 
-export type HomeRecipe = RecipeSimple & {
-  user: { username: string };
-};
-
 export interface IngredientNewProduct {
   id: string;
   name: string;

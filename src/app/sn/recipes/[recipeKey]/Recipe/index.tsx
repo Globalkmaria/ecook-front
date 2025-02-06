@@ -19,6 +19,7 @@ import AnchorChips from '@/components/AnchorChip';
 import Ingredients from './IngredientList';
 import { RECIPE_TABS, RecipeTab } from '../const';
 import StepList from './StepList';
+import BookmarkButton from './BookmarkButton';
 
 interface Props {
   recipe: RecipeDetail;
@@ -29,13 +30,16 @@ function Recipe({ recipe }: Props) {
     hours: recipe.hours,
     minutes: recipe.minutes,
   });
+
   const userLink = getUserLink(recipe.user.username);
+
   return (
     <section className={style.wrapper}>
-      <div>
+      <div className={style['header']}>
         <Link href={userLink}>
           <Avatar user={recipe.user} />
         </Link>
+        <BookmarkButton />
       </div>
       <div className={style.container}>
         <div className={style['img-box']}>

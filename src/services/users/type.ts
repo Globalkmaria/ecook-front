@@ -13,3 +13,8 @@ export interface ResIsUsernameAvailable {
   message: string;
   isAvailable: boolean;
 }
+
+export interface UserBookmarkedRecipes {
+  search: RecipeSimple[];
+  recommend: RecipeSimple[];
+}

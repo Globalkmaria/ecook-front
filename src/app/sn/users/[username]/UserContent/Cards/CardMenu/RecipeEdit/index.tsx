@@ -11,8 +11,8 @@ import useEditRecipeMutation from '@/queries/hooks/useEditRecipeMutation';
 
 import Skeleton from '@/components/Skeleton';
 
-import NewRecipe from '@/app/components/NewRecipe';
-import { OnSubmitNewRecipe } from '@/app/components/NewRecipe';
+import NewRecipe from '@/app/components/common/NewRecipe';
+import { OnSubmitNewRecipe } from '@/app/components/common/NewRecipe';
 
 import {
   getEditRecipeFormData,

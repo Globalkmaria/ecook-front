@@ -6,7 +6,7 @@ import style from './style.module.scss';
 
 import Icon from '@/components/Icon';
 import { Tab, TabsContainer } from '@/components/Tab';
-import { IconButtonType } from '@/components/Icon/const';
+import { IconType } from '@/components/Icon/const';
 
 import RecipeList from './RecipeList';
 import ProductList from './ProductList';
@@ -41,7 +41,7 @@ function UserContent() {
 export default UserContent;
 
 const TABS: {
-  icon: IconButtonType;
+  icon: IconType;
   label: string;
   Component: () => JSX.Element;
 }[] = [

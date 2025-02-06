@@ -4,7 +4,7 @@ import {
   NewRecipeIngredientState,
   NewRecipeInitialData,
   NewRecipeSubmitProps,
-} from '@/app/components/NewRecipe';
+} from '@/app/components/common/NewRecipe';
 import {
   NewRecipeDataServer,
   NewRecipeIngredientServer,

@@ -11,7 +11,7 @@ export const getSearchIngredientLink = (ingredient: string) =>
 export const getSearchProductLink = (product: string) =>
   `/sn/search?type=product&q=${lightSlugify(product)}`;
 
-export const getSearchURL = (type: SearchMenuValue, query: string) => {
+export const getSearchLink = (type: SearchMenuValue, query: string) => {
   const sluggedQuery = lightSlugify(query);
   return `/sn/search?type=${type}&q=${sluggedQuery}`;
 };
@@ -28,3 +28,5 @@ export const SIGNUP_LINK = `/signup`;
 export const LOGIN_LINK = `/login`;
 
 export const HOME_LINK = `/`;
+
+export const BOOKMARKS_LINK = `/sn/bookmarks`;
