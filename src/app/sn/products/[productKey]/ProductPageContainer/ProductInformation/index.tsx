@@ -2,7 +2,7 @@ import style from './style.module.scss';
 
 import { Product } from '@/services/products/type';
 
-import { getSearchURL } from '@/helpers/links';
+import { getSearchLink } from '@/helpers/links';
 
 import CustomImage from '@/components/CustomImage';
 import Icon, { IconProps } from '@/components/Icon';
@@ -49,11 +49,11 @@ function ProductInformation({ product }: Props) {
       </div>
       <div className={style['links']}>
         <Anchor
-          href={getSearchURL('product', product.name)}
+          href={getSearchLink('product', product.name)}
         >{`What Can I Make with This Product?`}</Anchor>
         <Anchor
           variant='secondary'
-          href={getSearchURL('ingredient', product.ingredient.name)}
+          href={getSearchLink('ingredient', product.ingredient.name)}
         >{`What Can I Make with This Ingredient?`}</Anchor>
       </div>
     </section>

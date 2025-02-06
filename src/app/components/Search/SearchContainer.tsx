@@ -7,7 +7,7 @@ import style from './style.module.scss';
 
 import useModal from '@/hooks/useModal';
 
-import { getSearchURL } from '@/helpers/links';
+import { getSearchLink } from '@/helpers/links';
 
 import { Dropbox, DropboxItem, DropboxWrapper } from '@/components/Dropbox';
 import Icon from '@/components/Icon';
@@ -35,7 +35,7 @@ function SearchContainer() {
   const onSearch = () => {
     if (!searchQuery.trim()) return;
 
-    router.push(getSearchURL(selectedMenuItem, searchQuery));
+    router.push(getSearchLink(selectedMenuItem, searchQuery));
   };
 
   const onMenuChange = (menuItem: SearchMenuValue) =>
