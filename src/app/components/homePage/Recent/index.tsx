@@ -1,6 +1,6 @@
 import style from './style.module.scss';
 
-import { getHomeRecipes } from '@/services/recipes';
+import { getHomeRecipes } from '@/services/home';
 
 import Recipe from './Recipe';
 

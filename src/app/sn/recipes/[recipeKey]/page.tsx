@@ -6,7 +6,7 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 
-import { getHomeRecipes } from '@/services/recipes';
+import { getHomeRecipes } from '@/services/home';
 import { getRecipe } from '@/services/recipe';
 
 import { recipeOptions } from '@/queries/recipeOptions';

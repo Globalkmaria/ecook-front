@@ -9,7 +9,7 @@ import {
 import style from './style.module.scss';
 
 import { getProfile } from '@/services/users';
-import { getHomeRecipes } from '@/services/recipes';
+import { getHomeRecipes } from '@/services/home';
 import { PRODUCT_TYPES } from '@/services/products';
 
 import { ECOOK_LOGO_URL } from '@/const/contLinks';
