@@ -12,9 +12,8 @@
   max-width: $layoutMaxWidth;
   width: 100%;
   display: grid;
-  grid-template-columns: 100px 1fr 200px;
+  grid-template-columns: 100px 1fr max-content;
   align-items: center;
-  grid-template-rows: minmax(100px);
 
   @media #{$tablet} {
     grid-template-columns: 100px 1fr;

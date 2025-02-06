@@ -5,10 +5,20 @@ import {
   IoMdRemove,
   IoMdAdd,
 } from 'react-icons/io';
-import { PiJarLabelLight, PiTagSimpleFill, PiJar } from 'react-icons/pi';
+import {
+  PiBookBookmarkBold,
+  PiJarLabelLight,
+  PiTagSimpleFill,
+  PiJar,
+} from 'react-icons/pi';
 import { MdLabelOutline, MdGridOn, MdOutlineEdit } from 'react-icons/md';
 import { IoClose, IoInformationOutline, IoSearch } from 'react-icons/io5';
-import { FaRegImage, FaRegTrashCan } from 'react-icons/fa6';
+import {
+  FaRegImage,
+  FaRegTrashCan,
+  FaBookmark,
+  FaRegBookmark,
+} from 'react-icons/fa6';
 import { FaAngleUp, FaAngleDown } from 'react-icons/fa';
 import { RxReset } from 'react-icons/rx';
 
@@ -33,6 +43,9 @@ const ICON_NAMES = [
   'down',
   'search',
   'add',
+  'bookmarkOutline',
+  'bookmarkFill',
+  'book',
 ] as const;
 
 export type IconButtonType = (typeof ICON_NAMES)[number];
@@ -60,6 +73,9 @@ export const ICONS: {
   down: <FaAngleDown />,
   search: <IoSearch />,
   add: <IoMdAdd />,
+  bookmarkOutline: <FaRegBookmark />,
+  bookmarkFill: <FaBookmark />,
+  book: <PiBookBookmarkBold />,
 };
 
 export const ICON_TITLES: { [key in IconButtonType]: string } = {
@@ -83,4 +99,7 @@ export const ICON_TITLES: { [key in IconButtonType]: string } = {
   down: 'down',
   search: 'search',
   add: 'add',
+  bookmarkOutline: 'save item',
+  bookmarkFill: 'saved item',
+  book: 'book',
 };

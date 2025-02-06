@@ -17,6 +17,7 @@ import {
   HOME_LINK,
   LOGIN_LINK,
   SIGNUP_LINK,
+  BOOKMARKS_LINK,
 } from '@/helpers/links';
 
 import { AvatarImg } from '@/components/Avatar';
@@ -25,12 +26,7 @@ import { Dropbox, DropboxItem, DropboxWrapper } from '@/components/Dropbox';
 import Icon from '@/components/Icon';
 
 function NavRightButtons() {
-  const router = useRouter();
-  const ref = useRef<HTMLDivElement>(null);
-  const [isLoading, startTransition] = useTransition();
-  const [resetUser, user] = useClientStore(
-    useShallow((state) => [state.resetUser, state.user]),
-  );
+  const user = useClientStore(useShallow((state) => state.user));
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -38,6 +34,21 @@ function NavRightButtons() {
   }, []);
 
   if (!isClient) return null;
+
+  if (!user.isLoggedIn) return <NotLoggedInMenu />;
+
+  return <LoggedInMenu />;
+}
+
+export default NavRightButtons;
+
+function LoggedInMenu() {
+  const router = useRouter();
+  const ref = useRef<HTMLDivElement>(null);
+  const [isLoading, startTransition] = useTransition();
+  const [resetUser, user] = useClientStore(
+    useShallow((state) => [state.resetUser, state.user]),
+  );
 
   const userImgInfo = {
     username: user.username ?? '',
@@ -54,10 +65,11 @@ function NavRightButtons() {
     });
   };
 
-  if (!user.isLoggedIn) return <NotLoggedInMenu />;
-
   return (
     <div className={style['right-buttons']}>
+      <Anchor variant='secondary' href={BOOKMARKS_LINK}>
+        <Icon icon='book' />
+      </Anchor>
       <Anchor href={NEW_RECIPE_LINK} className={style.new}>
         <Icon icon='add' className={style['new__icon']} />
         <span className={style['new__text']}>New recipes</span>
@@ -77,8 +89,6 @@ function NavRightButtons() {
     </div>
   );
 }
-
-export default NavRightButtons;
 
 function NotLoggedInMenu() {
   return (
