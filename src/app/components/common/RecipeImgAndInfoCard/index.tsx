@@ -11,12 +11,13 @@ import { getRecipeLink } from '@/helpers/links';
 import Avatar from '@/components/Avatar';
 import Chip2 from '@/components/Chip2';
 import CustomImage from '@/components/CustomImage';
+import Skeleton from '@/components/Skeleton';
 
 interface Props {
   recipe: RecipeSimple;
 }
 
-function RecipeImgAndInfoCard({ recipe }: Props) {
+function Card({ recipe }: Props) {
   const time = formatTime({ hours: recipe.hours, minutes: recipe.minutes });
   const link = getRecipeLink(recipe.key);
 
@@ -54,4 +55,21 @@ function RecipeImgAndInfoCard({ recipe }: Props) {
     </div>
   );
 }
+
+export function CardSkeleton() {
+  const joinedClassNames = `${style['card']} ${style['skeleton']}`;
+  return (
+    <div className={style['wrapper']}>
+      <div className={joinedClassNames}>
+        <Skeleton />
+      </div>
+    </div>
+  );
+}
+
+const RecipeImgAndInfoCard = {
+  Card,
+  Skeleton: CardSkeleton,
+};
+
 export default RecipeImgAndInfoCard;

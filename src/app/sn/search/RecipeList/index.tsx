@@ -13,7 +13,7 @@ function RecipeList({ recipes }: Props) {
     <ul className={style.list}>
       {recipes.map((recipe) => (
         <li key={recipe.id}>
-          <RecipeImgAndInfoCard recipe={recipe} />
+          <RecipeImgAndInfoCard.Card recipe={recipe} />
         </li>
       ))}
     </ul>
