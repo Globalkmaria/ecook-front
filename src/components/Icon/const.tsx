@@ -48,10 +48,10 @@ const ICON_NAMES = [
   'book',
 ] as const;
 
-export type IconButtonType = (typeof ICON_NAMES)[number];
+export type IconType = (typeof ICON_NAMES)[number];
 
 export const ICONS: {
-  [key in IconButtonType]: JSX.Element;
+  [key in IconType]: JSX.Element;
 } = {
   basket: <CiShoppingBasket />,
   infoOutline: <IoIosInformationCircleOutline />,
@@ -78,7 +78,7 @@ export const ICONS: {
   book: <PiBookBookmarkBold />,
 };
 
-export const ICON_TITLES: { [key in IconButtonType]: string } = {
+export const ICON_TITLES: { [key in IconType]: string } = {
   basket: 'basket',
   infoOutline: 'information',
   info: 'information',

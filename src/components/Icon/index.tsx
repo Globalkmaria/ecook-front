@@ -1,10 +1,10 @@
 import style from './style.module.scss';
 
-import { ICONS, IconButtonType } from './const';
+import { ICONS, IconType } from './const';
 import { joinClassNames } from '@/utils/style';
 
 export interface IconProps {
-  icon: IconButtonType;
+  icon: IconType;
   className?: string;
 }
 
