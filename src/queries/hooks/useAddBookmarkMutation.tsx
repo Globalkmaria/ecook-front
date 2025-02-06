@@ -9,7 +9,10 @@ import { LOGIN_LINK } from '@/helpers/links';
 
 import { useClientStore } from '@/providers/client-store-provider';
 
-import { generateBookmarkListQueryKey } from '../helper';
+import {
+  generateBookmarkListQueryKey,
+  generateUserBookmarksQueryKey,
+} from '../helper';
 
 function useAddBookmarkMutation() {
   const queryClient = useQueryClient();
@@ -33,6 +36,9 @@ function useAddBookmarkMutation() {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: generateBookmarkListQueryKey(),
+      });
+      queryClient.invalidateQueries({
+        queryKey: generateUserBookmarksQueryKey(),
       });
     },
     onError: (error) => {

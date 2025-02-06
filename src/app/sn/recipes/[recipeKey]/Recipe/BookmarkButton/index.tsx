@@ -1,16 +1,12 @@
 'use client';
 
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
-import { useRouter } from 'next/router';
-import { useShallow } from 'zustand/shallow';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 import style from './style.module.scss';
 
 import { useClientStore } from '@/providers/client-store-provider';
-
-import { checkIsUnauthorizedError } from '@/services/utils/authError';
 
 import bookmarkListOptions from '@/queries/bookmarkListOptions';
 import useAddBookmarkMutation from '@/queries/hooks/useAddBookmarkMutation';
@@ -22,6 +18,14 @@ import IconButton from '@/components/IconButton';
 import { RecipePageParams } from '../../page';
 
 function BookmarkButton() {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return null;
+
   return (
     <Suspense fallback={<BookmarkButtonSkeleton />}>
       <BookmarkButtonContent />
@@ -32,30 +36,23 @@ function BookmarkButton() {
 export default BookmarkButton;
 
 function BookmarkButtonSkeleton() {
-  return <IconButton icon='bookmarkOutline' disabled />;
+  return (
+    <IconButton icon='bookmarkOutline' disabled className={style['button']} />
+  );
 }
 
 function BookmarkButtonContent() {
-  const router = useRouter();
   const params = useParams<RecipePageParams>();
   const { mutate: addBookmark, isPending: isAddBookmarkLoading } =
     useAddBookmarkMutation();
   const { mutate: removeBookmark, isPending: isRemoveBookmarkLoading } =
     useRemoveBookmarkMutation();
-  const [isLoggedIn, resetUser] = useClientStore(
-    useShallow((state) => [state.user.isLoggedIn, state.resetUser]),
-  );
-  const bookmarks = useQuery(
+  const isLoggedIn = useClientStore((state) => state.user.isLoggedIn);
+  const bookmarks = useSuspenseQuery(
     bookmarkListOptions({
       enabled: isLoggedIn,
     }),
   );
-
-  if (checkIsUnauthorizedError(bookmarks.error)) {
-    resetUser();
-    router.replace('/login');
-    return;
-  }
 
   const disableButton =
     !!bookmarks.error ||

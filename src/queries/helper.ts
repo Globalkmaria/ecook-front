@@ -28,9 +28,13 @@ export const generateProductListQueryKey = ({
   return [QUERY_KEY__PRODUCT_LIST, { type, query }];
 };
 
-// User Profile
+// User
 export const generateUserProfileQueryKey = (username: string) => {
   return [QUERY_KEY__USER_PROFILE, username];
+};
+
+export const generateUserBookmarksQueryKey = () => {
+  return [QUERY_KEY__USER_PROFILE, QUERY_KEY__BOOKMARKS];
 };
 
 // Recipe List
