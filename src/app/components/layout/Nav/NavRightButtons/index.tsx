@@ -24,6 +24,7 @@ import { AvatarImg } from '@/components/Avatar';
 import Anchor from '@/components/Anchor';
 import { Dropbox, DropboxItem, DropboxWrapper } from '@/components/Dropbox';
 import Icon from '@/components/Icon';
+import { useQueryClient } from '@tanstack/react-query';
 
 function NavRightButtons() {
   const user = useClientStore(useShallow((state) => state.user));
@@ -43,6 +44,7 @@ function NavRightButtons() {
 export default NavRightButtons;
 
 function LoggedInMenu() {
+  const query = useQueryClient();
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
   const [isLoading, startTransition] = useTransition();
@@ -60,6 +62,7 @@ function LoggedInMenu() {
 
     startTransition(async () => {
       await logout();
+      query.clear();
       resetUser();
       router.push(HOME_LINK);
     });
