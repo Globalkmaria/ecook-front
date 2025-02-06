@@ -5,6 +5,7 @@ import {
   QUERY_KEY__RECIPE,
   QUERY_KEY__RECIPE_LIST,
   QUERY_KEY__RECOMMEND,
+  QUERY_KEY__BOOKMARKS,
 } from './const';
 
 // Product
@@ -50,4 +51,9 @@ export const generateRecipeQueryKey = (recipeKey: string) => {
 
 export const generateRecipeRecommendQueryKey = (recipeKey: string) => {
   return [QUERY_KEY__RECIPE, recipeKey, QUERY_KEY__RECOMMEND];
+};
+
+// Bookmarks
+export const generateBookmarkListQueryKey = () => {
+  return [QUERY_KEY__BOOKMARKS];
 };
