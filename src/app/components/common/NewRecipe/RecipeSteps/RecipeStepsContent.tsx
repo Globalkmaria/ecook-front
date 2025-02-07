@@ -1,13 +1,12 @@
 import { ChangeEventHandler, memo, useCallback } from 'react';
 
-import style from './style.module.scss';
+import style from './RecipeStepsContent.module.scss';
 
 import { Input } from '@/components/Input';
 
-import { RemoveButton } from './buttons';
-
 import { validateLengthAndExecute } from '@/utils/validation';
-import { onFieldChange } from './helper';
+import { onFieldChange } from '../helper';
+import { RemoveButton } from '../buttons';
 
 export interface Step {
   id: string;

@@ -1,11 +1,11 @@
 import { memo, useCallback } from 'react';
 
-import style from './style.module.scss';
+import style from '../style.module.scss';
 import { getNewIngredient } from '@/app/sn/recipes/new/helper';
 
-import { NewRecipeIngredientStates } from '.';
-import RecipeIngredientsContent from './components/RecipeIngredientsContent';
-import { AddButton } from './components/buttons';
+import { NewRecipeIngredientStates } from '..';
+import RecipeIngredientsContent from './RecipeIngredientsContent';
+import { AddButton } from '../buttons';
 
 interface RecipeIngredientsProps {
   setIngredients: React.Dispatch<

@@ -1,15 +1,14 @@
 import { ChangeEventHandler, memo } from 'react';
 
-import style from './style.module.scss';
+import style from './ingredients.module.scss';
 
 import { validateLengthAndExecute } from '@/utils/validation';
 
 import Button, { ButtonProps } from '@/components/Button';
 import { Input } from '@/components/Input';
 
-import { RemoveButton } from './buttons';
-
 import { NewRecipeIngredientState } from '..';
+import { RemoveButton } from '../buttons';
 
 interface Props {
   item: NewRecipeIngredientState;

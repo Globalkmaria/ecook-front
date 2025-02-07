@@ -1,19 +1,19 @@
 import { Dispatch, memo, SetStateAction, useCallback, useState } from 'react';
 
-import style from './style.module.scss';
+import style from './ingredients.module.scss';
 
 import { NewRecipeIngredient } from '@/services/recipes/type';
 
 import useModal from '@/hooks/useModal';
 
-import SearchProductModal from './SearchProductModal';
-import RecipeIngredient from './RecipeIngredient';
+import SearchProductModal from '../SearchProductModal';
 import {
   addProductInfoToSelectedIngredient,
   onFieldChange,
   removeProductInfoFromSelectedIngredient,
-} from './helper';
+} from '../helper';
 import { NewRecipeIngredientState, NewRecipeIngredientStates } from '..';
+import RecipeIngredient from './RecipeIngredient';
 
 export type SelectedProductInfo = Omit<NewRecipeIngredient, 'quantity'> | null;
 export type SelectedIngredientInfo = {

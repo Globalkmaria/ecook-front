@@ -21,7 +21,7 @@ import {
   getValidAndTrimmedSteps,
   getValidIngredients,
 } from './helper';
-import { Step } from './components/RecipeStepsContent';
+import { Step } from './RecipeSteps/RecipeStepsContent';
 
 export interface NewRecipeSubmitProps {
   img: File | string | null;

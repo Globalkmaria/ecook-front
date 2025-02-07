@@ -1,11 +1,11 @@
 import { memo, useCallback } from 'react';
 
-import style from './style.module.scss';
+import style from '../style.module.scss';
 
 import { getRandomId } from '@/utils/generateId';
 
-import RecipeStepsContent, { Step } from './components/RecipeStepsContent';
-import { AddButton } from './components/buttons';
+import { AddButton } from '../buttons';
+import RecipeStepsContent, { Step } from './RecipeStepsContent';
 
 interface Props {
   steps: Step[];

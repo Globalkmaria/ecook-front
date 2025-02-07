@@ -4,16 +4,16 @@ import { IngredientNewProduct } from '@/services/recipes/type';
 
 import Button from '@/components/Button';
 
+import { OnSelectProduct } from '../RecipeIngredients/RecipeIngredientsContent';
+import {
+  getIngredientWithExistingProduct,
+  getIngredientWithNewProduct,
+} from './helper';
 import {
   NEW_PRODUCT_ID,
   SearchedIngredientState,
   SelectedProductState,
 } from '.';
-import { OnSelectProduct } from '../RecipeIngredientsContent';
-import {
-  getIngredientWithExistingProduct,
-  getIngredientWithNewProduct,
-} from './helper';
 
 interface Props {
   selectedProduct: SelectedProductState;

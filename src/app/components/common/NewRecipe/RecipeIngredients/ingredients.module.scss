@@ -1,7 +1,5 @@
 @use '@/styles/theme.scss' as *;
 
-// Ingredients
-
 .ingredients {
   flex-grow: 1;
   display: flex;
@@ -45,23 +43,5 @@
     display: flex;
     justify-content: space-between;
     gap: 5px;
-  }
-}
-
-// Steps
-.steps {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  gap: 10px;
-}
-
-.step {
-  flex: 1;
-  display: flex;
-  gap: 5px;
-
-  &__value {
-    flex-grow: 1;
   }
 }

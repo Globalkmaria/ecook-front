@@ -12,10 +12,10 @@ import { Modal } from '@/components/Modal';
 
 import IngredientInformationHeader from '@/app/sn/recipes/[recipeKey]/Recipe/IngredientList/IngredientInformation/IngredientInformationHeader';
 
-import { NewRecipeIngredientState } from '../..';
+import { NewRecipeIngredientState } from '@/app/components/common/NewRecipe';
 import NewProduct from './NewProduct';
 import ExistingProduct from './ExistingProduct';
-import { OnSelectProduct } from '../RecipeIngredientsContent';
+import { OnSelectProduct } from '../RecipeIngredients/RecipeIngredientsContent';
 import {
   getNewProductInitialState,
   getSelectedProductInitialState,
