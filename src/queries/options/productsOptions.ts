@@ -1,7 +1,7 @@
 import { queryOptions } from '@tanstack/react-query';
 
-import { getProducts, ProductQueryType } from '@/services/products';
-import { Product } from '@/services/products/type';
+import { getProducts } from '@/services/products';
+import { Product, ProductQueryTypes } from '@/services/products/type';
 
 import { generateProductListQueryKey } from '@/queries/helpers';
 
@@ -9,7 +9,7 @@ interface Props {
   q: string;
   initialData?: Product[];
   staleTime?: number;
-  type: ProductQueryType;
+  type: ProductQueryTypes;
   enabled?: boolean;
   nextRevalidateTime?: number;
 }

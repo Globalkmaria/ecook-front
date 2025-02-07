@@ -3,35 +3,31 @@ import { FetchResult } from '../type';
 import { Profile, ResIsUsernameAvailable, UserBookmarkedRecipes } from './type';
 import { createAsyncErrorMessage, withSafeAsync } from '../utils';
 
-export const getProfile = async (
-  username: string,
-  options?: RequestInit,
-): FetchResult<Profile> => {
-  try {
+export const getProfile = withSafeAsync(
+  async (username: string, options?: RequestInit): FetchResult<Profile> => {
     const response = await fetchAPI(`/users/${username}`, { ...options });
     if (response.ok) return { ok: true, data: response.data };
 
-    throw new Error(response.res.statusText);
-  } catch (e) {
-    console.error('Failed to fetch profile', e);
-    return { ok: false, error: 'Failed to fetch profile' };
-  }
-};
+    throw new Error(
+      createAsyncErrorMessage(response.res, 'Failed to get profile'),
+    );
+  },
+);
 
-export const checkUsernameAvailability = async (
-  username: string,
-): FetchResult<ResIsUsernameAvailable> => {
-  try {
+export const checkUsernameAvailability = withSafeAsync(
+  async (username: string): FetchResult<ResIsUsernameAvailable> => {
     const response = await fetchAPI(`/auth/validate-username/${username}`);
 
     if (response.ok) return { ok: true, data: response.data };
 
-    throw new Error(response.res.statusText);
-  } catch (e) {
-    console.error('Failed to validate username', e);
-    return { ok: false, error: 'Failed to validate username' };
-  }
-};
+    throw new Error(
+      createAsyncErrorMessage(
+        response.res,
+        'Failed to check username availability',
+      ),
+    );
+  },
+);
 
 export const getUserBookmarkedRecipes = withSafeAsync(
   async (username: string): FetchResult<UserBookmarkedRecipes> => {

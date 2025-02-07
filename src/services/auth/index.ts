@@ -1,14 +1,16 @@
 import { fetchAPI } from '@/services/api';
+
 import { User } from '../users/type';
 import { FetchResult } from '../type';
+import { createAsyncErrorMessage, withSafeAsync } from '../utils';
 
 interface LoginData {
   username: string;
   password: string;
 }
 
-export const login = async (data: LoginData): FetchResult<User> => {
-  try {
+export const login = withSafeAsync(
+  async (data: LoginData): FetchResult<User> => {
     const response = await fetchAPI('/auth/login', {
       method: 'POST',
       headers: {
@@ -19,18 +21,19 @@ export const login = async (data: LoginData): FetchResult<User> => {
 
     if (response.ok) return { ok: true, data: response.data };
 
-    throw new Error(response.res.statusText);
-  } catch (e) {
-    console.error('Failed to login', e);
-    return {
-      ok: false,
-      error: 'Please check your email and password and try again.',
-    };
-  }
-};
+    if (response.res.status === 401) {
+      return {
+        ok: false,
+        error: 'Please check your email and password and try again.',
+      };
+    }
 
-export const signup = async (data: FormData): FetchResult<User> => {
-  try {
+    throw new Error(createAsyncErrorMessage(response.res, 'Failed to login'));
+  },
+);
+
+export const signup = withSafeAsync(
+  async (data: FormData): FetchResult<User> => {
     const response = await fetchAPI('/auth/signup', {
       method: 'POST',
       body: data,
@@ -38,17 +41,15 @@ export const signup = async (data: FormData): FetchResult<User> => {
 
     if (response.ok) return { ok: true, data: response.data };
 
-    throw new Error(response.res.statusText);
-  } catch (e) {
-    console.error('Failed to register', e);
-    return { ok: false, error: 'Failed to register' };
-  }
-};
+    throw new Error(
+      createAsyncErrorMessage(response.res, 'Failed to register'),
+    );
+  },
+);
 
-export const logout = async (): Promise<void> => {
-  try {
-    await fetchAPI('/auth/logout', { method: 'POST' });
-  } catch (e) {
-    console.error('Failed to logout', e);
-  }
-};
+export const logout = withSafeAsync(async (): FetchResult => {
+  const response = await fetchAPI('/auth/logout', { method: 'POST' });
+  if (response.ok) return { ok: true };
+
+  throw new Error(createAsyncErrorMessage(response.res, 'Failed to logout'));
+});

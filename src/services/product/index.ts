@@ -2,30 +2,27 @@ import { fetchAPI } from '../api';
 import { Product } from '../products/type';
 import { RecommendRecipe } from '../recommend/type';
 import { FetchResult } from '../type';
+import { createAsyncErrorMessage, withSafeAsync } from '../utils';
 
-export const getProduct = async (
-  productKey: string,
-  options?: RequestInit,
-): FetchResult<Product> => {
-  try {
+export const getProduct = withSafeAsync(
+  async (productKey: string, options?: RequestInit): FetchResult<Product> => {
     const response = await fetchAPI(`/products/${productKey}`, {
       ...options,
     });
 
     if (response.ok) return { ok: true, data: response.data };
 
-    throw new Error(response.res.statusText);
-  } catch (e) {
-    console.error('Failed to get product', e);
-    return { ok: false, error: 'Failed to get product' };
-  }
-};
+    throw new Error(
+      createAsyncErrorMessage(response.res, 'Failed to get product'),
+    );
+  },
+);
 
-export const getProductRecommendations = async (
-  productKey: string,
-  options?: RequestInit,
-): FetchResult<RecommendRecipe[]> => {
-  try {
+export const getProductRecommendations = withSafeAsync(
+  async (
+    productKey: string,
+    options?: RequestInit,
+  ): FetchResult<RecommendRecipe[]> => {
     const response = await fetchAPI(
       `/products/${productKey}/recommend`,
       options,
@@ -33,9 +30,8 @@ export const getProductRecommendations = async (
 
     if (response.ok) return { ok: true, data: response.data };
 
-    throw new Error(response.res.statusText);
-  } catch (e) {
-    console.error('Failed to fetch recommendations', e);
-    return { ok: false, error: 'Failed to fetch recommendations', data: [] };
-  }
-};
+    throw new Error(
+      createAsyncErrorMessage(response.res, 'Failed to fetch recommendations'),
+    );
+  },
+);

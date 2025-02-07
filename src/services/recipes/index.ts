@@ -29,10 +29,8 @@ export const getRecipes = withSafeAsync(
   },
 );
 
-export const createRecipe = async (
-  data: FormData,
-): FetchResult<RecipeDetail> => {
-  try {
+export const createRecipe = withSafeAsync(
+  async (data: FormData): FetchResult<RecipeDetail> => {
     const response = await fetchAPI('/recipes', {
       method: 'POST',
       body: data,
@@ -49,9 +47,8 @@ export const createRecipe = async (
       };
     }
 
-    throw new Error(response.res.statusText);
-  } catch (e) {
-    console.error('Failed to save recipe', e);
-    return { ok: false, error: 'Failed to save recipe' };
-  }
-};
+    throw new Error(
+      createAsyncErrorMessage(response.res, 'Failed to save recipe'),
+    );
+  },
+);

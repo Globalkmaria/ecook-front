@@ -3,24 +3,24 @@ import { fetchAPI } from '@/services/api';
 import { RecipeDetail } from './type';
 import { FetchResult } from '../type';
 import { RecommendRecipe } from '../recommend/type';
+import { createAsyncErrorMessage, withSafeAsync } from '../utils';
 
-export const getRecipe = async (
-  recipeKey: string,
-  options?: RequestInit,
-): FetchResult<RecipeDetail> => {
-  try {
+export const getRecipe = withSafeAsync(
+  async (
+    recipeKey: string,
+    options?: RequestInit,
+  ): FetchResult<RecipeDetail> => {
     const response = await fetchAPI(`/recipes/${recipeKey}`, { ...options });
     if (response.ok) return { ok: true, data: response.data };
 
-    throw new Error(response.res.statusText);
-  } catch (e) {
-    console.error('Failed to fetch recipe', e);
-    return { ok: false, error: 'Failed to fetch recipe' };
-  }
-};
+    throw new Error(
+      createAsyncErrorMessage(response.res, 'Failed to get recipe'),
+    );
+  },
+);
 
-export const deleteRecipe = async (recipeKey: string): FetchResult<null> => {
-  try {
+export const deleteRecipe = withSafeAsync(
+  async (recipeKey: string): FetchResult<null> => {
     const response = await fetchAPI(`/recipes/${recipeKey}`, {
       method: 'DELETE',
     });
@@ -35,20 +35,19 @@ export const deleteRecipe = async (recipeKey: string): FetchResult<null> => {
       };
     }
 
-    throw new Error(response.res.statusText);
-  } catch (e) {
-    console.error('Failed to delete recipe', e);
-    return { ok: false, error: 'Failed to delete recipe' };
-  }
-};
+    throw new Error(
+      createAsyncErrorMessage(response.res, 'Failed to delete recipe'),
+    );
+  },
+);
 
-export const editRecipe = async (
-  data: FormData,
-  recipeKey: string,
-): FetchResult<{
-  key: string;
-}> => {
-  try {
+export const editRecipe = withSafeAsync(
+  async (
+    data: FormData,
+    recipeKey: string,
+  ): FetchResult<{
+    key: string;
+  }> => {
     const response = await fetchAPI(`/recipes/${recipeKey}`, {
       method: 'PUT',
       body: data,
@@ -64,25 +63,23 @@ export const editRecipe = async (
       };
     }
 
-    throw new Error(response.res.statusText);
-  } catch (e) {
-    console.error('Failed to save recipe', e);
-    return { ok: false, error: 'Failed to save recipe' };
-  }
-};
+    throw new Error(
+      createAsyncErrorMessage(response.res, 'Failed to edit recipe'),
+    );
+  },
+);
 
-export const getRecipeRecommendations = async (
-  recipeKey: string,
-  options?: RequestInit,
-): FetchResult<RecommendRecipe[]> => {
-  try {
+export const getRecipeRecommendations = withSafeAsync(
+  async (
+    recipeKey: string,
+    options?: RequestInit,
+  ): FetchResult<RecommendRecipe[]> => {
     const response = await fetchAPI(`/recipes/${recipeKey}/recommend`, options);
 
     if (response.ok) return { ok: true, data: response.data };
 
-    throw new Error(response.res.statusText);
-  } catch (e) {
-    console.error('Failed to fetch recommendations', e);
-    return { ok: false, error: 'Failed to fetch recommendations', data: [] };
-  }
-};
+    throw new Error(
+      createAsyncErrorMessage(response.res, 'Failed to fetch recommendations'),
+    );
+  },
+);
