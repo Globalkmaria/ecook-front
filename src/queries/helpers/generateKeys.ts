@@ -6,7 +6,7 @@ import {
   QUERY_KEY__RECIPE_LIST,
   QUERY_KEY__RECOMMEND,
   QUERY_KEY__BOOKMARKS,
-} from './const';
+} from './queryKeys';
 
 // Product
 export const generateProductQueryKey = (productKey: string) => {

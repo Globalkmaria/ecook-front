@@ -5,7 +5,7 @@ import style from './style.module.scss';
 
 import { PRODUCT_TYPES } from '@/services/products';
 
-import { productsOptions } from '@/queries/productsOptions';
+import { productsOptions } from '@/queries/options';
 
 import { getProductLink } from '@/helpers/links';
 

@@ -9,8 +9,7 @@ import {
 import { getHomeRecipes } from '@/services/home';
 import { getRecipe } from '@/services/recipe';
 
-import { recipeOptions } from '@/queries/recipeOptions';
-import { recipeRecommendOptions } from '@/queries/recipeRecommendOptions';
+import { recipeOptions, recipeRecommendOptions } from '@/queries/options';
 
 import { capitalizeFirstLetter } from '@/utils/text';
 

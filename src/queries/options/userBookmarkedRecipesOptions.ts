@@ -5,8 +5,8 @@ import {
   UNAUTHORIZED_ERROR_CAUSE,
 } from '@/services/utils/authError';
 
-import { generateUserBookmarksQueryKey } from './helper';
 import { getUserBookmarkedRecipes } from '@/services/users';
+import { generateUserBookmarksQueryKey } from '../helpers';
 
 interface Props {
   staleTime?: number;
@@ -14,7 +14,7 @@ interface Props {
   enabled: boolean;
 }
 
-const userBookmarkedRecipesOptions = ({
+export const userBookmarkedRecipesOptions = ({
   staleTime = 60000, // 1 mins , MS
   username,
   enabled,
@@ -41,5 +41,3 @@ const userBookmarkedRecipesOptions = ({
     staleTime,
     enabled,
   });
-
-export default userBookmarkedRecipesOptions;

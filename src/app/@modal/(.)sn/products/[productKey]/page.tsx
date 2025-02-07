@@ -6,9 +6,11 @@ import {
 
 import { PRODUCT_TYPES } from '@/services/products';
 
-import { productsOptions } from '@/queries/productsOptions';
-import { productOptions } from '@/queries/productOptions';
-import { productRecommendOptions } from '@/queries/productRecommendOptions';
+import {
+  productsOptions,
+  productOptions,
+  productRecommendOptions,
+} from '@/queries/options';
 
 import { ProductPageParams } from '@/app/sn/products/[productKey]/page';
 

@@ -1,7 +1,7 @@
 import { getRecipes } from '@/services/recipes';
 import { queryOptions } from '@tanstack/react-query';
 
-import { generateRecipeListQueryKey } from '@/queries';
+import { generateRecipeListQueryKey } from '@/queries/helpers';
 import { RecipeListSearchType } from '@/services/recipes/helper';
 
 interface RecipeListOptions {

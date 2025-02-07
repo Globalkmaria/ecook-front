@@ -12,9 +12,9 @@ import { useClientStore } from '@/providers/client-store-provider';
 import {
   generateBookmarkListQueryKey,
   generateUserBookmarksQueryKey,
-} from '../helper';
+} from '@/queries/helpers';
 
-function useRemoveBookmarkMutation() {
+export const useRemoveBookmarkMutation = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
   const resetUser = useClientStore(useShallow((state) => state.resetUser));
@@ -50,6 +50,4 @@ function useRemoveBookmarkMutation() {
   });
 
   return result;
-}
-
-export default useRemoveBookmarkMutation;
+};

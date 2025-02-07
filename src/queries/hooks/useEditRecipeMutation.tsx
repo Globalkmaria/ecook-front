@@ -16,11 +16,14 @@ import {
   generateProductListQueryKey,
   generateRecipeListQueryKey,
   generateRecipeQueryKey,
-} from '@/queries';
+} from '@/queries/helpers';
 
 import { LOGIN_LINK } from '@/helpers/links';
 
-const useEditRecipeMutation = (recipeKey: string, onCloseModal: () => void) => {
+export const useEditRecipeMutation = (
+  recipeKey: string,
+  onCloseModal: () => void,
+) => {
   const queryClient = useQueryClient();
   const router = useRouter();
   const [resetUser, username] = useClientStore(
@@ -68,5 +71,3 @@ const useEditRecipeMutation = (recipeKey: string, onCloseModal: () => void) => {
 
   return result;
 };
-
-export default useEditRecipeMutation;

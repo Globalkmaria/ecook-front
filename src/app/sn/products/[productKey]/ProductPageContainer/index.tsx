@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import style from './style.module.scss';
 
-import { productOptions } from '@/queries/productOptions';
+import { productOptions } from '@/queries/options';
 
 import { ProductPageParams } from '../page';
 import ProductInformation from './ProductInformation';

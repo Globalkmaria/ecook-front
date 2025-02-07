@@ -4,7 +4,7 @@ import { useParams } from 'next/navigation';
 
 import style from './style.module.scss';
 
-import { recipeRecommendOptions } from '@/queries/recipeRecommendOptions';
+import { recipeRecommendOptions } from '@/queries/options';
 
 import Card from '@/components/Card';
 

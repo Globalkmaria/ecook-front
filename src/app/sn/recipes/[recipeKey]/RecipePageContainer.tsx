@@ -3,7 +3,7 @@
 import { notFound, useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 
-import { recipeOptions } from '@/queries/recipeOptions';
+import { recipeOptions } from '@/queries/options';
 
 import Recipe from './Recipe';
 import Recommend from './Recommend';

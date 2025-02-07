@@ -14,9 +14,11 @@ import { PRODUCT_TYPES } from '@/services/products';
 
 import { ECOOK_LOGO_URL } from '@/const/contLinks';
 
-import { productsOptions } from '@/queries/productsOptions';
-import { recipeListOptions } from '@/queries/recipeListOptions';
-import { profileOptions } from '@/queries/profileOptions';
+import {
+  productsOptions,
+  recipeListOptions,
+  profileOptions,
+} from '@/queries/options';
 
 import UserProfile from './UserProfile';
 import UserContent from './UserContent';

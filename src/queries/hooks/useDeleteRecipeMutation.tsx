@@ -12,11 +12,10 @@ import { handleApiAuthResponse } from '@/services/utils/handleApiAuthResponse';
 import {
   generateRecipeListQueryKey,
   generateUserProfileQueryKey,
-} from '@/queries';
+} from '@/queries/helpers';
 
 import { LOGIN_LINK } from '@/helpers/links';
-
-function useDeleteRecipeMutation() {
+export const useDeleteRecipeMutation = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
   const [resetUser, username] = useClientStore(
@@ -53,6 +52,4 @@ function useDeleteRecipeMutation() {
   });
 
   return result;
-}
-
-export default useDeleteRecipeMutation;
+};

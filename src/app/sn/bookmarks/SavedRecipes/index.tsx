@@ -7,7 +7,7 @@ import style from './style.module.scss';
 import { RecipeSimple } from '@/services/recipe/type';
 import { checkIsAuthError } from '@/services/utils/authError';
 
-import userBookmarkedRecipesOptions from '@/queries/userBookmarkedRecipesOptions';
+import { userBookmarkedRecipesOptions } from '@/queries/options';
 
 import useLogout from '@/hooks/useLogout';
 

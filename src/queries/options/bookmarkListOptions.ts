@@ -1,14 +1,15 @@
 import { queryOptions } from '@tanstack/react-query';
-import { generateBookmarkListQueryKey } from './helper';
+
 import { getBookmarks } from '@/services/bookmarks';
 import { UNAUTHORIZED_ERROR_CAUSE } from '@/services/utils/authError';
+import { generateBookmarkListQueryKey } from '../helpers';
 
 interface Props {
   staleTime?: number;
   enabled?: boolean;
 }
 
-const bookmarkListOptions = ({
+export const bookmarkListOptions = ({
   staleTime = 180000, // 3 mins , MS
   enabled = false,
 }: Props) =>
@@ -30,5 +31,3 @@ const bookmarkListOptions = ({
     staleTime,
     enabled,
   });
-
-export default bookmarkListOptions;

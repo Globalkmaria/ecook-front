@@ -9,9 +9,11 @@ import {
 import { getProduct } from '@/services/product';
 import { PRODUCT_TYPES } from '@/services/products';
 
-import { productsOptions } from '@/queries/productsOptions';
-import { productOptions } from '@/queries/productOptions';
-import { productRecommendOptions } from '@/queries/productRecommendOptions';
+import {
+  productsOptions,
+  productOptions,
+  productRecommendOptions,
+} from '@/queries/options';
 
 import { capitalizeFirstLetter } from '@/utils/text';
 

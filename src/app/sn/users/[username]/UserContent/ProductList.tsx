@@ -1,7 +1,7 @@
 import { notFound, useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 
-import { productsOptions } from '@/queries/productsOptions';
+import { productsOptions } from '@/queries/options';
 
 import { PRODUCT_TYPES } from '@/services/products';
 

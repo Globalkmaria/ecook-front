@@ -13,7 +13,7 @@ import {
   generateProductListQueryKey,
   generateRecipeListQueryKey,
   generateUserProfileQueryKey,
-} from '@/queries';
+} from '@/queries/helpers';
 
 import { createRecipe } from '@/services/recipes';
 import { handleApiAuthResponse } from '@/services/utils/handleApiAuthResponse';

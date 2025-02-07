@@ -5,7 +5,7 @@ import style from './style.module.scss';
 
 import Card from '@/components/Card';
 
-import { productRecommendOptions } from '@/queries/productRecommendOptions';
+import { productRecommendOptions } from '@/queries/options';
 
 import { ProductPageParams } from '../../page';
 

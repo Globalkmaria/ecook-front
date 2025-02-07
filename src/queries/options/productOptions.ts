@@ -2,7 +2,7 @@ import { queryOptions } from '@tanstack/react-query';
 
 import { getProduct } from '@/services/product';
 
-import { generateProductQueryKey } from '@/queries';
+import { generateProductQueryKey } from '@/queries/helpers';
 
 interface Props {
   key: string;

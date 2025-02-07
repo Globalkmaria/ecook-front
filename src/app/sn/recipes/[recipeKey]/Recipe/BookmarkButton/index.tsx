@@ -10,9 +10,11 @@ import { useClientStore } from '@/providers/client-store-provider';
 
 import useLogout from '@/hooks/useLogout';
 
-import bookmarkListOptions from '@/queries/bookmarkListOptions';
-import useAddBookmarkMutation from '@/queries/hooks/useAddBookmarkMutation';
-import useRemoveBookmarkMutation from '@/queries/hooks/useRemoveBookmarkMutation';
+import {
+  useAddBookmarkMutation,
+  useRemoveBookmarkMutation,
+} from '@/queries/hooks';
+import { bookmarkListOptions } from '@/queries/options';
 
 import { IconType } from '@/components/Icon/const';
 import IconButton from '@/components/IconButton';

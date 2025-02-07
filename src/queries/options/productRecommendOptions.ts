@@ -1,33 +1,29 @@
 import { queryOptions } from '@tanstack/react-query';
 
-import { getRecipePageTag } from '@/actions/helpers';
+import { getProductRecommendations } from '@/services/product';
 
-import { getRecipe } from '@/services/recipe';
-import { RecipeDetail } from '@/services/recipe/type';
+import { generateProductRecommendQueryKey } from '@/queries/helpers';
 
-import { generateRecipeQueryKey } from '@/queries';
-
-interface Props {
+interface RecipeListOptions {
   key: string;
-  initialData?: RecipeDetail;
   staleTime?: number;
+  enabled?: boolean;
   nextRevalidateTime?: number;
 }
 
-export const recipeOptions = ({
+export const productRecommendOptions = ({
   key,
-  initialData,
   staleTime = 86400000, // 24 hours , MS
   nextRevalidateTime = 86400, // 24 hours , S
-}: Props) =>
+  enabled = false,
+}: RecipeListOptions) =>
   queryOptions({
-    queryKey: generateRecipeQueryKey(key),
+    queryKey: generateProductRecommendQueryKey(key),
     queryFn: async () => {
-      const result = await getRecipe(key, {
+      const result = await getProductRecommendations(key, {
         cache: 'force-cache',
         next: {
           revalidate: nextRevalidateTime,
-          tags: [getRecipePageTag(key)],
         },
       });
 
@@ -35,6 +31,6 @@ export const recipeOptions = ({
 
       return result.data;
     },
-    initialData,
     staleTime,
+    enabled,
   });
