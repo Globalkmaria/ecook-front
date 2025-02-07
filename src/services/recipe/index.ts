@@ -1,8 +1,11 @@
 import { fetchAPI } from '@/services/api';
 
-import { RecipeDetail } from './type';
+import {
+  EditRecipeRes,
+  GetRecipeRecommendationsRes,
+  RecipeDetail,
+} from './type';
 import { FetchResult } from '../type';
-import { RecommendRecipe } from '../recommend/type';
 import { createAsyncErrorMessage, withSafeAsync } from '../utils';
 
 export const getRecipe = withSafeAsync(
@@ -42,12 +45,7 @@ export const deleteRecipe = withSafeAsync(
 );
 
 export const editRecipe = withSafeAsync(
-  async (
-    data: FormData,
-    recipeKey: string,
-  ): FetchResult<{
-    key: string;
-  }> => {
+  async (data: FormData, recipeKey: string): FetchResult<EditRecipeRes> => {
     const response = await fetchAPI(`/recipes/${recipeKey}`, {
       method: 'PUT',
       body: data,
@@ -73,7 +71,7 @@ export const getRecipeRecommendations = withSafeAsync(
   async (
     recipeKey: string,
     options?: RequestInit,
-  ): FetchResult<RecommendRecipe[]> => {
+  ): FetchResult<GetRecipeRecommendationsRes> => {
     const response = await fetchAPI(`/recipes/${recipeKey}/recommend`, options);
 
     if (response.ok) return { ok: true, data: response.data };

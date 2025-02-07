@@ -9,12 +9,12 @@ export type Profile = User & {
   totalPosts: number;
 };
 
-export interface ResIsUsernameAvailable {
+export interface CheckUsernameAvailabilityRes {
   message: string;
   isAvailable: boolean;
 }
 
-export interface UserBookmarkedRecipes {
+export interface GetUserBookmarkedRecipesRes {
   search: RecipeSimple[];
   recommend: RecipeSimple[];
 }

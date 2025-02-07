@@ -1,6 +1,10 @@
 import { fetchAPI } from '@/services/api';
 import { FetchResult } from '../type';
-import { Profile, ResIsUsernameAvailable, UserBookmarkedRecipes } from './type';
+import {
+  Profile,
+  CheckUsernameAvailabilityRes,
+  GetUserBookmarkedRecipesRes,
+} from './type';
 import { createAsyncErrorMessage, withSafeAsync } from '../utils';
 
 export const getProfile = withSafeAsync(
@@ -15,7 +19,7 @@ export const getProfile = withSafeAsync(
 );
 
 export const checkUsernameAvailability = withSafeAsync(
-  async (username: string): FetchResult<ResIsUsernameAvailable> => {
+  async (username: string): FetchResult<CheckUsernameAvailabilityRes> => {
     const response = await fetchAPI(`/auth/validate-username/${username}`);
 
     if (response.ok) return { ok: true, data: response.data };
@@ -30,7 +34,7 @@ export const checkUsernameAvailability = withSafeAsync(
 );
 
 export const getUserBookmarkedRecipes = withSafeAsync(
-  async (username: string): FetchResult<UserBookmarkedRecipes> => {
+  async (username: string): FetchResult<GetUserBookmarkedRecipesRes> => {
     if (!username) return { ok: false, error: 'Username is required' };
 
     const response = await fetchAPI(`/users/${username}/bookmarks`);

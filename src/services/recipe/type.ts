@@ -1,4 +1,5 @@
 import { Product } from '../products/type';
+import { RecommendRecipe } from '../recommend/type';
 
 export interface RecipeSimple {
   id: string;
@@ -53,3 +54,9 @@ export interface Ingredient {
   userProduct: RecipeProduct | null;
   products: Product[] | null;
 }
+
+export interface EditRecipeRes {
+  key: string;
+}
+
+export type GetRecipeRecommendationsRes = RecommendRecipe[];
