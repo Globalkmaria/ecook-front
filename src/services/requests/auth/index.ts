@@ -1,8 +1,8 @@
 import { fetchAPI } from '@/services/api';
 
 import { User } from '../users/type';
-import { FetchResult } from '../type';
-import { createAsyncErrorMessage, withSafeAsync } from '../utils';
+import { FetchResult } from '../../type';
+import { createAsyncErrorMessage, withSafeAsync } from '../../utils';
 import { AsyncError } from '../helper/AsyncError';
 
 interface LoginData {

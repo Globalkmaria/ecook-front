@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { RecipeDetail } from '@/services/recipe/type';
+import { RecipeDetail } from '@/services/requests/recipe/type';
 
 import Checkbox from '@/components/CheckboxList';
 

@@ -1,8 +1,8 @@
 import style from './style.module.scss';
 
-import { getRecipes } from '@/services/recipes';
-import { RecipeSimple } from '@/services/recipe/type';
-import { checkSearchType } from '@/services/recipes/helper';
+import { getRecipes } from '@/services/requests/recipes';
+import { RecipeSimple } from '@/services/requests/recipe/type';
+import { checkSearchType } from '@/services/requests/recipes/helper';
 
 import RecipeList from './RecipeList';
 import { SearchParams } from './page';

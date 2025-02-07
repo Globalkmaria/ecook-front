@@ -9,7 +9,7 @@ import style from './style.module.scss';
 
 import { useClientStore } from '@/providers/client-store-provider';
 
-import { logout } from '@/services/auth';
+import { logout } from '@/services/requests/auth';
 
 import {
   NEW_RECIPE_LINK,

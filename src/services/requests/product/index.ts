@@ -1,9 +1,9 @@
-import { fetchAPI } from '../api';
+import { fetchAPI } from '../../api';
 import { AsyncError } from '../helper/AsyncError';
 import { Product } from '../products/type';
 import { RecommendRecipe } from '../recommend/type';
-import { FetchResult } from '../type';
-import { createAsyncErrorMessage, withSafeAsync } from '../utils';
+import { FetchResult } from '../../type';
+import { createAsyncErrorMessage, withSafeAsync } from '../../utils';
 
 export const getProduct = withSafeAsync(
   async (productKey: string, options?: RequestInit): FetchResult<Product> => {

@@ -8,7 +8,7 @@ import { useClientStore } from '@/providers/client-store-provider';
 
 import style from './LoginContainer.module.scss';
 
-import { login } from '@/services/auth';
+import { login } from '@/services/requests/auth';
 
 import { HOME_LINK, SIGNUP_LINK } from '@/helpers/links';
 

@@ -1,6 +1,6 @@
 import style from './style.module.scss';
 
-import { IngredientNewProduct } from '@/services/recipes/type';
+import { IngredientNewProduct } from '@/services/requests/recipes/type';
 
 import Button from '@/components/Button';
 

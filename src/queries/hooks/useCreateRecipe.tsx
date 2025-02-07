@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useClientStore } from '@/providers/client-store-provider';
 
 import { isUnauthorizedResponse } from '@/services/utils/authError';
-import { createRecipe } from '@/services/recipes';
+import { createRecipe } from '@/services/requests/recipes';
 
 import {
   generateProductListQueryKey,

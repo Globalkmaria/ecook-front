@@ -3,8 +3,8 @@ import { fetchAPI } from '@/services/api';
 import { lightTrim } from '@/utils/normalize';
 
 import { GetRecipesRes } from './type';
-import { FetchResult } from '../type';
-import { createAsyncErrorMessage, withSafeAsync } from '../utils';
+import { FetchResult } from '../../type';
+import { createAsyncErrorMessage, withSafeAsync } from '../../utils';
 import { RecipeListSearchType } from './helper';
 import { AsyncError } from '../helper/AsyncError';
 

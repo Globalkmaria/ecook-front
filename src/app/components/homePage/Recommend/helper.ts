@@ -1,4 +1,4 @@
-import { RecipeRecommendations } from '@/services/recommend/type';
+import { RecipeRecommendations } from '@/services/requests/recommend/type';
 
 export const transformRecommendRecipeData = (data: RecipeRecommendations) => {
   const types = Object.keys(data);

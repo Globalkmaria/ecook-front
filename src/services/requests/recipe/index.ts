@@ -5,8 +5,8 @@ import {
   GetRecipeRecommendationsRes,
   RecipeDetail,
 } from './type';
-import { FetchResult } from '../type';
-import { createAsyncErrorMessage, withSafeAsync } from '../utils';
+import { FetchResult } from '../../type';
+import { createAsyncErrorMessage, withSafeAsync } from '../../utils';
 import { AsyncError } from '../helper/AsyncError';
 
 export const getRecipe = withSafeAsync(

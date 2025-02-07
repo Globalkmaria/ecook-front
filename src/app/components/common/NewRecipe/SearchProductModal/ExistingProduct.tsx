@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import style from './style.module.scss';
 
-import { Product } from '@/services/products/type';
+import { Product } from '@/services/requests/products/type';
 import { ProductInfoContent } from '@/app/sn/recipes/[recipeKey]/Recipe/IngredientList/IngredientInformation/Product';
 
 import Icon from '@/components/Icon';

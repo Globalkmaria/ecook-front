@@ -1,7 +1,7 @@
-import { fetchAPI } from '../api';
+import { fetchAPI } from '../../api';
 import { AsyncError } from '../helper/AsyncError';
-import { FetchResult } from '../type';
-import { createAsyncErrorMessage, withSafeAsync } from '../utils';
+import { FetchResult } from '../../type';
+import { createAsyncErrorMessage, withSafeAsync } from '../../utils';
 import { GetBookmarksRes } from './type';
 
 export const getBookmarks = withSafeAsync(

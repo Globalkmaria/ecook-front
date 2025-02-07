@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { addBookmark } from '@/services/bookmarks';
+import { addBookmark } from '@/services/requests/bookmarks';
 import { isUnauthorizedResponse } from '@/services/utils/authError';
 
 import {

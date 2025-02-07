@@ -1,6 +1,6 @@
 import style from './style.module.scss';
 
-import { RecipeSimple } from '@/services/recipe/type';
+import { RecipeSimple } from '@/services/requests/recipe/type';
 
 import RecipeImgAndInfoCard from '@/app/components/common/RecipeImgAndInfoCard';
 

@@ -1,8 +1,8 @@
 import { fetchAPI } from '@/services/api';
 
-import { FetchResult } from '../type';
+import { FetchResult } from '../../type';
 import { RecipeRecommendations } from './type';
-import { createAsyncErrorMessage, withSafeAsync } from '../utils';
+import { createAsyncErrorMessage, withSafeAsync } from '../../utils';
 import { AsyncError } from '../helper/AsyncError';
 
 export const getHomeRecommendations = withSafeAsync(

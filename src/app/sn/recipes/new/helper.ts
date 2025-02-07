@@ -8,7 +8,7 @@ import {
 import {
   NewRecipeDataServer,
   NewRecipeIngredientServer,
-} from '@/services/recipes/type';
+} from '@/services/requests/recipes/type';
 
 export const getNewIngredient = (): NewRecipeIngredientState => ({
   id: getRandomId(),

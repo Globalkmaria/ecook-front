@@ -4,7 +4,7 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 
-import { PRODUCT_TYPES } from '@/services/products';
+import { PRODUCT_TYPES } from '@/services/requests/products';
 
 import {
   productsOptions,

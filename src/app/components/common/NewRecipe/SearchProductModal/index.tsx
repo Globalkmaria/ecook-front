@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 
 import style from './style.module.scss';
 
-import { Product } from '@/services/products/type';
-import { IngredientNewProduct } from '@/services/recipes/type';
-import { getProducts, PRODUCT_TYPES } from '@/services/products';
+import { Product } from '@/services/requests/products/type';
+import { IngredientNewProduct } from '@/services/requests/recipes/type';
+import { getProducts, PRODUCT_TYPES } from '@/services/requests/products';
 
 import useModal from '@/hooks/useModal';
 

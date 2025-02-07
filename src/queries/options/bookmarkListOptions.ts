@@ -1,6 +1,6 @@
 import { queryOptions } from '@tanstack/react-query';
 
-import { getBookmarks } from '@/services/bookmarks';
+import { getBookmarks } from '@/services/requests/bookmarks';
 import { generateBookmarkListQueryKey } from '../helpers';
 
 import {

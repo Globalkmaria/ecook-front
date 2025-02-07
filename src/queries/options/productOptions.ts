@@ -1,6 +1,6 @@
 import { queryOptions } from '@tanstack/react-query';
 
-import { getProduct } from '@/services/product';
+import { getProduct } from '@/services/requests/product';
 
 import { generateProductQueryKey } from '@/queries/helpers';
 

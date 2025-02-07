@@ -6,7 +6,7 @@ import style from './style.module.scss';
 
 import { useClientStore } from '@/providers/client-store-provider';
 
-import { RecipeSimple } from '@/services/recipe/type';
+import { RecipeSimple } from '@/services/requests/recipe/type';
 
 import { useDeleteRecipeMutation } from '@/queries/hooks';
 

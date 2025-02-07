@@ -1,6 +1,6 @@
 import style from './style.module.scss';
 
-import { Product } from '@/services/products/type';
+import { Product } from '@/services/requests/products/type';
 
 import { getProductLink } from '@/helpers/links';
 

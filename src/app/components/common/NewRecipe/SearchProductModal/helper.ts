@@ -1,6 +1,6 @@
 import { getRandomId } from '@/utils/generateId';
 
-import { IngredientNewProduct } from '@/services/recipes/type';
+import { IngredientNewProduct } from '@/services/requests/recipes/type';
 
 import { NewRecipeIngredientState } from '../';
 import { OnSelectProductProps } from '../RecipeIngredients/RecipeIngredientsContent';

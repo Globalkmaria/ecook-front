@@ -1,6 +1,6 @@
 import { queryOptions } from '@tanstack/react-query';
 
-import { getUserBookmarkedRecipes } from '@/services/users';
+import { getUserBookmarkedRecipes } from '@/services/requests/users';
 import { generateUserBookmarksQueryKey } from '../helpers';
 import {
   FORBIDDEN_ERROR,

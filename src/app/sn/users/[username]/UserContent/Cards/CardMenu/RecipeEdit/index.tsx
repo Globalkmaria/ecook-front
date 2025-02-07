@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import style from './style.module.scss';
 
-import { NewRecipeDataServer } from '@/services/recipes/type';
+import { NewRecipeDataServer } from '@/services/requests/recipes/type';
 
 import { useEditRecipeMutation } from '@/queries/hooks';
 import { recipeOptions } from '@/queries/options';

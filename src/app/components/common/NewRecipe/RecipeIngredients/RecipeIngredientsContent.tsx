@@ -2,7 +2,7 @@ import { Dispatch, memo, SetStateAction, useCallback, useState } from 'react';
 
 import style from './ingredients.module.scss';
 
-import { NewRecipeIngredient } from '@/services/recipes/type';
+import { NewRecipeIngredient } from '@/services/requests/recipes/type';
 
 import useModal from '@/hooks/useModal';
 

@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 import style from './style.module.scss';
 
-import { RecipeRecommendations } from '@/services/recommend/type';
+import { RecipeRecommendations } from '@/services/requests/recommend/type';
 
 import { getSearchTagLink } from '@/helpers/links';
 

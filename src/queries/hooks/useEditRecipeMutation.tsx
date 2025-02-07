@@ -9,7 +9,7 @@ import { getRecipePageTag } from '@/actions/helpers';
 import { useClientStore } from '@/providers/client-store-provider';
 
 import { isUnauthorizedResponse } from '@/services/utils/authError';
-import { editRecipe } from '@/services/recipe';
+import { editRecipe } from '@/services/requests/recipe';
 
 import {
   generateProductListQueryKey,

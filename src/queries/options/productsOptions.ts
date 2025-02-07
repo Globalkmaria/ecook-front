@@ -1,7 +1,7 @@
 import { queryOptions } from '@tanstack/react-query';
 
-import { getProducts } from '@/services/products';
-import { Product, ProductQueryTypes } from '@/services/products/type';
+import { getProducts } from '@/services/requests/products';
+import { Product, ProductQueryTypes } from '@/services/requests/products/type';
 
 import { generateProductListQueryKey } from '@/queries/helpers';
 

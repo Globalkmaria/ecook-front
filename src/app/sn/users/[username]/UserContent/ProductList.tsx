@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { productsOptions } from '@/queries/options';
 
-import { PRODUCT_TYPES } from '@/services/products';
+import { PRODUCT_TYPES } from '@/services/requests/products';
 
 import { useClientStore } from '@/providers/client-store-provider';
 

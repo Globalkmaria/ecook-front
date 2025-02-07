@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { removeBookmark } from '@/services/bookmarks';
+import { removeBookmark } from '@/services/requests/bookmarks';
 
 import {
   generateBookmarkListQueryKey,

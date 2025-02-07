@@ -1,6 +1,6 @@
 import { queryOptions } from '@tanstack/react-query';
 
-import { getRecipeRecommendations } from '@/services/recipe';
+import { getRecipeRecommendations } from '@/services/requests/recipe';
 
 import { generateRecipeRecommendQueryKey } from '@/queries/helpers';
 

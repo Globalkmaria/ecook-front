@@ -4,7 +4,7 @@ import style from './style.module.scss';
 
 import { useClientStore } from '@/providers/client-store-provider';
 
-import { signup } from '@/services/auth';
+import { signup } from '@/services/requests/auth';
 
 import { HOME_LINK } from '@/helpers/links';
 

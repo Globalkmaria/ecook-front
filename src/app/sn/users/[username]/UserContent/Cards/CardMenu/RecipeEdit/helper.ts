@@ -1,4 +1,4 @@
-import { RecipeDetail } from '@/services/recipe/type';
+import { RecipeDetail } from '@/services/requests/recipe/type';
 
 import { getRandomId } from '@/utils/generateId';
 

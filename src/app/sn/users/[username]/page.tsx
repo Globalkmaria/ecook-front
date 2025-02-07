@@ -8,9 +8,9 @@ import {
 
 import style from './style.module.scss';
 
-import { getProfile } from '@/services/users';
-import { getHomeRecipes } from '@/services/home';
-import { PRODUCT_TYPES } from '@/services/products';
+import { getProfile } from '@/services/requests/users';
+import { getHomeRecipes } from '@/services/requests/home';
+import { PRODUCT_TYPES } from '@/services/requests/products';
 
 import { ECOOK_LOGO_URL } from '@/const/contLinks';
 
