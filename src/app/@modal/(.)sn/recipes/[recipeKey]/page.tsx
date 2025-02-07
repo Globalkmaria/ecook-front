@@ -4,8 +4,7 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 
-import { recipeOptions } from '@/queries/recipeOptions';
-import { recipeRecommendOptions } from '@/queries/recipeRecommendOptions';
+import { recipeOptions, recipeRecommendOptions } from '@/queries/options';
 
 import ModalRecipe from './ModalRecipe';
 

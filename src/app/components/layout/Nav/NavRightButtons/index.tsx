@@ -1,15 +1,16 @@
 'use client';
 
-import { useEffect, useRef, useState, useTransition } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useShallow } from 'zustand/shallow';
+import { useQueryClient } from '@tanstack/react-query';
 
 import style from './style.module.scss';
 
 import { useClientStore } from '@/providers/client-store-provider';
 
-import { logout } from '@/services/auth';
+import { logout } from '@/services/requests/auth';
 
 import {
   NEW_RECIPE_LINK,
@@ -24,7 +25,6 @@ import { AvatarImg } from '@/components/Avatar';
 import Anchor from '@/components/Anchor';
 import { Dropbox, DropboxItem, DropboxWrapper } from '@/components/Dropbox';
 import Icon from '@/components/Icon';
-import { useQueryClient } from '@tanstack/react-query';
 
 function NavRightButtons() {
   const user = useClientStore(useShallow((state) => state.user));
@@ -47,7 +47,6 @@ function LoggedInMenu() {
   const query = useQueryClient();
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
-  const [isLoading, startTransition] = useTransition();
   const [resetUser, user] = useClientStore(
     useShallow((state) => [state.resetUser, state.user]),
   );
@@ -58,14 +57,11 @@ function LoggedInMenu() {
   };
 
   const onLogout = async () => {
-    if (isLoading) return;
+    logout();
+    resetUser();
+    Promise.resolve().then(() => query.clear());
 
-    startTransition(async () => {
-      await logout();
-      query.clear();
-      resetUser();
-      router.push(HOME_LINK);
-    });
+    router.push(HOME_LINK);
   };
 
   return (
@@ -83,9 +79,7 @@ function LoggedInMenu() {
         </Link>
         <DropboxWrapper ref={ref}>
           <Dropbox className={style['profile-dropbox']} containerRef={ref}>
-            <DropboxItem disabled={isLoading} onClick={onLogout}>
-              Logout
-            </DropboxItem>
+            <DropboxItem onClick={onLogout}>Logout</DropboxItem>
           </Dropbox>
         </DropboxWrapper>
       </div>

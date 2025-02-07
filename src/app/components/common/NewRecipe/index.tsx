@@ -4,7 +4,10 @@ import { ChangeEventHandler, useCallback, useState } from 'react';
 
 import style from './style.module.scss';
 
-import { NewRecipeData, NewRecipeIngredient } from '@/services/recipes/type';
+import {
+  NewRecipeData,
+  NewRecipeIngredient,
+} from '@/services/requests/recipes/type';
 
 import { ChipListInput, Input } from '@/components/Input';
 import Button from '@/components/Button';
@@ -21,7 +24,7 @@ import {
   getValidAndTrimmedSteps,
   getValidIngredients,
 } from './helper';
-import { Step } from './components/RecipeStepsContent';
+import { Step } from './RecipeSteps/RecipeStepsContent';
 
 export interface NewRecipeSubmitProps {
   img: File | string | null;

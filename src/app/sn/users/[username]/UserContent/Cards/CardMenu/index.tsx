@@ -6,9 +6,9 @@ import style from './style.module.scss';
 
 import { useClientStore } from '@/providers/client-store-provider';
 
-import { RecipeSimple } from '@/services/recipe/type';
+import { RecipeSimple } from '@/services/requests/recipe/type';
 
-import useDeleteRecipe from '@/queries/hooks/useDeleteRecipeMutation';
+import { useDeleteRecipeMutation } from '@/queries/hooks';
 
 import useModal from '@/hooks/useModal';
 
@@ -27,7 +27,7 @@ interface Props {
 function CardMenu({ recipeKey }: Props) {
   const params = useParams();
   const editModal = useModal();
-  const { mutate } = useDeleteRecipe();
+  const { mutate } = useDeleteRecipeMutation();
   const loginUserUsername = useClientStore((state) => state.user.username);
   const isLoginUser = params.username === loginUserUsername;
 

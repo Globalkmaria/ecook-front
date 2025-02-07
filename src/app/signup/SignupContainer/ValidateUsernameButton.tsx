@@ -4,7 +4,7 @@ import style from './style.module.scss';
 
 import Button from '@/components/Button';
 import { validateSignupUsernameAndAlert } from './helper';
-import { checkUsernameAvailability } from '@/services/users';
+import { checkUsernameAvailability } from '@/services/requests/users';
 
 interface ValidateUsernameButtonProps {
   isUsernameValid: boolean;

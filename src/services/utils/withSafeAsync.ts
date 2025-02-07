@@ -1,3 +1,4 @@
+import { AsyncError } from '../requests/helper/AsyncError';
 import { FetchResult } from '../type';
 
 function withSafeAsync<T, U extends V[], V>(
@@ -9,12 +10,20 @@ function withSafeAsync<T, U extends V[], V>(
       return await fn(...args);
     } catch (error) {
       console.error(error);
+      const message = getMessage(error);
+
+      if (error instanceof AsyncError) {
+        return {
+          ok: false,
+          error: message,
+          data: defaultData,
+          res: error.res,
+        };
+      }
+
       return {
         ok: false,
-        error:
-          error instanceof Error
-            ? error.message
-            : 'Error occurred in fetching data',
+        error: message,
         data: defaultData,
       };
     }
@@ -22,3 +31,9 @@ function withSafeAsync<T, U extends V[], V>(
 }
 
 export default withSafeAsync;
+
+const getMessage = (error: unknown) => {
+  if (error instanceof Error) return error.message;
+  if (typeof error === 'string') return error;
+  return 'Error occurred while processing the request.';
+};

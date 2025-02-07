@@ -1,4 +1,4 @@
-import { getHomeRecommendations } from '@/services/recommend';
+import { getHomeRecommendations } from '@/services/requests/recommend';
 
 import RecommendContainer from './RecommendContainer';
 import { transformRecommendRecipeData } from './helper';

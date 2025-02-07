@@ -4,10 +4,10 @@ import { useQuery } from '@tanstack/react-query';
 
 import style from './style.module.scss';
 
-import { RecipeSimple } from '@/services/recipe/type';
-import { checkIsAuthError } from '@/services/utils/authError';
+import { RecipeSimple } from '@/services/requests/recipe/type';
+import { isAuthError } from '@/services/utils/authError';
 
-import userBookmarkedRecipesOptions from '@/queries/userBookmarkedRecipesOptions';
+import { userBookmarkedRecipesOptions } from '@/queries/options';
 
 import useLogout from '@/hooks/useLogout';
 
@@ -41,7 +41,7 @@ function Content() {
   if (isLoading) return <ContentSkeleton />;
 
   if (error) {
-    if (checkIsAuthError(error)) {
+    if (isAuthError(error)) {
       logout();
       return;
     }

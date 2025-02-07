@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import style from './style.module.scss';
 
-import { profileOptions } from '@/queries/profileOptions';
+import { profileOptions } from '@/queries/options';
 
 import { useClientStore } from '@/providers/client-store-provider';
 

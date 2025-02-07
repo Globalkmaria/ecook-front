@@ -2,7 +2,7 @@ import style from './style.module.scss';
 
 import Link from 'next/link';
 
-import { RecipeSimple } from '@/services/recipe/type';
+import { RecipeSimple } from '@/services/requests/recipe/type';
 
 import { formatTime } from '@/utils/time';
 

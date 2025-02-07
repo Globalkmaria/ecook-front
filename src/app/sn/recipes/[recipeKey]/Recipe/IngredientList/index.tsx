@@ -2,7 +2,7 @@ import { memo, useCallback } from 'react';
 
 import style from './style.module.scss';
 
-import { Ingredient, RecipeDetail } from '@/services/recipe/type';
+import { Ingredient, RecipeDetail } from '@/services/requests/recipe/type';
 
 import { getSearchIngredientLink } from '@/helpers/links';
 

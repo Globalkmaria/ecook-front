@@ -4,8 +4,8 @@ import { joinClassNames } from '@/utils/style';
 
 import { getSearchProductLink } from '@/helpers/links';
 
-import { Product as ProductType } from '@/services/products/type';
-import { RecipeProduct } from '@/services/recipe/type';
+import { Product as ProductType } from '@/services/requests/products/type';
+import { RecipeProduct } from '@/services/requests/recipe/type';
 
 import Chip from '@/components/Chip';
 import Icon, { IconProps } from '@/components/Icon';
