@@ -3,6 +3,7 @@ import { fetchAPI } from '@/services/api';
 import { User } from '../users/type';
 import { FetchResult } from '../type';
 import { createAsyncErrorMessage, withSafeAsync } from '../utils';
+import { AsyncError } from '../helper/AsyncError';
 
 interface LoginData {
   username: string;
@@ -28,7 +29,10 @@ export const login = withSafeAsync(
       };
     }
 
-    throw new Error(createAsyncErrorMessage(response.res, 'Failed to login'));
+    throw new AsyncError(
+      createAsyncErrorMessage(response.res, 'Failed to login.'),
+      response.res,
+    );
   },
 );
 
@@ -41,8 +45,9 @@ export const signup = withSafeAsync(
 
     if (response.ok) return { ok: true, data: response.data };
 
-    throw new Error(
+    throw new AsyncError(
       createAsyncErrorMessage(response.res, 'Failed to register'),
+      response.res,
     );
   },
 );
@@ -51,5 +56,8 @@ export const logout = withSafeAsync(async (): FetchResult => {
   const response = await fetchAPI('/auth/logout', { method: 'POST' });
   if (response.ok) return { ok: true };
 
-  throw new Error(createAsyncErrorMessage(response.res, 'Failed to logout'));
+  throw new AsyncError(
+    createAsyncErrorMessage(response.res, 'Failed to logout'),
+    response.res,
+  );
 });

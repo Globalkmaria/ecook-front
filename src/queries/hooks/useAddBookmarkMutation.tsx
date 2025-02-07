@@ -1,35 +1,25 @@
-import { useRouter } from 'next/navigation';
-import { useShallow } from 'zustand/shallow';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { addBookmark } from '@/services/bookmarks';
-import { handleApiAuthResponse } from '@/services/utils/handleApiAuthResponse';
-
-import { LOGIN_LINK } from '@/helpers/links';
-
-import { useClientStore } from '@/providers/client-store-provider';
+import { isUnauthorizedResponse } from '@/services/utils/authError';
 
 import {
   generateBookmarkListQueryKey,
   generateUserBookmarksQueryKey,
 } from '@/queries/helpers';
+import useLogout from '@/hooks/useLogout';
 
 export function useAddBookmarkMutation() {
+  const logout = useLogout();
   const queryClient = useQueryClient();
-  const router = useRouter();
-  const resetUser = useClientStore(useShallow((state) => state.resetUser));
 
   const result = useMutation({
     mutationFn: async (recipeKey: string) => {
       const response = await addBookmark(recipeKey);
-      handleApiAuthResponse(response, router, resetUser);
 
       if (response.ok) return;
 
-      if (!response.ok && response.res?.status === 401) {
-        resetUser();
-        router.replace(LOGIN_LINK);
-      }
+      if (isUnauthorizedResponse(response.res)) logout();
 
       throw new Error('Failed to add bookmark');
     },

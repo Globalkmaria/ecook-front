@@ -1,4 +1,5 @@
 import { fetchAPI } from '../api';
+import { AsyncError } from '../helper/AsyncError';
 import { Product } from '../products/type';
 import { RecommendRecipe } from '../recommend/type';
 import { FetchResult } from '../type';
@@ -12,8 +13,9 @@ export const getProduct = withSafeAsync(
 
     if (response.ok) return { ok: true, data: response.data };
 
-    throw new Error(
+    throw new AsyncError(
       createAsyncErrorMessage(response.res, 'Failed to get product'),
+      response.res,
     );
   },
 );
@@ -30,8 +32,9 @@ export const getProductRecommendations = withSafeAsync(
 
     if (response.ok) return { ok: true, data: response.data };
 
-    throw new Error(
+    throw new AsyncError(
       createAsyncErrorMessage(response.res, 'Failed to fetch recommendations'),
+      response.res,
     );
   },
 );

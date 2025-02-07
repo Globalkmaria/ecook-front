@@ -2,32 +2,38 @@
 
 import { useRouter } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useShallow } from 'zustand/shallow';
 
 import { useClientStore } from '@/providers/client-store-provider';
 
 import { deleteRecipe } from '@/services/recipe';
-import { handleApiAuthResponse } from '@/services/utils/handleApiAuthResponse';
+import { isUnauthorizedResponse } from '@/services/utils/authError';
 
 import {
   generateRecipeListQueryKey,
   generateUserProfileQueryKey,
 } from '@/queries/helpers';
 
+import useLogout from '@/hooks/useLogout';
+
 import { LOGIN_LINK } from '@/helpers/links';
+
 export const useDeleteRecipeMutation = () => {
+  const logout = useLogout();
   const queryClient = useQueryClient();
   const router = useRouter();
-  const [resetUser, username] = useClientStore(
-    useShallow((state) => [state.resetUser, state.user.username]),
-  );
+  const username = useClientStore((state) => state.user.username);
 
   const result = useMutation({
     mutationFn: async (recipeKey: string) => {
       const response = await deleteRecipe(recipeKey);
-      handleApiAuthResponse(response, router, resetUser);
 
       if (response.ok) return response.data;
+
+      if (isUnauthorizedResponse(response.res)) {
+        logout();
+        throw new Error('Please log in to use this feature.');
+      }
+
       throw new Error('Failed to delete recipe');
     },
     onSuccess: () => {
@@ -46,7 +52,7 @@ export const useDeleteRecipeMutation = () => {
         queryKey: generateUserProfileQueryKey(username),
       });
     },
-    onError: () => alert('Failed to delete recipe'),
+    onError: (error) => alert(error.message),
     retry: 3,
     retryDelay: 5000, // 5 seconds
   });

@@ -1,12 +1,18 @@
-export const UNAUTHORIZED_ERROR_CAUSE = 'UnauthorizedError';
+export const UNAUTHORIZED_ERROR = 'UnauthorizedError';
 
-export const checkIsUnauthorizedError = (error: Error | null): boolean =>
-  error?.cause === UNAUTHORIZED_ERROR_CAUSE;
+export const isUnauthorizedError = (error?: Error | null): boolean =>
+  error?.message === UNAUTHORIZED_ERROR;
 
-export const FORBIDDEN_ERROR_CAUSE = 'ForbiddenError';
+export const isUnauthorizedResponse = (res?: Response): boolean =>
+  res?.status === 401;
 
-export const checkIsForbiddenError = (error: Error | null): boolean =>
-  error?.cause === FORBIDDEN_ERROR_CAUSE;
+export const FORBIDDEN_ERROR = 'ForbiddenError';
 
-export const checkIsAuthError = (error: Error | null): boolean =>
-  checkIsUnauthorizedError(error) || checkIsForbiddenError(error);
+export const isForbiddenError = (error?: Error | null): boolean =>
+  error?.message === FORBIDDEN_ERROR;
+
+export const isForbiddenResponse = (res?: Response): boolean =>
+  res?.status === 403;
+
+export const isAuthError = (error?: Error | null): boolean =>
+  isUnauthorizedError(error) || isForbiddenError(error);

@@ -3,10 +3,10 @@ import { fetchAPI } from '@/services/api';
 import { lightTrim } from '@/utils/normalize';
 
 import { GetRecipesRes } from './type';
-import { RecipeDetail } from '../recipe/type';
 import { FetchResult } from '../type';
 import { createAsyncErrorMessage, withSafeAsync } from '../utils';
 import { RecipeListSearchType } from './helper';
+import { AsyncError } from '../helper/AsyncError';
 
 export const getRecipes = withSafeAsync(
   async (
@@ -19,8 +19,9 @@ export const getRecipes = withSafeAsync(
 
     if (response.ok) return { ok: true, data: response.data };
 
-    throw new Error(
+    throw new AsyncError(
       createAsyncErrorMessage(response.res, `Failed to fetch recipes`),
+      response.res,
     );
   },
   {
@@ -30,7 +31,11 @@ export const getRecipes = withSafeAsync(
 );
 
 export const createRecipe = withSafeAsync(
-  async (data: FormData): FetchResult<RecipeDetail> => {
+  async (
+    data: FormData,
+  ): FetchResult<{
+    key: string;
+  }> => {
     const response = await fetchAPI('/recipes', {
       method: 'POST',
       body: data,
@@ -38,17 +43,9 @@ export const createRecipe = withSafeAsync(
 
     if (response.ok) return { ok: true, data: response.data };
 
-    if (response.res.status === 401) {
-      alert('Please login again to use the service');
-      return {
-        ok: false,
-        error: 'Please login again to use the service',
-        res: response.res,
-      };
-    }
-
-    throw new Error(
+    throw new AsyncError(
       createAsyncErrorMessage(response.res, 'Failed to save recipe'),
+      response.res,
     );
   },
 );

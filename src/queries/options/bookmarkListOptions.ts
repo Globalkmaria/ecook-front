@@ -1,8 +1,12 @@
 import { queryOptions } from '@tanstack/react-query';
 
 import { getBookmarks } from '@/services/bookmarks';
-import { UNAUTHORIZED_ERROR_CAUSE } from '@/services/utils/authError';
 import { generateBookmarkListQueryKey } from '../helpers';
+
+import {
+  isUnauthorizedResponse,
+  UNAUTHORIZED_ERROR,
+} from '@/services/utils/authError';
 
 interface Props {
   staleTime?: number;
@@ -17,16 +21,15 @@ export const bookmarkListOptions = ({
     queryKey: generateBookmarkListQueryKey(),
     queryFn: async () => {
       const result = await getBookmarks();
+      if (result.ok) {
+        const bookmarksSet = new Set(result.data);
+        return bookmarksSet;
+      }
 
-      if (!result.ok && result.res?.status === 401)
-        throw new Error('Failed to fetch bookmarks', {
-          cause: UNAUTHORIZED_ERROR_CAUSE,
-        });
+      if (isUnauthorizedResponse(result.res))
+        throw new Error(UNAUTHORIZED_ERROR);
 
-      if (!result.ok) throw new Error('Failed to fetch bookmarks');
-
-      const bookmarksSet = new Set(result.data);
-      return bookmarksSet;
+      throw new Error('Failed to fetch bookmark list');
     },
     staleTime,
     enabled,

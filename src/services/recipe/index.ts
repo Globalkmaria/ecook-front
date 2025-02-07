@@ -7,6 +7,7 @@ import {
 } from './type';
 import { FetchResult } from '../type';
 import { createAsyncErrorMessage, withSafeAsync } from '../utils';
+import { AsyncError } from '../helper/AsyncError';
 
 export const getRecipe = withSafeAsync(
   async (
@@ -16,8 +17,9 @@ export const getRecipe = withSafeAsync(
     const response = await fetchAPI(`/recipes/${recipeKey}`, { ...options });
     if (response.ok) return { ok: true, data: response.data };
 
-    throw new Error(
+    throw new AsyncError(
       createAsyncErrorMessage(response.res, 'Failed to get recipe'),
+      response.res,
     );
   },
 );
@@ -30,16 +32,9 @@ export const deleteRecipe = withSafeAsync(
 
     if (response.ok) return { ok: true, data: null };
 
-    if (response.res.status === 401) {
-      return {
-        ok: false,
-        error: 'Please login again to use the service',
-        res: response.res,
-      };
-    }
-
-    throw new Error(
+    throw new AsyncError(
       createAsyncErrorMessage(response.res, 'Failed to delete recipe'),
+      response.res,
     );
   },
 );
@@ -53,16 +48,9 @@ export const editRecipe = withSafeAsync(
 
     if (response.ok) return { ok: true, data: response.data };
 
-    if (response.res.status === 401) {
-      return {
-        ok: false,
-        error: 'Please login again to use the service',
-        res: response.res,
-      };
-    }
-
-    throw new Error(
+    throw new AsyncError(
       createAsyncErrorMessage(response.res, 'Failed to edit recipe'),
+      response.res,
     );
   },
 );
@@ -76,8 +64,9 @@ export const getRecipeRecommendations = withSafeAsync(
 
     if (response.ok) return { ok: true, data: response.data };
 
-    throw new Error(
+    throw new AsyncError(
       createAsyncErrorMessage(response.res, 'Failed to fetch recommendations'),
+      response.res,
     );
   },
 );

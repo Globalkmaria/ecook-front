@@ -2,6 +2,7 @@ import { fetchAPI } from '@/services/api';
 import { FetchResult } from '../type';
 import { GetProductsReq, GetProductsRes } from './type';
 import { createAsyncErrorMessage, withSafeAsync } from '../utils';
+import { AsyncError } from '../helper/AsyncError';
 
 export const PRODUCT_TYPES = {
   INGREDIENT: 'ingredientName',
@@ -17,8 +18,9 @@ export const getProducts = withSafeAsync(
 
     if (response.ok) return { ok: true, data: response.data };
 
-    throw new Error(
+    throw new AsyncError(
       createAsyncErrorMessage(response.res, 'Failed to get products'),
+      response.res,
     );
   },
 );

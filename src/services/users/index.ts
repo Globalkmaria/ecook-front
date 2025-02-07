@@ -6,14 +6,16 @@ import {
   GetUserBookmarkedRecipesRes,
 } from './type';
 import { createAsyncErrorMessage, withSafeAsync } from '../utils';
+import { AsyncError } from '../helper/AsyncError';
 
 export const getProfile = withSafeAsync(
   async (username: string, options?: RequestInit): FetchResult<Profile> => {
     const response = await fetchAPI(`/users/${username}`, { ...options });
     if (response.ok) return { ok: true, data: response.data };
 
-    throw new Error(
+    throw new AsyncError(
       createAsyncErrorMessage(response.res, 'Failed to get profile'),
+      response.res,
     );
   },
 );
@@ -24,11 +26,12 @@ export const checkUsernameAvailability = withSafeAsync(
 
     if (response.ok) return { ok: true, data: response.data };
 
-    throw new Error(
+    throw new AsyncError(
       createAsyncErrorMessage(
         response.res,
         'Failed to check username availability',
       ),
+      response.res,
     );
   },
 );
@@ -40,19 +43,13 @@ export const getUserBookmarkedRecipes = withSafeAsync(
     const response = await fetchAPI(`/users/${username}/bookmarks`);
     if (response.ok) return { ok: true, data: response.data };
 
-    if (response.res.status === 401) {
-      return { ok: false, error: 'Unauthorized', res: response.res };
-    }
-
-    if (response.res.status === 403) {
-      return { ok: false, error: 'Forbidden', res: response.res };
-    }
-
-    throw new Error(
+    throw new AsyncError(
       createAsyncErrorMessage(
         response.res,
         'Failed to fetch user bookmarked recipes',
       ),
+
+      response.res,
     );
   },
 );

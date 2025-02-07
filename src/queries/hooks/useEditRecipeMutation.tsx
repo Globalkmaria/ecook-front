@@ -2,15 +2,14 @@
 
 import { useRouter } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useShallow } from 'zustand/shallow';
 
 import { revalidateTagRecipeDetail } from '@/actions/revalidate';
 import { getRecipePageTag } from '@/actions/helpers';
 
 import { useClientStore } from '@/providers/client-store-provider';
 
+import { isUnauthorizedResponse } from '@/services/utils/authError';
 import { editRecipe } from '@/services/recipe';
-import { handleApiAuthResponse } from '@/services/utils/handleApiAuthResponse';
 
 import {
   generateProductListQueryKey,
@@ -18,24 +17,30 @@ import {
   generateRecipeQueryKey,
 } from '@/queries/helpers';
 
+import useLogout from '@/hooks/useLogout';
+
 import { LOGIN_LINK } from '@/helpers/links';
 
 export const useEditRecipeMutation = (
   recipeKey: string,
   onCloseModal: () => void,
 ) => {
+  const logout = useLogout();
   const queryClient = useQueryClient();
   const router = useRouter();
-  const [resetUser, username] = useClientStore(
-    useShallow((state) => [state.resetUser, state.user.username]),
-  );
+  const username = useClientStore((state) => state.user.username);
 
   const result = useMutation({
     mutationFn: async ({ data }: { data: FormData }) => {
       const response = await editRecipe(data, recipeKey);
-      handleApiAuthResponse(response, router, resetUser);
 
       if (response.ok) return response.data;
+
+      if (isUnauthorizedResponse(response.res)) {
+        logout();
+        throw new Error('Please log in to use this feature.');
+      }
+
       throw new Error('Failed to edit recipe');
     },
     onSuccess: async (data) => {
