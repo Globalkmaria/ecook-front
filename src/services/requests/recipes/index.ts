@@ -6,7 +6,7 @@ import { GetRecipesRes } from './type';
 import { FetchResult } from '../../type';
 import { createAsyncErrorMessage, withSafeAsync } from '../../utils';
 import { RecipeListSearchType } from './helper';
-import { AsyncError } from '../helper/AsyncError';
+import { AsyncError } from '@/services/helpers';
 
 export const getRecipes = withSafeAsync(
   async (

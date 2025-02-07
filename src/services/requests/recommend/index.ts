@@ -3,7 +3,7 @@ import { fetchAPI } from '@/services/api';
 import { FetchResult } from '../../type';
 import { RecipeRecommendations } from './type';
 import { createAsyncErrorMessage, withSafeAsync } from '../../utils';
-import { AsyncError } from '../helper/AsyncError';
+import { AsyncError } from '@/services/helpers';
 
 export const getHomeRecommendations = withSafeAsync(
   async (): FetchResult<RecipeRecommendations> => {
