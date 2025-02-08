@@ -41,8 +41,8 @@ export const useDeleteRecipeMutation = () => {
 
       queryClient.invalidateQueries({
         queryKey: queryKeys.recipes.list({
-          query: 'username',
-          type: username,
+          type: 'username',
+          query: username,
         }),
       });
       queryClient.invalidateQueries({
@@ -54,8 +54,6 @@ export const useDeleteRecipeMutation = () => {
       queryClient.invalidateQueries({
         queryKey: queryKeys.users.user.profile(username),
       });
-
-      router.refresh();
     },
     onError: (error) => alert(error.message),
     retry: 3,

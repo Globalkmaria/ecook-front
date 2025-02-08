@@ -20,8 +20,8 @@ export function useAddBookmarkMutation() {
 
       throw new Error('Failed to add bookmark');
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: queryKeys.bookmarks.list(),
       });
       queryClient.invalidateQueries({

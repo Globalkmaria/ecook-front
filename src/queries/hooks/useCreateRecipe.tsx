@@ -32,24 +32,22 @@ export const useCreateRecipe = () => {
 
       throw new Error('Failed to submit recipe');
     },
-    onSuccess: async (data) => {
+    onSuccess: (data) => {
       if (!username) {
         alert('Please login to edit recipe');
         router.replace(LOGIN_LINK);
         return;
       }
 
-      await queryClient.invalidateQueries({
+      queryClient.invalidateQueries({
         queryKey: queryKeys.recipes.list({
-          query: 'username',
-          type: username,
+          query: username,
+          type: 'username',
         }),
       });
-
       queryClient.invalidateQueries({
         queryKey: queryKeys.users.user.profile(username),
       });
-
       queryClient.invalidateQueries({
         queryKey: queryKeys.products.list({
           type: 'username',

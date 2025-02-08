@@ -48,8 +48,8 @@ export const useEditRecipeMutation = (
 
       queryClient.invalidateQueries({
         queryKey: queryKeys.recipes.list({
-          query: 'username',
-          type: username,
+          type: 'username',
+          query: username,
         }),
       });
       queryClient.invalidateQueries({
