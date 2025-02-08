@@ -8,20 +8,21 @@ import { useClientStore } from '@/providers/client-store-provider';
 import { deleteRecipe } from '@/services/requests/recipe';
 import { isUnauthorizedResponse } from '@/services/utils/authError';
 
-import { queryKeys } from '@/queries/helpers';
+import { mutationKeys, queryKeys } from '@/queries/helpers';
 
 import useLogout from '@/hooks/useLogout';
 
 import { LOGIN_LINK } from '@/helpers/links';
 
-export const useDeleteRecipeMutation = () => {
+export const useDeleteRecipeMutation = (recipeKey: string) => {
   const logout = useLogout();
   const queryClient = useQueryClient();
   const router = useRouter();
   const username = useClientStore((state) => state.user.username);
 
   const result = useMutation({
-    mutationFn: async (recipeKey: string) => {
+    mutationKey: mutationKeys.recipes.recipe.delete(recipeKey),
+    mutationFn: async () => {
       const response = await deleteRecipe(recipeKey);
 
       if (response.ok) return response.data;
