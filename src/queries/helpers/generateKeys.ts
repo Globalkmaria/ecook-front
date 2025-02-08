@@ -45,7 +45,7 @@ export const generateRecipeListQueryKey = ({
   query: string;
   type: string;
 }) => {
-  return [QUERY_KEY__RECIPE_LIST, { query, type }];
+  return [QUERY_KEY__RECIPE_LIST, { query, type }] as const;
 };
 
 // Recipe

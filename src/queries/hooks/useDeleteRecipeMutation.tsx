@@ -9,6 +9,7 @@ import { deleteRecipe } from '@/services/requests/recipe';
 import { isUnauthorizedResponse } from '@/services/utils/authError';
 
 import {
+  generateProductListQueryKey,
   generateRecipeListQueryKey,
   generateUserProfileQueryKey,
 } from '@/queries/helpers';
@@ -49,8 +50,16 @@ export const useDeleteRecipeMutation = () => {
         }),
       });
       queryClient.invalidateQueries({
+        queryKey: generateProductListQueryKey({
+          type: 'username',
+          query: username,
+        }),
+      });
+      queryClient.invalidateQueries({
         queryKey: generateUserProfileQueryKey(username),
       });
+
+      router.refresh();
     },
     onError: (error) => alert(error.message),
     retry: 3,

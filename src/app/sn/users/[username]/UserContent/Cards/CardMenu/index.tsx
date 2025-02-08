@@ -27,18 +27,24 @@ interface Props {
 function CardMenu({ recipeKey }: Props) {
   const params = useParams();
   const editModal = useModal();
-  const { mutate } = useDeleteRecipeMutation();
+  const { mutate, isPending, isSuccess } = useDeleteRecipeMutation();
   const loginUserUsername = useClientStore((state) => state.user.username);
   const isLoginUser = params.username === loginUserUsername;
 
   if (!isLoginUser) return null;
 
-  const onDelete = () => mutate(recipeKey);
+  const disableDeleteButton = isPending || isSuccess;
+
+  const onDelete = () => {
+    if (disableDeleteButton) return;
+    mutate(recipeKey);
+  };
 
   const buttons: {
     icon: IconProps['icon'];
     text: string;
     onClick: () => void;
+    disabled?: boolean;
   }[] = [
     {
       icon: 'edit',
@@ -49,6 +55,7 @@ function CardMenu({ recipeKey }: Props) {
       icon: 'trash',
       text: 'Delete',
       onClick: onDelete,
+      disabled: disableDeleteButton,
     },
   ];
 
