@@ -11,7 +11,7 @@ import { useClientStore } from '@/providers/client-store-provider';
 import { isUnauthorizedResponse } from '@/services/utils/authError';
 import { editRecipe } from '@/services/requests/recipe';
 
-import { queryKeys } from '@/queries/helpers';
+import { mutationKeys, queryKeys } from '@/queries/helpers';
 
 import useLogout from '@/hooks/useLogout';
 
@@ -27,6 +27,7 @@ export const useEditRecipeMutation = (
   const username = useClientStore((state) => state.user.username);
 
   const result = useMutation({
+    mutationKey: mutationKeys.recipes.recipe.update(recipeKey),
     mutationFn: async ({ data }: { data: FormData }) => {
       const response = await editRecipe(data, recipeKey);
 

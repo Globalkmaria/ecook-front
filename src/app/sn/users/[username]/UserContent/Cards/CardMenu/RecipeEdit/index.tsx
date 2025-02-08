@@ -8,6 +8,7 @@ import { NewRecipeDataServer } from '@/services/requests/recipes/type';
 
 import { useEditRecipeMutation } from '@/queries/hooks';
 import { recipeOptions } from '@/queries/options';
+import { mutationKeys } from '@/queries/helpers';
 
 import Skeleton from '@/components/Skeleton';
 
@@ -34,13 +35,14 @@ function RecipeEdit({ recipeKey, onCloseModal }: Props) {
     error: recipeError,
   } = useQuery(recipeOptions({ key: recipeKey }));
 
-  const { mutate, isPending: isPendingEditRecipe } = useEditRecipeMutation(
-    recipeKey,
-    onCloseModal,
-  );
+  const {
+    mutate,
+    isPending: isPendingEditRecipe,
+    isSuccess: isSuccessEditRecipe,
+  } = useEditRecipeMutation(recipeKey, onCloseModal);
 
   const onSubmit: OnSubmitNewRecipe = (data) => {
-    if (isPendingEditRecipe) return;
+    if (isPendingEditRecipe || isSuccessEditRecipe) return;
     if (!checkRequiredFieldsFilled(data)) {
       alert(FILL_REQUIRED_FIELDS);
       return;
@@ -62,10 +64,11 @@ function RecipeEdit({ recipeKey, onCloseModal }: Props) {
 
   const initialData = getEditRecipeInitialValues(recipe);
 
+  const mutationKey = mutationKeys.recipes.recipe.update(recipeKey);
   return (
     <div className={style.container}>
       <NewRecipe
-        loading={isPendingEditRecipe}
+        mutationKey={mutationKey}
         onSubmit={onSubmit}
         initialData={initialData}
         pageTitle='Edit Recipe'

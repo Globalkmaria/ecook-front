@@ -1,6 +1,7 @@
 'use client';
 
 import { ChangeEventHandler, useCallback, useState } from 'react';
+import { QueryKey, useMutationState } from '@tanstack/react-query';
 
 import style from './style.module.scss';
 
@@ -60,11 +61,16 @@ export type ImgState = File | string | null;
 interface Props {
   initialData: NewRecipeInitialData;
   onSubmit: OnSubmitNewRecipe;
-  loading: boolean;
+  mutationKey: QueryKey;
   pageTitle: string;
 }
 
-function NewRecipe({ initialData, onSubmit, loading, pageTitle }: Props) {
+function NewRecipe({ initialData, onSubmit, pageTitle, mutationKey }: Props) {
+  const state = useMutationState({
+    filters: { mutationKey: mutationKey, exact: true },
+    select: (state) => state.state,
+  });
+
   const [textInputs, setTextInputs] = useState<TextInputs>({
     name: initialData.name,
     description: initialData.description,
@@ -85,6 +91,8 @@ function NewRecipe({ initialData, onSubmit, loading, pageTitle }: Props) {
     steps,
   });
 
+  const loading =
+    state[0]?.status === 'success' || state[0]?.status === 'pending';
   const submitButtonText = loading ? 'Submitting...' : 'Submit';
   const disableButton = !isSubmittable || loading;
   const imgLoaderMode = initialData.img ? 'edit' : 'new';

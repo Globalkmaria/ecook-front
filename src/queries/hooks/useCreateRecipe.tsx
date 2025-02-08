@@ -8,7 +8,7 @@ import { useClientStore } from '@/providers/client-store-provider';
 import { isUnauthorizedResponse } from '@/services/utils/authError';
 import { createRecipe } from '@/services/requests/recipes';
 
-import { queryKeys } from '@/queries/helpers';
+import { mutationKeys, queryKeys } from '@/queries/helpers';
 
 import useLogout from '@/hooks/useLogout';
 
@@ -21,6 +21,7 @@ export const useCreateRecipe = () => {
   const username = useClientStore((state) => state.user.username);
 
   const result = useMutation({
+    mutationKey: mutationKeys.recipes.create(),
     mutationFn: async (data: FormData) => {
       const response = await createRecipe(data);
       if (response.ok) return response.data;

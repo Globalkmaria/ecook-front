@@ -68,3 +68,25 @@ export const queryKeys = {
   bookmarks: bookmarksKeys,
   products: productsKeys,
 } as const;
+
+export const mutationKeys = {
+  recipes: {
+    all: ['recipes'],
+    create: () => [...queryKeys.recipes.all(), 'create'],
+    recipe: {
+      all: (recipeKey: string) => [
+        ...queryKeys.recipes.all(),
+        'recipe',
+        recipeKey,
+      ],
+      update: (recipeKey: string) => [
+        ...queryKeys.recipes.recipe.all(recipeKey),
+        'update',
+      ],
+      delete: (recipeKey: string) => [
+        ...queryKeys.recipes.recipe.all(recipeKey),
+        'delete',
+      ],
+    },
+  },
+} as const;
