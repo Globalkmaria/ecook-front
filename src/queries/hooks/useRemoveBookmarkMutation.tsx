@@ -2,10 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { removeBookmark } from '@/services/requests/bookmarks';
 
-import {
-  generateBookmarkListQueryKey,
-  generateUserBookmarksQueryKey,
-} from '@/queries/helpers';
+import { queryKeys } from '@/queries/helpers';
 import { isUnauthorizedResponse } from '@/services/utils/authError';
 import useLogout from '@/hooks/useLogout';
 
@@ -25,10 +22,10 @@ export const useRemoveBookmarkMutation = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: generateBookmarkListQueryKey(),
+        queryKey: queryKeys.bookmarks.list(),
       });
       queryClient.invalidateQueries({
-        queryKey: generateUserBookmarksQueryKey(),
+        queryKey: queryKeys.bookmarks.recipes.list(),
       });
     },
     onError: (error) => {

@@ -88,8 +88,8 @@ async function UserPage({ params }: Props) {
     queryClient.prefetchQuery(
       productsOptions({
         type: PRODUCT_TYPES.USERNAME,
-        q: username || '',
-        staleTime: 180000,
+        q: username,
+        staleTime: 180000, // 3 minutess
       }),
     ),
   ]);

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useClientStore } from '@/providers/client-store-provider';
 
 import { useCreateRecipe } from '@/queries/hooks';
+import { mutationKeys } from '@/queries/helpers';
 
 import { LOGIN_LINK } from '@/helpers/links';
 
@@ -21,9 +22,11 @@ import {
 function NewRecipeContainer() {
   const router = useRouter();
   const username = useClientStore((state) => state.user.username);
-  const { mutate, isPending } = useCreateRecipe();
+  const { mutate, isPending, isSuccess } = useCreateRecipe();
 
+  const mutationKey = mutationKeys.recipes.create();
   const onSubmit = async (data: NewRecipeSubmitProps) => {
+    if (isPending || isSuccess) return;
     if (!username) {
       router.replace(LOGIN_LINK);
       return;
@@ -43,7 +46,7 @@ function NewRecipeContainer() {
 
   return (
     <NewRecipe
-      loading={isPending}
+      mutationKey={mutationKey}
       onSubmit={onSubmit}
       initialData={initialData}
       pageTitle='Create a new recipe'

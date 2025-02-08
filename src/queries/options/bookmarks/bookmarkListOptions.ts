@@ -1,12 +1,12 @@
 import { queryOptions } from '@tanstack/react-query';
 
 import { getBookmarks } from '@/services/requests/bookmarks';
-import { generateBookmarkListQueryKey } from '../helpers';
 
 import {
   isUnauthorizedResponse,
   UNAUTHORIZED_ERROR,
 } from '@/services/utils/authError';
+import { queryKeys } from '@/queries/helpers';
 
 interface Props {
   staleTime?: number;
@@ -18,7 +18,7 @@ export const bookmarkListOptions = ({
   enabled = false,
 }: Props) =>
   queryOptions({
-    queryKey: generateBookmarkListQueryKey(),
+    queryKey: queryKeys.bookmarks.list(),
     queryFn: async () => {
       const result = await getBookmarks();
       if (result.ok) {

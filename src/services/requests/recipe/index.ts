@@ -7,7 +7,7 @@ import {
 } from './type';
 import { FetchResult } from '../../type';
 import { createAsyncErrorMessage, withSafeAsync } from '../../utils';
-import { AsyncError } from '../helper/AsyncError';
+import { AsyncError } from '@/services/helpers';
 
 export const getRecipe = withSafeAsync(
   async (

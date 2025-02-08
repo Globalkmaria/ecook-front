@@ -1,7 +1,7 @@
 import { queryOptions } from '@tanstack/react-query';
 
 import { getUserBookmarkedRecipes } from '@/services/requests/users';
-import { generateUserBookmarksQueryKey } from '../helpers';
+import { queryKeys } from '../../helpers';
 import {
   FORBIDDEN_ERROR,
   isForbiddenResponse,
@@ -21,7 +21,7 @@ export const userBookmarkedRecipesOptions = ({
   enabled,
 }: Props) =>
   queryOptions({
-    queryKey: generateUserBookmarksQueryKey(),
+    queryKey: queryKeys.bookmarks.recipes.list(),
     queryFn: async () => {
       const result = await getUserBookmarkedRecipes(username);
 

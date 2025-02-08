@@ -1,5 +1,5 @@
 import { fetchAPI } from '../../api';
-import { AsyncError } from '../helper/AsyncError';
+import { AsyncError } from '@/services/helpers';
 import { FetchResult } from '../../type';
 import { createAsyncErrorMessage, withSafeAsync } from '../../utils';
 import { GetBookmarksRes } from './type';

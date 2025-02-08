@@ -24,6 +24,8 @@ function MoreButton({
   const { isOpen, onClose, onToggle } = useModal();
   const ref = useRef<HTMLDivElement>(null);
 
+  const onMouseLeave = () => onClose();
+
   return (
     <DropboxWrapper ref={ref}>
       <IconButton icon={'more'} onClick={onToggle} />
@@ -33,6 +35,7 @@ function MoreButton({
           onCloseModal={onClose}
           vertical={vertical}
           horizontal={horizontal}
+          onMouseLeave={onMouseLeave}
           {...resProps}
         >
           {children}

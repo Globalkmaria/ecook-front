@@ -8,11 +8,7 @@ import { useClientStore } from '@/providers/client-store-provider';
 import { isUnauthorizedResponse } from '@/services/utils/authError';
 import { createRecipe } from '@/services/requests/recipes';
 
-import {
-  generateProductListQueryKey,
-  generateRecipeListQueryKey,
-  generateUserProfileQueryKey,
-} from '@/queries/helpers';
+import { mutationKeys, queryKeys } from '@/queries/helpers';
 
 import useLogout from '@/hooks/useLogout';
 
@@ -25,6 +21,7 @@ export const useCreateRecipe = () => {
   const username = useClientStore((state) => state.user.username);
 
   const result = useMutation({
+    mutationKey: mutationKeys.recipes.create(),
     mutationFn: async (data: FormData) => {
       const response = await createRecipe(data);
       if (response.ok) return response.data;
@@ -36,7 +33,7 @@ export const useCreateRecipe = () => {
 
       throw new Error('Failed to submit recipe');
     },
-    onSuccess: async (data) => {
+    onSuccess: (data) => {
       if (!username) {
         alert('Please login to edit recipe');
         router.replace(LOGIN_LINK);
@@ -44,16 +41,16 @@ export const useCreateRecipe = () => {
       }
 
       queryClient.invalidateQueries({
-        queryKey: generateRecipeListQueryKey({
-          query: 'username',
-          type: username,
+        queryKey: queryKeys.recipes.list({
+          query: username,
+          type: 'username',
         }),
       });
       queryClient.invalidateQueries({
-        queryKey: generateUserProfileQueryKey(username),
+        queryKey: queryKeys.users.user.profile(username),
       });
       queryClient.invalidateQueries({
-        queryKey: generateProductListQueryKey({
+        queryKey: queryKeys.products.list({
           type: 'username',
           query: username,
         }),

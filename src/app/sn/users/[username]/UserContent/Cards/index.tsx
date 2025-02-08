@@ -1,8 +1,13 @@
-import Link from 'next/link';
+'use client';
+
+import { useMutationState } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
 import style from './style.module.scss';
 
 import { RecipeSimple } from '@/services/requests/recipe/type';
+
+import { isPendingOrSuccess, mutationKeys } from '@/queries/helpers';
 
 import { formatTime } from '@/utils/time';
 
@@ -34,8 +39,24 @@ interface CardProps {
 }
 
 function Card({ recipe }: CardProps) {
+  const router = useRouter();
   const time = formatTime({ hours: recipe.hours, minutes: recipe.minutes });
   const recipeLink = getRecipeLink(recipe.key);
+
+  const state = useMutationState({
+    filters: {
+      mutationKey: mutationKeys.recipes.recipe.delete(recipe.key),
+      exact: true,
+    },
+    select: (state) => state.state,
+  });
+
+  const disableRecipeLink = isPendingOrSuccess(state[0]);
+
+  const onClick = () => {
+    if (disableRecipeLink) return;
+    router.push(recipeLink);
+  };
 
   return (
     <li className={style.wrapper}>
@@ -43,7 +64,12 @@ function Card({ recipe }: CardProps) {
         <CardMenu recipeKey={recipe.key} />
       </div>
 
-      <Link href={recipeLink} className={style.card}>
+      <button
+        type='button'
+        onClick={onClick}
+        className={style.card}
+        disabled={disableRecipeLink}
+      >
         <div className={style['img-box']}>
           <div className={style['img-wrapper']}>
             <CustomImage
@@ -67,7 +93,7 @@ function Card({ recipe }: CardProps) {
             </ChipsContainer>
           </div>
         </div>
-      </Link>
+      </button>
     </li>
   );
 }

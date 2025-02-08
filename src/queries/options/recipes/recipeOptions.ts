@@ -5,7 +5,7 @@ import { getRecipePageTag } from '@/actions/helpers';
 import { getRecipe } from '@/services/requests/recipe';
 import { RecipeDetail } from '@/services/requests/recipe/type';
 
-import { generateRecipeQueryKey } from '@/queries/helpers';
+import { queryKeys } from '@/queries/helpers';
 
 interface Props {
   key: string;
@@ -21,7 +21,7 @@ export const recipeOptions = ({
   nextRevalidateTime = 86400, // 24 hours , S
 }: Props) =>
   queryOptions({
-    queryKey: generateRecipeQueryKey(key),
+    queryKey: queryKeys.recipes.recipe.detail(key),
     queryFn: async () => {
       const result = await getRecipe(key, {
         cache: 'force-cache',

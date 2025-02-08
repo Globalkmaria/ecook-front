@@ -1,5 +1,5 @@
 import { fetchAPI } from '../../api';
-import { AsyncError } from '../helper/AsyncError';
+import { AsyncError } from '@/services/helpers';
 import { Product } from '../products/type';
 import { RecommendRecipe } from '../recommend/type';
 import { FetchResult } from '../../type';

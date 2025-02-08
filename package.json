@@ -1,6 +1,6 @@
 {
   "name": "recipes",
-  "version": "1.1.12",
+  "version": "1.1.13",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -14,9 +14,9 @@
     "@tanstack/react-query-devtools": "^5.62.8",
     "immer": "^10.1.1",
     "mysql2": "^3.11.2",
-    "next": "^15.0.3",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "next": "^15.1.6",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "react-icons": "^5.3.0",
     "uuid": "^11.0.3",
     "zustand": "^5.0.1"

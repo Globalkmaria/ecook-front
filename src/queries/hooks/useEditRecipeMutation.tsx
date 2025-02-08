@@ -11,11 +11,7 @@ import { useClientStore } from '@/providers/client-store-provider';
 import { isUnauthorizedResponse } from '@/services/utils/authError';
 import { editRecipe } from '@/services/requests/recipe';
 
-import {
-  generateProductListQueryKey,
-  generateRecipeListQueryKey,
-  generateRecipeQueryKey,
-} from '@/queries/helpers';
+import { mutationKeys, queryKeys } from '@/queries/helpers';
 
 import useLogout from '@/hooks/useLogout';
 
@@ -31,6 +27,7 @@ export const useEditRecipeMutation = (
   const username = useClientStore((state) => state.user.username);
 
   const result = useMutation({
+    mutationKey: mutationKeys.recipes.recipe.update(recipeKey),
     mutationFn: async ({ data }: { data: FormData }) => {
       const response = await editRecipe(data, recipeKey);
 
@@ -51,19 +48,19 @@ export const useEditRecipeMutation = (
       }
 
       queryClient.invalidateQueries({
-        queryKey: generateRecipeListQueryKey({
-          query: 'username',
-          type: username,
-        }),
-      });
-      queryClient.invalidateQueries({
-        queryKey: generateProductListQueryKey({
+        queryKey: queryKeys.recipes.list({
           type: 'username',
           query: username,
         }),
       });
       queryClient.invalidateQueries({
-        queryKey: generateRecipeQueryKey(data.key),
+        queryKey: queryKeys.products.list({
+          type: 'username',
+          query: username,
+        }),
+      });
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.recipes.recipe.detail(data.key),
       });
 
       await revalidateTagRecipeDetail(getRecipePageTag(data.key));

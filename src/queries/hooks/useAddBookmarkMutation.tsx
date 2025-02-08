@@ -3,10 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addBookmark } from '@/services/requests/bookmarks';
 import { isUnauthorizedResponse } from '@/services/utils/authError';
 
-import {
-  generateBookmarkListQueryKey,
-  generateUserBookmarksQueryKey,
-} from '@/queries/helpers';
+import { queryKeys } from '@/queries/helpers';
 import useLogout from '@/hooks/useLogout';
 
 export function useAddBookmarkMutation() {
@@ -23,12 +20,12 @@ export function useAddBookmarkMutation() {
 
       throw new Error('Failed to add bookmark');
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: generateBookmarkListQueryKey(),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: queryKeys.bookmarks.list(),
       });
       queryClient.invalidateQueries({
-        queryKey: generateUserBookmarksQueryKey(),
+        queryKey: queryKeys.bookmarks.recipes.list(),
       });
     },
     onError: (error) => {

@@ -6,7 +6,7 @@ import {
   GetUserBookmarkedRecipesRes,
 } from './type';
 import { createAsyncErrorMessage, withSafeAsync } from '../../utils';
-import { AsyncError } from '../helper/AsyncError';
+import { AsyncError } from '@/services/helpers';
 
 export const getProfile = withSafeAsync(
   async (username: string, options?: RequestInit): FetchResult<Profile> => {
