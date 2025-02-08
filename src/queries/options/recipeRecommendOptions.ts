@@ -2,7 +2,7 @@ import { queryOptions } from '@tanstack/react-query';
 
 import { getRecipeRecommendations } from '@/services/requests/recipe';
 
-import { generateRecipeRecommendQueryKey } from '@/queries/helpers';
+import { queryKeys } from '@/queries/helpers';
 
 interface RecipeListOptions {
   key: string;
@@ -18,7 +18,7 @@ export const recipeRecommendOptions = ({
   enabled = false,
 }: RecipeListOptions) =>
   queryOptions({
-    queryKey: generateRecipeRecommendQueryKey(key),
+    queryKey: queryKeys.recipes.recipe.recommend(key),
     queryFn: async () => {
       const result = await getRecipeRecommendations(key, {
         cache: 'force-cache',

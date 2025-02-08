@@ -1,63 +1,70 @@
-import {
-  QUERY_KEY__PRODUCT,
-  QUERY_KEY__PRODUCT_LIST,
-  QUERY_KEY__USER_PROFILE,
-  QUERY_KEY__RECIPE,
-  QUERY_KEY__RECIPE_LIST,
-  QUERY_KEY__RECOMMEND,
-  QUERY_KEY__BOOKMARKS,
-} from './queryKeys';
-
-// Product
-export const generateProductQueryKey = (productKey: string) => {
-  return [QUERY_KEY__PRODUCT, productKey];
+const recipesKeys = {
+  all: () => ['recipes'],
+  list: ({ query, type }: { query: string; type: string }) => [
+    ...queryKeys.recipes.all(),
+    { query, type },
+  ],
+  recipe: {
+    all: (recipeKey: string) => ['recipe', recipeKey],
+    detail: (recipeKey: string) => [
+      ...queryKeys.recipes.recipe.all(recipeKey),
+      'detail',
+    ],
+    recommend: (recipeKey: string) => [
+      ...queryKeys.recipes.recipe.all(recipeKey),
+      'recommend',
+    ],
+  },
 };
 
-export const generateProductRecommendQueryKey = (productKey: string) => {
-  return [QUERY_KEY__PRODUCT, productKey, QUERY_KEY__RECOMMEND];
-};
+const usersKeys = {
+  all: () => ['users'],
+  user: {
+    all: (username: string) => [...queryKeys.users.all(), 'user', { username }],
+    profile: (username: string) => [
+      ...queryKeys.users.user.all(username),
+      'profile',
+    ],
+    bookmarks: (username: string) => [
+      ...queryKeys.users.user.all(username),
+      'bookmarks',
+    ],
+  },
+} as const;
 
-// Product List
-export const generateProductListQueryKey = ({
-  type,
-  query,
-}: {
-  type: string;
-  query: string;
-}) => {
-  return [QUERY_KEY__PRODUCT_LIST, { type, query }];
-};
+const bookmarksKeys = {
+  all: 'bookmarks',
+  list: () => [queryKeys.bookmarks.all, 'list'],
+  recipes: {
+    all: () => [queryKeys.bookmarks.all, 'recipes'],
+    list: () => [...queryKeys.bookmarks.recipes.all(), 'list'],
+  },
+} as const;
 
-// User
-export const generateUserProfileQueryKey = (username: string) => {
-  return [QUERY_KEY__USER_PROFILE, username];
-};
+const productsKeys = {
+  all: () => ['products'],
+  list: ({ type, query }: { type: string; query: string }) => [
+    ...queryKeys.products.all(),
+    'list',
+    { type, query },
+  ],
+  product: {
+    all: () => [...queryKeys.products.all(), 'product'],
+    detail: (productKey: string) => [
+      ...queryKeys.products.product.all(),
+      productKey,
+    ],
+    recommend: (productKey: string) => [
+      ...queryKeys.products.product.all(),
+      productKey,
+      'recommend',
+    ],
+  },
+} as const;
 
-export const generateUserBookmarksQueryKey = () => {
-  return [QUERY_KEY__USER_PROFILE, QUERY_KEY__BOOKMARKS];
-};
-
-// Recipe List
-export const generateRecipeListQueryKey = ({
-  query,
-  type,
-}: {
-  query: string;
-  type: string;
-}) => {
-  return [QUERY_KEY__RECIPE_LIST, { query, type }] as const;
-};
-
-// Recipe
-export const generateRecipeQueryKey = (recipeKey: string) => {
-  return [QUERY_KEY__RECIPE, recipeKey];
-};
-
-export const generateRecipeRecommendQueryKey = (recipeKey: string) => {
-  return [QUERY_KEY__RECIPE, recipeKey, QUERY_KEY__RECOMMEND];
-};
-
-// Bookmarks
-export const generateBookmarkListQueryKey = () => {
-  return [QUERY_KEY__BOOKMARKS];
-};
+export const queryKeys = {
+  recipes: recipesKeys,
+  users: usersKeys,
+  bookmarks: bookmarksKeys,
+  products: productsKeys,
+} as const;

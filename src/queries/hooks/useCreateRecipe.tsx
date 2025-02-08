@@ -8,11 +8,7 @@ import { useClientStore } from '@/providers/client-store-provider';
 import { isUnauthorizedResponse } from '@/services/utils/authError';
 import { createRecipe } from '@/services/requests/recipes';
 
-import {
-  generateProductListQueryKey,
-  generateRecipeListQueryKey,
-  generateUserProfileQueryKey,
-} from '@/queries/helpers';
+import { queryKeys } from '@/queries/helpers';
 
 import useLogout from '@/hooks/useLogout';
 
@@ -44,16 +40,18 @@ export const useCreateRecipe = () => {
       }
 
       queryClient.invalidateQueries({
-        queryKey: generateRecipeListQueryKey({
+        queryKey: queryKeys.recipes.list({
           query: 'username',
           type: username,
         }),
       });
+
       queryClient.invalidateQueries({
-        queryKey: generateUserProfileQueryKey(username),
+        queryKey: queryKeys.users.user.profile(username),
       });
+
       queryClient.invalidateQueries({
-        queryKey: generateProductListQueryKey({
+        queryKey: queryKeys.recipes.list({
           type: 'username',
           query: username,
         }),

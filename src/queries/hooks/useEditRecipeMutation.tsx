@@ -11,11 +11,7 @@ import { useClientStore } from '@/providers/client-store-provider';
 import { isUnauthorizedResponse } from '@/services/utils/authError';
 import { editRecipe } from '@/services/requests/recipe';
 
-import {
-  generateProductListQueryKey,
-  generateRecipeListQueryKey,
-  generateRecipeQueryKey,
-} from '@/queries/helpers';
+import { queryKeys } from '@/queries/helpers';
 
 import useLogout from '@/hooks/useLogout';
 
@@ -51,19 +47,19 @@ export const useEditRecipeMutation = (
       }
 
       queryClient.invalidateQueries({
-        queryKey: generateRecipeListQueryKey({
+        queryKey: queryKeys.products.list({
           query: 'username',
           type: username,
         }),
       });
       queryClient.invalidateQueries({
-        queryKey: generateProductListQueryKey({
+        queryKey: queryKeys.products.list({
           type: 'username',
           query: username,
         }),
       });
       queryClient.invalidateQueries({
-        queryKey: generateRecipeQueryKey(data.key),
+        queryKey: queryKeys.recipes.recipe.detail(data.key),
       });
 
       await revalidateTagRecipeDetail(getRecipePageTag(data.key));

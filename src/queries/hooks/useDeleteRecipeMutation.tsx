@@ -8,11 +8,7 @@ import { useClientStore } from '@/providers/client-store-provider';
 import { deleteRecipe } from '@/services/requests/recipe';
 import { isUnauthorizedResponse } from '@/services/utils/authError';
 
-import {
-  generateProductListQueryKey,
-  generateRecipeListQueryKey,
-  generateUserProfileQueryKey,
-} from '@/queries/helpers';
+import { queryKeys } from '@/queries/helpers';
 
 import useLogout from '@/hooks/useLogout';
 
@@ -44,19 +40,19 @@ export const useDeleteRecipeMutation = () => {
       }
 
       queryClient.invalidateQueries({
-        queryKey: generateRecipeListQueryKey({
+        queryKey: queryKeys.recipes.list({
           query: 'username',
           type: username,
         }),
       });
       queryClient.invalidateQueries({
-        queryKey: generateProductListQueryKey({
+        queryKey: queryKeys.products.list({
           type: 'username',
           query: username,
         }),
       });
       queryClient.invalidateQueries({
-        queryKey: generateUserProfileQueryKey(username),
+        queryKey: queryKeys.users.user.profile(username),
       });
 
       router.refresh();

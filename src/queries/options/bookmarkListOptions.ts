@@ -1,7 +1,7 @@
 import { queryOptions } from '@tanstack/react-query';
 
 import { getBookmarks } from '@/services/requests/bookmarks';
-import { generateBookmarkListQueryKey } from '../helpers';
+import { queryKeys } from '../helpers';
 
 import {
   isUnauthorizedResponse,
@@ -18,7 +18,7 @@ export const bookmarkListOptions = ({
   enabled = false,
 }: Props) =>
   queryOptions({
-    queryKey: generateBookmarkListQueryKey(),
+    queryKey: queryKeys.bookmarks.list(),
     queryFn: async () => {
       const result = await getBookmarks();
       if (result.ok) {
