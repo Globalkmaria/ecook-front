@@ -1,9 +1,12 @@
-export { bookmarkListOptions } from './bookmarkListOptions';
-export { productOptions } from './productOptions';
-export { productRecommendOptions } from './productRecommendOptions';
-export { productsOptions } from './productsOptions';
-export { recipeListOptions } from './recipeListOptions';
-export { recipeOptions } from './recipeOptions';
-export { recipeRecommendOptions } from './recipeRecommendOptions';
-export { userBookmarkedRecipesOptions } from './userBookmarkedRecipesOptions';
-export { profileOptions } from './profileOptions';
+export { bookmarkListOptions } from './bookmarks/bookmarkListOptions';
+export { userBookmarkedRecipesOptions } from './bookmarks/userBookmarkedRecipesOptions';
+
+export { productOptions } from './products/productOptions';
+export { productRecommendOptions } from './products/productRecommendOptions';
+export { productsOptions } from './products/productsOptions';
+
+export { recipeListOptions } from './recipes/recipeListOptions';
+export { recipeOptions } from './recipes/recipeOptions';
+export { recipeRecommendOptions } from './recipes/recipeRecommendOptions';
+
+export { profileOptions } from './users/profileOptions';
