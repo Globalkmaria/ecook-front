@@ -39,7 +39,7 @@ export const useCreateRecipe = () => {
         return;
       }
 
-      queryClient.invalidateQueries({
+      await queryClient.invalidateQueries({
         queryKey: queryKeys.recipes.list({
           query: 'username',
           type: username,
@@ -51,7 +51,7 @@ export const useCreateRecipe = () => {
       });
 
       queryClient.invalidateQueries({
-        queryKey: queryKeys.recipes.list({
+        queryKey: queryKeys.products.list({
           type: 'username',
           query: username,
         }),

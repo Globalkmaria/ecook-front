@@ -47,7 +47,7 @@ export const useEditRecipeMutation = (
       }
 
       queryClient.invalidateQueries({
-        queryKey: queryKeys.products.list({
+        queryKey: queryKeys.recipes.list({
           query: 'username',
           type: username,
         }),
