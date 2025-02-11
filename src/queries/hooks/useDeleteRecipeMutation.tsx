@@ -57,8 +57,8 @@ export const useDeleteRecipeMutation = (recipeKey: string) => {
       });
     },
     onError: (error) => alert(error.message),
-    retry: 3,
-    retryDelay: 5000, // 5 seconds
+    retry: 1,
+    retryDelay: 1000, // 1 seconds
   });
 
   return result;

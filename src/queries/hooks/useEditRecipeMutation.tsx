@@ -67,8 +67,8 @@ export const useEditRecipeMutation = (
       onCloseModal();
     },
     onError: () => alert('Failed to edit recipe'),
-    retry: 3,
-    retryDelay: 10000, // 10 seconds
+    retry: 1,
+    retryDelay: 1000, // 1 seconds
   });
 
   return result;
