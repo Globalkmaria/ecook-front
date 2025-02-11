@@ -59,8 +59,6 @@ export const useCreateRecipe = () => {
       router.replace(getRecipeLink(data.key));
     },
     onError: (error) => alert(error.message),
-    retry: 3,
-    retryDelay: 5000, // 5 seconds
   });
 
   return result;

@@ -32,8 +32,8 @@ export const useRemoveBookmarkMutation = () => {
       console.error(error);
       alert('Failed to unbookmark recipe.');
     },
-    retry: 3,
-    retryDelay: 5000, // 5 seconds
+    retry: 1,
+    retryDelay: 1000, // 1 seconds
   });
 
   return result;

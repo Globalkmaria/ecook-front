@@ -32,8 +32,6 @@ export function useAddBookmarkMutation() {
       console.error(error);
       alert('Failed to bookmark recipe.');
     },
-    retry: 3,
-    retryDelay: 5000, // 5 seconds
   });
 
   return result;
