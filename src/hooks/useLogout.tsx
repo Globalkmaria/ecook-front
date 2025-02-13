@@ -15,10 +15,10 @@ function useLogout() {
   const query = useQueryClient();
 
   const logout = useCallback(() => {
+    router.push(LOGIN_LINK);
+    resetUser();
     Promise.resolve().then(() => {
-      resetUser();
       query.clear();
-      router.push(LOGIN_LINK);
     });
   }, []);
 
