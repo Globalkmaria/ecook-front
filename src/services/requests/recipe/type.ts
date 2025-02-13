@@ -16,7 +16,6 @@ export interface RecipeSimple {
 }
 
 export interface RecipeDetail {
-  id: number;
   name: string;
   description: string;
   hours: number;
