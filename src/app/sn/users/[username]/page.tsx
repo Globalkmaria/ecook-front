@@ -16,7 +16,7 @@ import { ECOOK_LOGO_URL } from '@/const/contLinks';
 
 import {
   productsOptions,
-  recipeListOptions,
+  recipesOptions,
   profileOptions,
 } from '@/queries/options';
 
@@ -79,7 +79,7 @@ async function UserPage({ params }: Props) {
       }),
     ),
     queryClient.prefetchQuery(
-      recipeListOptions({
+      recipesOptions({
         query: username,
         type: 'username',
         staleTime: 180000, // 3 minutes

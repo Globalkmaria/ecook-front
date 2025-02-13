@@ -4,7 +4,7 @@ import { getProductRecommendations } from '@/services/requests/product';
 
 import { queryKeys } from '@/queries/helpers';
 
-interface RecipeListOptions {
+interface ProductRecommendOptions {
   key: string;
   staleTime?: number;
   enabled?: boolean;
@@ -16,7 +16,7 @@ export const productRecommendOptions = ({
   staleTime = 86400000, // 24 hours , MS
   nextRevalidateTime = 86400, // 24 hours , S
   enabled = false,
-}: RecipeListOptions) =>
+}: ProductRecommendOptions) =>
   queryOptions({
     queryKey: queryKeys.products.product.recommend(key),
     queryFn: async () => {

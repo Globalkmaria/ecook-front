@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { notFound, useParams } from 'next/navigation';
 
-import { recipeListOptions } from '@/queries/options';
+import { recipesOptions } from '@/queries/options';
 
 import { useClientStore } from '@/providers/client-store-provider';
 
@@ -18,7 +18,7 @@ function RecipeList() {
   const isUserProfile = params.username === username;
 
   const { data, error } = useQuery(
-    recipeListOptions({
+    recipesOptions({
       query: params.username,
       type: 'username',
       enabled: isUserProfile,

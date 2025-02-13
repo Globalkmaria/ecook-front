@@ -4,7 +4,7 @@ import { getRecipeRecommendations } from '@/services/requests/recipe';
 
 import { queryKeys } from '@/queries/helpers';
 
-interface RecipeListOptions {
+interface RecipeRecommendOptions {
   key: string;
   enabled?: boolean;
   staleTime?: number;
@@ -16,7 +16,7 @@ export const recipeRecommendOptions = ({
   staleTime = 86400000, // 24 hours , MS
   nextRevalidateTime = 86400, // 24 hours , S
   enabled = false,
-}: RecipeListOptions) =>
+}: RecipeRecommendOptions) =>
   queryOptions({
     queryKey: queryKeys.recipes.recipe.recommend(key),
     queryFn: async () => {
