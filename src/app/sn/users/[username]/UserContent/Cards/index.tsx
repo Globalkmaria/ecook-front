@@ -7,7 +7,7 @@ import style from './style.module.scss';
 
 import { RecipeSimple } from '@/services/requests/recipe/type';
 
-import { mutationKeys } from '@/queries/helpers';
+import { isPending, mutationKeys } from '@/queries/helpers';
 
 import { formatTime } from '@/utils/time';
 
@@ -51,7 +51,7 @@ function Card({ recipe }: CardProps) {
     select: (state) => state.state,
   });
 
-  const disableRecipeLink = state[0]?.status === 'pending';
+  const disableRecipeLink = isPending(state[0]);
 
   const onClick = () => {
     if (disableRecipeLink) return;

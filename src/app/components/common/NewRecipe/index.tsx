@@ -10,6 +10,8 @@ import {
   NewRecipeIngredient,
 } from '@/services/requests/recipes/type';
 
+import { isPending } from '@/queries/helpers';
+
 import { ChipListInput, Input } from '@/components/Input';
 import ImageUploader from '@/components/imageUploader';
 import Button from '@/components/Button';
@@ -91,7 +93,7 @@ function NewRecipe({ initialData, onSubmit, pageTitle, mutationKey }: Props) {
     steps,
   });
 
-  const loading = state[0]?.status === 'pending';
+  const loading = isPending(state[0]);
   const submitButtonText = loading ? 'Submitting...' : 'Submit';
   const disableButton = !isSubmittable || loading;
   const imgLoaderMode = initialData.img ? 'edit' : 'new';
