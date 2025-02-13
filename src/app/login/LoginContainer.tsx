@@ -28,6 +28,10 @@ function LoginContainer() {
   const onLogin: MouseEventHandler = async (e) => {
     e.preventDefault();
     if (isLoading) return;
+    if (!username || !password) {
+      alert('Please fill in all fields');
+      return;
+    }
 
     startTransition(async () => {
       const result = await login({ username, password });
