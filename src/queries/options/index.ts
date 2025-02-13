@@ -5,8 +5,9 @@ export { productOptions } from './products/productOptions';
 export { productRecommendOptions } from './products/productRecommendOptions';
 export { productsOptions } from './products/productsOptions';
 
-export { recipeListOptions } from './recipes/recipeListOptions';
+export { recipesOptions } from './recipes/recipesOptions';
 export { recipeOptions } from './recipes/recipeOptions';
 export { recipeRecommendOptions } from './recipes/recipeRecommendOptions';
+export { recipesBatchOptions } from './recipes/recipesBatchOptions';
 
 export { profileOptions } from './users/profileOptions';

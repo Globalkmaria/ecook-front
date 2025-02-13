@@ -6,7 +6,7 @@ import { RecipeSimple } from '@/services/requests/recipe/type';
 
 import { formatTime } from '@/utils/time';
 
-import { getRecipeLink } from '@/helpers/links';
+import { getRecipeLink, getUserLink } from '@/helpers/links';
 
 import Avatar from '@/components/Avatar';
 import Chip2 from '@/components/Chip2';
@@ -19,16 +19,18 @@ interface Props {
 
 function Card({ recipe }: Props) {
   const time = formatTime({ hours: recipe.hours, minutes: recipe.minutes });
-  const link = getRecipeLink(recipe.key);
+  const recipeLink = getRecipeLink(recipe.key);
+  const userLink = getUserLink(recipe.user.username);
 
   return (
     <div className={style['wrapper']}>
-      <Link href={link} className={style.card}>
-        <div className={style['top-overlay']}>
-          <div className={style['avatar']}>
-            <Avatar user={recipe.user} />
-          </div>
-        </div>
+      <div className={style['top-overlay']}>
+        <Link href={userLink} className={style['avatar']}>
+          <Avatar user={recipe.user} />
+        </Link>
+      </div>
+
+      <Link href={recipeLink} className={style.card}>
         <div className={style['img-box']}>
           <div className={style['img-wrapper']}>
             <CustomImage

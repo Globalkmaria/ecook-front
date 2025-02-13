@@ -1,92 +1,17 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
+import dynamic from 'next/dynamic';
 
-import style from './style.module.scss';
+const BookmarkButtonContent = dynamic(() => import('./BookmarkButtonContent'), {
+  ssr: false,
+});
 
-import { useClientStore } from '@/providers/client-store-provider';
+interface Props {
+  recipeKey: string;
+}
 
-import useLogout from '@/hooks/useLogout';
-
-import { isUnauthorizedError } from '@/services/utils/authError';
-
-import {
-  useAddBookmarkMutation,
-  useRemoveBookmarkMutation,
-} from '@/queries/hooks';
-import { bookmarkListOptions } from '@/queries/options';
-
-import { IconType } from '@/components/Icon/const';
-import IconButton from '@/components/IconButton';
-
-import { RecipePageParams } from '../../page';
-
-function BookmarkButton() {
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) return null;
-
-  return <BookmarkButtonContent />;
+function BookmarkButton({ recipeKey }: Props) {
+  return <BookmarkButtonContent recipeKey={recipeKey} />;
 }
 
 export default BookmarkButton;
-
-function BookmarkButtonSkeleton() {
-  return (
-    <IconButton icon='bookmarkOutline' disabled className={style['button']} />
-  );
-}
-
-function BookmarkButtonContent() {
-  const logout = useLogout();
-  const params = useParams<RecipePageParams>();
-  const { mutate: addBookmark, isPending: isAddBookmarkLoading } =
-    useAddBookmarkMutation();
-  const { mutate: removeBookmark, isPending: isRemoveBookmarkLoading } =
-    useRemoveBookmarkMutation();
-  const isLoggedIn = useClientStore((state) => state.user.isLoggedIn);
-  const bookmarks = useQuery(
-    bookmarkListOptions({
-      enabled: isLoggedIn,
-    }),
-  );
-
-  if (bookmarks.isLoading) return <BookmarkButtonSkeleton />;
-  if (isLoggedIn && isUnauthorizedError(bookmarks.error)) {
-    logout();
-    return null;
-  }
-
-  const disableButton =
-    !!bookmarks.error ||
-    bookmarks.isLoading ||
-    isAddBookmarkLoading ||
-    isRemoveBookmarkLoading;
-
-  const isSaved = bookmarks.data?.has(params.recipeKey);
-  const icon: IconType = isSaved ? 'bookmarkFill' : 'bookmarkOutline';
-
-  const onClick = () => {
-    if (!isLoggedIn) {
-      alert('Please login to use bookmark');
-      return;
-    }
-
-    isSaved ? removeBookmark(params.recipeKey) : addBookmark(params.recipeKey);
-  };
-
-  return (
-    <IconButton
-      disabled={disableButton}
-      icon={icon}
-      onClick={onClick}
-      className={style['button']}
-    />
-  );
-}

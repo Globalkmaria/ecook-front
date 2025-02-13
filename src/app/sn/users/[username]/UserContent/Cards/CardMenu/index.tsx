@@ -27,13 +27,12 @@ interface Props {
 function CardMenu({ recipeKey }: Props) {
   const params = useParams();
   const editModal = useModal();
-  const { mutate, isPending, isSuccess } = useDeleteRecipeMutation(recipeKey);
+  const { mutate, isPending: disableDeleteButton } =
+    useDeleteRecipeMutation(recipeKey);
   const loginUserUsername = useClientStore((state) => state.user.username);
   const isLoginUser = params.username === loginUserUsername;
 
   if (!isLoginUser) return null;
-
-  const disableDeleteButton = isPending || isSuccess;
 
   const onDelete = () => {
     if (disableDeleteButton) return;

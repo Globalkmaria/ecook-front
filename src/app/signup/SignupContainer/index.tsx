@@ -40,7 +40,9 @@ function SignupContainer() {
 
   const onChange = createInputHandler(setForm);
 
-  const onImgChange = useCallback((img: File | null) => {
+  const onImgChange = useCallback((img: File | string | null) => {
+    if (typeof img === 'string') return;
+
     setForm((prev) => ({ ...prev, img }));
   }, []);
 
@@ -59,7 +61,7 @@ function SignupContainer() {
               <ImageUploader
                 onChange={onImgChange}
                 imgValue={form.img}
-                maxSizeKB={200}
+                mode='new'
               />
             </div>
             <span className={style['helper-text']}>* Image is optional</span>

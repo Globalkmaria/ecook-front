@@ -32,7 +32,6 @@ function NewRecipeContainer() {
       return;
     }
 
-    if (isPending) return;
     if (!validateNewRecipeData(data)) {
       alert('Please fill in all required fields');
       return;

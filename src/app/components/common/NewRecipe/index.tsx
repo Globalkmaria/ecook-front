@@ -10,11 +10,11 @@ import {
   NewRecipeIngredient,
 } from '@/services/requests/recipes/type';
 
-import { isPending } from '@/queries/helpers/checkState';
+import { isPending } from '@/queries/helpers';
 
 import { ChipListInput, Input } from '@/components/Input';
+import ImageUploader from '@/components/imageUploader';
 import Button from '@/components/Button';
-import ImageUploaderWithReset from '@/components/imageUploader/ImageUploaderWithReset';
 
 import { createInputHandler } from '@/utils/createInputHandler';
 import { withTextLengthLimit } from '@/utils/validation';
@@ -163,7 +163,7 @@ function NewRecipe({ initialData, onSubmit, pageTitle, mutationKey }: Props) {
         <div className={style.box}>
           <h3>Image*</h3>
           <div className={style['img-uploader']}>
-            <ImageUploaderWithReset
+            <ImageUploader
               onChange={setImg}
               imgValue={img}
               initialImg={initialData.img}

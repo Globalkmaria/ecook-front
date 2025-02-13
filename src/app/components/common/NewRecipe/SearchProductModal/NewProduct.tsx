@@ -53,8 +53,10 @@ function NewProduct({
     setNewProduct((prev) => ({ ...prev, [name]: value }));
   };
 
-  const onNewProductImgChange = (img: File | null) =>
+  const onNewProductImgChange = (img: File | string | null) => {
+    if (typeof img === 'string') return;
     setNewProduct((prev) => ({ ...prev, img }));
+  };
 
   const onItemClick: MouseEventHandler = (e) => {
     const clickInsideContent = contentRef.current?.contains(e.target as Node);
@@ -80,6 +82,7 @@ function NewProduct({
             <ImageUploader
               imgValue={newProductState.img}
               onChange={onNewProductImgChange}
+              mode='new'
             />
           </div>
           <div className={style['input-container']}>

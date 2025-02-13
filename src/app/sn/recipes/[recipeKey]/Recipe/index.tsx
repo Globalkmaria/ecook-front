@@ -39,7 +39,7 @@ function Recipe({ recipe }: Props) {
         <Link href={userLink}>
           <Avatar user={recipe.user} />
         </Link>
-        <BookmarkButton />
+        <BookmarkButton recipeKey={recipe.key} />
       </div>
       <div className={style.container}>
         <div className={style['img-box']}>

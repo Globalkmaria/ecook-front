@@ -2,16 +2,16 @@ import { getRecipes } from '@/services/requests/recipes';
 import { queryOptions } from '@tanstack/react-query';
 
 import { queryKeys } from '@/queries/helpers';
-import { RecipeListSearchType } from '@/services/requests/recipes/helper';
+import { RecipesSearchType } from '@/services/requests/recipes/helper';
 
 interface RecipeListOptions {
   query: string;
-  type: RecipeListSearchType;
+  type: RecipesSearchType;
   staleTime?: number;
   enabled?: boolean;
 }
 
-export const recipeListOptions = ({
+export const recipesOptions = ({
   query,
   type,
   staleTime,

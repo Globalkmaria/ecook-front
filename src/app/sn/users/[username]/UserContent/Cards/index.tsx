@@ -7,8 +7,7 @@ import style from './style.module.scss';
 
 import { RecipeSimple } from '@/services/requests/recipe/type';
 
-import { mutationKeys } from '@/queries/helpers';
-import { isPending } from '@/queries/helpers/checkState';
+import { isPending, mutationKeys } from '@/queries/helpers';
 
 import { formatTime } from '@/utils/time';
 

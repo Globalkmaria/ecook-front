@@ -35,14 +35,13 @@ function RecipeEdit({ recipeKey, onCloseModal }: Props) {
     error: recipeError,
   } = useQuery(recipeOptions({ key: recipeKey }));
 
-  const {
-    mutate,
-    isPending: isPendingEditRecipe,
-    isSuccess: isSuccessEditRecipe,
-  } = useEditRecipeMutation(recipeKey, onCloseModal);
+  const { mutate, isPending: isPendingEditRecipe } = useEditRecipeMutation(
+    recipeKey,
+    onCloseModal,
+  );
 
   const onSubmit: OnSubmitNewRecipe = (data) => {
-    if (isPendingEditRecipe || isSuccessEditRecipe) return;
+    if (isPendingEditRecipe) return;
     if (!checkRequiredFieldsFilled(data)) {
       alert(FILL_REQUIRED_FIELDS);
       return;

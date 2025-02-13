@@ -17,7 +17,7 @@ function RecommendContainer({
   options,
   title,
 }: {
-  groupedRecipesByType: RecipeRecommendations[number];
+  groupedRecipesByType: RecipeRecommendations[number]['recipes'];
   options: string[];
   title: string;
 }) {
@@ -54,12 +54,12 @@ function RecipeList({
   recipes,
   type,
 }: {
-  recipes: RecipeRecommendations[number][string];
+  recipes: RecipeRecommendations[number]['recipes'][string];
   type: string;
 }) {
   return (
     <ul className={style['recommend-list']}>
-      {recipes.map((recipe) => (
+      {recipes?.map((recipe) => (
         <li key={recipe.key} className={style['item']}>
           <Card
             data={recipe}

@@ -7,6 +7,7 @@ import React, {
   useRef,
   memo,
   useEffect,
+  useTransition,
 } from 'react';
 
 import style from './style.module.scss';
@@ -15,32 +16,42 @@ import { joinClassNames } from '@/utils/style';
 
 import Icon from '@/components/Icon';
 
-import { getFileInfoMessage, getInvalidFileFormatMessage } from './helper';
+import {
+  getFileInfoMessage,
+  getInvalidFileFormatMessage,
+  optimizeImageFile,
+} from './helper';
 
-const MAX_FILE_SIZE = 500;
-const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png'];
+const MAX_FILE_SIZE = 20;
+const ALLOWED_FILE_TYPES = [
+  'image/jpeg',
+  'image/png',
+  'image/webp',
+  'image/heic',
+];
 
-interface Props {
+export type ImageFileType = File | string | null;
+
+export interface ImageUploaderContentProps {
   className?: string;
-  maxSizeKB?: number;
+  maxSizeMB?: number;
   allowedFileTypes?: string[];
-  imgValue: File | string | null;
+  imgValue: ImageFileType;
   initialImg?: string | null;
-  onChange: (img: File | string | null) => void;
+  onChange: (img: ImageFileType) => void;
   mode?: 'edit' | 'new';
 }
 
-// image uploader with initial image and reset button
-
-function ImageUploaderWithReset({
+function ImageUploaderContent({
   className,
-  maxSizeKB = MAX_FILE_SIZE,
+  maxSizeMB = MAX_FILE_SIZE,
   allowedFileTypes = ALLOWED_FILE_TYPES,
   imgValue,
   onChange,
   initialImg = null,
   mode = 'edit',
-}: Props) {
+}: ImageUploaderContentProps) {
+  const [isLoading, startTransition] = useTransition();
   const [dragging, setDragging] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -51,11 +62,17 @@ function ImageUploaderWithReset({
       : URL.createObjectURL(imgValue)
     : undefined;
 
-  const maxSize = maxSizeKB * 1024;
+  const maxSize = maxSizeMB * 1024 * 1024;
   const containerClassName = joinClassNames(style.container, className);
-  const infoMessage = getFileInfoMessage(maxSizeKB, allowedFileTypes);
+  const infoMessage = getFileInfoMessage(maxSizeMB, allowedFileTypes);
 
-  const validateAndReadFile = (file: File): void => {
+  const mainMessage = isLoading
+    ? 'Loading...'
+    : dragging
+      ? 'Drop the image here.'
+      : 'Drag and drop an image or click to select.';
+
+  const validateAndReadFile = async (file: File): Promise<void> => {
     setError(null);
 
     if (!allowedFileTypes.includes(file.type)) {
@@ -64,11 +81,14 @@ function ImageUploaderWithReset({
     }
 
     if (file.size > maxSize) {
-      setError(`File size exceeds the ${maxSizeKB} KB limit.`);
+      setError(`File size exceeds the ${maxSizeMB} MB limit.`);
       return;
     }
 
-    onChange(file);
+    startTransition(async () => {
+      const formattedFile = await optimizeImageFile(file);
+      onChange(formattedFile);
+    });
   };
 
   const onImageChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -126,11 +146,7 @@ function ImageUploaderWithReset({
           onDrop={onDrop}
         >
           <div className={style.message}>
-            <span>
-              {dragging
-                ? 'Drop the image here.'
-                : 'Drag and drop an image or click to select.'}
-            </span>
+            <span>{mainMessage}</span>
             <span>{infoMessage}</span>
           </div>
         </div>
@@ -168,7 +184,7 @@ type ButtonProps = {
   onRemoveImage: () => void;
   onReset: () => void;
   src?: string;
-} & Pick<Props, 'imgValue'>;
+} & Pick<ImageUploaderContentProps, 'imgValue'>;
 
 type NewCloseButtonProps = Omit<ButtonProps, 'onReset'>;
 
@@ -215,6 +231,6 @@ function EditCloseButton({
   );
 }
 
-export default memo(ImageUploaderWithReset, (prevProps, nextProps) => {
+export default memo(ImageUploaderContent, (prevProps, nextProps) => {
   return prevProps.imgValue === nextProps.imgValue;
 });

@@ -1,4 +1,5 @@
 import { StateCreator } from 'zustand';
+import { ClientStore } from '../clientStore';
 
 type UserState = {
   user: {
@@ -26,7 +27,7 @@ const initialUserState: UserState = {
 };
 
 export const createUserSlice: StateCreator<
-  UserStore,
+  ClientStore,
   [['zustand/devtools', never], ['zustand/immer', never]],
   [],
   UserStore
