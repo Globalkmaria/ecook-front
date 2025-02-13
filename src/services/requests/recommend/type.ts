@@ -6,5 +6,8 @@ export interface RecommendRecipe {
 }
 
 export interface RecipeRecommendations {
-  [type: string]: { [typeOption: string]: RecommendRecipe[] };
+  [type: string]: {
+    recipes: { [typeOption: string]: RecommendRecipe[] };
+    order: string[];
+  };
 }
