@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, ReactEventHandler, useState } from 'react';
+import { memo, ReactEventHandler, useEffect, useState } from 'react';
 import Image, { ImageProps } from 'next/image';
 
 import style from './style.module.scss';
@@ -42,6 +42,11 @@ const CustomImage = ({
     setImgSrc(fallbackSrc ?? '/img/default.jpg');
     onError?.(e);
   };
+
+  useEffect(() => {
+    setIsLoading(true);
+    setImgSrc(src);
+  }, [src]);
 
   return (
     <div className={joinedClassName}>
