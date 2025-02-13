@@ -7,10 +7,9 @@ type BookmarkState = {
 };
 
 type BookmarkAction = {
-  hasBookmark: (bookmark: string) => boolean;
-  getBookmarks: () => string[];
-  addBookmark: (bookmark: string) => void;
-  removeBookmark: (bookmark: string) => void;
+  hasBookmark: (recipeKey: string) => boolean;
+  addBookmark: (recipeKey: string) => void;
+  removeBookmark: (recipeKey: string) => void;
   resetBookmarks: () => void;
 };
 
@@ -28,8 +27,6 @@ export const createBookmarkSlice: StateCreator<
 > = (set, get) => ({
   ...initialBookmarkState,
   hasBookmark: (recipeKey) => get().bookmarks[recipeKey] ?? false,
-  getBookmarks: () => getBookmarkedRecipes(get().bookmarks),
-
   addBookmark: (recipeKey) =>
     set(
       (state) => {
@@ -38,10 +35,10 @@ export const createBookmarkSlice: StateCreator<
       undefined,
       'bookmark/addBookmark',
     ),
-  removeBookmark: (bookmark) =>
+  removeBookmark: (recipeKey) =>
     set(
       (state) => {
-        state.bookmarks[bookmark] = false;
+        state.bookmarks[recipeKey] = false;
       },
       undefined,
       'bookmark/removeBookmark',

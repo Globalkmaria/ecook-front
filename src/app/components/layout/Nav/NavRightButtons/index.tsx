@@ -90,6 +90,9 @@ function LoggedInMenu() {
 function NotLoggedInMenu() {
   return (
     <div className={style['right-buttons']}>
+      <Anchor variant='secondary' href={BOOKMARKS_LINK}>
+        <Icon icon='book' />
+      </Anchor>
       <Anchor variant='secondary' href={SIGNUP_LINK}>
         Sign up
       </Anchor>

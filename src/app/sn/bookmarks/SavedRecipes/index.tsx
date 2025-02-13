@@ -1,17 +1,24 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useShallow } from 'zustand/shallow';
 
 import style from './style.module.scss';
 
 import { RecipeSimple } from '@/services/requests/recipe/type';
 import { isAuthError } from '@/services/utils/authError';
 
-import { userBookmarkedRecipesOptions } from '@/queries/options';
-
-import useLogout from '@/hooks/useLogout';
+import { getBookmarkedRecipes } from '@/stores/slices/helper';
 
 import { useClientStore } from '@/providers/client-store-provider';
+
+import {
+  userBookmarkedRecipesOptions,
+  recipesBatchOptions,
+} from '@/queries/options';
+
+import useLogout from '@/hooks/useLogout';
 
 import RecipeImgAndInfoCard from '@/app/components/common/RecipeImgAndInfoCard';
 
@@ -21,14 +28,43 @@ function SavedRecipes() {
   return (
     <section>
       <h2 className={style['title']}>Saved Recipes</h2>
-      <Content />
+      <Recipes />
     </section>
   );
 }
 
 export default SavedRecipes;
 
-function Content() {
+function Recipes() {
+  const isLoggedIn = useClientStore((state) => state.user.isLoggedIn);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return null;
+
+  return isLoggedIn ? <LoginContent /> : <NotLoggedInContent />;
+}
+
+function NotLoggedInContent() {
+  const bookmarks = useClientStore(useShallow((state) => state.bookmarks));
+  const recipeKeys = getBookmarkedRecipes(bookmarks);
+  const enabled = recipeKeys.length > 0;
+
+  const { data, error, isLoading } = useQuery(
+    recipesBatchOptions({
+      query: recipeKeys,
+      type: 'keys',
+      enabled,
+    }),
+  );
+
+  return <Content data={data} isLoading={isLoading} error={error} />;
+}
+
+function LoginContent() {
   const username = useClientStore((state) => state.user?.username);
   const logout = useLogout();
   const { data, error, isLoading } = useQuery(
@@ -38,23 +74,35 @@ function Content() {
     }),
   );
 
-  if (isLoading) return <ContentSkeleton />;
-
-  if (error) {
-    if (isAuthError(error)) {
-      logout();
-      return;
-    }
-    return <ErrorMessage />;
+  if (isAuthError(error)) {
+    logout();
+    return;
   }
 
-  if (!data) return null;
+  return <Content data={data} isLoading={isLoading} error={error} />;
+}
+
+interface ContentProps {
+  data?: {
+    search: RecipeSimple[];
+    recommend: RecipeSimple[];
+  };
+  isLoading: boolean;
+  error: Error | null;
+}
+
+function Content({ data, isLoading, error }: ContentProps) {
+  if (isLoading) return <ListSkeleton />;
+
+  if (error) return <ErrorMessage />;
+
+  if (!data || !data.search.length) return <NoContent />;
 
   const countText = getCountText((data?.search || []).length);
 
   return (
     <div>
-      <span className={style['count']}>{countText}</span>
+      <span className={style['text']}>{countText}</span>
       <List recipes={data?.search ?? []} />
     </div>
   );
@@ -74,7 +122,7 @@ function List({ recipes }: { recipes: RecipeSimple[] }) {
   );
 }
 
-function ContentSkeleton() {
+function ListSkeleton() {
   const list = Array.from({ length: 4 });
   return (
     <ul className={style['list']}>
@@ -84,6 +132,15 @@ function ContentSkeleton() {
         </li>
       ))}
     </ul>
+  );
+}
+
+function NoContent() {
+  return (
+    <div className={style['text']}>
+      <p>No saved recipes yet.</p>
+      <p>Save recipes by clicking the bookmark icon on the recipe page</p>
+    </div>
   );
 }
 
