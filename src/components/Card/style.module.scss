@@ -2,6 +2,34 @@
 
 .card {
   position: relative;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.top-overlay {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 15px;
+  width: 100%;
+  background: linear-gradient(
+    $blurryBlack700,
+    $blurryBlack400,
+    rgba(0, 0, 0, 0)
+  );
+  border-radius: 10px 10px 0 0;
+  color: $white;
+}
+
+.avatar {
+  display: block;
+  width: fit-content;
+}
+
+.img-link {
+  position: relative;
   display: block;
   flex: 1;
   width: 100%;
@@ -30,21 +58,6 @@
 .img {
   object-fit: cover;
   border-radius: 10px;
-}
-
-.top-overlay {
-  padding: 15px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  width: 100%;
-  background: linear-gradient(
-    $blurryBlack700,
-    $blurryBlack400,
-    rgba(0, 0, 0, 0)
-  );
-  border-radius: 10px 10px 0 0;
 }
 
 .bottom-overlay {

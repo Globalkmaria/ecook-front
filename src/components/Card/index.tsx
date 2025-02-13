@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import style from './style.module.scss';
 
-import { getRecipeLink } from '@/helpers/links';
+import { getRecipeLink, getUserLink } from '@/helpers/links';
 
 import CustomImage from '../CustomImage';
 import Avatar from '../Avatar';
@@ -24,27 +24,30 @@ interface CardProps {
 }
 
 function Card({ data, imageProps }: CardProps) {
+  const userLink = getUserLink(data.user.username);
+  const recipeLink = getRecipeLink(data.key);
+
   return (
-    <Link
-      scroll={false}
-      href={getRecipeLink(data.key)}
-      className={style['card']}
-    >
-      <CustomImage
-        src={data.img}
-        fill
-        alt={data.name}
-        imgClassName={style['img']}
-        {...imageProps}
-      />
-      <div className={style['hover-darker']} />
+    <div className={style['card']}>
       <div className={style['top-overlay']}>
-        <Avatar user={data.user} />
+        <Link href={userLink} className={style['avatar']}>
+          <Avatar user={data.user} />
+        </Link>
       </div>
-      <div className={style['bottom-overlay']}>
-        <span className={style['text']}>{data.name}</span>
-      </div>
-    </Link>
+      <Link scroll={false} href={recipeLink} className={style['img-link']}>
+        <CustomImage
+          src={data.img}
+          fill
+          alt={data.name}
+          imgClassName={style['img']}
+          {...imageProps}
+        />
+        <div className={style['hover-darker']} />
+        <div className={style['bottom-overlay']}>
+          <span className={style['text']}>{data.name}</span>
+        </div>
+      </Link>
+    </div>
   );
 }
 
