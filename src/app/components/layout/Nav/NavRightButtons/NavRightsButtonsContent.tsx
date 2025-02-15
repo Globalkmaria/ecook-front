@@ -19,6 +19,7 @@ import {
   LOGIN_LINK,
   SIGNUP_LINK,
   BOOKMARKS_LINK,
+  CARTS_LINK,
 } from '@/helpers/links';
 
 import { AvatarImg } from '@/components/Avatar';
@@ -59,6 +60,9 @@ function LoggedInMenu() {
 
   return (
     <div className={style['right-buttons']}>
+      <Anchor variant='secondary' href={CARTS_LINK}>
+        <Icon icon='cart' />
+      </Anchor>
       <Anchor variant='secondary' href={BOOKMARKS_LINK}>
         <Icon icon='book' />
       </Anchor>
@@ -83,6 +87,9 @@ function LoggedInMenu() {
 function NotLoggedInMenu() {
   return (
     <div className={style['right-buttons']}>
+      <Anchor variant='secondary' href={CARTS_LINK}>
+        <Icon icon='cart' />
+      </Anchor>
       <Anchor variant='secondary' href={BOOKMARKS_LINK}>
         <Icon icon='book' />
       </Anchor>
