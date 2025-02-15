@@ -1,12 +1,16 @@
 'use client';
 
-import Link from 'next/link';
 import { useState } from 'react';
+import Link from 'next/link';
+import { notFound, useParams } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
 
 import style from './style.module.scss';
 
 import { RecipeDetail } from '@/services/requests/recipe/type';
 import { formatTime } from '@/utils/time';
+
+import { recipeOptions } from '@/queries/options';
 
 import { getSearchTagLink, getUserLink } from '@/helpers/links';
 
@@ -21,11 +25,15 @@ import { RECIPE_TABS, RecipeTab } from '../const';
 import StepList from './StepList';
 import BookmarkButton from './BookmarkButton';
 
-interface Props {
-  recipe: RecipeDetail;
-}
+import { RecipePageParams } from '../page';
 
-function Recipe({ recipe }: Props) {
+function Recipe() {
+  const { recipeKey } = useParams<RecipePageParams>();
+  const { data: recipe, isError } = useQuery(recipeOptions({ key: recipeKey }));
+
+  if (isError) throw new Error('Failed to load recipe');
+  if (!recipe) return notFound();
+
   const time = formatTime({
     hours: recipe.hours,
     minutes: recipe.minutes,
@@ -51,6 +59,7 @@ function Recipe({ recipe }: Props) {
           />
         </div>
 
+        <hr className={style['border']} />
         <div className={style.content}>
           <div className={style['content__header']}>
             <span className={style['content__title']}>{recipe.name}</span>

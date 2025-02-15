@@ -1,22 +1,11 @@
-'use client';
-import { useRouter } from 'next/navigation';
-
-import style from './style.module.scss';
-
-import { Modal2 } from '@/components/Modal';
-
 import RecipePageContainer from '@/app/sn/recipes/[recipeKey]/RecipePageContainer';
+import ModalRecipeWrapper from './ModalRecipeWrapper';
 
-function ModalRecipe() {
-  const router = useRouter();
-  const onDismiss = () => router.back();
-
+function ModalRecipe({ recipeKey }: { recipeKey: string }) {
   return (
-    <Modal2 isOpen={true} onClose={onDismiss}>
-      <div className={style.container}>
-        <RecipePageContainer />
-      </div>
-    </Modal2>
+    <ModalRecipeWrapper>
+      <RecipePageContainer recipeKey={recipeKey} />
+    </ModalRecipeWrapper>
   );
 }
 
