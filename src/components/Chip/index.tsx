@@ -22,7 +22,7 @@ function Chip({
 }
 export default Chip;
 
-export function ChipsContainer({
+export function ChipGroup({
   children,
   className,
 }: {

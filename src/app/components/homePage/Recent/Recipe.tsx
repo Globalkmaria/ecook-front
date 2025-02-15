@@ -8,7 +8,7 @@ import { getLimitedWords } from '@/utils/text';
 
 import { getRecipeLink } from '@/helpers/links';
 
-import Chip, { ChipsContainer } from '@/components/Chip';
+import Chip, { ChipGroup } from '@/components/Chip';
 import CustomImage from '@/components/CustomImage';
 
 interface Props {
@@ -48,11 +48,11 @@ function Recipe({ recipe, idx }: Props) {
             <h2 className={style.information__title}>{recipe.name}</h2>
           </div>
           <div className={style.information__text}>
-            <ChipsContainer>
+            <ChipGroup>
               {recipe.tags.map((tag) => (
                 <Chip key={tag.id}>{tag.name}</Chip>
               ))}
-            </ChipsContainer>
+            </ChipGroup>
           </div>
         </div>
       </div>

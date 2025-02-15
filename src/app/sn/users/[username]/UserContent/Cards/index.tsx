@@ -13,7 +13,7 @@ import { formatTime } from '@/utils/time';
 
 import { getRecipeLink } from '@/helpers/links';
 
-import Chip, { ChipsContainer } from '@/components/Chip';
+import Chip, { ChipGroup } from '@/components/Chip';
 import CustomImage from '@/components/CustomImage';
 
 import CardMenu from './CardMenu';
@@ -86,11 +86,11 @@ function Card({ recipe }: CardProps) {
           <span className={style.title}>{recipe.name}</span>
           <span className={style.time}>{time}</span>
           <div className={style.chip}>
-            <ChipsContainer>
+            <ChipGroup>
               {recipe.tags.map((tag) => (
                 <Chip key={tag.id}>{tag.name}</Chip>
               ))}
-            </ChipsContainer>
+            </ChipGroup>
           </div>
         </div>
       </button>
