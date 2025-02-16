@@ -1,3 +1,5 @@
+import { GetIngredientsWithProductsReq } from '@/services/requests/ingredients/type';
+
 const recipesKeys = {
   all: () => ['recipes'],
   list: ({ query, type }: { query: string; type: string }) => [
@@ -62,11 +64,21 @@ const productsKeys = {
   },
 } as const;
 
+const ingredientsKeys = {
+  all: () => ['ingredients'],
+  products: (items: GetIngredientsWithProductsReq['items']) => [
+    ...queryKeys.ingredients.all(),
+    'products',
+    items,
+  ],
+} as const;
+
 export const queryKeys = {
   recipes: recipesKeys,
   users: usersKeys,
   bookmarks: bookmarksKeys,
   products: productsKeys,
+  ingredients: ingredientsKeys,
 } as const;
 
 export const mutationKeys = {

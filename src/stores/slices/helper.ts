@@ -1,4 +1,5 @@
 import { BookmarkStore } from './bookmarkSlice';
+import { CartIngredient } from './cartSlice';
 
 export const getBookmarkedRecipes = (bookmarks: BookmarkStore['bookmarks']) => {
   const init: string[] = [];
@@ -9,4 +10,8 @@ export const getBookmarkedRecipes = (bookmarks: BookmarkStore['bookmarks']) => {
   }, init);
 
   return result;
+};
+
+export const isCartIngredientEmpty = (ingredient: CartIngredient) => {
+  return !Object.keys(ingredient.products).length && !ingredient.quantity;
 };
