@@ -10,6 +10,7 @@ import SearchIconLink from '@/components/SearchIconLink';
 import Checkbox from '@/components/CheckboxList';
 
 import InformationButton from './InformationButton';
+import AddIngredientToCartButton from './AddIngredientToCartButton';
 
 interface Props {
   state: [
@@ -77,6 +78,10 @@ const IngredientItem = memo(function IngredientItem({
         {ingredient.userProduct && (
           <InformationButton ingredient={ingredient} />
         )}
+        <AddIngredientToCartButton
+          ingredientKey={ingredient.key}
+          productKey={ingredient.userProduct?.key}
+        />
       </div>
     </Checkbox.Item>
   );

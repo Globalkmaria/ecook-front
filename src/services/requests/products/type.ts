@@ -2,7 +2,7 @@ import { PRODUCT_TYPES } from '.';
 
 export interface Product {
   id: string;
-  ingredient: { id: string; name: string };
+  ingredient: { id: string; name: string; key: string };
   userId: string;
   name: string;
   brand: string;
