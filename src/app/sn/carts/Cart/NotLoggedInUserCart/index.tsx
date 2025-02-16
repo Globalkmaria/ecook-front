@@ -9,17 +9,21 @@ import { ingredientsWithProductsOptions } from '@/queries/options/ingredients/in
 import { useClientStore } from '@/providers/client-store-provider';
 
 import CartItem from '../CartItem';
+import { combineCartItemWithInfo } from './helper';
 
 function NotLoggedInUserCart() {
-  const [ingredients, removeCartItem, updateQuantity] = useClientStore(
-    useShallow((state) => [
-      state.carts.ingredients,
-      state.removeCartItem,
-      state.updateQuantity,
-    ]),
-  );
+  const [ingredientsQuantities, removeCartItem, updateQuantity] =
+    useClientStore(
+      useShallow((state) => [
+        state.carts.ingredients,
+        state.removeCartItem,
+        state.updateQuantity,
+      ]),
+    );
 
-  const requestIngredients = transformIngredientsForServer(ingredients);
+  const requestIngredients = transformIngredientsForServer(
+    ingredientsQuantities,
+  );
 
   const {
     data: ingredientsInfo,
@@ -54,24 +58,22 @@ function NotLoggedInUserCart() {
     updateQuantity({ ingredientKey, productKey, quantity });
   };
 
-  const ingredientKeys = Object.keys(ingredientsInfo ?? {});
+  const combinedCartItems = combineCartItemWithInfo(
+    ingredientsQuantities,
+    ingredientsInfo,
+  );
 
-  const ingredientList = ingredientKeys.map((key) => {
-    const ingredientInfo = ingredientsInfo[key];
-    const ingredient = ingredients[key];
-
-    return (
-      <CartItem
-        key={key}
-        ingredientKey={key}
-        item={ingredient}
-        info={ingredientInfo}
-        onQuantityChange={onQuantityChange}
-      />
-    );
-  });
-
-  return ingredientList;
+  return (
+    <>
+      {combinedCartItems.map((item) => (
+        <CartItem
+          key={item.ingredient.key}
+          item={item}
+          onQuantityChange={onQuantityChange}
+        />
+      ))}
+    </>
+  );
 }
 
 export default NotLoggedInUserCart;

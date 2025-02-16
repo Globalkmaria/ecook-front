@@ -1,21 +1,26 @@
 import style from './style.module.scss';
 
-import { IngredientWithProduct } from '@/services/requests/ingredients/type';
-
 import Icon, { IconProps } from '@/components/Icon';
 import CustomImage from '@/components/CustomImage';
 
 import QuantityInput from '../QuantityInput';
 
+type CartItemProduct = {
+  key: string;
+  name: string;
+  brand: string;
+  purchasedFrom: string;
+  img: string;
+  quantity: number;
+};
+
+export interface CartItemInfo {
+  ingredient: { name: string; key: string; quantity?: number };
+  products: CartItemProduct[];
+}
+
 interface CartItemProps {
-  ingredientKey: string;
-  item: {
-    quantity?: number;
-    products: {
-      [productKey: string]: number;
-    };
-  };
-  info: IngredientWithProduct;
+  item: CartItemInfo;
   onQuantityChange: ({
     ingredientKey,
     productKey,
@@ -27,44 +32,34 @@ interface CartItemProps {
   }) => void;
 }
 
-function CartItem({
-  item,
-  ingredientKey,
-  info,
-  onQuantityChange,
-}: CartItemProps) {
+function CartItem({ item, onQuantityChange }: CartItemProps) {
   const onIngredientQuantityChange = (quantity: number) => {
     onQuantityChange({
-      ingredientKey,
+      ingredientKey: item.ingredient.key,
       quantity,
     });
   };
   const onProductQuantityChange = (productKey: string, quantity: number) => {
     onQuantityChange({
-      ingredientKey,
+      ingredientKey: item.ingredient.key,
       productKey,
       quantity,
     });
   };
-  const productKeys = Object.keys(item.products);
   return (
     <li className={style['cart-item']}>
-      <div className={style['ingredient']}>{info.ingredient.name}</div>
-      {item.quantity && (
+      <div className={style['ingredient']}>{item.ingredient.name}</div>
+      {item.ingredient.quantity && (
         <QuantityInput
-          quantity={item.quantity}
+          quantity={item.ingredient.quantity}
           onChange={onIngredientQuantityChange}
         />
       )}
-      {productKeys.map((productKey) => (
-        <div key={productKey}>
+      {item.products.map((product) => (
+        <div key={product.key}>
           <div className={style['product']}>
             <div className={style['product__img']}>
-              <CustomImage
-                src={info.products[productKey].img}
-                alt={info.products[productKey].name}
-                fill
-              />
+              <CustomImage src={product.img} alt={product.name} fill />
             </div>
             <div className={style['product__info']}>
               {CONTENTS.map((content, i) => (
@@ -74,16 +69,16 @@ function CartItem({
                     {content.title}
                   </span>
                   <span className={style['content__description']}>
-                    {info.products[productKey]?.[content.value]}
+                    {product?.[content.value]}
                   </span>
                 </div>
               ))}
             </div>
           </div>
           <QuantityInput
-            quantity={item.products[productKey]}
+            quantity={product.quantity}
             onChange={(value: number) =>
-              onProductQuantityChange(productKey, value)
+              onProductQuantityChange(product.key, value)
             }
           />
         </div>
