@@ -11,3 +11,9 @@ export interface GetUserCartRes {
     }[];
   }[];
 }
+
+export interface CreateCartItemReq {
+  username: string;
+  ingredientKey: string;
+  productKey?: string;
+}

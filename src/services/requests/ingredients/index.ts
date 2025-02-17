@@ -8,9 +8,9 @@ import {
 import { FetchResult } from '@/services/type';
 
 export const getIngredientsWithProducts = withSafeAsync(
-  async (
-    items: GetIngredientsWithProductsReq['items'],
-  ): FetchResult<GetIngredientsWithProductsRes> => {
+  async ({
+    items,
+  }: GetIngredientsWithProductsReq): FetchResult<GetIngredientsWithProductsRes> => {
     if (Object.keys(items).length === 0) return { ok: true, data: {} };
 
     const response = await fetchAPI('/ingredients/batch', {

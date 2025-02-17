@@ -3,7 +3,7 @@ import { FetchResult } from '@/services/type';
 import { createAsyncErrorMessage, withSafeAsync } from '@/services/utils';
 import { AsyncError } from '@/services/helpers';
 
-import { GetUserCartRes } from './type';
+import { CreateCartItemReq, GetUserCartRes } from './type';
 
 export const getUserCart = withSafeAsync(
   async (username: string): FetchResult<GetUserCartRes> => {
@@ -49,12 +49,6 @@ export const updateCartItemQuantity = withSafeAsync(
     );
   },
 );
-
-interface CreateCartItemReq {
-  username: string;
-  ingredientKey: string;
-  productKey?: string;
-}
 
 export const createCartItem = withSafeAsync(
   async ({

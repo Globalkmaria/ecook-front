@@ -17,7 +17,7 @@ export const ingredientsWithProductsOptions = ({
   queryOptions({
     queryKey: queryKeys.ingredients.products(items),
     queryFn: async () => {
-      const result = await getIngredientsWithProducts(items);
+      const result = await getIngredientsWithProducts({ items });
 
       if (result.ok) {
         return result.data;
