@@ -1,6 +1,7 @@
 'use client';
 
 import { notFound, useParams } from 'next/navigation';
+import { useShallow } from 'zustand/shallow';
 import { useQuery } from '@tanstack/react-query';
 
 import style from './style.module.scss';
@@ -24,10 +25,9 @@ function ProductPageContainer() {
   );
   const { mutate } = useCreateCartItemMutation();
 
-  const [addProduct, isLoggedIn] = useClientStore((state) => [
-    state.addProductToCart,
-    state.user.isLoggedIn,
-  ]);
+  const [addProduct, isLoggedIn] = useClientStore(
+    useShallow((state) => [state.addProductToCart, state.user.isLoggedIn]),
+  );
 
   if (isError) throw new Error('Failed to load product');
   if (!product) return notFound();
