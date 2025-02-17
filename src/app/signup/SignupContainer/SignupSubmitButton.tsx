@@ -12,6 +12,7 @@ import Button from '@/components/Button';
 
 import { SignupFormState } from '.';
 import { getSignupFormData, validateSignupFormAndAlert } from './helper';
+import { useShallow } from 'zustand/shallow';
 
 interface Props {
   isLoadingSignup: boolean;
@@ -27,7 +28,13 @@ function SignupSubmitButton({
   startTransitionSignup,
 }: Props) {
   const router = useRouter();
-  const setUser = useClientStore((state) => state.setUser);
+  const [setUser, resetBookmarks, resetCart] = useClientStore(
+    useShallow((state) => [
+      state.setUser,
+      state.resetBookmarks,
+      state.resetCart,
+    ]),
+  );
 
   const submitButtonText = isLoadingSignup
     ? 'Creating Account...'
@@ -49,6 +56,8 @@ function SignupSubmitButton({
         img: result.data.img ?? null,
       };
       setUser(user);
+      resetBookmarks();
+      resetCart();
 
       router.push(HOME_LINK);
     });

@@ -21,8 +21,12 @@ function LoginContainer() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, startTransition] = useTransition();
-  const [setUser, resetBookmarks] = useClientStore(
-    useShallow((state) => [state.setUser, state.resetBookmarks]),
+  const [setUser, resetBookmarks, resetCart] = useClientStore(
+    useShallow((state) => [
+      state.setUser,
+      state.resetBookmarks,
+      state.resetCart,
+    ]),
   );
 
   const onLogin: MouseEventHandler = async (e) => {
@@ -47,6 +51,8 @@ function LoginContainer() {
       };
       setUser(user);
       resetBookmarks();
+      resetCart();
+
       router.push(HOME_LINK);
     });
   };
