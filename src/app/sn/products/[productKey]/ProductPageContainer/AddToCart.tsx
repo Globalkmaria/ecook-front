@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import { useShallow } from 'zustand/shallow';
 
 import { useClientStore } from '@/providers/client-store-provider';
@@ -12,13 +15,18 @@ interface Props {
 }
 
 function AddToCart({ ingredientKey, productKey }: Props) {
-  const { mutate, isPending, isSuccess } = useCreateCartItemMutation();
-
+  const [isSuccess, setIsSuccess] = useState(false);
   const [addProduct, isLoggedIn] = useClientStore(
     useShallow((state) => [state.addProductToCart, state.user.isLoggedIn]),
   );
+  const {
+    mutate,
+    isPending,
+    isSuccess: isServerSuccess,
+  } = useCreateCartItemMutation();
 
-  const text = isSuccess ? 'Added' : 'Add to cart';
+  const text = isSuccess || isServerSuccess ? 'Added' : 'Add to cart';
+
   const onAddProduct = () => {
     if (isSuccess) return;
 
@@ -29,6 +37,7 @@ function AddToCart({ ingredientKey, productKey }: Props) {
       });
     } else {
       addProduct(ingredientKey, productKey);
+      setIsSuccess(true);
     }
   };
 
