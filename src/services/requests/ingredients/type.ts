@@ -1,7 +1,7 @@
 export interface GetIngredientsWithProductsReq {
   items: {
     [ingredientKey: string]: {
-      productKey?: string[];
+      productKeys?: string[];
     };
   };
 }

@@ -1,17 +1,25 @@
 @use '@/styles/theme.scss' as *;
 
-.product {
+.cart-product {
   margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid $grey300;
+}
+
+.product {
   display: flex;
   gap: 10px;
 
-  &__img {
+  &__link {
     width: 200px;
     height: 200px;
-    border-radius: $borderRadiusS;
-    object-fit: cover;
-    border-radius: 10px;
-    overflow: hidden;
+    background: $grey100;
+  }
+
+  &__img {
+    img {
+      object-fit: contain;
+    }
   }
 
   &__info {

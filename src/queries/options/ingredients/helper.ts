@@ -9,7 +9,7 @@ export const transformIngredientsForServer = (
       acc[ingredientKey] = {};
 
       if (item.products) {
-        acc[ingredientKey].productKey = Object.keys(item.products);
+        acc[ingredientKey].productKeys = Object.keys(item.products);
       }
 
       return acc;

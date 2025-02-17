@@ -6,13 +6,14 @@ import { useClientStore } from '@/providers/client-store-provider';
 
 import { signup } from '@/services/requests/auth';
 
+import useResetNotLoggedInData from '@/hooks/useResetNotLoggedInData';
+
 import { HOME_LINK } from '@/helpers/links';
 
 import Button from '@/components/Button';
 
 import { SignupFormState } from '.';
 import { getSignupFormData, validateSignupFormAndAlert } from './helper';
-import { useShallow } from 'zustand/shallow';
 
 interface Props {
   isLoadingSignup: boolean;
@@ -28,13 +29,8 @@ function SignupSubmitButton({
   startTransitionSignup,
 }: Props) {
   const router = useRouter();
-  const [setUser, resetBookmarks, resetCart] = useClientStore(
-    useShallow((state) => [
-      state.setUser,
-      state.resetBookmarks,
-      state.resetCart,
-    ]),
-  );
+  const setUser = useClientStore((state) => state.setUser);
+  const resetNotLoggedInData = useResetNotLoggedInData();
 
   const submitButtonText = isLoadingSignup
     ? 'Creating Account...'
@@ -56,8 +52,7 @@ function SignupSubmitButton({
         img: result.data.img ?? null,
       };
       setUser(user);
-      resetBookmarks();
-      resetCart();
+      resetNotLoggedInData();
 
       router.push(HOME_LINK);
     });
