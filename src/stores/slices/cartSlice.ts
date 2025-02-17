@@ -18,38 +18,39 @@ export type CartState = {
   };
 };
 
+type CartActionPayload = {
+  ingredientKey: string;
+  productKey?: string;
+};
+
+type CartActionPayloadWithQuantity = CartActionPayload & {
+  quantity: number;
+};
+
 type CartAction = {
+  getCartIngredientQuantity: ({
+    ingredientKey,
+  }: Pick<
+    CartActionPayload,
+    'ingredientKey'
+  >) => CartState['carts']['ingredients'][string];
+
+  getCartItemQuantity: ({
+    ingredientKey,
+    productKey,
+  }: CartActionPayload) => number;
+
+  addToCart: ({ ingredientKey, productKey }: CartActionPayload) => void;
+
   updateQuantity: ({
     ingredientKey,
     productKey,
     quantity,
-  }: {
-    ingredientKey: string;
-    productKey?: string;
-    quantity: number;
-  }) => void;
-  addIngredientToCart: (ingredientKey: string) => void;
-  addProductToCart: (ingredientKey: string, productKey: string) => void;
-  removeCartItem: ({
-    ingredientKey,
-    productKey,
-  }: {
-    ingredientKey: string;
-    productKey?: string;
-  }) => void;
+  }: CartActionPayloadWithQuantity) => void;
+
+  removeCartItem: ({ ingredientKey, productKey }: CartActionPayload) => void;
+
   resetCart: () => void;
-  getCartIngredientQuantity: ({
-    ingredientKey,
-  }: {
-    ingredientKey: string;
-  }) => CartState['carts']['ingredients'][string];
-  getCartItemQuantity: ({
-    ingredientKey,
-    productKey,
-  }: {
-    ingredientKey: string;
-    productKey?: string;
-  }) => number;
 };
 
 export type CartStore = CartState & CartAction;
@@ -68,76 +69,53 @@ export const createCartSlice: StateCreator<
       get().carts.ingredients[ingredientKey] ?? { quantity: null, products: {} }
     );
   },
-
   getCartItemQuantity: ({ ingredientKey, productKey }) => {
     if (productKey) {
       return get().carts.ingredients[ingredientKey]?.products[productKey] ?? 0;
-    } else {
-      return get().carts.ingredients[ingredientKey]?.quantity ?? 0;
     }
-  },
 
-  updateQuantity: ({
-    ingredientKey,
-    productKey,
-    quantity,
-  }: {
-    ingredientKey: string;
-    productKey?: string;
-    quantity: number;
-  }) =>
+    return get().carts.ingredients[ingredientKey]?.quantity ?? 0;
+  },
+  addToCart: ({ ingredientKey, productKey }) =>
+    set(
+      (state) => {
+        if (!state.carts.ingredients[ingredientKey]) {
+          state.carts.ingredients[ingredientKey] = {
+            products: {},
+          };
+        }
+
+        if (productKey) {
+          if (!state.carts.ingredients[ingredientKey].products[productKey]) {
+            state.carts.ingredients[ingredientKey].products[productKey] = 0;
+          }
+          state.carts.ingredients[ingredientKey].products[productKey] += 1;
+          return;
+        }
+
+        if (!state.carts.ingredients[ingredientKey].quantity) {
+          state.carts.ingredients[ingredientKey].quantity = 0;
+        }
+        state.carts.ingredients[ingredientKey].quantity += 1;
+      },
+      undefined,
+      'carts/addToCart',
+    ),
+  updateQuantity: ({ ingredientKey, productKey, quantity }) =>
     set(
       (state) => {
         if (productKey) {
           state.carts.ingredients[ingredientKey].products[productKey] =
             quantity;
-        } else {
-          state.carts.ingredients[ingredientKey].quantity = quantity;
-        }
-      },
-      undefined,
-      'carts/updateIngredientQuantity',
-    ),
-  addIngredientToCart: (ingredientKey: string) =>
-    set(
-      (state) => {
-        if (!state.carts.ingredients[ingredientKey]) {
-          state.carts.ingredients[ingredientKey] = {
-            quantity: 0,
-            products: {},
-          };
-        }
-        const quantity = state.carts.ingredients[ingredientKey].quantity ?? 0;
-        state.carts.ingredients[ingredientKey].quantity = quantity + 1;
-      },
-      undefined,
-      'carts/addIngredientToCart',
-    ),
-  addProductToCart: (ingredientKey: string, productKey: string) =>
-    set(
-      (state) => {
-        if (!state.carts.ingredients[ingredientKey]) {
-          state.carts.ingredients[ingredientKey] = {
-            products: {},
-          };
+          return;
         }
 
-        if (!state.carts.ingredients[ingredientKey].products[productKey]) {
-          state.carts.ingredients[ingredientKey].products[productKey] = 0;
-        }
-
-        state.carts.ingredients[ingredientKey].products[productKey] += 1;
+        state.carts.ingredients[ingredientKey].quantity = quantity;
       },
       undefined,
-      'carts/addProductToCart',
+      'carts/updateQuantity',
     ),
-  removeCartItem: ({
-    ingredientKey,
-    productKey,
-  }: {
-    ingredientKey: string;
-    productKey?: string;
-  }) =>
+  removeCartItem: ({ ingredientKey, productKey }) =>
     set(
       (state) => {
         if (productKey) {

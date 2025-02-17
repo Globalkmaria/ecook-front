@@ -18,15 +18,13 @@ interface Props {
 
 function AddIngredientToCartButton({ ingredientKey, productKey }: Props) {
   const [isSuccess, setIsSuccess] = useState(false);
-  const [addIngredientToCart, addProductToCart, isLoggedIn, quantity] =
-    useClientStore(
-      useShallow((state) => [
-        state.addIngredientToCart,
-        state.addProductToCart,
-        state.user.isLoggedIn,
-        state.getCartItemQuantity({ ingredientKey, productKey }),
-      ]),
-    );
+  const [addToCart, isLoggedIn, quantity] = useClientStore(
+    useShallow((state) => [
+      state.addToCart,
+      state.user.isLoggedIn,
+      state.getCartItemQuantity({ ingredientKey, productKey }),
+    ]),
+  );
   const {
     mutate,
     data,
@@ -42,9 +40,7 @@ function AddIngredientToCartButton({ ingredientKey, productKey }: Props) {
       return;
     }
 
-    productKey
-      ? addProductToCart(ingredientKey, productKey)
-      : addIngredientToCart(ingredientKey);
+    addToCart({ ingredientKey, productKey });
 
     setIsSuccess(true);
   };

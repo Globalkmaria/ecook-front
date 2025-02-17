@@ -18,9 +18,9 @@ interface Props {
 
 function AddProductToCart({ ingredientKey, productKey }: Props) {
   const [isSuccess, setIsSuccess] = useState(false);
-  const [addProduct, isLoggedIn, quantity] = useClientStore(
+  const [addToCart, isLoggedIn, quantity] = useClientStore(
     useShallow((state) => [
-      state.addProductToCart,
+      state.addToCart,
       state.user.isLoggedIn,
       state.getCartItemQuantity({ ingredientKey, productKey }),
     ]),
@@ -40,7 +40,7 @@ function AddProductToCart({ ingredientKey, productKey }: Props) {
         productKey,
       });
     } else {
-      addProduct(ingredientKey, productKey);
+      addToCart({ ingredientKey, productKey });
       setIsSuccess(true);
     }
   };
