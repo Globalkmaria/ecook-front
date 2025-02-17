@@ -22,7 +22,6 @@ type onQuantityChangeParams = {
 
 function NotLoggedInUserCartItem({ info }: CartItemProps) {
   const ingredientKey = info.ingredient.key;
-  const productKeys = Object.keys(info.products);
 
   const [removeCartItem, updateQuantity, ingredientAndProductsQuantity] =
     useClientStore(
@@ -32,6 +31,8 @@ function NotLoggedInUserCartItem({ info }: CartItemProps) {
         state.getCartIngredientQuantity({ ingredientKey }),
       ]),
     );
+
+  const productKeys = Object.keys(ingredientAndProductsQuantity.products);
 
   const onQuantityChange = useCallback(
     ({ ingredientKey, productKey, quantity }: onQuantityChangeParams) => {
