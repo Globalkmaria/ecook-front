@@ -73,12 +73,21 @@ const ingredientsKeys = {
   ],
 } as const;
 
+const cartsKeys = {
+  all: () => ['carts'],
+  user: {
+    all: (username: string) => [...queryKeys.carts.all(), 'user', { username }],
+    list: (username: string) => [...queryKeys.carts.user.all(username), 'list'],
+  },
+} as const;
+
 export const queryKeys = {
   recipes: recipesKeys,
   users: usersKeys,
   bookmarks: bookmarksKeys,
   products: productsKeys,
   ingredients: ingredientsKeys,
+  carts: cartsKeys,
 } as const;
 
 export const mutationKeys = {

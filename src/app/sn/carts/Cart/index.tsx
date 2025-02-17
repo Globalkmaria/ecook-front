@@ -1,10 +1,15 @@
 'use client';
 
-import NotLoggedInUserCart from './NotLoggedInUserCart';
 import style from './style.module.scss';
 
+import { useClientStore } from '@/providers/client-store-provider';
+
+import NotLoggedInUserCart from './NotLoggedInUserCart';
+import LoggedInUserCart from './LoggedInUserCart';
+
 function Cart() {
-  const CartContent = NotLoggedInUserCart;
+  const isLoggedIn = useClientStore((state) => state.user.isLoggedIn);
+  const CartContent = isLoggedIn ? LoggedInUserCart : NotLoggedInUserCart;
   return (
     <>
       <h2 className={style['title']}>Cart</h2>
