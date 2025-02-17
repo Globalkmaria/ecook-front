@@ -38,6 +38,13 @@ type CartAction = {
     productKey?: string;
   }) => void;
   resetCart: () => void;
+  getCartItemQuantity: ({
+    ingredientKey,
+    productKey,
+  }: {
+    ingredientKey: string;
+    productKey?: string;
+  }) => number;
 };
 
 export type CartStore = CartState & CartAction;
@@ -51,6 +58,14 @@ export const createCartSlice: StateCreator<
   CartStore
 > = (set, get) => ({
   ...initialCartState,
+  getCartItemQuantity: ({ ingredientKey, productKey }) => {
+    if (productKey) {
+      return get().carts.ingredients[ingredientKey]?.products[productKey] ?? 0;
+    } else {
+      return get().carts.ingredients[ingredientKey]?.quantity ?? 0;
+    }
+  },
+
   updateQuantity: ({
     ingredientKey,
     productKey,

@@ -1,3 +1,5 @@
+'use client';
+
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import useLogout from '@/hooks/useLogout';
@@ -29,7 +31,7 @@ export const useCreateCartItemMutation = () => {
         username,
       });
 
-      if (response.ok) return response.data;
+      if (response.ok) return response.data.count;
 
       if (
         isUnauthorizedResponse(response.res) ||
@@ -37,7 +39,6 @@ export const useCreateCartItemMutation = () => {
       ) {
         logout();
       }
-
       throw new Error('Failed to create cart item');
     },
     onSuccess: () => {

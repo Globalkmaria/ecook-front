@@ -1,6 +1,7 @@
 'use client';
 
 import { useShallow } from 'zustand/shallow';
+import { useState } from 'react';
 
 import style from './style.module.scss';
 
@@ -16,11 +17,21 @@ interface Props {
 }
 
 function AddProductToCart({ ingredientKey, productKey }: Props) {
-  const [addProduct, isLoggedIn] = useClientStore(
-    useShallow((state) => [state.addProductToCart, state.user.isLoggedIn]),
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [addProduct, isLoggedIn, quantity] = useClientStore(
+    useShallow((state) => [
+      state.addProductToCart,
+      state.user.isLoggedIn,
+      state.getCartItemQuantity({ ingredientKey, productKey }),
+    ]),
   );
 
-  const { mutate } = useCreateCartItemMutation();
+  const {
+    mutate,
+    data,
+    isSuccess: isServerSuccess,
+    isError,
+  } = useCreateCartItemMutation();
 
   const onAddProduct = () => {
     if (isLoggedIn) {
@@ -30,10 +41,25 @@ function AddProductToCart({ ingredientKey, productKey }: Props) {
       });
     } else {
       addProduct(ingredientKey, productKey);
+      setIsSuccess(true);
     }
   };
+  if (isError) {
+    console.error('Error in AddProductToCart', isError);
+    return;
+  }
+
+  const showCount = isServerSuccess || isSuccess;
+  const count = isServerSuccess ? data : quantity;
   return (
-    <IconButton icon='cart' onClick={onAddProduct} className={style['cart']} />
+    <div className={style['cart']}>
+      {showCount && <div className={style['cart__count']}>{count}</div>}
+      <IconButton
+        icon='cart'
+        onClick={onAddProduct}
+        className={style['cart__icon']}
+      />
+    </div>
   );
 }
 

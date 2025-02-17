@@ -31,7 +31,7 @@ export const updateCartItemQuantity = withSafeAsync(
     ingredientKey,
     productKey,
     quantity,
-  }: UpdateCartItemQuantityReq): FetchResult<number> => {
+  }: UpdateCartItemQuantityReq): FetchResult<{ count: number }> => {
     const response = await fetchAPI(`/carts/user/${username}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
@@ -61,7 +61,7 @@ export const createCartItem = withSafeAsync(
     username,
     ingredientKey,
     productKey,
-  }: CreateCartItemReq): FetchResult<number> => {
+  }: CreateCartItemReq): FetchResult<{ count: number }> => {
     const response = await fetchAPI(`/carts/user/${username}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

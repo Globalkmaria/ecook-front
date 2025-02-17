@@ -45,6 +45,25 @@
 }
 
 .cart {
+  position: relative;
+}
+
+.cart__count {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: -7px;
+  right: -7px;
+  color: $white;
+  background: $pointColorVivid;
+  width: 20px;
+  height: 20px;
+  font-size: 14px;
+  border-radius: 50%;
+}
+
+.cart__icon {
   background: $blurry900;
   border-radius: 50%;
 
