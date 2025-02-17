@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 import { useClientStore } from '@/providers/client-store-provider';
@@ -9,20 +10,28 @@ import useLogout from '@/hooks/useLogout';
 import { userCartOptions } from '@/queries/options/carts/userCartOptions';
 import { useUpdateCartItemQuantityMutation } from '@/queries/hooks';
 
-import CartItem from './CartItem';
+import CartItem, { CartItemProps } from './LoggedInUserCartItem';
 
 function LoggedInUserCart() {
   const username = useClientStore((state) => state.user?.username);
   const logout = useLogout();
-
   const { data, isLoading, isError, error } = useQuery(
     userCartOptions({
       username: username ?? '',
       enabled: !!username,
     }),
   );
-
   const { mutate } = useUpdateCartItemQuantityMutation();
+  const onQuantityChange: CartItemProps['onQuantityChange'] = useCallback(
+    ({ ingredientKey, productKey, quantity }) => {
+      mutate({
+        ingredientKey,
+        productKey,
+        quantity,
+      });
+    },
+    [],
+  );
 
   if (isAuthError(error)) {
     logout();
@@ -31,23 +40,8 @@ function LoggedInUserCart() {
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error fetching ingredients</div>;
-  if (data === undefined) return <div>No cart information found</div>;
-
-  const onQuantityChange = ({
-    ingredientKey,
-    productKey,
-    quantity,
-  }: {
-    ingredientKey: string;
-    productKey?: string;
-    quantity: number;
-  }) => {
-    mutate({
-      ingredientKey,
-      productKey,
-      quantity,
-    });
-  };
+  if (data === undefined)
+    return <div>Add some ingredients to your cart to see them here</div>;
 
   return (
     <>

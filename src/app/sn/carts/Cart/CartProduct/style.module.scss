@@ -1,14 +1,5 @@
 @use '@/styles/theme.scss' as *;
 
-.cart-item {
-  padding-bottom: 20px;
-  border-bottom: 1px solid $grey300;
-}
-
-.ingredient {
-  font-size: 1.2rem;
-}
-
 .product {
   margin-top: 10px;
   display: flex;
@@ -24,6 +15,7 @@
   }
 
   &__info {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     gap: 10px;

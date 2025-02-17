@@ -1,30 +1,22 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { useShallow } from 'zustand/shallow';
 
 import { transformIngredientsForServer } from '@/queries/options/ingredients/helper';
 import { ingredientsWithProductsOptions } from '@/queries/options/ingredients/ingredientsWithProductsOptions';
 
 import { useClientStore } from '@/providers/client-store-provider';
 
-import CartItem from '../CartItem';
-import { combineCartItemWithInfo } from './helper';
+import NotLoggedInUserCartItem from './NotLoggedInUserCartItem';
 
 function NotLoggedInUserCart() {
-  const [ingredientsQuantities, removeCartItem, updateQuantity] =
-    useClientStore(
-      useShallow((state) => [
-        state.carts.ingredients,
-        state.removeCartItem,
-        state.updateQuantity,
-      ]),
-    );
-
+  const ingredientsQuantities = useClientStore(
+    (state) => state.carts.ingredients,
+  );
+  const ingredientKeys = Object.keys(ingredientsQuantities);
   const requestIngredients = transformIngredientsForServer(
     ingredientsQuantities,
   );
-
   const {
     data: ingredientsInfo,
     isLoading,
@@ -32,45 +24,19 @@ function NotLoggedInUserCart() {
   } = useQuery(
     ingredientsWithProductsOptions({
       items: requestIngredients,
-      enabled: true,
+      enabled: !!ingredientKeys.length,
     }),
   );
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error fetching ingredients</div>;
-  if (ingredientsInfo === undefined)
-    return <div>No cart information found</div>;
-
-  const onQuantityChange = ({
-    ingredientKey,
-    productKey,
-    quantity,
-  }: {
-    ingredientKey: string;
-    productKey?: string;
-    quantity: number;
-  }) => {
-    if (quantity <= 0) {
-      removeCartItem({ ingredientKey, productKey });
-      return;
-    }
-
-    updateQuantity({ ingredientKey, productKey, quantity });
-  };
-
-  const combinedCartItems = combineCartItemWithInfo(
-    ingredientsQuantities,
-    ingredientsInfo,
-  );
+  if (!ingredientKeys.length || ingredientsInfo === undefined)
+    return <div>Add some ingredients to your cart to see them here</div>;
 
   return (
     <>
-      {combinedCartItems.map((item) => (
-        <CartItem
-          key={item.ingredient.key}
-          item={item}
-          onQuantityChange={onQuantityChange}
-        />
+      {ingredientKeys.map((key) => (
+        <NotLoggedInUserCartItem key={key} info={ingredientsInfo[key]} />
       ))}
     </>
   );
