@@ -48,3 +48,29 @@ export const updateCartItemQuantity = withSafeAsync(
     );
   },
 );
+
+interface CreateCartItemReq {
+  username: string;
+  ingredientKey: string;
+  productKey?: string;
+}
+
+export const createCartItem = withSafeAsync(
+  async ({
+    username,
+    ingredientKey,
+    productKey,
+  }: CreateCartItemReq): FetchResult<number> => {
+    const response = await fetchAPI(`/user/${username}`, {
+      method: 'POST',
+      body: JSON.stringify({ ingredientKey, productKey }),
+    });
+
+    if (response.ok) return { ok: true, data: response.data };
+
+    throw new AsyncError(
+      createAsyncErrorMessage(response.res, 'Failed to create cart item'),
+      response.res,
+    );
+  },
+);

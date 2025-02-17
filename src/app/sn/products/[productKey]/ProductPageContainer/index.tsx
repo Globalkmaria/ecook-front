@@ -8,6 +8,7 @@ import style from './style.module.scss';
 import { useClientStore } from '@/providers/client-store-provider';
 
 import { productOptions } from '@/queries/options';
+import { useCreateCartItemMutation } from '@/queries/hooks/carts/useCreateCartItemMutation';
 
 import Button from '@/components/Button';
 
@@ -21,14 +22,27 @@ function ProductPageContainer() {
   const { data: product, isError } = useQuery(
     productOptions({ key: params.productKey }),
   );
+  const { mutate } = useCreateCartItemMutation();
 
-  const addProduct = useClientStore((state) => state.addProductToCart);
+  const [addProduct, isLoggedIn] = useClientStore((state) => [
+    state.addProductToCart,
+    state.user.isLoggedIn,
+  ]);
 
   if (isError) throw new Error('Failed to load product');
   if (!product) return notFound();
 
   const onAddProduct = () => {
-    addProduct(product.ingredient.key, product.key);
+    const ingredientKey = product.ingredient.key;
+    const productKey = product.key;
+    if (isLoggedIn) {
+      mutate({
+        ingredientKey,
+        productKey,
+      });
+    } else {
+      addProduct(ingredientKey, productKey);
+    }
   };
   return (
     <div className={style['container']}>
