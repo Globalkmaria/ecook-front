@@ -4,30 +4,26 @@ import { MouseEventHandler, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-import { useClientStore } from '@/providers/client-store-provider';
-
 import style from './LoginContainer.module.scss';
 
+import { useClientStore } from '@/providers/client-store-provider';
+
 import { login } from '@/services/requests/auth';
+
+import useResetNotLoggedInData from '@/hooks/useResetNotLoggedInData';
 
 import { HOME_LINK, SIGNUP_LINK } from '@/helpers/links';
 
 import Button from '@/components/Button';
 import { Input } from '@/components/Input';
-import { useShallow } from 'zustand/shallow';
 
 function LoginContainer() {
   const router = useRouter();
+  const resetNotLoggedInData = useResetNotLoggedInData();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, startTransition] = useTransition();
-  const [setUser, resetBookmarks, resetCart] = useClientStore(
-    useShallow((state) => [
-      state.setUser,
-      state.resetBookmarks,
-      state.resetCart,
-    ]),
-  );
+  const setUser = useClientStore((state) => state.setUser);
 
   const onLogin: MouseEventHandler = async (e) => {
     e.preventDefault();
@@ -50,8 +46,7 @@ function LoginContainer() {
         img: result.data.img ?? null,
       };
       setUser(user);
-      resetBookmarks();
-      resetCart();
+      resetNotLoggedInData();
 
       router.push(HOME_LINK);
     });
