@@ -45,10 +45,7 @@ function AddIngredientToCartButton({ ingredientKey, productKey }: Props) {
     setIsSuccess(true);
   };
 
-  if (isError) {
-    console.error('Error in AddIngredientToCartButton', isError);
-    return;
-  }
+  const disabled = isError;
 
   const showCount = isServerSuccess || isSuccess;
   const count = isServerSuccess ? data : quantity;
@@ -58,6 +55,7 @@ function AddIngredientToCartButton({ ingredientKey, productKey }: Props) {
       {showCount && <div className={style['cart__count']}>{count}</div>}
       <button
         type='button'
+        disabled={disabled}
         onClick={onAddToCart}
         className={style['cart-button']}
       >

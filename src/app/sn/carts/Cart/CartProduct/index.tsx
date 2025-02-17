@@ -20,7 +20,7 @@ interface Props {
 function CartProduct({ product, onChange, quantity }: Props) {
   const productLink = getProductLink(product.key);
   return (
-    <div key={product.key}>
+    <div key={product.key} className={style['cart-product']}>
       <div className={style['product']}>
         <Link href={productLink} className={style['product__link']}>
           <CustomImage
