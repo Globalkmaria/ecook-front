@@ -40,7 +40,7 @@ function LoggedInUserCart() {
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error fetching ingredients</div>;
-  if (data === undefined)
+  if (!data?.length)
     return <div>Add some ingredients to your cart to see them here</div>;
 
   return (
