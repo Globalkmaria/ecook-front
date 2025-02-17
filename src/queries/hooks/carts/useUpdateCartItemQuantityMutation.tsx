@@ -6,8 +6,7 @@ import { useClientStore } from '@/providers/client-store-provider';
 
 import { updateCartItemQuantity } from '@/services/requests/carts';
 import { isForbiddenResponse, isUnauthorizedResponse } from '@/services/utils';
-
-import { queryKeys } from '../helpers';
+import { queryKeys } from '@/queries/helpers';
 
 export const useUpdateCartItemQuantityMutation = () => {
   const logout = useLogout();

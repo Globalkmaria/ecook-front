@@ -7,7 +7,7 @@ import { isAuthError } from '@/services/utils';
 import useLogout from '@/hooks/useLogout';
 
 import { userCartOptions } from '@/queries/options/carts/userCartOptions';
-import { useUpdateCartItemQuantityMutation } from '@/queries/hooks/useUpdateCartItemQuantityMutation';
+import { useUpdateCartItemQuantityMutation } from '@/queries/hooks';
 
 import CartItem from './CartItem';
 
