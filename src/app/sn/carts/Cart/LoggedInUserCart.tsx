@@ -52,7 +52,11 @@ function LoggedInUserCart() {
   return (
     <>
       {data.map((item) => (
-        <CartItem item={item} onQuantityChange={onQuantityChange} />
+        <CartItem
+          key={item.ingredient.key}
+          item={item}
+          onQuantityChange={onQuantityChange}
+        />
       ))}
     </>
   );
