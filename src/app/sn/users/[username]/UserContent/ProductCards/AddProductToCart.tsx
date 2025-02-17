@@ -1,11 +1,14 @@
 'use client';
 
+import { useShallow } from 'zustand/shallow';
+
 import style from './style.module.scss';
 
 import { useClientStore } from '@/providers/client-store-provider';
 
-import IconButton from '@/components/IconButton';
 import { useCreateCartItemMutation } from '@/queries/hooks/carts/useCreateCartItemMutation';
+
+import IconButton from '@/components/IconButton';
 
 interface Props {
   ingredientKey: string;
@@ -13,10 +16,10 @@ interface Props {
 }
 
 function AddProductToCart({ ingredientKey, productKey }: Props) {
-  const [addProduct, isLoggedIn] = useClientStore((state) => [
-    state.addProductToCart,
-    state.user.isLoggedIn,
-  ]);
+  const [addProduct, isLoggedIn] = useClientStore(
+    useShallow((state) => [state.addProductToCart, state.user.isLoggedIn]),
+  );
+
   const { mutate } = useCreateCartItemMutation();
 
   const onAddProduct = () => {
