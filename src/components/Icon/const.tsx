@@ -10,6 +10,7 @@ import {
   PiJarLabelLight,
   PiTagSimpleFill,
   PiJar,
+  PiShoppingCartBold,
 } from 'react-icons/pi';
 import { MdLabelOutline, MdGridOn, MdOutlineEdit } from 'react-icons/md';
 import { IoClose, IoInformationOutline, IoSearch } from 'react-icons/io5';
@@ -46,6 +47,7 @@ const ICON_NAMES = [
   'bookmarkOutline',
   'bookmarkFill',
   'book',
+  'cart',
 ] as const;
 
 export type IconType = (typeof ICON_NAMES)[number];
@@ -76,6 +78,7 @@ export const ICONS: {
   bookmarkOutline: <FaRegBookmark />,
   bookmarkFill: <FaBookmark />,
   book: <PiBookBookmarkBold />,
+  cart: <PiShoppingCartBold />,
 };
 
 export const ICON_TITLES: { [key in IconType]: string } = {
@@ -102,4 +105,5 @@ export const ICON_TITLES: { [key in IconType]: string } = {
   bookmarkOutline: 'save item',
   bookmarkFill: 'saved item',
   book: 'book',
+  cart: 'cart',
 };

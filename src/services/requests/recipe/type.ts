@@ -38,6 +38,7 @@ export interface RecipeIngredient {
 
 export interface RecipeProduct {
   id: string;
+  key: string;
   name: string;
   brand: string | null;
   purchasedFrom: string | null;
@@ -47,6 +48,7 @@ export interface RecipeProduct {
 
 export interface Ingredient {
   id: string;
+  key: string;
   name: string;
   quantity: string;
   ingredientId: string | null;

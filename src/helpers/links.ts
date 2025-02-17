@@ -30,3 +30,5 @@ export const LOGIN_LINK = `/login`;
 export const HOME_LINK = `/`;
 
 export const BOOKMARKS_LINK = `/sn/bookmarks`;
+
+export const CARTS_LINK = `/sn/carts`;

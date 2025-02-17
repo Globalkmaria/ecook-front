@@ -1,6 +1,5 @@
 import { StateCreator } from 'zustand';
 import { ClientStore } from '../clientStore';
-import { getBookmarkedRecipes } from './helper';
 
 type BookmarkState = {
   bookmarks: { [recipeKey: string]: boolean };

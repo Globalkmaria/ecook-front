@@ -1,15 +1,8 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from '@tanstack/react-query';
 
 import { getHomeRecipes } from '@/services/requests/home';
 import { getRecipe } from '@/services/requests/recipe';
-
-import { recipeOptions, recipeRecommendOptions } from '@/queries/options';
 
 import { capitalizeFirstLetter } from '@/utils/text';
 
@@ -63,18 +56,7 @@ async function Page({ params }: Props) {
   const { recipeKey } = await params;
   if (!recipeKey) notFound();
 
-  const queryClient = new QueryClient();
-
-  await Promise.all([
-    queryClient.prefetchQuery(recipeOptions({ key: recipeKey })),
-    queryClient.prefetchQuery(recipeRecommendOptions({ key: recipeKey })),
-  ]);
-
-  return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <RecipePageContainer />
-    </HydrationBoundary>
-  );
+  return <RecipePageContainer recipeKey={recipeKey} />;
 }
 
 export default Page;

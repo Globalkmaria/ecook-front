@@ -6,6 +6,8 @@ import { getProductLink } from '@/helpers/links';
 
 import ImgCard, { ImgCardProps } from '@/components/ImgCard';
 
+import AddProductToCart from './AddProductToCart';
+
 interface Props {
   products: Product[];
 }
@@ -27,10 +29,17 @@ function Card({ product }: { product: Product }) {
     src: product.img,
     alt: product.name,
   };
+
   const link = getProductLink(product.key);
 
   return (
     <li className={style['card']}>
+      <div className={style['card__top']}>
+        <AddProductToCart
+          ingredientKey={product.ingredient.key}
+          productKey={product.key}
+        />
+      </div>
       <ImgCard.Container link={link} imgProps={imgProps}>
         <ImgCard.TopOverlay>
           <span>{product.ingredient.name}</span>

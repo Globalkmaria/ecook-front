@@ -1,0 +1,27 @@
+@use '@/styles/theme.scss' as *;
+
+.title {
+  display: block;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid $grey300;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.cart {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quantity {
+  width: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding: 7px 10px;
+  border: 3px solid $pointColor;
+  border-radius: 20px;
+}

@@ -11,6 +11,7 @@ import { ProductPageParams } from '../page';
 import ProductInformation from './ProductInformation';
 import ProductRecommend from './ProductRecommend';
 import OtherProducts from './OtherProducts';
+import AddToCart from './AddToCart';
 
 function ProductPageContainer() {
   const params = useParams<ProductPageParams>();
@@ -23,6 +24,12 @@ function ProductPageContainer() {
 
   return (
     <div className={style['container']}>
+      <div className={style['header']}>
+        <AddToCart
+          ingredientKey={product.ingredient.key}
+          productKey={product.key}
+        />
+      </div>
       <ProductInformation product={product} />
       <OtherProducts />
       <ProductRecommend />

@@ -9,9 +9,9 @@ import { formatTime } from '@/utils/time';
 import { getRecipeLink, getUserLink } from '@/helpers/links';
 
 import Avatar from '@/components/Avatar';
-import Chip2 from '@/components/Chip2';
 import CustomImage from '@/components/CustomImage';
 import Skeleton from '@/components/Skeleton';
+import Chip, { ChipGroup } from '@/components/Chip';
 
 interface Props {
   recipe: RecipeSimple;
@@ -47,11 +47,11 @@ function Card({ recipe }: Props) {
           <span className={style.title}>{recipe.name}</span>
           <span className={style.time}>{time}</span>
 
-          <Chip2.Container>
+          <ChipGroup>
             {recipe.tags.map((tag) => (
-              <Chip2.Chip key={tag.id}>{tag.name}</Chip2.Chip>
+              <Chip key={tag.id}>{tag.name}</Chip>
             ))}
-          </Chip2.Container>
+          </ChipGroup>
         </div>
       </Link>
     </div>
