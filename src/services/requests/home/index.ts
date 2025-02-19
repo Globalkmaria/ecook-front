@@ -6,9 +6,7 @@ import { AsyncError } from '@/services/helpers';
 
 export const getHomeRecipes =
   withSafeAsync(async (): FetchResult<GetHomeRecipesRes> => {
-    const response = await fetchAPI('/home', {
-      cache: 'force-cache',
-    });
+    const response = await fetchAPI('/home');
 
     if (response.ok) return { ok: true, data: response.data };
 

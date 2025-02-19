@@ -103,7 +103,11 @@ function SearchMenu({ onMenuChange, selectedMenuItem }: SearchMenuProps) {
         <span className={style.arrow}>{menuArrow}</span>
       </button>
       {isOpen && (
-        <Dropbox containerRef={ref} onCloseModal={onClose}>
+        <Dropbox
+          containerRef={ref}
+          onCloseModal={onClose}
+          onMouseLeave={onClose}
+        >
           {SEARCH_MENU_ITEMS.map((menuItem) => (
             <DropboxItem
               key={menuItem.value}

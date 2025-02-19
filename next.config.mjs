@@ -15,6 +15,11 @@ const nextConfig = {
       },
     ],
   },
+  experimental: {
+    serverActions: {
+      allowedOrigins: ['www.ecook.online', 'ecook.online'],
+    },
+  },
 };
 
 export default nextConfig;
