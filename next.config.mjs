@@ -17,7 +17,7 @@ const nextConfig = {
   },
   experimental: {
     serverActions: {
-      allowedOrigins: ['www.ecook.online', 'ecook.online'],
+      allowedOrigins: ['www.ecook.online', 'ecook.online', '*.ecook.online'],
     },
   },
 };
