@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 interface ModalHandlers {
   isOpen: boolean;
@@ -16,12 +16,15 @@ function useModal(initialState?: boolean): ModalHandlers {
   const onClose = useCallback(() => setIsOpen(false), []);
   const onToggle = useCallback(() => setIsOpen((prev) => !prev), []);
 
-  return {
-    isOpen,
-    onOpen,
-    onClose,
-    onToggle,
-  };
+  return useMemo(
+    () => ({
+      isOpen,
+      onOpen,
+      onClose,
+      onToggle,
+    }),
+    [isOpen],
+  );
 }
 
 export default useModal;
