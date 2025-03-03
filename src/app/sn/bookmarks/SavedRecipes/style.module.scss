@@ -1,17 +1,13 @@
 @use '@/styles/theme.scss' as *;
 
-.header {
-  margin-bottom: 20px;
-}
-
 .title {
-  font-size: $front-size-20;
-  font-weight: 600;
+  padding-bottom: 40px;
+  font-size: $front-size-22;
+  font-weight: 500;
 }
 
 .text {
   display: block;
-  margin-top: 10px;
 }
 
 .list {
