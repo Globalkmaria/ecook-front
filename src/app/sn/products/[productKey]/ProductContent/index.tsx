@@ -13,7 +13,7 @@ import ProductRecommend from './ProductRecommend';
 import OtherProducts from './OtherProducts';
 import AddToCart from './AddToCart';
 
-function ProductPageContainer() {
+function ProductContent() {
   const params = useParams<ProductPageParams>();
   const { data: product, isError } = useQuery(
     productOptions({ key: params.productKey }),
@@ -37,4 +37,4 @@ function ProductPageContainer() {
   );
 }
 
-export default ProductPageContainer;
+export default ProductContent;

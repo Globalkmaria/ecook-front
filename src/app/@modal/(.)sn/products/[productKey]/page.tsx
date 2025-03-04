@@ -1,20 +1,9 @@
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from '@tanstack/react-query';
-
-import { PRODUCT_TYPES } from '@/services/requests/products';
-
-import {
-  productsOptions,
-  productOptions,
-  productRecommendOptions,
-} from '@/queries/options';
+import style from './style.module.scss';
 
 import { ProductPageParams } from '@/app/sn/products/[productKey]/page';
+import ProductPageContainer from '@/app/sn/products/[productKey]/ProductPageContainer';
 
-import ModalProduct from './ModalProduct';
+import { PageModalWrapper } from '@/components/Modal';
 
 interface Props {
   params: Promise<ProductPageParams>;
@@ -22,26 +11,13 @@ interface Props {
 
 async function ProductPage({ params }: Props) {
   const { productKey } = await params;
-  if (!productKey) return null;
-
-  const queryClient = new QueryClient();
-
-  await Promise.all([
-    queryClient.prefetchQuery(productOptions({ key: productKey })),
-    queryClient.prefetchQuery(productRecommendOptions({ key: productKey })),
-    queryClient.prefetchQuery(
-      productsOptions({
-        type: PRODUCT_TYPES.PRODUCT_KEY,
-        q: productKey,
-        nextRevalidateTime: 86400,
-      }),
-    ),
-  ]);
 
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <ModalProduct />
-    </HydrationBoundary>
+    <PageModalWrapper>
+      <div className={style.container}>
+        <ProductPageContainer productKey={productKey} />
+      </div>
+    </PageModalWrapper>
   );
 }
 
