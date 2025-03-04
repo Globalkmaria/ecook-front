@@ -1,4 +1,7 @@
-import ModalRecipe from './ModalRecipe';
+import style from './style.module.scss';
+
+import { PageModalWrapper } from '@/components/Modal';
+import RecipePageContainer from '@/app/sn/recipes/[recipeKey]/RecipePageContainer';
 
 interface Props {
   params: Promise<{ recipeKey: string }>;
@@ -6,9 +9,14 @@ interface Props {
 
 async function RecipePage({ params }: Props) {
   const { recipeKey } = await params;
-  if (!recipeKey) return null;
 
-  return <ModalRecipe recipeKey={recipeKey} />;
+  return (
+    <PageModalWrapper>
+      <div className={style['container']}>
+        <RecipePageContainer recipeKey={recipeKey} />
+      </div>
+    </PageModalWrapper>
+  );
 }
 
 export default RecipePage;
