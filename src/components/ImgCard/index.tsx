@@ -10,6 +10,7 @@ export interface ImgCardProps {
   children: React.ReactNode;
   imgProps: CustomImageProps;
   className?: string;
+  noImgContent?: React.ReactNode;
 }
 
 function ImgCardContainer({
@@ -17,13 +18,21 @@ function ImgCardContainer({
   children,
   imgProps,
   className,
+  noImgContent,
 }: ImgCardProps) {
+  const showNoImgComponent = !imgProps.src && noImgContent;
+
   const joinedClassName = className
     ? joinClassNames(style['card'], className)
     : style['card'];
+
   return (
     <Link scroll={false} href={link} className={joinedClassName}>
-      <CustomImage fill imgClassName={style['img']} {...imgProps} />
+      {showNoImgComponent ? (
+        noImgContent
+      ) : (
+        <CustomImage fill imgClassName={style['img']} {...imgProps} />
+      )}
       <div className={style['hover-darker']} />
       {children}
     </Link>
