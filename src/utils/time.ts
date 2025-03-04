@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 import { validatePositiveInteger } from './validation';
 
 export const formatTimeUnit = (
@@ -24,4 +26,16 @@ export const validateMinutes = (value: string) => {
   if (!validatePositiveInteger(value) || Number(value) > 59) return false;
 
   return true;
+};
+
+export const daysPassedSince = (inputDate: string) => {
+  const today = dayjs();
+  return today.diff(dayjs(inputDate), 'day') || 0;
+};
+
+export const dayLeftUntil = (inputDate: string) => {
+  const today = dayjs();
+  const targetDate = dayjs(inputDate);
+
+  return targetDate.diff(today, 'day') || 0;
 };

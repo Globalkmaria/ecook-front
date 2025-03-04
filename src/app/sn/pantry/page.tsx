@@ -6,7 +6,13 @@ function PantryPage() {
   return (
     <main className={style['page']}>
       <div className={style['page__container']}>
-        <h2 className={style['title']}>Pantry</h2>
+        <header className={style['header']}>
+          <h2 className={style['title']}>Pantry</h2>
+          <p className={style['description']}>
+            Track your ingredients and find recipes you can make with what you
+            have. Simple, smart, and waste-free cooking!
+          </p>
+        </header>
         <Pantry />
       </div>
     </main>

@@ -1,0 +1,29 @@
+@use '@/styles/theme.scss' as *;
+
+.pantry-box {
+  position: relative;
+  width: 100%;
+  height: 400px;
+
+  @media #{$laptopL} {
+    height: 350px;
+  }
+
+  @media #{$tablet} {
+    height: 300px;
+  }
+
+  @media #{$mobile} {
+    height: 250px;
+  }
+}
+
+.no-img-content {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: $black;
+  font-size: $front-size-24;
+}
