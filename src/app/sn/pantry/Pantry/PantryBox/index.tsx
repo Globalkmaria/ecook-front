@@ -5,6 +5,7 @@ import ImgCard from '@/components/ImgCard';
 import { getPantryBoxLink } from '@/helpers/links';
 import { dayLeftUntil, daysPassedSince } from '@/utils/time';
 import { getLeftDayChipType } from '../../helper';
+import Icon from '@/components/Icon';
 
 interface PantryBox {
   key: string;
@@ -21,7 +22,7 @@ interface Props {
 }
 
 function PantryBox({ item }: Props) {
-  const title = item.productName ?? item.ingredientName;
+  const title = `${item.ingredientName}${item.productName ? ` / ${item.productName}` : ''}`;
   const img = {
     src: item.img,
     alt: title,
@@ -36,14 +37,19 @@ function PantryBox({ item }: Props) {
       <ImgCard.Container link={link} imgProps={img} noImgContent={noImgContent}>
         <ImgCard.TopOverlay>
           <span>{title}</span>
-          <span>{item.quantity}</span>
         </ImgCard.TopOverlay>
 
         <ImgCard.BottomOverlay>
-          <ChipGroup>
-            <Chip type='info'>+ {passedDays}</Chip>
-            <Chip type={leftDayChipType}>- {leftDays}</Chip>
-          </ChipGroup>
+          <div className={style['pantry-box__bottom-overlay']}>
+            <ChipGroup>
+              <Chip type='info'>+ {passedDays}</Chip>
+              <Chip type={leftDayChipType}>- {leftDays}</Chip>
+            </ChipGroup>
+            <div className={style['quantity']}>
+              <Icon icon='box' />
+              <span>{item.quantity}</span>
+            </div>
+          </div>
         </ImgCard.BottomOverlay>
       </ImgCard.Container>
     </li>
