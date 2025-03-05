@@ -15,6 +15,7 @@ import {
 import { getLeftDayChipType } from '../../helper';
 import Chip from '@/components/Chip';
 import { PantryBox } from '.';
+import { getSign } from '@/utils/number';
 
 interface PantryBoxItemsProps {
   items: PantryBox['items'];
@@ -74,8 +75,13 @@ interface ItemProps {
 
 function Item({ item, setItems }: ItemProps) {
   const daysPassed = daysPassedSince(item.buyDate);
+  const daysPassedSign = getSign(daysPassed);
+  const daysPassedAbs = Math.abs(daysPassed);
+
   const daysLeft = dayLeftUntil(item.expireDate);
+  const daysLeftSign = getSign(daysLeft * -1);
   const leftDayChipType = getLeftDayChipType(daysLeft);
+  const daysLeftAbs = Math.abs(daysLeft);
 
   const onChange = (quantity: number) =>
     setItems((prev) =>
@@ -106,7 +112,9 @@ function Item({ item, setItems }: ItemProps) {
           value={item.buyDate}
           onChange={onDateChange}
         />
-        <Chip type='info'>+ {daysPassed}</Chip>
+        <Chip type='info'>
+          {daysPassedSign} {daysPassedAbs}
+        </Chip>
       </div>
       <div className={style['box']}>
         <span className={style['box__title']}>Expire Date</span>
@@ -116,7 +124,9 @@ function Item({ item, setItems }: ItemProps) {
           value={item.expireDate}
           onChange={onDateChange}
         />
-        <Chip type={leftDayChipType}>- {daysLeft}</Chip>
+        <Chip type={leftDayChipType}>
+          {daysLeftSign} {daysLeftAbs}
+        </Chip>
       </div>
 
       <div className={style['item__quantity']}>
