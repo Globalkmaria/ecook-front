@@ -7,7 +7,7 @@ import { useClientStore } from '@/providers/client-store-provider';
 
 import { IngredientWithProduct } from '@/services/requests/ingredients/type';
 
-import CartProduct, { QuantityInputWithDeleteButton } from '../../CartProduct';
+import CartProduct, { ItemControl } from '../../CartProduct';
 
 interface CartItemProps {
   info: IngredientWithProduct;
@@ -67,7 +67,8 @@ function NotLoggedInUserCartItem({ info }: CartItemProps) {
     <li className={style['cart-item']}>
       <div className={style['ingredient']}>{info.ingredient.name}</div>
       {ingredientAndProductsQuantity.quantity && (
-        <QuantityInputWithDeleteButton
+        <ItemControl
+          ingredientKey={ingredientKey}
           quantity={ingredientAndProductsQuantity.quantity}
           onChange={onIngredientQuantityChange}
         />
@@ -75,6 +76,7 @@ function NotLoggedInUserCartItem({ info }: CartItemProps) {
       {productKeys.map((key) => (
         <CartProduct
           key={key}
+          ingredientKey={ingredientKey}
           product={info.products[key]}
           onChange={onProductQuantityChange}
           quantity={ingredientAndProductsQuantity.products[key]}

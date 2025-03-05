@@ -11,14 +11,18 @@ import { getProductLink } from '@/helpers/links';
 
 import { CartItemInfo } from '../LoggedInUserCart/LoggedInUserCartItem';
 import IconButton from '@/components/IconButton';
+import Button from '@/components/Button';
+import { useClientStore } from '@/providers/client-store-provider';
+import { getNewPantryBox } from '@/stores/slices/pantry/helper';
 
 interface Props {
   product: Omit<CartItemInfo['products'][0], 'quantity'>;
   onChange: (productKey: string, quantity: number) => void;
   quantity: number;
+  ingredientKey: string;
 }
 
-function CartProduct({ product, onChange, quantity }: Props) {
+function CartProduct({ product, onChange, quantity, ingredientKey }: Props) {
   const productLink = getProductLink(product.key);
 
   const handleOnChange = useCallback(
@@ -53,9 +57,11 @@ function CartProduct({ product, onChange, quantity }: Props) {
         </div>
       </div>
 
-      <QuantityInputWithDeleteButton
+      <ItemControl
+        ingredientKey={ingredientKey}
         quantity={quantity}
         onChange={handleOnChange}
+        product={product}
       />
     </div>
   );
@@ -63,17 +69,41 @@ function CartProduct({ product, onChange, quantity }: Props) {
 
 export default memo(CartProduct);
 
-export function QuantityInputWithDeleteButton({
-  quantity,
-  onChange,
-}: {
+interface ItemControlProps {
+  ingredientKey: string;
+  product?: Props['product'];
   quantity: number;
   onChange: (quantity: number) => void;
-}) {
+}
+
+export function ItemControl({
+  quantity,
+  onChange,
+  product,
+  ingredientKey,
+}: ItemControlProps) {
+  const addPantryBox = useClientStore((state) => state.addPantryBox);
   const onDelete = useCallback(() => onChange(0), []);
+
+  const onAddPantryBoxClick = () => {
+    addPantryBox(
+      getNewPantryBox({
+        ingredientKey: ingredientKey,
+        productKey: product?.key,
+        quantity,
+      }),
+    );
+    onDelete();
+  };
+
   return (
-    <div className={style['quantity']}>
-      <QuantityInput quantity={quantity} onChange={onChange} />
+    <div className={style['item-control']}>
+      <div className={style['item-control__left']}>
+        <QuantityInput quantity={quantity} onChange={onChange} />
+        <Button onClick={onAddPantryBoxClick} variant='secondary'>
+          Move to pantry
+        </Button>
+      </div>
       <IconButton
         icon='trash'
         className={style['delete-button']}

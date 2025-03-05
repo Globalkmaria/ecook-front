@@ -49,7 +49,12 @@
   }
 }
 
-.quantity {
+.item-control {
   display: flex;
   justify-content: space-between;
+}
+
+.item-control__left {
+  display: flex;
+  gap: 10px;
 }
