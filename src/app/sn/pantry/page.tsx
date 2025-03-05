@@ -10,7 +10,7 @@ function PantryPage() {
           <h2 className={style['title']}>Pantry</h2>
           <p className={style['description']}>
             Track your ingredients and find recipes you can make with what you
-            have. Simple, smart, and waste-free cooking!
+            have. <br /> Simple, smart, and waste-free cooking!
           </p>
         </header>
         <Pantry />
