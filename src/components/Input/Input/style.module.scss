@@ -1,7 +1,7 @@
 @use '@/styles/theme.scss' as *;
 
 .input {
-  width: 100%;
+  flex-grow: 1;
   padding: 0.5rem;
   border-radius: 5px;
   border: 1px solid $grey300;
