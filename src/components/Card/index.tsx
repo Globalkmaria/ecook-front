@@ -18,7 +18,7 @@ interface Data {
   };
 }
 
-interface CardProps {
+export interface CardProps {
   data: Data;
   imageProps?: Omit<Partial<ImageProps>, 'src'>;
 }
