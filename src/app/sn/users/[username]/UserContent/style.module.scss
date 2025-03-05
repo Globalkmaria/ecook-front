@@ -6,7 +6,7 @@
   display: flex;
   justify-content: center;
   gap: 10px;
-  font-size: $front-size-14;
+  font-size: $font-size-14;
 
   .tab {
     width: 150px;
@@ -31,5 +31,5 @@
   justify-content: center;
   align-items: center;
   height: 100px;
-  font-size: $front-size-18;
+  font-size: $font-size-18;
 }
