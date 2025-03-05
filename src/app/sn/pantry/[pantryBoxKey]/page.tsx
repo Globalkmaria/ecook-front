@@ -1,8 +1,8 @@
 import PantryBoxPageContainer from './PantryBoxContainer';
 
-export interface PantryBoxPageParams {
+export type PantryBoxPageParams = {
   pantryBoxKey: string;
-}
+};
 
 interface PantryBoxPageProps {
   params: Promise<PantryBoxPageParams>;
