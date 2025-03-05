@@ -7,8 +7,9 @@ import { useClientStore } from '@/providers/client-store-provider';
 
 import { IngredientWithProduct } from '@/services/requests/ingredients/type';
 
+import QuantityInput from '@/app/components/common/QuantityInput';
+
 import CartProduct from '../../CartProduct';
-import QuantityInput from '../../QuantityInput';
 
 interface CartItemProps {
   info: IngredientWithProduct;

@@ -2,7 +2,8 @@ import { memo, useCallback } from 'react';
 
 import style from './style.module.scss';
 
-import QuantityInput from '../QuantityInput';
+import QuantityInput from '@/app/components/common/QuantityInput';
+
 import CartProduct from '../CartProduct';
 
 interface CartItemProduct {

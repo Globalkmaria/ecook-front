@@ -5,11 +5,11 @@ import style from './style.module.scss';
 
 import Icon, { IconProps } from '@/components/Icon';
 import CustomImage from '@/components/CustomImage';
+import QuantityInput from '@/app/components/common/QuantityInput';
 
 import { getProductLink } from '@/helpers/links';
 
 import { CartItemInfo } from '../LoggedInUserCart/LoggedInUserCartItem';
-import QuantityInput from '../QuantityInput';
 
 interface Props {
   product: Omit<CartItemInfo['products'][0], 'quantity'>;

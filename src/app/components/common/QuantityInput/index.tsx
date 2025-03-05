@@ -18,6 +18,8 @@ function QuantityInput({ quantity, onChange }: QuantityProps) {
   );
 }
 
+export default QuantityInput;
+
 function RemoveButton({ onChange }: QuantityProps) {
   const onClick = () => {
     onChange(0);
@@ -52,5 +54,3 @@ function PlusButton({ quantity, onChange }: QuantityProps) {
     </button>
   );
 }
-
-export default QuantityInput;

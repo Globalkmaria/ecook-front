@@ -2,7 +2,7 @@
 
 import style from './style.module.scss';
 
-import QuantityInput from '@/app/sn/carts/Cart/QuantityInput';
+import QuantityInput from '@/app/components/common/QuantityInput';
 import Button from '@/components/Button';
 import IconButton from '@/components/IconButton';
 import { Input } from '@/components/Input';
