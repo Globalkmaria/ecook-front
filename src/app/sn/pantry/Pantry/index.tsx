@@ -9,7 +9,7 @@ const PANTRY_BOX = {
   expireDate: '2025-03-10',
   ingredientName: 'Onion',
   productName: 'Delicious Product',
-  quantity: '1',
+  quantity: 1,
 } as const;
 
 function Pantry() {

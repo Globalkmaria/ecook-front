@@ -4,6 +4,7 @@ import Chip, { ChipGroup, ChipProps } from '@/components/Chip';
 import ImgCard from '@/components/ImgCard';
 import { getPantryBoxLink } from '@/helpers/links';
 import { dayLeftUntil, daysPassedSince } from '@/utils/time';
+import { getLeftDayChipType } from '../../helper';
 
 interface PantryBox {
   key: string;
@@ -12,7 +13,7 @@ interface PantryBox {
   expireDate: string;
   ingredientName: string;
   productName: string;
-  quantity: string;
+  quantity: number;
 }
 
 interface Props {
@@ -29,9 +30,7 @@ function PantryBox({ item }: Props) {
   const passedDays = daysPassedSince(item.buyDate);
   const leftDays = dayLeftUntil(item.expireDate);
   const noImgContent = <NoImgContent title={title} />;
-  const leftDayChipType: ChipProps['type'] =
-    leftDays < 3 ? 'warning' : 'success';
-
+  const leftDayChipType = getLeftDayChipType(leftDays);
   return (
     <li className={style['pantry-box']}>
       <ImgCard.Container link={link} imgProps={img} noImgContent={noImgContent}>

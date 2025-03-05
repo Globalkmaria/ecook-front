@@ -39,3 +39,8 @@ export const dayLeftUntil = (inputDate: string) => {
 
   return targetDate.diff(today, 'day') || 0;
 };
+
+export const getToday = () => dayjs().format('YYYY-MM-DD');
+
+export const getDateAfterToday = (days: number) =>
+  dayjs().add(days, 'day').format('YYYY-MM-DD');
