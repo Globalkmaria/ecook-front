@@ -4,7 +4,7 @@ import style from './style.module.scss';
 
 import QuantityInput from '@/app/components/common/QuantityInput';
 
-import CartProduct from '../CartProduct';
+import CartProduct, { QuantityInputWithDeleteButton } from '../CartProduct';
 
 interface CartItemProduct {
   key: string;
@@ -55,7 +55,7 @@ function LoggedInUserCartItem({ item, onQuantityChange }: CartItemProps) {
     <li className={style['cart-item']}>
       <div className={style['ingredient']}>{item.ingredient.name}</div>
       {item.ingredient.quantity && (
-        <QuantityInput
+        <QuantityInputWithDeleteButton
           quantity={item.ingredient.quantity}
           onChange={onIngredientQuantityChange}
         />

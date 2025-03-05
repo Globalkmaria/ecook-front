@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 import Link from 'next/link';
 
 import style from './style.module.scss';
@@ -10,6 +10,7 @@ import QuantityInput from '@/app/components/common/QuantityInput';
 import { getProductLink } from '@/helpers/links';
 
 import { CartItemInfo } from '../LoggedInUserCart/LoggedInUserCartItem';
+import IconButton from '@/components/IconButton';
 
 interface Props {
   product: Omit<CartItemInfo['products'][0], 'quantity'>;
@@ -19,6 +20,13 @@ interface Props {
 
 function CartProduct({ product, onChange, quantity }: Props) {
   const productLink = getProductLink(product.key);
+
+  const handleOnChange = useCallback(
+    (quantity: number) => {
+      onChange(product.key, quantity);
+    },
+    [onChange, product.key],
+  );
   return (
     <div key={product.key} className={style['cart-product']}>
       <div className={style['product']}>
@@ -44,15 +52,38 @@ function CartProduct({ product, onChange, quantity }: Props) {
           ))}
         </div>
       </div>
-      <QuantityInput
+
+      <QuantityInputWithDeleteButton
         quantity={quantity}
-        onChange={(value: number) => onChange(product.key, value)}
+        onChange={handleOnChange}
       />
     </div>
   );
 }
 
 export default memo(CartProduct);
+
+export function QuantityInputWithDeleteButton({
+  quantity,
+  onChange,
+}: {
+  quantity: number;
+  onChange: (quantity: number) => void;
+}) {
+  const onDelete = useCallback(() => onChange(0), []);
+  return (
+    <div className={style['quantity']}>
+      <QuantityInput quantity={quantity} onChange={onChange} />
+      <IconButton
+        icon='trash'
+        className={style['delete-button']}
+        onClick={onDelete}
+      >
+        Delete
+      </IconButton>
+    </div>
+  );
+}
 
 const CONTENT_VALUES = ['name', 'brand', 'purchasedFrom'] as const;
 type ContentValues = (typeof CONTENT_VALUES)[number];
