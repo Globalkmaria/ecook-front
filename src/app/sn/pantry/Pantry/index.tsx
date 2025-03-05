@@ -1,27 +1,14 @@
-import style from './style.module.scss';
+'use client';
 
-import PantryBox from './PantryBox';
+import { useClientStore } from '@/providers/client-store-provider';
 
-const PANTRY_BOX = {
-  key: '1',
-  img: '/img/bg1.png',
-  buyDate: '2025-03-01',
-  expireDate: '2025-03-10',
-  ingredientName: 'Delicious Onion Allium Cepa',
-  productName: 'Delicious Product',
-  quantity: 1,
-} as const;
+import GuestUserPantry from './GuestUserPantry';
 
 function Pantry() {
-  const array = Array.from({ length: 10 }, (_, i) => i);
+  const isLoggedIn = useClientStore((state) => state.user.isLoggedIn);
+  const Component = isLoggedIn ? GuestUserPantry : GuestUserPantry;
 
-  return (
-    <ul className={style['pantry']}>
-      {array.map((_, i) => (
-        <PantryBox key={i} item={PANTRY_BOX} />
-      ))}
-    </ul>
-  );
+  return <Component />;
 }
 
 export default Pantry;

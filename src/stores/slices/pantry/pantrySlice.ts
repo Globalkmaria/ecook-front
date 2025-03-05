@@ -5,7 +5,7 @@ import { getNewPantryBoxItem } from './helper';
 
 type PantryBoxItem = {
   key: string;
-  expiryDate: string;
+  expireDate: string;
   buyDate: string;
   quantity: number;
 };
@@ -31,8 +31,6 @@ type AddPantryBoxItemPayload = {
 
 type PantryAction = {
   resetPantry: () => void;
-  getPantryBoxes: () => PantryState['pantry']['pantryBoxes'];
-  getPantryBox: (pantryBoxKey: string) => PantryBox;
   addPantryBox: (pantryBox: PantryBox) => void;
   deletePantryBox: (pantryBoxKey: string) => void;
   addPantryBoxItem: (payload: AddPantryBoxItemPayload) => void;
@@ -56,8 +54,6 @@ export const createPantrySlice: StateCreator<
 > = (set, get) => ({
   ...initialPantryState,
   resetPantry: () => set({ ...initialPantryState }),
-  getPantryBoxes: () => get().pantry.pantryBoxes,
-  getPantryBox: (pantryBoxKey) => get().pantry.pantryBoxes[pantryBoxKey],
   addPantryBox: (pantryBox) =>
     set(
       (state) => {

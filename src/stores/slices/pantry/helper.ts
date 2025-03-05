@@ -12,10 +12,10 @@ export const getNewPantryBoxItem = ({
   ingredientKey: string;
   productKey?: string;
   quantity: number;
-}) => {
+}): PantryState['pantry']['pantryBoxes'][string]['items'][number] => {
   return {
     key: getPantryBoxKey(ingredientKey, productKey),
-    expiryDate: getDateAfterToday(7),
+    expireDate: getDateAfterToday(7),
     buyDate: getToday(),
     quantity,
   };

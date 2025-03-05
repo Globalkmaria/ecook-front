@@ -1,6 +1,6 @@
 import style from './style.module.scss';
 
-import Chip, { ChipGroup, ChipProps } from '@/components/Chip';
+import Chip, { ChipGroup } from '@/components/Chip';
 import ImgCard from '@/components/ImgCard';
 import { getPantryBoxLink } from '@/helpers/links';
 import { dayLeftUntil, daysPassedSince } from '@/utils/time';
@@ -17,21 +17,38 @@ interface PantryBox {
   quantity: number;
 }
 
-interface Props {
+interface PantryBoxProps {
   item: PantryBox;
 }
 
-function PantryBox({ item }: Props) {
+export interface PantryBoxesProps {
+  items: PantryBox[];
+}
+
+function PantryBoxes({ items }: PantryBoxesProps) {
+  return (
+    <ul className={style['pantry-boxes']}>
+      {items.map((item) => (
+        <PantryBox key={item.key} item={item} />
+      ))}
+    </ul>
+  );
+}
+
+export default PantryBoxes;
+
+function PantryBox({ item }: PantryBoxProps) {
   const title = `${item.ingredientName}${item.productName ? ` / ${item.productName}` : ''}`;
   const img = {
     src: item.img,
     alt: title,
   };
   const link = getPantryBoxLink(item.key);
+  const noImgContent = <NoImgContent title={title} />;
   const passedDays = daysPassedSince(item.buyDate);
   const leftDays = dayLeftUntil(item.expireDate);
-  const noImgContent = <NoImgContent title={title} />;
   const leftDayChipType = getLeftDayChipType(leftDays);
+
   return (
     <li className={style['pantry-box']}>
       <ImgCard.Container link={link} imgProps={img} noImgContent={noImgContent}>
@@ -55,8 +72,6 @@ function PantryBox({ item }: Props) {
     </li>
   );
 }
-
-export default PantryBox;
 
 function NoImgContent({ title }: { title: string }) {
   return (
