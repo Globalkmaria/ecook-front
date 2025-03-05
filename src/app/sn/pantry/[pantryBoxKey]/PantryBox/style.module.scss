@@ -31,6 +31,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-wrap: wrap;
 
   &__title {
     flex-shrink: 0;
@@ -52,7 +53,7 @@
 }
 
 .add-button {
-  align-self: flex-start;
+  align-self: flex-end;
 }
 
 .items {
@@ -60,7 +61,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 
-  @media #{$laptop} {
+  @media #{$laptopL} {
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
   }
@@ -78,11 +79,6 @@
   padding: 20px;
   border-radius: $borderRadiusS;
   border: 1px solid $grey400;
-}
-
-.dates {
-  display: flex;
-  gap: 10px;
 }
 
 .item__quantity {
