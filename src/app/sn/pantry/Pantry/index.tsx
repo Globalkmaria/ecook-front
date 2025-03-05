@@ -7,7 +7,7 @@ const PANTRY_BOX = {
   img: '/img/bg1.png',
   buyDate: '2025-03-01',
   expireDate: '2025-03-10',
-  ingredientName: 'Onion',
+  ingredientName: 'Delicious Onion Allium Cepa',
   productName: 'Delicious Product',
   quantity: 1,
 } as const;

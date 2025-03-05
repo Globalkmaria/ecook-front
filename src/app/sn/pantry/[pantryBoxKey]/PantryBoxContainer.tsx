@@ -1,7 +1,7 @@
 import style from './style.module.scss';
 
 import { notFound } from 'next/navigation';
-import PantryBoxContent from './PantryBox';
+import PantryBoxContent from './PantryBoxContent';
 
 interface PantryBoxPageContainerProps {
   pantryBoxKey: string;
