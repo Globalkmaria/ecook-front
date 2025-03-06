@@ -31,7 +31,7 @@ export const getPantryBoxesViewData = (
   ingredientInfo: GetIngredientsWithProductsRes,
   pantry: PantryState['pantry']['pantryBoxes'],
 ): PantryBoxesProps['items'] => {
-  const items = Object.entries(pantry).map(([_, pantryBox]) => {
+  const pantryBoxes = Object.entries(pantry).map(([_, pantryBox]) => {
     const ingredient = ingredientInfo[pantryBox.ingredientKey];
     const product = pantryBox.productKey
       ? ingredient.products[pantryBox.productKey]
@@ -48,7 +48,7 @@ export const getPantryBoxesViewData = (
     };
   });
 
-  return items;
+  return pantryBoxes;
 };
 
 const getTotalQuantity = (

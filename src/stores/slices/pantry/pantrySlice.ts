@@ -1,25 +1,25 @@
 import { StateCreator } from 'zustand';
 
 import { ClientStore } from '@/stores/clientStore';
-import { getNewPantryBoxItem } from './helper';
+import { getNewPantryBoxItem, getPantryBoxKey } from './helper';
 
-type PantryBoxItem = {
+export type PantryBoxItemState = {
   key: string;
   expireDate: string;
   buyDate: string;
   quantity: number;
 };
 
-type PantryBox = {
+type PantryBoxState = {
   key: string;
   ingredientKey: string;
   productKey?: string;
-  items: PantryBoxItem[];
+  items: PantryBoxItemState[];
 };
 
 export type PantryState = {
   pantry: {
-    pantryBoxes: { [pantryBoxKey: string]: PantryBox };
+    pantryBoxes: { [pantryBoxKey: string]: PantryBoxState };
   };
 };
 
@@ -29,17 +29,33 @@ type AddPantryBoxItemPayload = {
   quantity?: number;
 };
 
+type DeletePantryBoxItemPayload = {
+  pantryBoxKey: string;
+  pantryBoxItemKey: string;
+};
+
+type UploadPantryBoxItemPayload<T extends keyof PantryBoxItemState> = {
+  pantryBoxKey: string;
+  pantryBoxItemKey: string;
+  pantryBoxItemField: T;
+  pantryBoxItemValue: PantryBoxItemState[T];
+};
+
 type PantryAction = {
   resetPantry: () => void;
-  addPantryBox: (pantryBox: PantryBox) => void;
+  addPantryBox: (pantryBox: PantryBoxState) => void;
   deletePantryBox: (pantryBoxKey: string) => void;
   addPantryBoxItem: (payload: AddPantryBoxItemPayload) => void;
-  deletePantryBoxItem: (pantryBoxKey: string, pantryBoxItemKey: string) => void;
-  updatePantryBoxItem: <T extends keyof PantryBoxItem>(
-    pantryBoxKey: string,
-    pantryBoxItemKey: T,
-    pantryBoxItemValue: PantryBoxItem[T],
-  ) => void;
+  deletePantryBoxItem: ({
+    pantryBoxKey,
+    pantryBoxItemKey,
+  }: DeletePantryBoxItemPayload) => void;
+  updatePantryBoxItem: <T extends keyof PantryBoxItemState>({
+    pantryBoxKey,
+    pantryBoxItemKey,
+    pantryBoxItemField,
+    pantryBoxItemValue,
+  }: UploadPantryBoxItemPayload<T>) => void;
 };
 
 export type PantryStore = PantryState & PantryAction;
@@ -74,21 +90,19 @@ export const createPantrySlice: StateCreator<
   addPantryBoxItem: ({ ingredientKey, productKey, quantity = 1 }) =>
     set(
       (state) => {
-        const pantryBoxKey = `${ingredientKey}${productKey ? `-${productKey}` : ''}`;
+        const pantryBoxKey = getPantryBoxKey(ingredientKey, productKey);
         const pantryBox = state.pantry.pantryBoxes[pantryBoxKey];
-        pantryBox.items.push(
-          getNewPantryBoxItem({ ingredientKey, productKey, quantity }),
-        );
+        pantryBox.items.push(getNewPantryBoxItem(quantity));
       },
       undefined,
       'pantry/addPantryBoxItem',
     ),
 
-  deletePantryBoxItem: (pantryBoxKey, pantryBoxItemKey) =>
+  deletePantryBoxItem: ({ pantryBoxKey, pantryBoxItemKey }) =>
     set(
       (state) => {
         const pantryBox = state.pantry.pantryBoxes[pantryBoxKey];
-        if (!pantryBox || !pantryBox.items) return;
+        if (!pantryBox) return;
 
         if (pantryBox.items.length === 1) {
           delete state.pantry.pantryBoxes[pantryBoxKey];
@@ -103,7 +117,12 @@ export const createPantrySlice: StateCreator<
       'pantry/deletePantryBoxItem',
     ),
 
-  updatePantryBoxItem: (pantryBoxKey, pantryBoxItemKey, pantryBoxItemValue) =>
+  updatePantryBoxItem: ({
+    pantryBoxKey,
+    pantryBoxItemKey,
+    pantryBoxItemField,
+    pantryBoxItemValue,
+  }) =>
     set(
       (state) => {
         const pantryBox = state.pantry.pantryBoxes[pantryBoxKey];
@@ -113,7 +132,7 @@ export const createPantrySlice: StateCreator<
           if (item.key === pantryBoxItemKey) {
             return {
               ...item,
-              [pantryBoxItemKey]: pantryBoxItemValue,
+              [pantryBoxItemField]: pantryBoxItemValue,
             };
           }
           return item;

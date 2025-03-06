@@ -9,6 +9,6 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  console.error('Error:', error);
+  console.error('Pantry Box page Error:', error);
   return <ErrorContent reset={reset} />;
 }

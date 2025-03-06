@@ -1,8 +1,8 @@
 import style from './style.module.scss';
 
 import { notFound } from 'next/navigation';
-import PantryBoxContent from './PantryBoxContent';
 import PantryBoxRecipeRecommend from './PantryBoxRecipeRecommend';
+import PantryBoxInfo from './PantryBoxInfo';
 
 interface PantryBoxPageContainerProps {
   pantryBoxKey: string;
@@ -14,7 +14,7 @@ function PantryBoxPageContainer({ pantryBoxKey }: PantryBoxPageContainerProps) {
   return (
     <div className={style['page']}>
       <div className={style['page__container']}>
-        <PantryBoxContent />
+        <PantryBoxInfo />
         <PantryBoxRecipeRecommend />
       </div>
     </div>

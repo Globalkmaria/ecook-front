@@ -3,76 +3,14 @@
 import style from './style.module.scss';
 
 import CustomImage from '@/components/CustomImage';
-import { useState } from 'react';
-import PantryBoxItems from './PantryBoxItems';
+import PantryBoxItems, { PantryBoxItemsProps } from './PantryBoxItems';
+import { getTotalQuantity } from './helper';
 
-// const PANTRY_BOX: PantryBox = {
-//   key: '1',
-//   img: '',
-
-//   ingredientName: 'Onion',
-//   pantryBoxItemKey: '1',
-
-//   items: [
-//     {
-//       key: '1',
-//       buyDate: '2025-03-01',
-//       expireDate: '2025-03-10',
-//       quantity: 1,
-//     },
-//     {
-//       key: '2',
-//       buyDate: '2025-03-11',
-//       expireDate: '2025-03-20',
-//       quantity: 2,
-//     },
-//     {
-//       key: '3',
-//       buyDate: '2025-03-21',
-//       expireDate: '2025-03-30',
-//       quantity: 3,
-//     },
-//   ],
-// };
-
-const PANTRY_BOX: PantryBox = {
-  key: '1',
-  img: '/img/bg1.png',
-
-  ingredientName: 'Onion',
-  productName: 'Delicious Product',
-
-  brand: 'Organic',
-  purchasedFrom: "Trader Joe's",
-  pantryBoxItemKey: '1',
-
-  items: [
-    {
-      key: '1',
-      buyDate: '2025-03-01',
-      expireDate: '2025-03-10',
-      quantity: 1,
-    },
-    {
-      key: '2',
-      buyDate: '2025-03-11',
-      expireDate: '2025-03-20',
-      quantity: 2,
-    },
-    {
-      key: '3',
-      buyDate: '2025-03-21',
-      expireDate: '2025-03-30',
-      quantity: 3,
-    },
-  ],
-};
-
-export interface PantryBox {
+interface PantryBox {
   key: string;
   img?: string;
   ingredientName: string;
-  productName?: string;
+  productName?: string | null;
   brand?: string;
   purchasedFrom?: string;
 
@@ -85,18 +23,19 @@ export interface PantryBox {
   }[];
 }
 
-function PantryBoxContent() {
-  const pantryBox = PANTRY_BOX;
-  const [items, setItems] = useState<PantryBox['items']>(pantryBox.items);
+export type PantryBoxContentProps = {
+  pantryBox: PantryBox;
+} & Omit<PantryBoxItemsProps, 'items'>;
 
-  const totalQuantity = items.reduce((acc, item) => acc + item.quantity, 0);
+function PantryBoxContent({ pantryBox, ...restProps }: PantryBoxContentProps) {
+  const totalQuantity = getTotalQuantity(pantryBox.items);
   const title = `${pantryBox.ingredientName}${pantryBox.productName ? ` / ${pantryBox.productName}` : ''}`;
   return (
     <section className={style['pantry-box']}>
       <h1 className={style['pantry-box__title']}>{title}</h1>
       <PantryBoxImg img={pantryBox.img} alt={pantryBox.ingredientName} />
       <PantryBoxInfo pantryBox={pantryBox} totalQuantity={totalQuantity} />
-      <PantryBoxItems items={items} setItems={setItems} />
+      <PantryBoxItems items={pantryBox.items} {...restProps} />
     </section>
   );
 }
