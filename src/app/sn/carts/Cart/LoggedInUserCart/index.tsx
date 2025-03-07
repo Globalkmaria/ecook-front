@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 import { useClientStore } from '@/providers/client-store-provider';
@@ -48,10 +48,12 @@ function LoggedInUserCart() {
     [],
   );
 
-  if (isAuthError(error)) {
-    logout();
-    return;
-  }
+  useEffect(() => {
+    if (isAuthError(error)) {
+      logout();
+      return;
+    }
+  }, [error]);
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error fetching ingredients</div>;
