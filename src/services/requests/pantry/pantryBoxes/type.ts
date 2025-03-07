@@ -1,8 +1,8 @@
 export type GetPantryBoxesRes = {
   key: string;
   img: string | null;
-  buyDate: Date;
-  expireDate: Date;
+  buyDate: string;
+  expireDate: string;
   ingredientName: string;
   productName: string | null;
   quantity: number;
