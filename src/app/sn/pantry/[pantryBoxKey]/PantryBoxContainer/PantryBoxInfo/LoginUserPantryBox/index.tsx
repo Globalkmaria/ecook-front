@@ -1,4 +1,4 @@
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { PantryBoxPageParams } from '../../../page';
 import { useQuery } from '@tanstack/react-query';
 import { pantryBoxOptions } from '@/queries/options/pantry/pantryBoxOption';
@@ -11,6 +11,8 @@ import { PantryBoxItemsProps } from '../PantryBoxContent/PantryBoxItems';
 import { getNewPantryBoxItemBaseProps } from '@/stores/slices/pantry/helper';
 import { isUnauthorizedError } from '@/services/utils';
 import useLogout from '@/hooks/useLogout';
+import { PANTRY_LINK } from '@/helpers/links';
+import Anchor from '@/components/Anchor';
 
 function LoginUserPantryBox() {
   const logout = useLogout();
@@ -28,6 +30,7 @@ function LoginUserPantryBox() {
   }, [error]);
 
   if (isLoading) return <div>Loading...</div>;
+  if (data === null) return <NotFound />;
   if (isError || !data) return <div>Error</div>;
 
   return <LoginUserPantryBoxContent pantryBoxKey={pantryBoxKey} data={data} />;
@@ -82,5 +85,14 @@ function LoginUserPantryBoxContent({
       onDelete={deleteItem}
       onChange={onChange}
     />
+  );
+}
+
+function NotFound() {
+  return (
+    <div>
+      <p>Not found</p>
+      <Anchor href={PANTRY_LINK}>Go back to pantry list</Anchor>
+    </div>
   );
 }
