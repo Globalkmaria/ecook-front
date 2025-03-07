@@ -7,7 +7,7 @@ import { dayLeftUntil, daysPassedSince } from '@/utils/time';
 import { getLeftDayChipType } from '../../helper';
 import Icon from '@/components/Icon';
 
-interface PantryBox {
+interface PantryBoxData {
   key: string;
   img?: string | null;
   buyDate: string;
@@ -18,11 +18,11 @@ interface PantryBox {
 }
 
 interface PantryBoxProps {
-  item: PantryBox;
+  item: PantryBoxData;
 }
 
 export interface PantryBoxesProps {
-  items: PantryBox[];
+  items: PantryBoxData[];
 }
 
 function PantryBoxes({ items }: PantryBoxesProps) {
