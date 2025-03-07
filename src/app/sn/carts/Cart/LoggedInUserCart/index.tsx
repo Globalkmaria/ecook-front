@@ -36,13 +36,16 @@ function LoggedInUserCart() {
 
   const { mutate: addPantryBox } = useAddPantryBoxMutation();
   const onAddPantryBox: CartProductProps['onAddPantryBox'] = useCallback(
-    (args) => {
+    async (args) => {
       const newPantryBox = getNewPantryBox(args);
-      addPantryBox(newPantryBox);
-      onQuantityChange({
-        ingredientKey: args.ingredientKey,
-        productKey: args.productKey,
-        quantity: 0,
+      addPantryBox(newPantryBox, {
+        onSuccess: () => {
+          onQuantityChange({
+            ingredientKey: args.ingredientKey,
+            productKey: args.productKey,
+            quantity: 0,
+          });
+        },
       });
     },
     [],
