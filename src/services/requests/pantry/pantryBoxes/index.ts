@@ -29,6 +29,9 @@ export const addPantryBox = withSafeAsync(
     const response = await fetchAPI(BASE_URL, {
       method: 'POST',
       body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
 
     if (response.ok) return { ok: true, data: response.data };

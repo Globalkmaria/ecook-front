@@ -74,8 +74,11 @@ function NotLoggedInUserCartItem({ info }: CartItemProps) {
 
   const onAddPantryBox: CartProductProps['onAddPantryBox'] = (arg) => {
     addPantryBox(getNewPantryBox(arg));
-
-    onIngredientQuantityChange(0);
+    onQuantityChange({
+      ingredientKey,
+      productKey: arg.productKey,
+      quantity: 0,
+    });
   };
 
   return (
