@@ -95,11 +95,11 @@ function NotLoggedInMenu() {
 function Links() {
   return (
     <>
-      <Anchor variant='secondary' href={PANTRY_LINK}>
-        <Icon icon='cabinet' />
-      </Anchor>
       <Anchor variant='secondary' href={CARTS_LINK}>
         <Icon icon='cart' />
+      </Anchor>
+      <Anchor variant='secondary' href={PANTRY_LINK}>
+        <Icon icon='cabinet' />
       </Anchor>
       <Anchor variant='secondary' href={BOOKMARKS_LINK}>
         <Icon icon='book' />
