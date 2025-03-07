@@ -17,7 +17,6 @@ import Anchor from '@/components/Anchor';
 function LoginUserPantryBox() {
   const logout = useLogout();
   const { pantryBoxKey } = useParams<PantryBoxPageParams>();
-  if (!pantryBoxKey) return null;
 
   const { data, isError, isLoading, error } = useQuery(
     pantryBoxOptions({ pantryBoxKey }),
@@ -29,6 +28,7 @@ function LoginUserPantryBox() {
     }
   }, [error]);
 
+  if (!pantryBoxKey) return null;
   if (isLoading) return <div>Loading...</div>;
   if (data === null) return <NotFound />;
   if (isError || !data) return <div>Error</div>;

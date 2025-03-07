@@ -81,12 +81,6 @@ function GuestUserPantryBoxContent({
     }),
   );
 
-  if (isLoading) return <div>Loading...</div>;
-  if (!ingredientsInfo || isError) return <div>Error</div>;
-  if (!pantryBox.items.length) return null;
-
-  const data = mapPantryBoxToViewData(pantryBox, ingredientsInfo);
-
   const onAddItem = useCallback(() => {
     addPantryBoxItem({
       ingredientKey: pantryBox.ingredientKey,
@@ -125,6 +119,12 @@ function GuestUserPantryBoxContent({
     },
     [pantryBoxKey],
   );
+
+  if (isLoading) return <div>Loading...</div>;
+  if (!ingredientsInfo || isError) return <div>Error</div>;
+  if (!pantryBox.items.length) return null;
+
+  const data = mapPantryBoxToViewData(pantryBox, ingredientsInfo);
 
   return (
     <PantryBoxContent
