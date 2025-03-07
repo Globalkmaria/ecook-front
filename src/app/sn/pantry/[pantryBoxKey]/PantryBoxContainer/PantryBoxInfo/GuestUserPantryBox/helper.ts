@@ -18,7 +18,6 @@ export const mapPantryBoxToViewData = (
     productName: pantryBox.productKey ? product?.name : null,
     brand: product?.brand,
     purchasedFrom: product?.purchasedFrom,
-    pantryBoxItemKey: pantryBox.key,
     items: pantryBox.items,
   };
 };

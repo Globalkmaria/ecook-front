@@ -1,7 +1,7 @@
 export interface AddPantryItemReq {
   pantryBoxKey: string;
   buyDate: string;
-  expirationDate: string;
+  expireDate: string;
   quantity: number;
 }
 
@@ -11,5 +11,5 @@ export interface AddPantryItemRes {
 
 export interface UpdatePantryItemReq {
   name: string;
-  value: string;
+  value: string | number;
 }

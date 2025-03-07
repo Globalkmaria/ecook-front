@@ -15,7 +15,7 @@ function PantryBoxPageContainer({ pantryBoxKey }: PantryBoxPageContainerProps) {
     <div className={style['page']}>
       <div className={style['page__container']}>
         <PantryBoxInfo />
-        <PantryBoxRecipeRecommend />
+        <PantryBoxRecipeRecommend pantryBoxKey={pantryBoxKey} />
       </div>
     </div>
   );

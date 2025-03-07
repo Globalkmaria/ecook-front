@@ -8,13 +8,12 @@ import { getTotalQuantity } from './helper';
 
 interface PantryBox {
   key: string;
-  img?: string;
+  img?: string | null;
   ingredientName: string;
   productName?: string | null;
   brand?: string;
   purchasedFrom?: string;
 
-  pantryBoxItemKey: string;
   items: {
     key: string;
     buyDate: string;
@@ -42,7 +41,7 @@ function PantryBoxContent({ pantryBox, ...restProps }: PantryBoxContentProps) {
 
 export default PantryBoxContent;
 
-function PantryBoxImg({ img, alt }: { img?: string; alt: string }) {
+function PantryBoxImg({ img, alt }: { img?: string | null; alt: string }) {
   if (!img) return null;
 
   return (

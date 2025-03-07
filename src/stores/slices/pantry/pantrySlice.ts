@@ -73,6 +73,13 @@ export const createPantrySlice: StateCreator<
   addPantryBox: (pantryBox) =>
     set(
       (state) => {
+        if (state.pantry.pantryBoxes[pantryBox.key]) {
+          state.pantry.pantryBoxes[pantryBox.key].items.push(
+            pantryBox.items[0],
+          );
+          return;
+        }
+
         state.pantry.pantryBoxes[pantryBox.key] = pantryBox;
       },
       undefined,
@@ -87,12 +94,12 @@ export const createPantrySlice: StateCreator<
       'pantry/deletePantryBox',
     ),
 
-  addPantryBoxItem: ({ ingredientKey, productKey, quantity = 1 }) =>
+  addPantryBoxItem: ({ ingredientKey, productKey }) =>
     set(
       (state) => {
         const pantryBoxKey = getPantryBoxKey(ingredientKey, productKey);
         const pantryBox = state.pantry.pantryBoxes[pantryBoxKey];
-        pantryBox.items.push(getNewPantryBoxItem(quantity));
+        pantryBox.items.push(getNewPantryBoxItem({}));
       },
       undefined,
       'pantry/addPantryBoxItem',

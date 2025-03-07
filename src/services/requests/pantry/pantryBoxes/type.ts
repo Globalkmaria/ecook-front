@@ -32,8 +32,8 @@ export interface GetPantryBoxRes {
 
   items: {
     key: string;
-    buyDate: Date;
-    expireDate: Date;
+    buyDate: string;
+    expireDate: string;
     quantity: number;
   }[];
 }
