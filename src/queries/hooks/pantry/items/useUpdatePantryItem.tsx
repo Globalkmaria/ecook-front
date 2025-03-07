@@ -5,7 +5,7 @@ import { UpdatePantryItemReq } from '@/services/requests/pantry/pantryItems/type
 import { isUnauthorizedResponse } from '@/services/utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-export function useUpdatePantryItemMutation() {
+export function useUpdatePantryItemMutation(pantryBoxKey: string) {
   const logout = useLogout();
   const queryClient = useQueryClient();
 
@@ -18,15 +18,15 @@ export function useUpdatePantryItemMutation() {
       data: UpdatePantryItemReq;
     }) => {
       const response = await updatePantryItem(pantryItemKey, data);
-      if (response.ok) return { pantryItemKey };
+      if (response.ok) return;
 
       if (isUnauthorizedResponse(response.res)) logout();
 
       throw new Error('Failed to update pantry item');
     },
-    onSuccess: async (data) => {
+    onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: queryKeys.pantry.boxes.box.detail(data.pantryItemKey),
+        queryKey: queryKeys.pantry.boxes.box.detail(pantryBoxKey),
       });
     },
     onError: (error) => {

@@ -1,7 +1,7 @@
 import useLogout from '@/hooks/useLogout';
 import { queryKeys } from '@/queries/helpers';
-import { addPantryItem } from '@/services/requests/pantry/pantryItems';
-import { AddPantryItemReq } from '@/services/requests/pantry/pantryItems/type';
+import { addPantryItem } from '@/services/requests/pantry/pantryBoxes';
+import { AddPantryItemReq } from '@/services/requests/pantry/pantryBoxes/type';
 import { isUnauthorizedResponse } from '@/services/utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -10,8 +10,14 @@ export function useAddPantryItemMutation() {
   const queryClient = useQueryClient();
 
   const result = useMutation({
-    mutationFn: async (data: AddPantryItemReq) => {
-      const response = await addPantryItem(data);
+    mutationFn: async ({
+      data,
+      pantryBoxKey,
+    }: {
+      data: AddPantryItemReq;
+      pantryBoxKey: string;
+    }) => {
+      const response = await addPantryItem(data, pantryBoxKey);
 
       if (response.ok) return data;
 

@@ -17,7 +17,7 @@ export const pantryBoxRecommendOptions = ({
   query,
 }: PantryBoxRecommendOptionsProps) =>
   queryOptions({
-    queryKey: queryKeys.pantry.boxes.box.detail(pantryBoxKey),
+    queryKey: queryKeys.recommend.pantry.boxes.detail(pantryBoxKey),
     queryFn: async () => {
       const result = await getPantryBoxRecommendations({
         key: pantryBoxKey,

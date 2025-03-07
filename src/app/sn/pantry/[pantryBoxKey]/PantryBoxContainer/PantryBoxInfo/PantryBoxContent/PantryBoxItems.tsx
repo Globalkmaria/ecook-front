@@ -6,7 +6,7 @@ import QuantityInput from '@/app/components/common/QuantityInput';
 import Button from '@/components/Button';
 import IconButton from '@/components/IconButton';
 import { Input } from '@/components/Input';
-import { dayLeftUntil, daysPassedSince } from '@/utils/time';
+import { dayLeftUntil, daysPassedSince, formateDate } from '@/utils/time';
 import Chip from '@/components/Chip';
 import { PantryBoxContentProps } from '.';
 import { getSign } from '@/utils/number';
@@ -65,11 +65,13 @@ interface ItemProps {
 }
 
 function Item({ item, onDelete, onChange }: ItemProps) {
-  const daysPassed = daysPassedSince(item.buyDate);
+  const formatBuyDate = formateDate(item.buyDate);
+  const daysPassed = daysPassedSince(formatBuyDate);
   const daysPassedSign = getSign(daysPassed);
   const daysPassedAbs = Math.abs(daysPassed);
 
-  const daysLeft = dayLeftUntil(item.expireDate);
+  const formatExpireDate = formateDate(item.expireDate);
+  const daysLeft = dayLeftUntil(formatExpireDate);
   const daysLeftSign = getSign(daysLeft * -1);
   const leftDayChipType = getLeftDayChipType(daysLeft);
   const daysLeftAbs = Math.abs(daysLeft);
@@ -97,7 +99,7 @@ function Item({ item, onDelete, onChange }: ItemProps) {
         <Input
           name='buyDate'
           type='date'
-          value={item.buyDate}
+          value={formatBuyDate}
           onChange={onDateChange}
         />
         <Chip type='info'>
@@ -109,7 +111,7 @@ function Item({ item, onDelete, onChange }: ItemProps) {
         <Input
           name='expireDate'
           type='date'
-          value={item.expireDate}
+          value={formatExpireDate}
           onChange={onDateChange}
         />
         <Chip type={leftDayChipType}>

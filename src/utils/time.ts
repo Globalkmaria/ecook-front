@@ -44,3 +44,5 @@ export const getToday = () => dayjs().format('YYYY-MM-DD');
 
 export const getDateAfterToday = (days: number) =>
   dayjs().add(days, 'day').format('YYYY-MM-DD');
+
+export const formateDate = (date: string) => dayjs(date).format('YYYY-MM-DD');

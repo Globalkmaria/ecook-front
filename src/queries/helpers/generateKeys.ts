@@ -67,7 +67,7 @@ const productsKeys = {
 const ingredientsKeys = {
   all: () => ['ingredients'],
   products: (items: GetIngredientsWithProductsReq['items']) => [
-    ...queryKeys.ingredients.all(),
+    ...ingredientsKeys.all(),
     'products',
     items,
   ],
@@ -76,25 +76,35 @@ const ingredientsKeys = {
 const cartsKeys = {
   all: () => ['carts'],
   user: {
-    all: (username: string) => [...queryKeys.carts.all(), 'user', { username }],
-    list: (username: string) => [...queryKeys.carts.user.all(username), 'list'],
+    all: (username: string) => [...cartsKeys.all(), 'user', username],
+    list: (username: string) => [...cartsKeys.user.all(username), 'list'],
   },
 } as const;
 
 const pantryKeys = {
   all: () => ['pantry'],
   boxes: {
-    all: () => [...queryKeys.pantry.all(), 'boxes'],
-    list: () => [...queryKeys.pantry.boxes.all(), 'list'],
+    all: () => [...pantryKeys.all(), 'boxes'],
+    list: () => [...pantryKeys.boxes.all(), 'list'],
     box: {
-      all: (boxKey: string) => [...queryKeys.pantry.all(), 'box', { boxKey }],
+      all: (boxKey: string) => [...pantryKeys.all(), 'box', boxKey],
       detail: (boxKey: string) => [
-        ...queryKeys.pantry.boxes.box.all(boxKey),
+        ...pantryKeys.boxes.box.all(boxKey),
         'detail',
       ],
-      recommend: (boxKey: string) => [
-        ...queryKeys.pantry.boxes.box.all(boxKey),
-        'recommend',
+    },
+  },
+} as const;
+
+const recommendKeys = {
+  all: () => ['recommend'],
+  pantry: {
+    all: () => [...recommendKeys.all(), 'pantry'],
+    boxes: {
+      all: () => [...recommendKeys.pantry.all(), 'boxes'],
+      detail: (pantryBoxKey: string) => [
+        ...recommendKeys.pantry.boxes.all(),
+        pantryBoxKey,
       ],
     },
   },
@@ -108,6 +118,7 @@ export const queryKeys = {
   ingredients: ingredientsKeys,
   carts: cartsKeys,
   pantry: pantryKeys,
+  recommend: recommendKeys,
 } as const;
 
 export const mutationKeys = {

@@ -8,6 +8,7 @@ import {
   GetPantryBoxesRes,
   GetPantryBoxRes,
 } from './type';
+import { AddPantryItemReq, AddPantryItemRes } from './type';
 
 const BASE_URL = '/pantry/boxes';
 
@@ -66,6 +67,28 @@ export const deletePantryBox = withSafeAsync(
 
     throw new AsyncError(
       createAsyncErrorMessage(response.res, 'Failed to delete pantry box'),
+      response.res,
+    );
+  },
+);
+
+export const addPantryItem = withSafeAsync(
+  async (
+    data: AddPantryItemReq,
+    key: string,
+  ): FetchResult<AddPantryItemRes> => {
+    const response = await fetchAPI(`${BASE_URL}/${key}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) return { ok: true, data: response.data };
+
+    throw new AsyncError(
+      createAsyncErrorMessage(response.res, 'Failed to add pantry item'),
       response.res,
     );
   },

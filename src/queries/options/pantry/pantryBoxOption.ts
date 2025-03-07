@@ -9,8 +9,8 @@ interface Props {
 }
 
 export const pantryBoxOptions = ({
-  staleTime = STALE_TIME,
   pantryBoxKey,
+  staleTime = STALE_TIME,
 }: Props) =>
   queryOptions({
     queryKey: queryKeys.pantry.boxes.box.detail(pantryBoxKey),

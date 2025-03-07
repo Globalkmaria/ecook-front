@@ -37,3 +37,14 @@ export interface GetPantryBoxRes {
     quantity: number;
   }[];
 }
+
+export interface AddPantryItemReq {
+  pantryBoxKey: string;
+  buyDate: string;
+  expireDate: string;
+  quantity: number;
+}
+
+export interface AddPantryItemRes {
+  pantryItemKey: string;
+}
