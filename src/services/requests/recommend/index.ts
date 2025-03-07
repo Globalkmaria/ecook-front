@@ -1,4 +1,4 @@
-import { fetchAPI } from '@/services/api';
+import { fetchAPI, FetchAPIOptions } from '@/services/api';
 
 import { FetchResult } from '../../type';
 import { RecipeRecommendations, RecommendRecipe } from './type';
@@ -22,8 +22,14 @@ export const getHomeRecommendations = withSafeAsync(
 );
 
 export const getPantryBoxRecommendations = withSafeAsync(
-  async (key: string): FetchResult<RecommendRecipe[]> => {
-    const response = await fetchAPI(`/recommend/pantry/boxes/${key}`);
+  async ({
+    key,
+    options,
+  }: {
+    key: string;
+    options?: FetchAPIOptions;
+  }): FetchResult<RecommendRecipe[]> => {
+    const response = await fetchAPI(`/recommend/pantry/boxes/${key}`, options);
 
     if (response.ok) return { ok: true, data: response.data };
 

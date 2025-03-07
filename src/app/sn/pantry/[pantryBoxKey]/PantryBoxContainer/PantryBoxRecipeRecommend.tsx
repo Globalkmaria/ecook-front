@@ -1,18 +1,32 @@
+'use client';
+
 import RecipeRecommend from '@/app/components/common/RecipeRecommend';
-import { RECIPE_RECOMMEND_LIST_MOCK_DATA } from '@/app/components/common/RecipeRecommend/mockData';
-import { getPantryBoxRecommendations } from '@/services/requests/recommend';
+import { useClientStore } from '@/providers/client-store-provider';
+import { PantryBoxPageParams } from '../page';
+import { useParams } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+import { pantryBoxRecommendOptions } from '@/queries/options/recommend/pantryBoxRecommendOptions';
 
-interface Props {
-  pantryBoxKey: string;
-}
+function PantryBoxRecipeRecommend() {
+  const { pantryBoxKey } = useParams<PantryBoxPageParams>();
+  const pantryBox = useClientStore(
+    (state) => state.pantry.pantryBoxes[pantryBoxKey],
+  );
 
-async function PantryBoxRecipeRecommend({ pantryBoxKey }: Props) {
-  const data = await getPantryBoxRecommendations(pantryBoxKey);
-  if (!data.ok) {
+  const query = {
+    ingredientKey: pantryBox?.ingredientKey,
+    productKey: pantryBox?.productKey,
+  };
+  const { data, isError, isLoading } = useQuery(
+    pantryBoxRecommendOptions({ pantryBoxKey, query }),
+  );
+
+  if (isLoading) return <div>Loading... </div>;
+  if (isError || !data) {
     console.error('Failed to fetch pantry box recommendations');
     return null;
   }
-  return <RecipeRecommend data={RECIPE_RECOMMEND_LIST_MOCK_DATA} />;
+  return <RecipeRecommend data={data} />;
 }
 
 export default PantryBoxRecipeRecommend;
