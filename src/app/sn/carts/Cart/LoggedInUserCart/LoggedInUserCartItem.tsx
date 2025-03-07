@@ -2,38 +2,32 @@ import { memo, useCallback } from 'react';
 
 import style from './style.module.scss';
 
-import QuantityInput from '@/app/components/common/QuantityInput';
+import CartProduct, {
+  CartItemInfo,
+  CartItemProduct,
+  CartProductProps,
+  CartItemControl,
+} from '../CartProduct';
 
-import CartProduct, { ItemControl } from '../CartProduct';
-
-interface CartItemProduct {
-  key: string;
-  name: string;
-  brand: string;
-  purchasedFrom: string;
-  img: string;
-  quantity: number;
-}
-
-export interface CartItemInfo {
-  ingredient: { name: string; key: string; quantity?: number };
-  products: CartItemProduct[];
-}
-
-export interface CartItemProps {
-  item: CartItemInfo;
-  onQuantityChange: ({
-    ingredientKey,
-    productKey,
-    quantity,
-  }: {
+export interface LoggedInUserCartItemProps {
+  item: Pick<CartItemInfo, 'ingredient'> & {
+    products: (CartItemProduct & {
+      quantity: number;
+    })[];
+  };
+  onQuantityChange: (args: {
     ingredientKey: string;
     productKey?: string;
     quantity: number;
   }) => void;
+  onAddPantryBox: CartProductProps['onAddPantryBox'];
 }
 
-function LoggedInUserCartItem({ item, onQuantityChange }: CartItemProps) {
+function LoggedInUserCartItem({
+  item,
+  onQuantityChange,
+  onAddPantryBox,
+}: LoggedInUserCartItemProps) {
   const onIngredientQuantityChange = useCallback((quantity: number) => {
     onQuantityChange({
       ingredientKey: item.ingredient.key,
@@ -55,10 +49,11 @@ function LoggedInUserCartItem({ item, onQuantityChange }: CartItemProps) {
     <li className={style['cart-item']}>
       <div className={style['ingredient']}>{item.ingredient.name}</div>
       {item.ingredient.quantity && (
-        <ItemControl
+        <CartItemControl
           ingredientKey={item.ingredient.key}
           quantity={item.ingredient.quantity}
           onChange={onIngredientQuantityChange}
+          onAddPantryBox={onAddPantryBox}
         />
       )}
       {item.products.map((product) => (
@@ -68,6 +63,7 @@ function LoggedInUserCartItem({ item, onQuantityChange }: CartItemProps) {
           product={product}
           onChange={onProductQuantityChange}
           quantity={product.quantity}
+          onAddPantryBox={onAddPantryBox}
         />
       ))}
     </li>

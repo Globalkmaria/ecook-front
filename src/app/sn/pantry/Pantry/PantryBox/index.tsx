@@ -9,11 +9,11 @@ import Icon from '@/components/Icon';
 
 interface PantryBox {
   key: string;
-  img: string;
+  img?: string | null;
   buyDate: string;
   expireDate: string;
   ingredientName: string;
-  productName: string;
+  productName?: string | null;
   quantity: number;
 }
 
@@ -40,7 +40,7 @@ export default PantryBoxes;
 function PantryBox({ item }: PantryBoxProps) {
   const title = `${item.ingredientName}${item.productName ? ` / ${item.productName}` : ''}`;
   const img = {
-    src: item.img,
+    src: item.img || '',
     alt: title,
   };
   const link = getPantryBoxLink(item.key);

@@ -7,7 +7,11 @@ import { useClientStore } from '@/providers/client-store-provider';
 
 import { IngredientWithProduct } from '@/services/requests/ingredients/type';
 
-import CartProduct, { ItemControl } from '../../CartProduct';
+import CartProduct, {
+  CartProductProps,
+  CartItemControl,
+} from '../../CartProduct';
+import { getNewPantryBox } from '@/stores/slices/pantry/helper';
 
 interface CartItemProps {
   info: IngredientWithProduct;
@@ -22,14 +26,19 @@ type onQuantityChangeParams = {
 function NotLoggedInUserCartItem({ info }: CartItemProps) {
   const ingredientKey = info.ingredient.key;
 
-  const [removeCartItem, updateQuantity, ingredientAndProductsQuantity] =
-    useClientStore(
-      useShallow((state) => [
-        state.removeCartItem,
-        state.updateQuantity,
-        state.getCartIngredientQuantity({ ingredientKey }),
-      ]),
-    );
+  const [
+    addPantryBox,
+    removeCartItem,
+    updateQuantity,
+    ingredientAndProductsQuantity,
+  ] = useClientStore(
+    useShallow((state) => [
+      state.addPantryBox,
+      state.removeCartItem,
+      state.updateQuantity,
+      state.getCartIngredientQuantity({ ingredientKey }),
+    ]),
+  );
 
   const productKeys = Object.keys(ingredientAndProductsQuantity.products);
 
@@ -63,14 +72,21 @@ function NotLoggedInUserCartItem({ info }: CartItemProps) {
     [],
   );
 
+  const onAddPantryBox: CartProductProps['onAddPantryBox'] = (arg) => {
+    addPantryBox(getNewPantryBox(arg));
+
+    onIngredientQuantityChange(0);
+  };
+
   return (
     <li className={style['cart-item']}>
       <div className={style['ingredient']}>{info.ingredient.name}</div>
       {ingredientAndProductsQuantity.quantity && (
-        <ItemControl
+        <CartItemControl
           ingredientKey={ingredientKey}
           quantity={ingredientAndProductsQuantity.quantity}
           onChange={onIngredientQuantityChange}
+          onAddPantryBox={onAddPantryBox}
         />
       )}
       {productKeys.map((key) => (
@@ -80,6 +96,7 @@ function NotLoggedInUserCartItem({ info }: CartItemProps) {
           product={info.products[key]}
           onChange={onProductQuantityChange}
           quantity={ingredientAndProductsQuantity.products[key]}
+          onAddPantryBox={onAddPantryBox}
         />
       ))}
     </li>

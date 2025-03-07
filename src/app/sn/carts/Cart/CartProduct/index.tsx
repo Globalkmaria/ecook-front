@@ -9,20 +9,37 @@ import QuantityInput from '@/app/components/common/QuantityInput';
 
 import { getProductLink } from '@/helpers/links';
 
-import { CartItemInfo } from '../LoggedInUserCart/LoggedInUserCartItem';
 import IconButton from '@/components/IconButton';
 import Button from '@/components/Button';
-import { useClientStore } from '@/providers/client-store-provider';
-import { getNewPantryBox } from '@/stores/slices/pantry/helper';
 
-interface Props {
-  product: Omit<CartItemInfo['products'][0], 'quantity'>;
+export interface CartItemProduct {
+  key: string;
+  name: string;
+  brand: string;
+  purchasedFrom: string;
+  img: string;
+}
+
+export interface CartItemInfo {
+  ingredient: { name: string; key: string; quantity?: number };
+  products: CartItemProduct[];
+}
+
+export interface CartProductProps {
+  product: CartItemProduct;
   onChange: (productKey: string, quantity: number) => void;
   quantity: number;
   ingredientKey: string;
+  onAddPantryBox: CartItemControlProps['onAddPantryBox'];
 }
 
-function CartProduct({ product, onChange, quantity, ingredientKey }: Props) {
+function CartProduct({
+  product,
+  onChange,
+  quantity,
+  ingredientKey,
+  onAddPantryBox,
+}: CartProductProps) {
   const productLink = getProductLink(product.key);
 
   const handleOnChange = useCallback(
@@ -57,11 +74,12 @@ function CartProduct({ product, onChange, quantity, ingredientKey }: Props) {
         </div>
       </div>
 
-      <ItemControl
+      <CartItemControl
         ingredientKey={ingredientKey}
         quantity={quantity}
         onChange={handleOnChange}
         product={product}
+        onAddPantryBox={onAddPantryBox}
       />
     </div>
   );
@@ -69,31 +87,33 @@ function CartProduct({ product, onChange, quantity, ingredientKey }: Props) {
 
 export default memo(CartProduct);
 
-interface ItemControlProps {
+interface CartItemControlProps {
   ingredientKey: string;
-  product?: Props['product'];
+  product?: CartItemProduct;
   quantity: number;
   onChange: (quantity: number) => void;
+  onAddPantryBox: (args: {
+    ingredientKey: string;
+    productKey?: string;
+    quantity: number;
+  }) => void;
 }
 
-export function ItemControl({
+export const CartItemControl = memo(function ItemControl({
   quantity,
   onChange,
   product,
   ingredientKey,
-}: ItemControlProps) {
-  const addPantryBox = useClientStore((state) => state.addPantryBox);
+  onAddPantryBox,
+}: CartItemControlProps) {
   const onDelete = useCallback(() => onChange(0), []);
 
   const onAddPantryBoxClick = () => {
-    addPantryBox(
-      getNewPantryBox({
-        ingredientKey: ingredientKey,
-        productKey: product?.key,
-        quantity,
-      }),
-    );
-    onDelete();
+    onAddPantryBox({
+      ingredientKey,
+      productKey: product?.key,
+      quantity,
+    });
   };
 
   return (
@@ -113,7 +133,7 @@ export function ItemControl({
       </IconButton>
     </div>
   );
-}
+});
 
 const CONTENT_VALUES = ['name', 'brand', 'purchasedFrom'] as const;
 type ContentValues = (typeof CONTENT_VALUES)[number];

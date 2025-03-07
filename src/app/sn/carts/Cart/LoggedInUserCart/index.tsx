@@ -10,7 +10,10 @@ import useLogout from '@/hooks/useLogout';
 import { userCartOptions } from '@/queries/options/carts/userCartOptions';
 import { useUpdateCartItemQuantityMutation } from '@/queries/hooks';
 
-import CartItem, { CartItemProps } from './LoggedInUserCartItem';
+import CartItem, { LoggedInUserCartItemProps } from './LoggedInUserCartItem';
+import { useAddPantryBoxMutation } from '@/queries/hooks/pantry/boxes/useAddPantryBox';
+import { CartProductProps } from '../CartProduct';
+import { getNewPantryBox } from './helper';
 
 function LoggedInUserCart() {
   const username = useClientStore((state) => state.user?.username);
@@ -22,12 +25,24 @@ function LoggedInUserCart() {
     }),
   );
   const { mutate } = useUpdateCartItemQuantityMutation();
-  const onQuantityChange: CartItemProps['onQuantityChange'] = useCallback(
-    ({ ingredientKey, productKey, quantity }) => {
+  const onQuantityChange: LoggedInUserCartItemProps['onQuantityChange'] =
+    useCallback(({ ingredientKey, productKey, quantity }) => {
       mutate({
         ingredientKey,
         productKey,
         quantity,
+      });
+    }, []);
+
+  const { mutate: addPantryBox } = useAddPantryBoxMutation();
+  const onAddPantryBox: CartProductProps['onAddPantryBox'] = useCallback(
+    (args) => {
+      const newPantryBox = getNewPantryBox(args);
+      addPantryBox(newPantryBox);
+      onQuantityChange({
+        ingredientKey: args.ingredientKey,
+        productKey: args.productKey,
+        quantity: 0,
       });
     },
     [],
@@ -50,6 +65,7 @@ function LoggedInUserCart() {
           key={item.ingredient.key}
           item={item}
           onQuantityChange={onQuantityChange}
+          onAddPantryBox={onAddPantryBox}
         />
       ))}
     </>
