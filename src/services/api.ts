@@ -6,9 +6,13 @@ export const fetchURL = async (url: string, options?: RequestInit) => {
   return res.json();
 };
 
+export interface FetchAPIOptions extends RequestInit {
+  query?: Record<string, string | number | boolean | undefined | null>;
+}
+
 export const fetchAPI = async (
   url: string,
-  options?: RequestInit,
+  options: FetchAPIOptions = {},
 ): Promise<{
   ok: boolean;
   data: any;
@@ -17,7 +21,10 @@ export const fetchAPI = async (
   const baseURL =
     process.env.PUBLIC_SERVER_URL || process.env.NEXT_PUBLIC_SERVER_URL;
 
-  const res = await fetch(`${baseURL}${url}`, {
+  const qs = toQueryString(options.query);
+  const finalURL = `${baseURL}${url}${qs}`;
+
+  const res = await fetch(finalURL, {
     ...options,
     credentials: 'include',
   });
@@ -54,3 +61,18 @@ export const fetchAPI = async (
 
   throw new Error(`Error: ${res.status}`);
 };
+
+function toQueryString(query?: Record<string, any>) {
+  if (!query) return '';
+
+  const queryParts: string[] = [];
+
+  for (const [key, value] of Object.entries(query)) {
+    if (value === undefined || value === null) continue;
+    queryParts.push(
+      encodeURIComponent(key) + '=' + encodeURIComponent(String(value)),
+    );
+  }
+
+  return queryParts.length ? '?' + queryParts.join('&') : '';
+}
