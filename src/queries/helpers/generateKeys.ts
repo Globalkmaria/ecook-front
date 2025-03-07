@@ -81,6 +81,25 @@ const cartsKeys = {
   },
 } as const;
 
+const pantryKeys = {
+  all: () => ['pantry'],
+  boxes: {
+    all: () => [...queryKeys.pantry.all(), 'boxes'],
+    list: () => [...queryKeys.pantry.boxes.all(), 'list'],
+    box: {
+      all: (boxKey: string) => [...queryKeys.pantry.all(), 'box', { boxKey }],
+      detail: (boxKey: string) => [
+        ...queryKeys.pantry.boxes.box.all(boxKey),
+        'detail',
+      ],
+      recommend: (boxKey: string) => [
+        ...queryKeys.pantry.boxes.box.all(boxKey),
+        'recommend',
+      ],
+    },
+  },
+} as const;
+
 export const queryKeys = {
   recipes: recipesKeys,
   users: usersKeys,
@@ -88,6 +107,7 @@ export const queryKeys = {
   products: productsKeys,
   ingredients: ingredientsKeys,
   carts: cartsKeys,
+  pantry: pantryKeys,
 } as const;
 
 export const mutationKeys = {

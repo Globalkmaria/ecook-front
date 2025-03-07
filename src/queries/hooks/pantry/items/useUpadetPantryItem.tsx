@@ -1,0 +1,38 @@
+import useLogout from '@/hooks/useLogout';
+import { queryKeys } from '@/queries/helpers';
+import { updatePantryItem } from '@/services/requests/pantry/pantryItems';
+import { UpdatePantryItemReq } from '@/services/requests/pantry/pantryItems/type';
+import { isUnauthorizedResponse } from '@/services/utils';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+export function useUpdatePantryItemMutation() {
+  const logout = useLogout();
+  const queryClient = useQueryClient();
+
+  const result = useMutation({
+    mutationFn: async ({
+      pantryItemKey,
+      data,
+    }: {
+      pantryItemKey: string;
+      data: UpdatePantryItemReq;
+    }) => {
+      const response = await updatePantryItem(pantryItemKey, data);
+      if (response.ok) return { pantryItemKey };
+
+      if (isUnauthorizedResponse(response.res)) logout();
+
+      throw new Error('Failed to update pantry item');
+    },
+    onSuccess: async (data) => {
+      await queryClient.invalidateQueries({
+        queryKey: queryKeys.pantry.boxes.box.detail(data.pantryItemKey),
+      });
+    },
+    onError: (error) => {
+      console.error(error);
+      alert('Failed to update pantry item.');
+    },
+  });
+  return result;
+}
