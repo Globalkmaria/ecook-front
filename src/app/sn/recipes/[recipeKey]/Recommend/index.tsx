@@ -1,14 +1,16 @@
-import style from './style.module.scss';
+'use client';
 
-import List from './List';
+import { RecipePageParams } from '../page';
+import { recipeRecommendOptions } from '@/queries/options';
+import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'next/navigation';
+import RecipeRecommend from '@/app/components/common/RecipeRecommend';
 
 function Recommend() {
-  return (
-    <section className={style['recommend']}>
-      <h2 className={style['title']}>Explore more recipes</h2>
-      <List />
-    </section>
-  );
+  const params = useParams<RecipePageParams>();
+  const result = useQuery(recipeRecommendOptions({ key: params.recipeKey }));
+
+  return <RecipeRecommend {...result} />;
 }
 
 export default Recommend;

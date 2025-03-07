@@ -17,16 +17,9 @@ function PantryBoxRecipeRecommend() {
     ingredientKey: pantryBox?.ingredientKey,
     productKey: pantryBox?.productKey,
   };
-  const { data, isError, isLoading } = useQuery(
-    pantryBoxRecommendOptions({ pantryBoxKey, query }),
-  );
 
-  if (isLoading) return <div>Loading... </div>;
-  if (isError || !data) {
-    console.error('Failed to fetch pantry box recommendations');
-    return null;
-  }
-  return <RecipeRecommend data={data} />;
+  const result = useQuery(pantryBoxRecommendOptions({ pantryBoxKey, query }));
+  return <RecipeRecommend {...result} />;
 }
 
 export default PantryBoxRecipeRecommend;

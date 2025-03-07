@@ -6,11 +6,9 @@ import RecipeRecommend from '@/app/components/common/RecipeRecommend';
 
 function ProductRecommend() {
   const params = useParams<ProductPageParams>();
-  const { data, isError } = useQuery(
-    productRecommendOptions({ key: params.productKey }),
-  );
+  const result = useQuery(productRecommendOptions({ key: params.productKey }));
 
-  return <RecipeRecommend data={data} isError={isError} />;
+  return <RecipeRecommend {...result} />;
 }
 
 export default ProductRecommend;
