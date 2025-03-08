@@ -31,6 +31,9 @@ export function useUpdatePantryItemMutation(pantryBoxKey: string) {
       await queryClient.invalidateQueries({
         queryKey: queryKeys.pantry.boxes.box.detail(pantryBoxKey),
       });
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.pantry.boxes.list(),
+      });
     },
     onError: (error) => {
       console.error(error);
