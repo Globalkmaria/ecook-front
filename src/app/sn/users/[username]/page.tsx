@@ -1,18 +1,10 @@
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
-
-import style from './style.module.scss';
-
-import { getProfile } from '@/services/requests/users';
-import { getHomeRecipes } from '@/services/requests/home';
-import { PRODUCT_TYPES } from '@/services/requests/products';
-
-import { ECOOK_LOGO_URL } from '@/const/contLinks';
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 import {
   productsOptions,
@@ -20,8 +12,14 @@ import {
   profileOptions,
 } from '@/queries/options';
 
-import UserProfile from './UserProfile';
+import { ECOOK_LOGO_URL } from '@/const/contLinks';
+import { getHomeRecipes } from '@/services/requests/home';
+import { PRODUCT_TYPES } from '@/services/requests/products';
+import { getProfile } from '@/services/requests/users';
+
+import style from './style.module.scss';
 import UserContent from './UserContent';
+import UserProfile from './UserProfile';
 
 export type UserPageParams = {
   username: string;

@@ -1,19 +1,19 @@
 'use client';
 
 import { useCallback, useState, useTransition } from 'react';
-import Link from 'next/link';
 
-import style from './style.module.scss';
+import Link from 'next/link';
 
 import { createInputHandler } from '@/utils/createInputHandler';
 
 import { LOGIN_LINK } from '@/helpers/links';
 
-import { Input } from '@/components/Input';
 import ImageUploader from '@/components/imageUploader';
+import { Input } from '@/components/Input';
 
-import ValidateUsernameButton from './ValidateUsernameButton';
 import SignupSubmitButton from './SignupSubmitButton';
+import style from './style.module.scss';
+import ValidateUsernameButton from './ValidateUsernameButton';
 
 export interface SignupFormState {
   username: string;

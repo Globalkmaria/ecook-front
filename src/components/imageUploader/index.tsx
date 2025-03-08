@@ -1,13 +1,13 @@
 'use client';
 
 import React, { memo } from 'react';
-import dynamic from 'next/dynamic';
 
-import style from './style.module.scss';
+import dynamic from 'next/dynamic';
 
 import { joinClassNames } from '@/utils/style';
 
 import { ImageUploaderContentProps } from './ImageUploaderContent';
+import style from './style.module.scss';
 
 const ImageUploaderContent = dynamic(
   () => import('@/components/imageUploader/ImageUploaderContent'),

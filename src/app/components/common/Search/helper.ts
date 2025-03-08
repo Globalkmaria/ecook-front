@@ -1,9 +1,10 @@
+import { lightTrim, replaceHyphensWithSpaces } from '@/utils/normalize';
+
 import {
   SEARCH_MENU_DEFAULT,
   SEARCH_MENU_VALUES,
   SearchMenuValue,
 } from '@/const/searchMenu';
-import { lightTrim, replaceHyphensWithSpaces } from '@/utils/normalize';
 
 export const getSearchQuery = (value: string | null) =>
   lightTrim(replaceHyphensWithSpaces(value ?? ''));

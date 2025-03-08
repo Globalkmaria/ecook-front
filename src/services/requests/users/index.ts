@@ -1,12 +1,13 @@
 import { fetchAPI } from '@/services/api';
-import { FetchResult } from '../../type';
+import { AsyncError } from '@/services/helpers';
+
 import {
   Profile,
   CheckUsernameAvailabilityRes,
   GetUserBookmarkedRecipesRes,
 } from './type';
+import { FetchResult } from '../../type';
 import { createAsyncErrorMessage, withSafeAsync } from '../../utils';
-import { AsyncError } from '@/services/helpers';
 
 export const getProfile = withSafeAsync(
   async (username: string, options?: RequestInit): FetchResult<Profile> => {

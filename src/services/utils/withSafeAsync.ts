@@ -1,4 +1,5 @@
 import { AsyncError } from '@/services/helpers';
+
 import { FetchResult } from '../type';
 
 function withSafeAsync<T, U extends V[], V>(

@@ -1,8 +1,10 @@
 import { AnchorHTMLAttributes, ReactNode } from 'react';
+
 import Link, { LinkProps } from 'next/link';
 
-import style from './style.module.scss';
 import { joinClassNames } from '@/utils/style';
+
+import style from './style.module.scss';
 
 interface BaseProps {
   variant?: 'primary' | 'secondary' | 'success' | 'danger';

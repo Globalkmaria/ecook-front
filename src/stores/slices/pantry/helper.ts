@@ -1,6 +1,7 @@
-import { getDateAfterToday, getToday } from '@/utils/time';
-import { PantryState } from './pantrySlice';
 import { getRandomId } from '@/utils/generateId';
+import { getDateAfterToday, getToday } from '@/utils/time';
+
+import { PantryState } from './pantrySlice';
 
 export const getPantryBoxKey = (ingredientKey: string, productKey?: string) =>
   `${ingredientKey}${productKey ? `-${productKey}` : ''}`;

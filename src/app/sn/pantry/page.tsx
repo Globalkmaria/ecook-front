@@ -1,6 +1,5 @@
-import style from './style.module.scss';
-
 import Pantry from './Pantry';
+import style from './style.module.scss';
 
 function PantryPage() {
   return (

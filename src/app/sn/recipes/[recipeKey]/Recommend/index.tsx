@@ -1,10 +1,13 @@
 'use client';
 
-import { RecipePageParams } from '../page';
-import { recipeRecommendOptions } from '@/queries/options';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
+
+import { recipeRecommendOptions } from '@/queries/options';
+
 import RecipeRecommend from '@/app/components/common/RecipeRecommend';
+
+import { RecipePageParams } from '../page';
 
 function Recommend() {
   const params = useParams<RecipePageParams>();

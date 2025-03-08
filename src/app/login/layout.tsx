@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 
 import style from './layout.module.scss';
-
 import Logo from '../components/layout/Logo';
 
 export const metadata: Metadata = {

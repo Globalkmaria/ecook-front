@@ -1,10 +1,11 @@
 import { useTransition } from 'react';
 
-import style from './style.module.scss';
-
 import Button from '@/components/Button';
-import { validateSignupUsernameAndAlert } from './helper';
+
 import { checkUsernameAvailability } from '@/services/requests/users';
+
+import { validateSignupUsernameAndAlert } from './helper';
+import style from './style.module.scss';
 
 interface ValidateUsernameButtonProps {
   isUsernameValid: boolean;

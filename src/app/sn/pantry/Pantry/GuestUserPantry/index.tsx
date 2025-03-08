@@ -1,14 +1,18 @@
 'use client';
 
-import { useClientStore } from '@/providers/client-store-provider';
-import { ingredientsWithProductsOptions } from '@/queries/options/ingredients/ingredientsWithProductsOptions';
+import { useMemo } from 'react';
+
 import { useQuery } from '@tanstack/react-query';
+
+import { ingredientsWithProductsOptions } from '@/queries/options/ingredients/ingredientsWithProductsOptions';
+
+import { PantryState } from '@/stores/slices/pantry/pantrySlice';
+
+import { useClientStore } from '@/providers/client-store-provider';
+import { GetIngredientsWithProductsReq } from '@/services/requests/ingredients/type';
 
 import { getPantryBoxesViewData, mapPantryBoxesToReqData } from './helper';
 import PantryBoxes from '../PantryBox';
-import { useMemo } from 'react';
-import { PantryState } from '@/stores/slices/pantry/pantrySlice';
-import { GetIngredientsWithProductsReq } from '@/services/requests/ingredients/type';
 
 function GuestUserPantry() {
   const pantryBoxes = useClientStore((state) => state.pantry.pantryBoxes);

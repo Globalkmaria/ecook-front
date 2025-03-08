@@ -1,6 +1,5 @@
-import style from './style.module.scss';
-
 import LoginContainer from './LoginContainer';
+import style from './style.module.scss';
 
 function LoginPage() {
   return (

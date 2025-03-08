@@ -4,8 +4,8 @@ import { HTMLAttributes, useRef } from 'react';
 
 import useModal from '@/hooks/useModal';
 
-import IconButton from './IconButton';
 import { Dropbox, DropboxStyleProps, DropboxWrapper } from './Dropbox';
+import IconButton from './IconButton';
 
 interface Props
   extends DropboxStyleProps,

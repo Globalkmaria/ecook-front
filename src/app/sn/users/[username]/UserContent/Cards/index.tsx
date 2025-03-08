@@ -3,10 +3,6 @@
 import { useMutationState } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
-import style from './style.module.scss';
-
-import { RecipeSimple } from '@/services/requests/recipe/type';
-
 import { isPending, mutationKeys } from '@/queries/helpers';
 
 import { formatTime } from '@/utils/time';
@@ -16,7 +12,10 @@ import { getRecipeLink } from '@/helpers/links';
 import Chip, { ChipGroup } from '@/components/Chip';
 import CustomImage from '@/components/CustomImage';
 
+import { RecipeSimple } from '@/services/requests/recipe/type';
+
 import CardMenu from './CardMenu';
+import style from './style.module.scss';
 
 interface Props {
   recipes: RecipeSimple[];

@@ -1,8 +1,9 @@
+import { AnchorHTMLAttributes, ReactNode } from 'react';
+
 import Link, { LinkProps } from 'next/link';
 
 import style from './style.module.scss';
 import Icon from '../Icon';
-import { AnchorHTMLAttributes, ReactNode } from 'react';
 
 type Props = {
   children?: ReactNode;

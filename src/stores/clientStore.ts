@@ -2,10 +2,10 @@ import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { createUserSlice, UserStore } from './slices/userSlice';
 import { createBookmarkSlice, BookmarkStore } from './slices/bookmarkSlice';
 import { createCartSlice, CartStore } from './slices/cartSlice';
 import { createPantrySlice, PantryStore } from './slices/pantry/pantrySlice';
+import { createUserSlice, UserStore } from './slices/userSlice';
 
 export type ClientStore = UserStore & BookmarkStore & CartStore & PantryStore;
 

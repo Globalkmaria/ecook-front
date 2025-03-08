@@ -1,7 +1,6 @@
 import { memo, useCallback } from 'react';
 
 import style from './style.module.scss';
-
 import CartProduct, {
   CartItemInfo,
   CartItemProduct,

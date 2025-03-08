@@ -1,11 +1,13 @@
-import style from './style.module.scss';
+import { dayLeftUntil, daysPassedSince } from '@/utils/time';
+
+import { getPantryBoxLink } from '@/helpers/links';
 
 import Chip, { ChipGroup } from '@/components/Chip';
-import ImgCard from '@/components/ImgCard';
-import { getPantryBoxLink } from '@/helpers/links';
-import { dayLeftUntil, daysPassedSince } from '@/utils/time';
-import { getLeftDayChipType } from '../../helper';
 import Icon from '@/components/Icon';
+import ImgCard from '@/components/ImgCard';
+
+import style from './style.module.scss';
+import { getLeftDayChipType } from '../../helper';
 
 interface PantryBoxData {
   key: string;

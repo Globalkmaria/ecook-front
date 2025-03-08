@@ -1,6 +1,5 @@
-import style from './style.module.scss';
-
 import SavedRecipes from './SavedRecipes';
+import style from './style.module.scss';
 
 async function BookmarkPage() {
   return (

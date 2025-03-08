@@ -1,14 +1,13 @@
 import { ChangeEventHandler, KeyboardEventHandler } from 'react';
 
-import style from './style.module.scss';
-
 import { validateLengthAndExecute } from '@/utils/validation';
 
 import Button from '@/components/Button';
 import { Input } from '@/components/Input';
 
-import { INGREDIENT_TEXT_LIMIT } from '../RecipeIngredients/RecipeIngredient';
 import { SelectedProductState } from '.';
+import style from './style.module.scss';
+import { INGREDIENT_TEXT_LIMIT } from '../RecipeIngredients/RecipeIngredient';
 
 interface Props {
   searchInput: string;

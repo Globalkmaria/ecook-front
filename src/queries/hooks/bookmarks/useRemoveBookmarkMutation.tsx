@@ -1,10 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { removeBookmark } from '@/services/requests/bookmarks';
-
 import { queryKeys } from '@/queries/helpers';
-import { isUnauthorizedResponse } from '@/services/utils/authError';
+
 import useLogout from '@/hooks/useLogout';
+
+import { removeBookmark } from '@/services/requests/bookmarks';
+import { isUnauthorizedResponse } from '@/services/utils/authError';
 
 export const useRemoveBookmarkMutation = () => {
   const queryClient = useQueryClient();

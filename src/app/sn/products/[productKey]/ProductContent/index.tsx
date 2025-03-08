@@ -1,17 +1,16 @@
 'use client';
 
-import { notFound, useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-
-import style from './style.module.scss';
+import { notFound, useParams } from 'next/navigation';
 
 import { productOptions } from '@/queries/options';
 
+import style from './style.module.scss';
 import { ProductPageParams } from '../page';
+import AddToCart from './AddToCart';
+import OtherProducts from './OtherProducts';
 import ProductInformation from './ProductInformation';
 import ProductRecommend from './ProductRecommend';
-import OtherProducts from './OtherProducts';
-import AddToCart from './AddToCart';
 
 function ProductContent() {
   const params = useParams<ProductPageParams>();

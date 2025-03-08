@@ -1,17 +1,17 @@
 import { memo, useCallback } from 'react';
+
 import { useShallow } from 'zustand/shallow';
 
-import style from './style.module.scss';
+import { getNewPantryBox } from '@/stores/slices/pantry/helper';
 
 import { useClientStore } from '@/providers/client-store-provider';
-
 import { IngredientWithProduct } from '@/services/requests/ingredients/type';
 
+import style from './style.module.scss';
 import CartProduct, {
   CartProductProps,
   CartItemControl,
 } from '../../CartProduct';
-import { getNewPantryBox } from '@/stores/slices/pantry/helper';
 
 interface CartItemProps {
   info: IngredientWithProduct;

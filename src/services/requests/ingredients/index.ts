@@ -1,11 +1,12 @@
 import { fetchAPI } from '@/services/api';
 import { AsyncError } from '@/services/helpers';
+import { FetchResult } from '@/services/type';
 import { createAsyncErrorMessage, withSafeAsync } from '@/services/utils';
+
 import {
   GetIngredientsWithProductsReq,
   GetIngredientsWithProductsRes,
 } from './type';
-import { FetchResult } from '@/services/type';
 
 export const getIngredientsWithProducts = withSafeAsync(
   async ({

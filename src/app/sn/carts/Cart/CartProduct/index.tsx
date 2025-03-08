@@ -1,16 +1,17 @@
 import { memo, useCallback } from 'react';
+
 import Link from 'next/link';
-
-import style from './style.module.scss';
-
-import Icon, { IconProps } from '@/components/Icon';
-import CustomImage from '@/components/CustomImage';
-import QuantityInput from '@/app/components/common/QuantityInput';
 
 import { getProductLink } from '@/helpers/links';
 
-import IconButton from '@/components/IconButton';
 import Button from '@/components/Button';
+import CustomImage from '@/components/CustomImage';
+import Icon, { IconProps } from '@/components/Icon';
+import IconButton from '@/components/IconButton';
+
+import QuantityInput from '@/app/components/common/QuantityInput';
+
+import style from './style.module.scss';
 
 export interface CartItemProduct {
   key: string;

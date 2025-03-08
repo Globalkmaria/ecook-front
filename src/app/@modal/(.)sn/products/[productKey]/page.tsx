@@ -1,9 +1,9 @@
-import style from './style.module.scss';
+import { PageModalWrapper } from '@/components/Modal';
 
 import { ProductPageParams } from '@/app/sn/products/[productKey]/page';
 import ProductPageContainer from '@/app/sn/products/[productKey]/ProductPageContainer';
 
-import { PageModalWrapper } from '@/components/Modal';
+import style from './style.module.scss';
 
 interface Props {
   params: Promise<ProductPageParams>;

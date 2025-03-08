@@ -1,16 +1,15 @@
 import { memo, useCallback } from 'react';
 
-import style from './style.module.scss';
+import { getSearchIngredientLink } from '@/helpers/links';
+
+import Checkbox from '@/components/CheckboxList';
+import SearchIconLink from '@/components/SearchIconLink';
 
 import { Ingredient, RecipeDetail } from '@/services/requests/recipe/type';
 
-import { getSearchIngredientLink } from '@/helpers/links';
-
-import SearchIconLink from '@/components/SearchIconLink';
-import Checkbox from '@/components/CheckboxList';
-
-import InformationButton from './InformationButton';
 import AddIngredientToCartButton from './AddIngredientToCartButton';
+import InformationButton from './InformationButton';
+import style from './style.module.scss';
 
 interface Props {
   state: [

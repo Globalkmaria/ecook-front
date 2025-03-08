@@ -1,14 +1,15 @@
 'use client';
 
-import style from './modal.module.scss';
-
 import { MouseEvent, ReactNode, useEffect, useRef } from 'react';
+
+import { joinClassNames } from '@/utils/style';
 
 import useEscapeKey from '@/hooks/useEscapeKey';
 import useHideScroll from '@/hooks/useHideScroll';
+
+import style from './modal.module.scss';
 import ModalWrapper from './ModalWrapper';
 import Icon from '../Icon';
-import { joinClassNames } from '@/utils/style';
 
 interface Props {
   children: ReactNode;

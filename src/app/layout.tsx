@@ -1,9 +1,10 @@
-import { Metadata, Viewport } from 'next';
 import { GoogleAnalytics } from '@next/third-parties/google';
+import { Metadata, Viewport } from 'next';
 
 import Providers from '@/providers';
 
 import '@/styles/global.scss';
+
 import style from './style.module.scss';
 
 export const metadata: Metadata = {

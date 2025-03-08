@@ -1,6 +1,8 @@
-import { AddPantryBoxReq } from '@/services/requests/pantry/pantryBoxes/type';
-import { CartProductProps } from '../CartProduct';
 import { getDateAfterToday, getToday } from '@/utils/time';
+
+import { AddPantryBoxReq } from '@/services/requests/pantry/pantryBoxes/type';
+
+import { CartProductProps } from '../CartProduct';
 
 export const getNewPantryBox = (
   ...args: Parameters<CartProductProps['onAddPantryBox']>

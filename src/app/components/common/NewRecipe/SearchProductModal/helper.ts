@@ -2,13 +2,13 @@ import { getRandomId } from '@/utils/generateId';
 
 import { IngredientNewProduct } from '@/services/requests/recipes/type';
 
-import { NewRecipeIngredientState } from '../';
-import { OnSelectProductProps } from '../RecipeIngredients/RecipeIngredientsContent';
 import {
   NEW_PRODUCT_ID,
   SearchedIngredientState,
   SelectedProductState,
 } from '.';
+import { NewRecipeIngredientState } from '../';
+import { OnSelectProductProps } from '../RecipeIngredients/RecipeIngredientsContent';
 
 export const getSelectedProductInitialState = (
   ingredient: NewRecipeIngredientState,

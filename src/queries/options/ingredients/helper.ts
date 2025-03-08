@@ -1,5 +1,6 @@
-import { GetIngredientsWithProductsReq } from '@/services/requests/ingredients/type';
 import { CartState } from '@/stores/slices/cartSlice';
+
+import { GetIngredientsWithProductsReq } from '@/services/requests/ingredients/type';
 
 export const transformIngredientsForServer = (
   items: CartState['carts']['ingredients'],

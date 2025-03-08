@@ -1,8 +1,11 @@
-import useLogout from '@/hooks/useLogout';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 import { queryKeys } from '@/queries/helpers';
+
+import useLogout from '@/hooks/useLogout';
+
 import { deletePantryBox } from '@/services/requests/pantry/pantryBoxes';
 import { isUnauthorizedResponse } from '@/services/utils';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export function useDeletePantryBoxMutation() {
   const logout = useLogout();

@@ -2,14 +2,13 @@
 
 import { useState } from 'react';
 
-import style from './style.module.scss';
-
 import Icon from '@/components/Icon';
-import { Tab, TabsContainer } from '@/components/Tab';
 import { IconType } from '@/components/Icon/const';
+import { Tab, TabsContainer } from '@/components/Tab';
 
-import RecipeList from './RecipeList';
 import ProductList from './ProductList';
+import RecipeList from './RecipeList';
+import style from './style.module.scss';
 
 function UserContent() {
   const [tabIndex, setTabIndex] = useState(0);

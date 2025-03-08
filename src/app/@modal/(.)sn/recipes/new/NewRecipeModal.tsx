@@ -2,10 +2,11 @@
 
 import { useRouter } from 'next/navigation';
 
-import style from './style.module.scss';
-
 import { Modal2 } from '@/components/Modal';
+
 import NewRecipeContainer from '@/app/sn/recipes/new/NewRecipeContainer';
+
+import style from './style.module.scss';
 
 function NewRecipeModal() {
   const router = useRouter();

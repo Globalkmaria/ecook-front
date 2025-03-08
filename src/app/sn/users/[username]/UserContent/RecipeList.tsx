@@ -8,7 +8,6 @@ import { recipesOptions } from '@/queries/options';
 import { useClientStore } from '@/providers/client-store-provider';
 
 import { UserPageParams } from '../page';
-
 import Cards from './Cards';
 import NoContent from './NoContent';
 

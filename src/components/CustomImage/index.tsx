@@ -1,12 +1,12 @@
 'use client';
 
 import { memo, ReactEventHandler, useEffect, useState } from 'react';
-import Image, { ImageProps } from 'next/image';
 
-import style from './style.module.scss';
+import Image, { ImageProps } from 'next/image';
 
 import { joinClassNames } from '@/utils/style';
 
+import style from './style.module.scss';
 import Skeleton from '../Skeleton';
 
 export interface CustomImageProps extends Omit<ImageProps, 'src'> {

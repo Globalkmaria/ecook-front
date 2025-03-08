@@ -1,4 +1,5 @@
 import { StateCreator } from 'zustand';
+
 import { ClientStore } from '../clientStore';
 
 type UserState = {

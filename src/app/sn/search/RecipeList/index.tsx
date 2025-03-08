@@ -1,8 +1,8 @@
-import style from './style.module.scss';
+import RecipeImgAndInfoCard from '@/app/components/common/RecipeImgAndInfoCard';
 
 import { RecipeSimple } from '@/services/requests/recipe/type';
 
-import RecipeImgAndInfoCard from '@/app/components/common/RecipeImgAndInfoCard';
+import style from './style.module.scss';
 
 interface Props {
   recipes: RecipeSimple[];

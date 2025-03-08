@@ -1,16 +1,11 @@
 'use client';
 
 import { useRef } from 'react';
+
+import { useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useShallow } from 'zustand/shallow';
-import { useQueryClient } from '@tanstack/react-query';
-
-import style from './style.module.scss';
-
-import { useClientStore } from '@/providers/client-store-provider';
-
-import { logout } from '@/services/requests/auth';
 
 import {
   NEW_RECIPE_LINK,
@@ -23,10 +18,15 @@ import {
   PANTRY_LINK,
 } from '@/helpers/links';
 
-import { AvatarImg } from '@/components/Avatar';
 import Anchor from '@/components/Anchor';
+import { AvatarImg } from '@/components/Avatar';
 import { Dropbox, DropboxItem, DropboxWrapper } from '@/components/Dropbox';
 import Icon from '@/components/Icon';
+
+import { useClientStore } from '@/providers/client-store-provider';
+import { logout } from '@/services/requests/auth';
+
+import style from './style.module.scss';
 
 function NavRightButtons() {
   const user = useClientStore(useShallow((state) => state.user));

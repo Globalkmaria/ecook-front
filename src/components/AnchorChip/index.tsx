@@ -1,7 +1,6 @@
-import style from './style.module.scss';
-
 import { joinClassNames } from '@/utils/style';
 
+import style from './style.module.scss';
 import AnchorUnderline, {
   AnchorUnderlineProps,
 } from '../Anchor/AnchorUnderline';

@@ -1,6 +1,8 @@
-import { queryKeys } from '@/queries/helpers';
-import { getPantryBoxRecommendations } from '@/services/requests/recommend';
 import { queryOptions } from '@tanstack/react-query';
+
+import { queryKeys } from '@/queries/helpers';
+
+import { getPantryBoxRecommendations } from '@/services/requests/recommend';
 
 interface PantryBoxRecommendOptionsProps {
   staleTime?: number;

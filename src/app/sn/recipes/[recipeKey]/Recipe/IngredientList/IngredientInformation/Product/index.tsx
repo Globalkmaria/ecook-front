@@ -1,16 +1,16 @@
-import style from './style.module.scss';
-
 import { joinClassNames } from '@/utils/style';
 
 import { getSearchProductLink } from '@/helpers/links';
 
+import Chip from '@/components/Chip';
+import CustomImage from '@/components/CustomImage';
+import Icon, { IconProps } from '@/components/Icon';
+import SearchIconLink from '@/components/SearchIconLink';
+
 import { Product as ProductType } from '@/services/requests/products/type';
 import { RecipeProduct } from '@/services/requests/recipe/type';
 
-import Chip from '@/components/Chip';
-import Icon, { IconProps } from '@/components/Icon';
-import SearchIconLink from '@/components/SearchIconLink';
-import CustomImage from '@/components/CustomImage';
+import style from './style.module.scss';
 
 interface Props {
   product: RecipeProduct | ProductType;

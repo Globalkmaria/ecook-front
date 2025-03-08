@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback } from 'react';
+
 import { useShallow } from 'zustand/shallow';
 
 import { useClientStore } from '@/providers/client-store-provider';

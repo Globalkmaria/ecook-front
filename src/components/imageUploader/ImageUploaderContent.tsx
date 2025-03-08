@@ -10,8 +10,6 @@ import React, {
   useTransition,
 } from 'react';
 
-import style from './style.module.scss';
-
 import { joinClassNames } from '@/utils/style';
 
 import Icon from '@/components/Icon';
@@ -21,6 +19,7 @@ import {
   getInvalidFileFormatMessage,
   optimizeImageFile,
 } from './helper';
+import style from './style.module.scss';
 
 const MAX_FILE_SIZE = 20;
 const ALLOWED_FILE_TYPES = [

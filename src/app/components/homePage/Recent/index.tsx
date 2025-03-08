@@ -1,8 +1,7 @@
-import style from './style.module.scss';
-
 import { getHomeRecipes } from '@/services/requests/home';
 
 import Recipe from './Recipe';
+import style from './style.module.scss';
 
 async function Recent() {
   const recipes = await getHomeRecipes();

@@ -1,5 +1,6 @@
-import { SearchMenuValue } from '@/const/searchMenu';
 import { lightSlugify } from '@/utils/normalize';
+
+import { SearchMenuValue } from '@/const/searchMenu';
 
 export const getUserLink = (username: string) => `/sn/users/${username}`;
 

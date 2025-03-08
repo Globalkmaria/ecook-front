@@ -1,16 +1,15 @@
 'use client';
 
-import { notFound, useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-
-import style from './style.module.scss';
+import { notFound, useParams } from 'next/navigation';
 
 import { profileOptions } from '@/queries/options';
 
-import { useClientStore } from '@/providers/client-store-provider';
-
 import { AvatarImg } from '@/components/Avatar';
 
+import { useClientStore } from '@/providers/client-store-provider';
+
+import style from './style.module.scss';
 import { UserPageParams } from '../page';
 
 function UserProfile() {

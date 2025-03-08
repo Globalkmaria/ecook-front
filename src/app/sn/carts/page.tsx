@@ -1,6 +1,5 @@
-import style from './style.module.scss';
-
 import Cart from './Cart';
+import style from './style.module.scss';
 
 function CartPage() {
   return (

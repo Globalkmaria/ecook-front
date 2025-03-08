@@ -1,12 +1,12 @@
-import style from './style.module.scss';
+import { getSearchLink } from '@/helpers/links';
+
+import Anchor from '@/components/Anchor';
+import CustomImage from '@/components/CustomImage';
+import Icon, { IconProps } from '@/components/Icon';
 
 import { Product } from '@/services/requests/products/type';
 
-import { getSearchLink } from '@/helpers/links';
-
-import CustomImage from '@/components/CustomImage';
-import Icon, { IconProps } from '@/components/Icon';
-import Anchor from '@/components/Anchor';
+import style from './style.module.scss';
 
 interface Props {
   product: Product;

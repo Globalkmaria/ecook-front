@@ -1,8 +1,9 @@
 import { fetchAPI } from '@/services/api';
-import { FetchResult } from '../../type';
-import { GetProductsReq, GetProductsRes } from './type';
-import { createAsyncErrorMessage, withSafeAsync } from '../../utils';
 import { AsyncError } from '@/services/helpers';
+
+import { GetProductsReq, GetProductsRes } from './type';
+import { FetchResult } from '../../type';
+import { createAsyncErrorMessage, withSafeAsync } from '../../utils';
 
 export const PRODUCT_TYPES = {
   INGREDIENT: 'ingredientName',

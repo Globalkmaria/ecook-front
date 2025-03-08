@@ -1,8 +1,7 @@
-import style from './style.module.scss';
-
 import NavRightButtons from './NavRightButtons';
-import Logo from '../Logo';
+import style from './style.module.scss';
 import Search from '../../common/Search';
+import Logo from '../Logo';
 
 function Nav() {
   return (

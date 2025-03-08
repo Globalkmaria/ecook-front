@@ -1,17 +1,17 @@
 import { ChangeEventHandler, MouseEventHandler, useRef } from 'react';
 
-import style from './style.module.scss';
-
-import { Input } from '@/components/Input';
-import ImageUploader from '@/components/imageUploader';
-import { IngredientNewProduct } from '@/services/requests/recipes/type';
 import Icon from '@/components/Icon';
+import ImageUploader from '@/components/imageUploader';
+import { Input } from '@/components/Input';
+
+import { IngredientNewProduct } from '@/services/requests/recipes/type';
 
 import {
   NEW_PRODUCT_ID,
   SearchedIngredientState,
   SelectedProductState,
 } from '.';
+import style from './style.module.scss';
 
 interface NewProductProps {
   selectedProduct: SelectedProductState;

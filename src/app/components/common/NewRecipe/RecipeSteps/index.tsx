@@ -1,10 +1,9 @@
 import { memo, useCallback } from 'react';
 
-import style from '../style.module.scss';
-
 import { getRandomId } from '@/utils/generateId';
 
 import { AddButton } from '../buttons';
+import style from '../style.module.scss';
 import RecipeStepsContent, { Step } from './RecipeStepsContent';
 
 interface Props {

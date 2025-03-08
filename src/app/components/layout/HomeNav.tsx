@@ -1,6 +1,6 @@
-import NavWrapper from './Nav/NavWrapper';
 import Logo from './Logo';
 import NavRightButtons from './Nav/NavRightButtons';
+import NavWrapper from './Nav/NavWrapper';
 
 function HomeNav() {
   return (

@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
-import style from './style.module.scss';
-
 import { HOME_LINK } from '@/helpers/links';
+
+import style from './style.module.scss';
 
 function Logo() {
   return (

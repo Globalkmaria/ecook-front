@@ -1,17 +1,17 @@
-import style from './style.module.scss';
-
 import Link from 'next/link';
-
-import { RecipeSimple } from '@/services/requests/recipe/type';
 
 import { formatTime } from '@/utils/time';
 
 import { getRecipeLink, getUserLink } from '@/helpers/links';
 
 import Avatar from '@/components/Avatar';
+import Chip, { ChipGroup } from '@/components/Chip';
 import CustomImage from '@/components/CustomImage';
 import Skeleton from '@/components/Skeleton';
-import Chip, { ChipGroup } from '@/components/Chip';
+
+import { RecipeSimple } from '@/services/requests/recipe/type';
+
+import style from './style.module.scss';
 
 interface Props {
   recipe: RecipeSimple;

@@ -10,11 +10,12 @@ import {
   useState,
 } from 'react';
 
-import style from './style.module.scss';
+import { joinClassNames } from '@/utils/style';
 
 import Chip from '@/components/Chip';
 import Icon from '@/components/Icon';
-import { joinClassNames } from '@/utils/style';
+
+import style from './style.module.scss';
 
 interface Props {
   className?: string;

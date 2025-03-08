@@ -1,10 +1,10 @@
 'use client';
 
-import style from './style.module.scss';
-
 import CustomImage from '@/components/CustomImage';
-import PantryBoxItems, { PantryBoxItemsProps } from './PantryBoxItems';
+
 import { getTotalQuantity } from './helper';
+import PantryBoxItems, { PantryBoxItemsProps } from './PantryBoxItems';
+import style from './style.module.scss';
 
 interface PantryBox {
   key: string;
