@@ -74,8 +74,8 @@ function Item({ item, onDelete, onChange }: ItemProps) {
 
   const formatExpireDate = formateDate(item.expireDate);
   const daysLeft = dayLeftUntil(formatExpireDate);
-  const daysLeftSign = getSign(daysLeft * -1);
   const leftDayChipType = getLeftDayChipType(daysLeft);
+  const daysLeftSign = getSign(daysLeft * -1);
   const daysLeftAbs = Math.abs(daysLeft);
 
   const onChangeQuantity = (quantity: number) =>
