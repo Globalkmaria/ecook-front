@@ -1,3 +1,4 @@
+import { getSign } from '@/utils/number';
 import { dayLeftUntil, daysPassedSince } from '@/utils/time';
 
 import { getPantryBoxLink } from '@/helpers/links';
@@ -47,9 +48,15 @@ function PantryBox({ item }: PantryBoxProps) {
   };
   const link = getPantryBoxLink(item.key);
   const noImgContent = <NoImgContent title={title} />;
-  const passedDays = daysPassedSince(item.buyDate);
-  const leftDays = dayLeftUntil(item.expireDate);
-  const leftDayChipType = getLeftDayChipType(leftDays);
+
+  const daysPassed = daysPassedSince(item.buyDate);
+  const daysPassedSign = getSign(daysPassed);
+  const daysPassedAbs = Math.abs(daysPassed);
+
+  const daysLeft = dayLeftUntil(item.expireDate);
+  const leftDayChipType = getLeftDayChipType(daysLeft);
+  const daysLeftSign = getSign(daysLeft * -1);
+  const daysLeftAbs = Math.abs(daysLeft);
 
   return (
     <li className={style['pantry-box']}>
@@ -61,8 +68,12 @@ function PantryBox({ item }: PantryBoxProps) {
         <ImgCard.BottomOverlay>
           <div className={style['pantry-box__bottom-overlay']}>
             <ChipGroup>
-              <Chip type='info'>+ {passedDays}</Chip>
-              <Chip type={leftDayChipType}>- {leftDays}</Chip>
+              <Chip type='info'>
+                {daysPassedSign} {daysPassedAbs}
+              </Chip>
+              <Chip type={leftDayChipType}>
+                {daysLeftSign} {daysLeftAbs}
+              </Chip>
             </ChipGroup>
             <div className={style['quantity']}>
               <Icon icon='box' />
