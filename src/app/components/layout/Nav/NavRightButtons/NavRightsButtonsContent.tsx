@@ -20,6 +20,7 @@ import {
   SIGNUP_LINK,
   BOOKMARKS_LINK,
   CARTS_LINK,
+  PANTRY_LINK,
 } from '@/helpers/links';
 
 import { AvatarImg } from '@/components/Avatar';
@@ -60,12 +61,7 @@ function LoggedInMenu() {
 
   return (
     <div className={style['right-buttons']}>
-      <Anchor variant='secondary' href={CARTS_LINK}>
-        <Icon icon='cart' />
-      </Anchor>
-      <Anchor variant='secondary' href={BOOKMARKS_LINK}>
-        <Icon icon='book' />
-      </Anchor>
+      <Links />
       <Anchor href={NEW_RECIPE_LINK} className={style.new}>
         <Icon icon='add' className={style['new__icon']} />
         <span className={style['new__text']}>New recipes</span>
@@ -87,16 +83,27 @@ function LoggedInMenu() {
 function NotLoggedInMenu() {
   return (
     <div className={style['right-buttons']}>
-      <Anchor variant='secondary' href={CARTS_LINK}>
-        <Icon icon='cart' />
-      </Anchor>
-      <Anchor variant='secondary' href={BOOKMARKS_LINK}>
-        <Icon icon='book' />
-      </Anchor>
+      <Links />
       <Anchor variant='secondary' href={SIGNUP_LINK}>
         Sign up
       </Anchor>
       <Anchor href={LOGIN_LINK}>Login</Anchor>
     </div>
+  );
+}
+
+function Links() {
+  return (
+    <>
+      <Anchor variant='secondary' href={CARTS_LINK}>
+        <Icon icon='cart' />
+      </Anchor>
+      <Anchor variant='secondary' href={PANTRY_LINK}>
+        <Icon icon='cabinet' />
+      </Anchor>
+      <Anchor variant='secondary' href={BOOKMARKS_LINK}>
+        <Icon icon='book' />
+      </Anchor>
+    </>
   );
 }

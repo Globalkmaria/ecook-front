@@ -21,6 +21,9 @@ export const getRecipeLink = (recipeKey: string) => `/sn/recipes/${recipeKey}`;
 export const getProductLink = (productKey: string) =>
   `/sn/products/${productKey}`;
 
+export const getPantryBoxLink = (pantryBoxKey: string) =>
+  `/sn/pantry/${pantryBoxKey}`;
+
 export const NEW_RECIPE_LINK = `/sn/recipes/new`;
 
 export const SIGNUP_LINK = `/signup`;
@@ -32,3 +35,5 @@ export const HOME_LINK = `/`;
 export const BOOKMARKS_LINK = `/sn/bookmarks`;
 
 export const CARTS_LINK = `/sn/carts`;
+
+export const PANTRY_LINK = `/sn/pantry`;

@@ -1,0 +1,84 @@
+'use client';
+
+import style from './style.module.scss';
+
+import CustomImage from '@/components/CustomImage';
+import PantryBoxItems, { PantryBoxItemsProps } from './PantryBoxItems';
+import { getTotalQuantity } from './helper';
+
+interface PantryBox {
+  key: string;
+  img?: string | null;
+  ingredientName: string;
+  productName?: string | null;
+  brand?: string;
+  purchasedFrom?: string;
+
+  items: {
+    key: string;
+    buyDate: string;
+    expireDate: string;
+    quantity: number;
+  }[];
+}
+
+export type PantryBoxContentProps = {
+  pantryBox: PantryBox;
+} & Omit<PantryBoxItemsProps, 'items'>;
+
+function PantryBoxContent({ pantryBox, ...restProps }: PantryBoxContentProps) {
+  const totalQuantity = getTotalQuantity(pantryBox.items);
+  const title = `${pantryBox.ingredientName}${pantryBox.productName ? ` / ${pantryBox.productName}` : ''}`;
+  return (
+    <section className={style['pantry-box']}>
+      <h1 className={style['pantry-box__title']}>{title}</h1>
+      <PantryBoxImg img={pantryBox.img} alt={pantryBox.ingredientName} />
+      <PantryBoxInfo pantryBox={pantryBox} totalQuantity={totalQuantity} />
+      <PantryBoxItems items={pantryBox.items} {...restProps} />
+    </section>
+  );
+}
+
+export default PantryBoxContent;
+
+function PantryBoxImg({ img, alt }: { img?: string | null; alt: string }) {
+  if (!img) return null;
+
+  return (
+    <div className={style['pantry-box__img']}>
+      <CustomImage fill src={img} alt={alt} />
+    </div>
+  );
+}
+
+function PantryBoxInfo({
+  pantryBox,
+  totalQuantity,
+}: {
+  pantryBox: PantryBox;
+  totalQuantity: number;
+}) {
+  return (
+    <div className={style['pantry-box__info']}>
+      <div className={style['box']}>
+        <span className={style['box__title']}>Total Quantity</span>
+        <span className={style['box__description']}>{totalQuantity}</span>
+      </div>
+
+      {pantryBox.productName && (
+        <>
+          <div className={style['box']}>
+            <span className={style['box__title']}>Product Brand</span>
+            <span className={style['box__description']}>{pantryBox.brand}</span>
+          </div>
+          <div className={style['box']}>
+            <span className={style['box__title']}>Purchased From</span>
+            <span className={style['box__description']}>
+              {pantryBox.purchasedFrom}
+            </span>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}

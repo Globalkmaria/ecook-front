@@ -1,19 +1,6 @@
 import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from '@tanstack/react-query';
 
 import { getProduct } from '@/services/requests/product';
-import { PRODUCT_TYPES } from '@/services/requests/products';
-
-import {
-  productsOptions,
-  productOptions,
-  productRecommendOptions,
-} from '@/queries/options';
 
 import { capitalizeFirstLetter } from '@/utils/text';
 
@@ -54,26 +41,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 async function Page({ params }: Props) {
   const { productKey } = await params;
-  if (!productKey) notFound();
 
-  const queryClient = new QueryClient();
-
-  await Promise.all([
-    queryClient.prefetchQuery(productOptions({ key: productKey })),
-    queryClient.prefetchQuery(productRecommendOptions({ key: productKey })),
-    queryClient.prefetchQuery(
-      productsOptions({
-        type: PRODUCT_TYPES.PRODUCT_KEY,
-        q: productKey,
-      }),
-    ),
-  ]);
-
-  return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <ProductPageContainer />
-    </HydrationBoundary>
-  );
+  return <ProductPageContainer productKey={productKey} />;
 }
 
 export default Page;

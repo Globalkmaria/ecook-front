@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 import { validatePositiveInteger } from './validation';
 
 export const formatTimeUnit = (
@@ -25,3 +27,22 @@ export const validateMinutes = (value: string) => {
 
   return true;
 };
+
+export const daysPassedSince = (inputDate: string) => {
+  const today = dayjs();
+  return today.diff(dayjs(inputDate), 'day') || 0;
+};
+
+export const dayLeftUntil = (inputDate: string) => {
+  const today = dayjs();
+  const targetDate = dayjs(inputDate);
+
+  return targetDate.diff(today, 'day') || 0;
+};
+
+export const getToday = () => dayjs().format('YYYY-MM-DD');
+
+export const getDateAfterToday = (days: number) =>
+  dayjs().add(days, 'day').format('YYYY-MM-DD');
+
+export const formateDate = (date: string) => dayjs(date).format('YYYY-MM-DD');

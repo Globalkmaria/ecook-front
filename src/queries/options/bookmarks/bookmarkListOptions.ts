@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const bookmarkListOptions = ({
-  staleTime = 180000, // 3 mins , MS
+  staleTime = STALE_TIME,
   enabled = false,
 }: Props) =>
   queryOptions({
@@ -34,3 +34,5 @@ export const bookmarkListOptions = ({
     staleTime,
     enabled,
   });
+
+const STALE_TIME = 60 * 60 * 1000; // 1 hour

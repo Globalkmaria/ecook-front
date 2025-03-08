@@ -1,0 +1,11 @@
+@use '@/styles/theme.scss' as *;
+
+.quantity {
+  width: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 10px;
+  border: 3px solid $pointColor;
+  border-radius: 20px;
+}

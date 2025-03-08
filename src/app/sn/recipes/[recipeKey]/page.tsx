@@ -54,7 +54,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 async function Page({ params }: Props) {
   const { recipeKey } = await params;
-  if (!recipeKey) notFound();
 
   return <RecipePageContainer recipeKey={recipeKey} />;
 }

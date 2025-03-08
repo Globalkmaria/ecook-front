@@ -7,6 +7,7 @@
 }
 
 .product {
+  margin-bottom: 10px;
   display: flex;
   gap: 10px;
 
@@ -35,10 +36,10 @@
 
   &__title {
     flex: 0 0 150px;
-    margin-right: $front-size-10;
+    margin-right: $font-size-10;
     display: flex;
     align-items: start;
-    gap: $front-size-10;
+    gap: $font-size-10;
     font-weight: 500;
     text-wrap: nowrap;
   }
@@ -46,4 +47,14 @@
   &__description {
     flex-grow: 1;
   }
+}
+
+.item-control {
+  display: flex;
+  justify-content: space-between;
+}
+
+.item-control__left {
+  display: flex;
+  gap: 10px;
 }

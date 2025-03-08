@@ -120,10 +120,10 @@ function ListSkeleton() {
 
 function NoContent() {
   return (
-    <div className={style['text']}>
+    <>
       <p>No saved recipes yet.</p>
       <p>Save recipes by clicking the bookmark icon on the recipe page</p>
-    </div>
+    </>
   );
 }
 

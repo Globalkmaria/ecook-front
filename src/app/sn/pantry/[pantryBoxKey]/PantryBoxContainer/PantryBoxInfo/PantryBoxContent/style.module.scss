@@ -1,0 +1,93 @@
+@use '@/styles/theme.scss' as *;
+
+.pantry-box {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+
+  &__title {
+    text-align: center;
+    font-size: $font-size-32;
+    font-weight: 500;
+  }
+
+  &__img {
+    position: relative;
+    max-width: 600px;
+    width: 80%;
+    height: 400px;
+    border-radius: $borderRadiusS;
+    align-self: center;
+
+    img {
+      object-fit: contain;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 5px;
+  }
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  &__title {
+    flex-shrink: 0;
+    font-size: $font-size-16;
+    font-weight: 500;
+  }
+
+  &__description {
+    font-size: $font-size-16;
+  }
+}
+
+.pantry-box-items {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-top: 1px solid $grey400;
+}
+
+.add-button {
+  align-self: flex-end;
+}
+
+.items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+
+  @media #{$laptopL} {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  @media #{$tablet} {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+  }
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border-radius: $borderRadiusS;
+  border: 1px solid $grey400;
+}
+
+.item__quantity {
+  display: flex;
+  justify-content: space-between;
+}

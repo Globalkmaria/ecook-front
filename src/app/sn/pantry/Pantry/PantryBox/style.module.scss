@@ -1,0 +1,61 @@
+@use '@/styles/theme.scss' as *;
+
+.pantry-boxes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+
+  @media #{$laptopL} {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media #{$tablet} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media #{$mobile} {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.pantry-box {
+  position: relative;
+  width: 100%;
+  height: 400px;
+
+  @media #{$laptopL} {
+    height: 350px;
+  }
+
+  @media #{$tablet} {
+    height: 300px;
+  }
+
+  @media #{$mobile} {
+    height: 250px;
+  }
+}
+
+.no-img-content {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: $black;
+  font-size: $font-size-24;
+}
+
+.pantry-box__bottom-overlay {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quantity {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}

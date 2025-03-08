@@ -22,6 +22,8 @@ import {
 } from 'react-icons/fa6';
 import { FaAngleUp, FaAngleDown } from 'react-icons/fa';
 import { RxReset } from 'react-icons/rx';
+import { BiCabinet } from 'react-icons/bi';
+import { GoInbox } from 'react-icons/go';
 
 const ICON_NAMES = [
   'basket',
@@ -48,6 +50,8 @@ const ICON_NAMES = [
   'bookmarkFill',
   'book',
   'cart',
+  'cabinet',
+  'box',
 ] as const;
 
 export type IconType = (typeof ICON_NAMES)[number];
@@ -79,6 +83,8 @@ export const ICONS: {
   bookmarkFill: <FaBookmark />,
   book: <PiBookBookmarkBold />,
   cart: <PiShoppingCartBold />,
+  cabinet: <BiCabinet />,
+  box: <GoInbox />,
 };
 
 export const ICON_TITLES: { [key in IconType]: string } = {
@@ -106,4 +112,6 @@ export const ICON_TITLES: { [key in IconType]: string } = {
   bookmarkFill: 'saved item',
   book: 'book',
   cart: 'cart',
+  cabinet: 'cabinet',
+  box: 'box',
 };

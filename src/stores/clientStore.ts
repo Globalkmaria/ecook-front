@@ -1,12 +1,13 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
+import { immer } from 'zustand/middleware/immer';
 
 import { createUserSlice, UserStore } from './slices/userSlice';
 import { createBookmarkSlice, BookmarkStore } from './slices/bookmarkSlice';
-import { immer } from 'zustand/middleware/immer';
-import { CartStore, createCartSlice } from './slices/cartSlice';
+import { createCartSlice, CartStore } from './slices/cartSlice';
+import { createPantrySlice, PantryStore } from './slices/pantry/pantrySlice';
 
-export type ClientStore = UserStore & BookmarkStore & CartStore;
+export type ClientStore = UserStore & BookmarkStore & CartStore & PantryStore;
 
 export const createClientStore = () =>
   create<ClientStore>()(
@@ -16,6 +17,7 @@ export const createClientStore = () =>
           ...createUserSlice(...arg),
           ...createBookmarkSlice(...arg),
           ...createCartSlice(...arg),
+          ...createPantrySlice(...arg),
         })),
         { name: 'ClientStore' },
       ),

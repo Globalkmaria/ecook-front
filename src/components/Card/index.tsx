@@ -7,6 +7,7 @@ import { getRecipeLink, getUserLink } from '@/helpers/links';
 
 import CustomImage from '../CustomImage';
 import Avatar from '../Avatar';
+import Skeleton from '../Skeleton';
 
 interface Data {
   name: string;
@@ -18,7 +19,7 @@ interface Data {
   };
 }
 
-interface CardProps {
+export interface CardProps {
   data: Data;
   imageProps?: Omit<Partial<ImageProps>, 'src'>;
 }
@@ -52,3 +53,11 @@ function Card({ data, imageProps }: CardProps) {
 }
 
 export default Card;
+
+export function CardLoading() {
+  return (
+    <div className={style['loading']}>
+      <Skeleton />
+    </div>
+  );
+}
