@@ -1,3 +1,4 @@
+import { PantryBoxContentProps } from '@/app/sn/pantry/[pantryBoxKey]/PantryBoxContainer/PantryBoxInfo/PantryBoxContent';
 import { PANTRY_LINK } from '@/helpers/links';
 import useLogout from '@/hooks/useLogout';
 import { queryKeys } from '@/queries/helpers';
@@ -20,21 +21,55 @@ export function useDeletePantryItem(pantryBoxKey: string) {
 
       throw new Error('Failed to delete pantry item');
     },
-    onSuccess: async (data) => {
-      await queryClient.invalidateQueries({
+    onMutate: async (pantryItemKey: string) => {
+      await queryClient.cancelQueries({
         queryKey: queryKeys.pantry.boxes.box.detail(pantryBoxKey),
       });
+
+      const previousPantryBox = queryClient.getQueryData<
+        PantryBoxContentProps['pantryBox']
+      >(queryKeys.pantry.boxes.box.detail(pantryBoxKey));
+
+      const newPantryBox = {
+        ...previousPantryBox,
+        items: previousPantryBox?.items.filter(
+          (item) => item.key !== pantryItemKey,
+        ),
+      };
+
+      if (newPantryBox?.items?.length === 0) {
+        queryClient.setQueryData(
+          queryKeys.pantry.boxes.box.detail(pantryBoxKey),
+          null,
+        );
+        router.push(PANTRY_LINK);
+        return { previousPantryBox };
+      }
+
+      queryClient.setQueryData(
+        queryKeys.pantry.boxes.box.detail(pantryBoxKey),
+        newPantryBox,
+      );
+      return { previousPantryBox };
+    },
+    onSuccess: async () => {
       await queryClient.invalidateQueries({
         queryKey: queryKeys.pantry.boxes.list(),
       });
-
-      if (data.pantryBoxDeleted) {
-        router.push(PANTRY_LINK);
-      }
     },
-    onError: (error) => {
+    onError: (error, _, context) => {
+      queryClient.setQueryData(
+        queryKeys.pantry.boxes.box.detail(pantryBoxKey),
+        context?.previousPantryBox,
+      );
+
       console.error(error);
       alert('Failed to delete pantry item.');
+    },
+    onSettled: async (data) => {
+      await queryClient.invalidateQueries({
+        queryKey: queryKeys.pantry.boxes.box.detail(pantryBoxKey),
+      });
     },
   });
 
