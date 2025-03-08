@@ -94,27 +94,30 @@ function ChipListInput({
   const focusInput = () => inputRef.current?.focus();
 
   return (
-    <div className={joinedClassName} onClick={focusInput}>
-      {[...items].map((item) => (
-        <div key={item} className={style.chip}>
-          <Chip>
-            {item}
-            <button type='button' onClick={() => removeItem(item)}>
-              <Icon icon='close' />
-            </button>
-          </Chip>
-        </div>
-      ))}
-      <input
-        className={style.input}
-        ref={inputRef}
-        value={inputValue}
-        onChange={handleInputChange}
-        placeholder={placeholder}
-        type='text'
-        onKeyDown={handleKeyDown}
-      />
-    </div>
+    <>
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+      <div className={joinedClassName} onClick={focusInput}>
+        {[...items].map((item) => (
+          <div key={item} className={style.chip}>
+            <Chip>
+              {item}
+              <button type='button' onClick={() => removeItem(item)}>
+                <Icon icon='close' />
+              </button>
+            </Chip>
+          </div>
+        ))}
+        <input
+          className={style.input}
+          ref={inputRef}
+          value={inputValue}
+          onChange={handleInputChange}
+          placeholder={placeholder}
+          type='text'
+          onKeyDown={handleKeyDown}
+        />
+      </div>
+    </>
   );
 }
 

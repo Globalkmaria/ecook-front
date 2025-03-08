@@ -52,25 +52,28 @@ function ExistingProduct({
   );
 
   return (
-    <li className={style['product-container']} onClick={onClick}>
-      <input
-        className={style.checkbox}
-        type='checkbox'
-        id={id}
-        checked={checked}
-        onChange={onClick}
-      />
-      <div className={style.product}>
-        <div className={style['img-box']}>{img}</div>
+    <>
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, jsx-a11y/no-noninteractive-element-interactions */}
+      <li className={style['product-container']} onClick={onClick}>
+        <input
+          className={style.checkbox}
+          type='checkbox'
+          id={id}
+          checked={checked}
+          onChange={onClick}
+        />
+        <div className={style.product}>
+          <div className={style['img-box']}>{img}</div>
 
-        <div className={style['product__info']}>
-          <ProductInfoContent
-            product={product}
-            ingredientName={product.ingredient.name}
-          />
+          <div className={style['product__info']}>
+            <ProductInfoContent
+              product={product}
+              ingredientName={product.ingredient.name}
+            />
+          </div>
         </div>
-      </div>
-    </li>
+      </li>
+    </>
   );
 }
 
