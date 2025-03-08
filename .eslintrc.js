@@ -29,6 +29,7 @@ module.exports = {
         ...eslintPluginReactHooks.configs.recommended.rules,
         ...eslintPluginJsxA11y.configs.recommended.rules,
         ...eslintPluginTs.configs.recommended.rules,
+        '@typescript-eslint/no-unused-expressions': 'off',
         'prettier/prettier': 'error',
         'react/react-in-jsx-scope': 'off',
         '@typescript-eslint/no-unused-vars': [
