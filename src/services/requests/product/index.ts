@@ -8,7 +8,7 @@ import { RecommendRecipe } from '../recommend/type';
 
 export const getProduct = withSafeAsync(
   async (productKey: string, options?: RequestInit): FetchResult<Product> => {
-    const response = await fetchAPI(`/products/${productKey}`, {
+    const response = await fetchAPI<Product>(`/products/${productKey}`, {
       ...options,
     });
 
@@ -26,7 +26,7 @@ export const getProductRecommendations = withSafeAsync(
     productKey: string,
     options?: RequestInit,
   ): FetchResult<RecommendRecipe[]> => {
-    const response = await fetchAPI(
+    const response = await fetchAPI<RecommendRecipe[]>(
       `/products/${productKey}/recommend`,
       options,
     );

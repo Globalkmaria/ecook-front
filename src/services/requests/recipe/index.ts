@@ -14,7 +14,9 @@ export const getRecipe = withSafeAsync(
     recipeKey: string,
     options?: RequestInit,
   ): FetchResult<RecipeDetail> => {
-    const response = await fetchAPI(`/recipes/${recipeKey}`, { ...options });
+    const response = await fetchAPI<RecipeDetail>(`/recipes/${recipeKey}`, {
+      ...options,
+    });
     if (response.ok) return { ok: true, data: response.data };
 
     throw new AsyncError(
@@ -41,7 +43,7 @@ export const deleteRecipe = withSafeAsync(
 
 export const editRecipe = withSafeAsync(
   async (data: FormData, recipeKey: string): FetchResult<EditRecipeRes> => {
-    const response = await fetchAPI(`/recipes/${recipeKey}`, {
+    const response = await fetchAPI<EditRecipeRes>(`/recipes/${recipeKey}`, {
       method: 'PUT',
       body: data,
     });
@@ -60,7 +62,10 @@ export const getRecipeRecommendations = withSafeAsync(
     recipeKey: string,
     options?: RequestInit,
   ): FetchResult<GetRecipeRecommendationsRes> => {
-    const response = await fetchAPI(`/recipes/${recipeKey}/recommend`, options);
+    const response = await fetchAPI<GetRecipeRecommendationsRes>(
+      `/recipes/${recipeKey}/recommend`,
+      options,
+    );
 
     if (response.ok) return { ok: true, data: response.data };
 

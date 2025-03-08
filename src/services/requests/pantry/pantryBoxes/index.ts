@@ -15,7 +15,7 @@ const BASE_URL = '/pantry/boxes';
 
 export const getPantryBoxes = withSafeAsync(
   async (): FetchResult<GetPantryBoxesRes> => {
-    const response = await fetchAPI(BASE_URL);
+    const response = await fetchAPI<GetPantryBoxesRes>(BASE_URL);
 
     if (response.ok) return { ok: true, data: response.data };
 
@@ -28,7 +28,7 @@ export const getPantryBoxes = withSafeAsync(
 
 export const addPantryBox = withSafeAsync(
   async (data: AddPantryBoxReq): FetchResult<AddPantryBoxRes> => {
-    const response = await fetchAPI(BASE_URL, {
+    const response = await fetchAPI<AddPantryBoxRes>(BASE_URL, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
@@ -47,7 +47,7 @@ export const addPantryBox = withSafeAsync(
 
 export const getPantryBox = withSafeAsync(
   async (key: string): FetchResult<GetPantryBoxRes> => {
-    const response = await fetchAPI(`${BASE_URL}/${key}`);
+    const response = await fetchAPI<GetPantryBoxRes>(`${BASE_URL}/${key}`);
 
     if (response.ok) return { ok: true, data: response.data };
 
@@ -78,7 +78,7 @@ export const addPantryItem = withSafeAsync(
     data: AddPantryItemReq,
     key: string,
   ): FetchResult<AddPantryItemRes> => {
-    const response = await fetchAPI(`${BASE_URL}/${key}`, {
+    const response = await fetchAPI<AddPantryItemRes>(`${BASE_URL}/${key}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

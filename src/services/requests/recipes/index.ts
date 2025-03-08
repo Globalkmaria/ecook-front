@@ -13,7 +13,7 @@ export const getRecipes = withSafeAsync(
     query: string,
     type: RecipesSearchType,
   ): FetchResult<GetRecipesRes> => {
-    const response = await fetchAPI(
+    const response = await fetchAPI<GetRecipesRes>(
       `/recipes?q=${lightTrim(query)}&type=${type}`,
     );
 
@@ -38,7 +38,7 @@ export const getRecipesBatch = withSafeAsync(
     query: string[];
     type: RecipesBatchType;
   }): FetchResult<GetRecipesRes> => {
-    const response = await fetchAPI(`/recipes/batch`, {
+    const response = await fetchAPI<GetRecipesRes>(`/recipes/batch`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -68,7 +68,9 @@ export const createRecipe = withSafeAsync(
   ): FetchResult<{
     key: string;
   }> => {
-    const response = await fetchAPI('/recipes', {
+    const response = await fetchAPI<{
+      key: string;
+    }>('/recipes', {
       method: 'POST',
       body: data,
     });

@@ -7,7 +7,7 @@ import { createAsyncErrorMessage, withSafeAsync } from '../../utils';
 
 export const getHomeRecipes =
   withSafeAsync(async (): FetchResult<GetHomeRecipesRes> => {
-    const response = await fetchAPI('/home');
+    const response = await fetchAPI<GetHomeRecipesRes>('/home');
 
     if (response.ok) return { ok: true, data: response.data };
 

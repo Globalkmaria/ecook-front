@@ -7,7 +7,7 @@ import { createAsyncErrorMessage, withSafeAsync } from '../../utils';
 
 export const getHomeRecommendations = withSafeAsync(
   async (): FetchResult<RecipeRecommendations> => {
-    const response = await fetchAPI(`/recommend/home`);
+    const response = await fetchAPI<RecipeRecommendations>(`/recommend/home`);
 
     if (response.ok) return { ok: true, data: response.data };
 
@@ -29,7 +29,10 @@ export const getPantryBoxRecommendations = withSafeAsync(
     key: string;
     options?: FetchAPIOptions;
   }): FetchResult<RecommendRecipe[]> => {
-    const response = await fetchAPI(`/recommend/pantry/boxes/${key}`, options);
+    const response = await fetchAPI<RecommendRecipe[]>(
+      `/recommend/pantry/boxes/${key}`,
+      options,
+    );
 
     if (response.ok) return { ok: true, data: response.data };
 

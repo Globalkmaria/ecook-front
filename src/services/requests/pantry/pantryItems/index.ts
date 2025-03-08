@@ -9,7 +9,7 @@ const BASE_URL = '/pantry/items';
 
 export const deletePantryItem = withSafeAsync(
   async (key: string): FetchResult<DeletePantryItem> => {
-    const response = await fetchAPI(`${BASE_URL}/${key}`, {
+    const response = await fetchAPI<DeletePantryItem>(`${BASE_URL}/${key}`, {
       method: 'DELETE',
     });
 

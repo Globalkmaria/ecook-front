@@ -7,7 +7,7 @@ import { createAsyncErrorMessage, withSafeAsync } from '../../utils';
 
 export const getBookmarks = withSafeAsync(
   async (): FetchResult<GetBookmarksRes> => {
-    const response = await fetchAPI('/bookmarks');
+    const response = await fetchAPI<GetBookmarksRes>('/bookmarks');
 
     if (response.ok) return { ok: true, data: response.data };
 
