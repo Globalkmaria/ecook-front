@@ -1,19 +1,18 @@
-import style from './style.module.scss';
+import Button from '@/components/Button';
 
 import { IngredientNewProduct } from '@/services/requests/recipes/type';
 
-import Button from '@/components/Button';
-
-import { OnSelectProduct } from '../RecipeIngredients/RecipeIngredientsContent';
-import {
-  getIngredientWithExistingProduct,
-  getIngredientWithNewProduct,
-} from './helper';
 import {
   NEW_PRODUCT_ID,
   SearchedIngredientState,
   SelectedProductState,
 } from '.';
+import {
+  getIngredientWithExistingProduct,
+  getIngredientWithNewProduct,
+} from './helper';
+import style from './style.module.scss';
+import { OnSelectProduct } from '../RecipeIngredients/RecipeIngredientsContent';
 
 interface Props {
   selectedProduct: SelectedProductState;

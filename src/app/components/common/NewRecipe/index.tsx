@@ -1,33 +1,33 @@
 'use client';
 
 import { ChangeEventHandler, useCallback, useState } from 'react';
+
 import { QueryKey, useMutationState } from '@tanstack/react-query';
 
-import style from './style.module.scss';
+import { isPending } from '@/queries/helpers';
+
+import { createInputHandler } from '@/utils/createInputHandler';
+import { withTextLengthLimit } from '@/utils/validation';
+
+import Button from '@/components/Button';
+import ImageUploader from '@/components/imageUploader';
+import { ChipListInput, Input } from '@/components/Input';
 
 import {
   NewRecipeData,
   NewRecipeIngredient,
 } from '@/services/requests/recipes/type';
 
-import { isPending } from '@/queries/helpers';
-
-import { ChipListInput, Input } from '@/components/Input';
-import ImageUploader from '@/components/imageUploader';
-import Button from '@/components/Button';
-
-import { createInputHandler } from '@/utils/createInputHandler';
-import { withTextLengthLimit } from '@/utils/validation';
-
-import RecipeSteps from './RecipeSteps';
-import RecipeIngredients from './RecipeIngredients';
-import RecipeTime from './RecipeTime';
 import {
   checkIfAllFieldsAreFilled,
   getValidAndTrimmedSteps,
   getValidIngredients,
 } from './helper';
+import RecipeIngredients from './RecipeIngredients';
+import RecipeSteps from './RecipeSteps';
 import { Step } from './RecipeSteps/RecipeStepsContent';
+import RecipeTime from './RecipeTime';
+import style from './style.module.scss';
 
 export interface NewRecipeSubmitProps {
   img: File | string | null;

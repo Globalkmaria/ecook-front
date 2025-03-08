@@ -1,12 +1,11 @@
 import { ImageProps } from 'next/image';
 import Link from 'next/link';
 
-import style from './style.module.scss';
-
 import { getRecipeLink, getUserLink } from '@/helpers/links';
 
-import CustomImage from '../CustomImage';
+import style from './style.module.scss';
 import Avatar from '../Avatar';
+import CustomImage from '../CustomImage';
 import Skeleton from '../Skeleton';
 
 interface Data {

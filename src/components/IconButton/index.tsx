@@ -1,8 +1,9 @@
 import { ButtonHTMLAttributes } from 'react';
-import style from './style.module.scss';
 
-import Icon, { IconProps } from '../Icon';
 import { joinClassNames } from '@/utils/style';
+
+import style from './style.module.scss';
+import Icon, { IconProps } from '../Icon';
 
 export interface IconButtonProps
   extends IconProps,

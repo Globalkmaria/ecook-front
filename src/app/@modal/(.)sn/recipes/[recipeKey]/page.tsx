@@ -1,7 +1,8 @@
-import style from './style.module.scss';
-
 import { PageModalWrapper } from '@/components/Modal';
+
 import RecipePageContainer from '@/app/sn/recipes/[recipeKey]/RecipePageContainer';
+
+import style from './style.module.scss';
 
 interface Props {
   params: Promise<{ recipeKey: string }>;

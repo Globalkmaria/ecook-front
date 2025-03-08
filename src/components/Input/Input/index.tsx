@@ -1,6 +1,8 @@
 import { InputHTMLAttributes, memo, ReactNode } from 'react';
-import style from './style.module.scss';
+
 import { joinClassNames } from '@/utils/style';
+
+import style from './style.module.scss';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   children?: ReactNode;

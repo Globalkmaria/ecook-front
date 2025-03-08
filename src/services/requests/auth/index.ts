@@ -1,9 +1,9 @@
 import { fetchAPI } from '@/services/api';
+import { AsyncError } from '@/services/helpers';
 
-import { User } from '../users/type';
 import { FetchResult } from '../../type';
 import { createAsyncErrorMessage, withSafeAsync } from '../../utils';
-import { AsyncError } from '@/services/helpers';
+import { User } from '../users/type';
 
 interface LoginData {
   username: string;
@@ -12,7 +12,7 @@ interface LoginData {
 
 export const login = withSafeAsync(
   async (data: LoginData): FetchResult<User> => {
-    const response = await fetchAPI('/auth/login', {
+    const response = await fetchAPI<User>('/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ export const login = withSafeAsync(
 
 export const signup = withSafeAsync(
   async (data: FormData): FetchResult<User> => {
-    const response = await fetchAPI('/auth/signup', {
+    const response = await fetchAPI<User>('/auth/signup', {
       method: 'POST',
       body: data,
     });

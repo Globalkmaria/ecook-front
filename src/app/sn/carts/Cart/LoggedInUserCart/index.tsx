@@ -1,17 +1,17 @@
 import { useCallback, useEffect } from 'react';
+
 import { useQuery } from '@tanstack/react-query';
 
-import { useClientStore } from '@/providers/client-store-provider';
-
-import { isAuthError } from '@/services/utils';
+import { useUpdateCartItemQuantityMutation } from '@/queries/hooks';
+import { useAddPantryBoxMutation } from '@/queries/hooks/pantry/boxes/useAddPantryBox';
+import { userCartOptions } from '@/queries/options/carts/userCartOptions';
 
 import useLogout from '@/hooks/useLogout';
 
-import { userCartOptions } from '@/queries/options/carts/userCartOptions';
-import { useUpdateCartItemQuantityMutation } from '@/queries/hooks';
+import { useClientStore } from '@/providers/client-store-provider';
+import { isAuthError } from '@/services/utils';
 
 import CartItem, { LoggedInUserCartItemProps } from './LoggedInUserCartItem';
-import { useAddPantryBoxMutation } from '@/queries/hooks/pantry/boxes/useAddPantryBox';
 import { CartProductProps } from '../CartProduct';
 import { getNewPantryBox } from './helper';
 

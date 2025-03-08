@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import { capitalizeFirstLetter } from '@/utils/text';
+
 import { getHomeRecipes } from '@/services/requests/home';
 import { getRecipe } from '@/services/requests/recipe';
-
-import { capitalizeFirstLetter } from '@/utils/text';
 
 import RecipePageContainer from './RecipePageContainer';
 

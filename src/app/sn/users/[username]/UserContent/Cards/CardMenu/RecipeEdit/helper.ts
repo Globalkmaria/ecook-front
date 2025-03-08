@@ -1,15 +1,15 @@
-import { RecipeDetail } from '@/services/requests/recipe/type';
-
 import { getRandomId } from '@/utils/generateId';
 
 import { NewRecipeInitialData } from '@/app/components/common/NewRecipe';
 import { NewRecipeSubmitProps } from '@/app/components/common/NewRecipe';
-
-import { EditRecipeData } from '.';
 import {
   appendProductImgsToFormData,
   appendRecipeImgToFormData,
 } from '@/app/sn/recipes/new/helper';
+
+import { RecipeDetail } from '@/services/requests/recipe/type';
+
+import { EditRecipeData } from '.';
 
 export const checkRequiredFieldsFilled = (data: NewRecipeSubmitProps) =>
   data.img &&

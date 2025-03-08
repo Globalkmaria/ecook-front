@@ -1,13 +1,13 @@
 'use client';
 
 import { useCallback } from 'react';
-import { useRouter } from 'next/navigation';
 
 import { useQueryClient } from '@tanstack/react-query';
-
-import { useClientStore } from '@/providers/client-store-provider';
+import { useRouter } from 'next/navigation';
 
 import { LOGIN_LINK } from '@/helpers/links';
+
+import { useClientStore } from '@/providers/client-store-provider';
 import { logout } from '@/services/requests/auth';
 
 function useLogout() {

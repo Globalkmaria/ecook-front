@@ -2,23 +2,21 @@
 
 import { useParams } from 'next/navigation';
 
-import style from './style.module.scss';
-
-import { useClientStore } from '@/providers/client-store-provider';
-
-import { RecipeSimple } from '@/services/requests/recipe/type';
-
 import { useDeleteRecipeMutation } from '@/queries/hooks';
 
 import useModal from '@/hooks/useModal';
 
-import Icon, { IconProps } from '@/components/Icon';
 import { DropboxItem } from '@/components/Dropbox';
-import { MoreButton } from '@/components/MoreButton';
+import Icon, { IconProps } from '@/components/Icon';
 import { Modal2 } from '@/components/Modal';
 import ModalContainer from '@/components/Modal/ModalContainer';
+import { MoreButton } from '@/components/MoreButton';
+
+import { useClientStore } from '@/providers/client-store-provider';
+import { RecipeSimple } from '@/services/requests/recipe/type';
 
 import RecipeEdit from './RecipeEdit';
+import style from './style.module.scss';
 
 interface Props {
   recipeKey: RecipeSimple['key'];

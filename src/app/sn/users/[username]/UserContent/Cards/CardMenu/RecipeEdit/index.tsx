@@ -2,24 +2,23 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-import style from './style.module.scss';
-
-import { NewRecipeDataServer } from '@/services/requests/recipes/type';
-
+import { mutationKeys } from '@/queries/helpers';
 import { useEditRecipeMutation } from '@/queries/hooks';
 import { recipeOptions } from '@/queries/options';
-import { mutationKeys } from '@/queries/helpers';
 
 import Skeleton from '@/components/Skeleton';
 
 import NewRecipe from '@/app/components/common/NewRecipe';
 import { OnSubmitNewRecipe } from '@/app/components/common/NewRecipe';
 
+import { NewRecipeDataServer } from '@/services/requests/recipes/type';
+
 import {
   getEditRecipeFormData,
   getEditRecipeInitialValues,
   checkRequiredFieldsFilled,
 } from './helper';
+import style from './style.module.scss';
 
 export type EditRecipeData = Omit<NewRecipeDataServer, 'img'>;
 

@@ -1,15 +1,15 @@
 import Link from 'next/link';
 
-import style from './Recipe.module.scss';
-
-import { RecipeSimple } from '@/services/requests/recipe/type';
-
 import { getLimitedWords } from '@/utils/text';
 
 import { getRecipeLink } from '@/helpers/links';
 
 import Chip, { ChipGroup } from '@/components/Chip';
 import CustomImage from '@/components/CustomImage';
+
+import { RecipeSimple } from '@/services/requests/recipe/type';
+
+import style from './Recipe.module.scss';
 
 interface Props {
   recipe: RecipeSimple;

@@ -2,10 +2,10 @@ import { queryOptions } from '@tanstack/react-query';
 
 import { getRecipePageTag } from '@/actions/helpers';
 
+import { queryKeys } from '@/queries/helpers';
+
 import { getRecipe } from '@/services/requests/recipe';
 import { RecipeDetail } from '@/services/requests/recipe/type';
-
-import { queryKeys } from '@/queries/helpers';
 
 interface Props {
   key: string;

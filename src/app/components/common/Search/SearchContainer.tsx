@@ -1,16 +1,16 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+
 import { useRouter, useSearchParams } from 'next/navigation';
-
-import style from './style.module.scss';
-
-import useModal from '@/hooks/useModal';
 
 import { getSearchLink } from '@/helpers/links';
 
+import useModal from '@/hooks/useModal';
+
 import { Dropbox, DropboxItem, DropboxWrapper } from '@/components/Dropbox';
 import Icon from '@/components/Icon';
+
 import {
   SEARCH_MENU_ITEMS,
   SEARCH_MENU_ITEMS_MAP,
@@ -18,6 +18,7 @@ import {
 } from '@/const/searchMenu';
 
 import { getSearchMenuItem, getSearchQuery } from './helper';
+import style from './style.module.scss';
 
 function SearchContainer() {
   const router = useRouter();

@@ -1,7 +1,8 @@
 import { HOME_LINK } from '@/helpers/links';
-import style from './notFound.module.scss';
 
 import AnchorUnderline from '@/components/Anchor/AnchorUnderline';
+
+import style from './notFound.module.scss';
 
 export default async function NotFound() {
   return (

@@ -1,11 +1,11 @@
 'use client';
 
-import style from './modal.module.scss';
-
 import { MouseEvent, ReactNode, useEffect, useRef } from 'react';
 
 import useEscapeKey from '@/hooks/useEscapeKey';
 import useHideScroll from '@/hooks/useHideScroll';
+
+import style from './modal.module.scss';
 import ModalWrapper from './ModalWrapper';
 import Icon from '../Icon';
 
@@ -54,6 +54,7 @@ function Modal2({
 
   return (
     <ModalWrapper wrapperId={wrapperId}>
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
       <div
         tabIndex={-1}
         className={`${style.container} ${isOpen ? '' : style['container--close']} ${style.modal2}`}

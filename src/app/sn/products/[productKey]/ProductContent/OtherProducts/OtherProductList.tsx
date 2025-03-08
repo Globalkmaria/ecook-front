@@ -1,9 +1,5 @@
-import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-
-import style from './style.module.scss';
-
-import { PRODUCT_TYPES } from '@/services/requests/products';
+import { useParams } from 'next/navigation';
 
 import { productsOptions } from '@/queries/options';
 
@@ -11,6 +7,9 @@ import { getProductLink } from '@/helpers/links';
 
 import ImgCard from '@/components/ImgCard';
 
+import { PRODUCT_TYPES } from '@/services/requests/products';
+
+import style from './style.module.scss';
 import { ProductPageParams } from '../../page';
 
 function OtherProductList() {

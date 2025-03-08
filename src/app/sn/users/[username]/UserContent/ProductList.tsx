@@ -1,15 +1,14 @@
-import { notFound, useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
+import { notFound, useParams } from 'next/navigation';
 
 import { productsOptions } from '@/queries/options';
 
+import { useClientStore } from '@/providers/client-store-provider';
 import { PRODUCT_TYPES } from '@/services/requests/products';
 
-import { useClientStore } from '@/providers/client-store-provider';
-
 import { UserPageParams } from '../page';
-import ProductCards from './ProductCards';
 import NoContent from './NoContent';
+import ProductCards from './ProductCards';
 
 function ProductList() {
   const params = useParams<UserPageParams>();

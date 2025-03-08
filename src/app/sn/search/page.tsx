@@ -1,6 +1,5 @@
-import style from './style.module.scss';
-
 import RecipeListWrapper from './RecipeListWrapper';
+import style from './style.module.scss';
 
 export type SearchParams = {
   q?: string;

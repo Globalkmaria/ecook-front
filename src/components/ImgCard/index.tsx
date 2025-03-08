@@ -1,9 +1,9 @@
 import Link from 'next/link';
 
-import style from './style.module.scss';
-
-import CustomImage, { CustomImageProps } from '../CustomImage';
 import { joinClassNames } from '@/utils/style';
+
+import style from './style.module.scss';
+import CustomImage, { CustomImageProps } from '../CustomImage';
 
 export interface ImgCardProps {
   link: string;

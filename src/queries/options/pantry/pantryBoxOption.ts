@@ -1,7 +1,9 @@
+import { queryOptions } from '@tanstack/react-query';
+
 import { queryKeys } from '@/queries/helpers';
+
 import { getPantryBox } from '@/services/requests/pantry/pantryBoxes';
 import { isUnauthorizedResponse, UNAUTHORIZED_ERROR } from '@/services/utils';
-import { queryOptions } from '@tanstack/react-query';
 
 interface Props {
   staleTime?: number;

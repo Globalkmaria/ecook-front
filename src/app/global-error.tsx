@@ -13,7 +13,7 @@ export default function GlobalError({
 }) {
   console.error('Error:', error);
   return (
-    <html>
+    <html lang='en'>
       <body>
         <h2>Something went wrong!</h2>
         <button onClick={() => reset()}>Try again</button>

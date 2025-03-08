@@ -1,12 +1,11 @@
-import style from './style.module.scss';
-
-import { Product } from '@/services/requests/products/type';
-
 import { getProductLink } from '@/helpers/links';
 
 import ImgCard, { ImgCardProps } from '@/components/ImgCard';
 
+import { Product } from '@/services/requests/products/type';
+
 import AddProductToCart from './AddProductToCart';
+import style from './style.module.scss';
 
 interface Props {
   products: Product[];

@@ -1,15 +1,16 @@
 'use client';
 
-import { useShallow } from 'zustand/shallow';
 import { useState } from 'react';
 
-import style from './style.module.scss';
-
-import { useClientStore } from '@/providers/client-store-provider';
+import { useShallow } from 'zustand/shallow';
 
 import { useCreateCartItemMutation } from '@/queries/hooks/carts/useCreateCartItemMutation';
 
 import IconButton from '@/components/IconButton';
+
+import { useClientStore } from '@/providers/client-store-provider';
+
+import style from './style.module.scss';
 
 interface Props {
   ingredientKey: string;

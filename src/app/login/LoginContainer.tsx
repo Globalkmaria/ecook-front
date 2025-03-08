@@ -1,21 +1,21 @@
 'use client';
 
 import { MouseEventHandler, useState, useTransition } from 'react';
-import { useRouter } from 'next/navigation';
+
 import Link from 'next/link';
-
-import style from './LoginContainer.module.scss';
-
-import { useClientStore } from '@/providers/client-store-provider';
-
-import { login } from '@/services/requests/auth';
-
-import useResetNotLoggedInData from '@/hooks/useResetNotLoggedInData';
+import { useRouter } from 'next/navigation';
 
 import { HOME_LINK, SIGNUP_LINK } from '@/helpers/links';
 
+import useResetNotLoggedInData from '@/hooks/useResetNotLoggedInData';
+
 import Button from '@/components/Button';
 import { Input } from '@/components/Input';
+
+import { useClientStore } from '@/providers/client-store-provider';
+import { login } from '@/services/requests/auth';
+
+import style from './LoginContainer.module.scss';
 
 function LoginContainer() {
   const router = useRouter();

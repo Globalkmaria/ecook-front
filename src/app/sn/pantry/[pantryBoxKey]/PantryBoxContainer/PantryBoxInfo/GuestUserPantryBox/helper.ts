@@ -1,6 +1,8 @@
 import { PantryState } from '@/stores/slices/pantry/pantrySlice';
-import { PantryBoxContentProps } from '../PantryBoxContent';
+
 import { GetIngredientsWithProductsRes } from '@/services/requests/ingredients/type';
+
+import { PantryBoxContentProps } from '../PantryBoxContent';
 
 export const mapPantryBoxToViewData = (
   pantryBox: PantryState['pantry']['pantryBoxes']['string'],

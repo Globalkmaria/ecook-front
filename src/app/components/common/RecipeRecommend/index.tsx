@@ -1,8 +1,7 @@
-import style from './style.module.scss';
-
 import RecipeRecommendList, {
   RecipeRecommendListProps,
 } from './RecipeRecommendList';
+import style from './style.module.scss';
 
 type RecipeRecommendProps = RecipeRecommendListProps;
 

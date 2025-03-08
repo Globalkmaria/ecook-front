@@ -1,7 +1,9 @@
+import { queryOptions } from '@tanstack/react-query';
+
 import { queryKeys } from '@/queries/helpers';
+
 import { getPantryBoxes } from '@/services/requests/pantry/pantryBoxes';
 import { isUnauthorizedResponse, UNAUTHORIZED_ERROR } from '@/services/utils';
-import { queryOptions } from '@tanstack/react-query';
 
 const STALE_TIME = 60 * 60 * 1000; // 1 hour
 

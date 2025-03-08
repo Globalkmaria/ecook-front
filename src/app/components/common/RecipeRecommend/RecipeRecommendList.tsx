@@ -1,8 +1,8 @@
 'use client';
 
-import style from './style.module.scss';
-
 import Card, { CardLoading, CardProps } from '@/components/Card';
+
+import style from './style.module.scss';
 
 export interface RecipeRecommendListProps {
   data?: CardProps['data'][];

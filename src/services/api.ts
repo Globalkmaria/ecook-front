@@ -10,14 +10,21 @@ export interface FetchAPIOptions extends RequestInit {
   query?: Record<string, string | number | boolean | undefined | null>;
 }
 
-export const fetchAPI = async (
+export const fetchAPI = async <T>(
   url: string,
   options: FetchAPIOptions = {},
-): Promise<{
-  ok: boolean;
-  data: any;
-  res: Response;
-}> => {
+): Promise<
+  | {
+      ok: boolean;
+      data: T;
+      res: Response;
+    }
+  | {
+      ok: false;
+      data: null;
+      res: Response;
+    }
+> => {
   const baseURL =
     process.env.PUBLIC_SERVER_URL || process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -54,7 +61,7 @@ export const fetchAPI = async (
   if (res.ok) {
     return {
       ok: true,
-      data: null,
+      data: null as unknown as T,
       res: res,
     };
   }
@@ -62,6 +69,7 @@ export const fetchAPI = async (
   throw new Error(`Error: ${res.status}`);
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function toQueryString(query?: Record<string, any>) {
   if (!query) return '';
 

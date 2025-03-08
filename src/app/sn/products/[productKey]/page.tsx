@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 
-import { getProduct } from '@/services/requests/product';
-
 import { capitalizeFirstLetter } from '@/utils/text';
+
+import { getProduct } from '@/services/requests/product';
 
 import ProductPageContainer from './ProductPageContainer';
 

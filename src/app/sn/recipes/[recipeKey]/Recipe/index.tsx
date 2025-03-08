@@ -1,30 +1,30 @@
 'use client';
 
 import { useState } from 'react';
+
+import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { notFound, useParams } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
-
-import style from './style.module.scss';
-
-import { RecipeDetail } from '@/services/requests/recipe/type';
-import { formatTime } from '@/utils/time';
 
 import { recipeOptions } from '@/queries/options';
 
+import { formatTime } from '@/utils/time';
+
 import { getSearchTagLink, getUserLink } from '@/helpers/links';
 
-import { Tab, TabsContainer } from '@/components/Tab';
-import Avatar from '@/components/Avatar';
-import CustomImage from '@/components/CustomImage';
-import { getListCheckboxInitialState } from '@/components/CheckboxList/helper';
 import AnchorChips from '@/components/AnchorChip';
+import Avatar from '@/components/Avatar';
+import { getListCheckboxInitialState } from '@/components/CheckboxList/helper';
+import CustomImage from '@/components/CustomImage';
+import { Tab, TabsContainer } from '@/components/Tab';
+
+import { RecipeDetail } from '@/services/requests/recipe/type';
 
 import Ingredients from './IngredientList';
 import { RECIPE_TABS, RecipeTab } from '../const';
-import StepList from './StepList';
 import BookmarkButton from './BookmarkButton';
-
+import StepList from './StepList';
+import style from './style.module.scss';
 import { RecipePageParams } from '../page';
 
 function Recipe() {

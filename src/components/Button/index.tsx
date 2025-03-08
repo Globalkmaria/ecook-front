@@ -1,7 +1,8 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react';
 
-import style from './style.module.scss';
 import { joinClassNames } from '@/utils/style';
+
+import style from './style.module.scss';
 
 export interface ButtonProps {
   variant?: 'primary' | 'secondary' | 'success' | 'danger';

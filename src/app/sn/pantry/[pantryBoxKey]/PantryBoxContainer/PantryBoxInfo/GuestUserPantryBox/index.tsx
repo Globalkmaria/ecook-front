@@ -1,20 +1,26 @@
-import { useClientStore } from '@/providers/client-store-provider';
-
-import { useParams, useRouter } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
-import { ingredientsWithProductsOptions } from '@/queries/options/ingredients/ingredientsWithProductsOptions';
-import { mapPantryBoxToViewData } from './helper';
-import { useShallow } from 'zustand/shallow';
 import { useCallback, useEffect, useMemo } from 'react';
+
+import { useQuery } from '@tanstack/react-query';
+import { useParams, useRouter } from 'next/navigation';
+import { useShallow } from 'zustand/shallow';
+
+import { ingredientsWithProductsOptions } from '@/queries/options/ingredients/ingredientsWithProductsOptions';
+
 import {
   PantryBoxItemState,
   PantryState,
 } from '@/stores/slices/pantry/pantrySlice';
+
 import { PANTRY_LINK } from '@/helpers/links';
-import { GetIngredientsWithProductsReq } from '@/services/requests/ingredients/type';
-import { mapPantryBoxesToReqData } from '@/app/sn/pantry/Pantry/GuestUserPantry/helper';
+
 import { PantryBoxPageParams } from '@/app/sn/pantry/[pantryBoxKey]/page';
 import PantryBoxContent from '@/app/sn/pantry/[pantryBoxKey]/PantryBoxContainer/PantryBoxInfo/PantryBoxContent';
+import { mapPantryBoxesToReqData } from '@/app/sn/pantry/Pantry/GuestUserPantry/helper';
+
+import { useClientStore } from '@/providers/client-store-provider';
+import { GetIngredientsWithProductsReq } from '@/services/requests/ingredients/type';
+
+import { mapPantryBoxToViewData } from './helper';
 
 function GuestUserPantryBox() {
   const router = useRouter();

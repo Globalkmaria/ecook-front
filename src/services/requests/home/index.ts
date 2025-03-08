@@ -1,12 +1,13 @@
-import { fetchAPI } from '../../api';
+import { AsyncError } from '@/services/helpers';
+
 import { GetHomeRecipesRes } from './type';
+import { fetchAPI } from '../../api';
 import { FetchResult } from '../../type';
 import { createAsyncErrorMessage, withSafeAsync } from '../../utils';
-import { AsyncError } from '@/services/helpers';
 
 export const getHomeRecipes =
   withSafeAsync(async (): FetchResult<GetHomeRecipesRes> => {
-    const response = await fetchAPI('/home');
+    const response = await fetchAPI<GetHomeRecipesRes>('/home');
 
     if (response.ok) return { ok: true, data: response.data };
 

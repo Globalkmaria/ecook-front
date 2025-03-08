@@ -1,9 +1,9 @@
 import { queryOptions } from '@tanstack/react-query';
 
+import { queryKeys } from '@/queries/helpers';
+
 import { getRecipesBatch } from '@/services/requests/recipes';
 import { RecipesBatchType } from '@/services/requests/recipes/helper';
-
-import { queryKeys } from '@/queries/helpers';
 
 interface RecipesBatchOptions {
   query: string[];

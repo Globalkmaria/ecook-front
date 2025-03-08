@@ -1,6 +1,5 @@
-import style from './style.module.scss';
-
 import SignupContainer from './SignupContainer';
+import style from './style.module.scss';
 
 function page() {
   return (

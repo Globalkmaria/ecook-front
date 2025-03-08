@@ -1,7 +1,8 @@
 import { memo } from 'react';
-import style from './style.module.scss';
 
 import Icon, { IconProps } from '@/components/Icon';
+
+import style from './style.module.scss';
 
 function IngredientInformationHeader() {
   return (

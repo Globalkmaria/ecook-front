@@ -1,9 +1,9 @@
-import style from './style.module.scss';
+import { PageModalWrapper } from '@/components/Modal';
 
 import { PantryBoxPageParams } from '@/app/sn/pantry/[pantryBoxKey]/page';
 import PantryBoxPageContainer from '@/app/sn/pantry/[pantryBoxKey]/PantryBoxContainer';
 
-import { PageModalWrapper } from '@/components/Modal';
+import style from './style.module.scss';
 
 interface Props {
   params: Promise<PantryBoxPageParams>;

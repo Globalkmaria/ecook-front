@@ -1,16 +1,15 @@
-import style from './style.module.scss';
-
 import { ChangeEventHandler, memo } from 'react';
 
+import { validateMinutes } from '@/utils/time';
 import {
   validatePositiveInteger,
   validateWithAlertAndExecute,
 } from '@/utils/validation';
-import { validateMinutes } from '@/utils/time';
 
 import { Input } from '@/components/Input';
 
 import { TextInputs } from '.';
+import style from './style.module.scss';
 
 interface RecipeTimeProps {
   textInputs: TextInputs;

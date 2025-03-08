@@ -1,9 +1,10 @@
+import { PantryState } from '@/stores/slices/pantry/pantrySlice';
+
 import {
   GetIngredientsWithProductsReq,
   GetIngredientsWithProductsRes,
 } from '@/services/requests/ingredients/type';
 
-import { PantryState } from '@/stores/slices/pantry/pantrySlice';
 import { PantryBoxesProps } from '../PantryBox';
 
 export const mapPantryBoxesToReqData = (

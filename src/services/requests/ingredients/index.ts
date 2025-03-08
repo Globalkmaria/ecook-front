@@ -1,11 +1,12 @@
 import { fetchAPI } from '@/services/api';
 import { AsyncError } from '@/services/helpers';
+import { FetchResult } from '@/services/type';
 import { createAsyncErrorMessage, withSafeAsync } from '@/services/utils';
+
 import {
   GetIngredientsWithProductsReq,
   GetIngredientsWithProductsRes,
 } from './type';
-import { FetchResult } from '@/services/type';
 
 export const getIngredientsWithProducts = withSafeAsync(
   async ({
@@ -13,13 +14,16 @@ export const getIngredientsWithProducts = withSafeAsync(
   }: GetIngredientsWithProductsReq): FetchResult<GetIngredientsWithProductsRes> => {
     if (Object.keys(items).length === 0) return { ok: true, data: {} };
 
-    const response = await fetchAPI('/ingredients/batch', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetchAPI<GetIngredientsWithProductsRes>(
+      '/ingredients/batch',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ items }),
       },
-      body: JSON.stringify({ items }),
-    });
+    );
 
     if (response.ok) return { ok: true, data: response.data };
 

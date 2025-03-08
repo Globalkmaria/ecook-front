@@ -1,10 +1,21 @@
+import { BiCabinet } from 'react-icons/bi';
 import { CiShoppingBasket, CiTextAlignJustify } from 'react-icons/ci';
+import { FaAngleUp, FaAngleDown } from 'react-icons/fa';
+import {
+  FaRegImage,
+  FaRegTrashCan,
+  FaBookmark,
+  FaRegBookmark,
+} from 'react-icons/fa6';
+import { GoInbox } from 'react-icons/go';
 import {
   IoIosMore,
   IoIosInformationCircleOutline,
   IoMdRemove,
   IoMdAdd,
 } from 'react-icons/io';
+import { IoClose, IoInformationOutline, IoSearch } from 'react-icons/io5';
+import { MdLabelOutline, MdGridOn, MdOutlineEdit } from 'react-icons/md';
 import {
   PiBookBookmarkBold,
   PiJarLabelLight,
@@ -12,18 +23,7 @@ import {
   PiJar,
   PiShoppingCartBold,
 } from 'react-icons/pi';
-import { MdLabelOutline, MdGridOn, MdOutlineEdit } from 'react-icons/md';
-import { IoClose, IoInformationOutline, IoSearch } from 'react-icons/io5';
-import {
-  FaRegImage,
-  FaRegTrashCan,
-  FaBookmark,
-  FaRegBookmark,
-} from 'react-icons/fa6';
-import { FaAngleUp, FaAngleDown } from 'react-icons/fa';
 import { RxReset } from 'react-icons/rx';
-import { BiCabinet } from 'react-icons/bi';
-import { GoInbox } from 'react-icons/go';
 
 const ICON_NAMES = [
   'basket',

@@ -1,6 +1,6 @@
-import style from './style.module.scss';
-
 import Icon from '@/components/Icon';
+
+import style from './style.module.scss';
 
 interface QuantityProps {
   quantity: number;

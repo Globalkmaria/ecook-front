@@ -1,13 +1,14 @@
 import { queryOptions } from '@tanstack/react-query';
 
 import { getUserBookmarkedRecipes } from '@/services/requests/users';
-import { queryKeys } from '../../helpers';
 import {
   FORBIDDEN_ERROR,
   isForbiddenResponse,
   isUnauthorizedResponse,
   UNAUTHORIZED_ERROR,
 } from '@/services/utils/authError';
+
+import { queryKeys } from '../../helpers';
 
 interface Props {
   staleTime?: number;

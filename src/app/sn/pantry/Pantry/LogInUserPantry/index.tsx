@@ -1,9 +1,14 @@
-import { pantryBoxesOptions } from '@/queries/options/pantry/pantryBoxesOptions';
-import { useQuery } from '@tanstack/react-query';
-import PantryBoxes from '../PantryBox';
-import useLogout from '@/hooks/useLogout';
-import { isUnauthorizedError } from '@/services/utils';
 import { useEffect } from 'react';
+
+import { useQuery } from '@tanstack/react-query';
+
+import { pantryBoxesOptions } from '@/queries/options/pantry/pantryBoxesOptions';
+
+import useLogout from '@/hooks/useLogout';
+
+import { isUnauthorizedError } from '@/services/utils';
+
+import PantryBoxes from '../PantryBox';
 
 function LogInUserPantry() {
   const logout = useLogout();

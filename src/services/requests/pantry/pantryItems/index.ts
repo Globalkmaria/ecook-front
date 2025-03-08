@@ -2,13 +2,14 @@ import { fetchAPI } from '@/services/api';
 import { AsyncError } from '@/services/helpers';
 import { FetchResult } from '@/services/type';
 import { createAsyncErrorMessage, withSafeAsync } from '@/services/utils';
+
 import { DeletePantryItem, UpdatePantryItemReq } from './type';
 
 const BASE_URL = '/pantry/items';
 
 export const deletePantryItem = withSafeAsync(
   async (key: string): FetchResult<DeletePantryItem> => {
-    const response = await fetchAPI(`${BASE_URL}/${key}`, {
+    const response = await fetchAPI<DeletePantryItem>(`${BASE_URL}/${key}`, {
       method: 'DELETE',
     });
 

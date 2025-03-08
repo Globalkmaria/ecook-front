@@ -10,8 +10,6 @@ import React, {
   useTransition,
 } from 'react';
 
-import style from './style.module.scss';
-
 import { joinClassNames } from '@/utils/style';
 
 import Icon from '@/components/Icon';
@@ -21,6 +19,7 @@ import {
   getInvalidFileFormatMessage,
   optimizeImageFile,
 } from './helper';
+import style from './style.module.scss';
 
 const MAX_FILE_SIZE = 20;
 const ALLOWED_FILE_TYPES = [
@@ -123,6 +122,12 @@ function ImageUploaderContent({
 
   const onClick = () => inputRef.current?.click();
 
+  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      onClick();
+    }
+  };
+
   const onReset = () => {
     onChange(initialImg);
   };
@@ -144,6 +149,10 @@ function ImageUploaderContent({
           onDragOver={onDragOver}
           onDragLeave={onDragLeave}
           onDrop={onDrop}
+          role='button'
+          tabIndex={0}
+          onKeyDown={onKeyDown}
+          aria-label='Upload image'
         >
           <div className={style.message}>
             <span>{mainMessage}</span>

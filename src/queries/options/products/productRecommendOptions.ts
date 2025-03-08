@@ -1,8 +1,8 @@
 import { queryOptions } from '@tanstack/react-query';
 
-import { getProductRecommendations } from '@/services/requests/product';
-
 import { queryKeys } from '@/queries/helpers';
+
+import { getProductRecommendations } from '@/services/requests/product';
 
 interface ProductRecommendOptions {
   key: string;

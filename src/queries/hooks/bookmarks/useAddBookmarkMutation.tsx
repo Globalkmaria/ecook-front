@@ -1,10 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import { queryKeys } from '@/queries/helpers';
+
+import useLogout from '@/hooks/useLogout';
+
 import { addBookmark } from '@/services/requests/bookmarks';
 import { isUnauthorizedResponse } from '@/services/utils/authError';
-
-import { queryKeys } from '@/queries/helpers';
-import useLogout from '@/hooks/useLogout';
 
 export function useAddBookmarkMutation() {
   const logout = useLogout();

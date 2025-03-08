@@ -1,19 +1,17 @@
 import { useRouter } from 'next/navigation';
 
-import style from './style.module.scss';
-
-import { useClientStore } from '@/providers/client-store-provider';
-
-import { signup } from '@/services/requests/auth';
+import { HOME_LINK } from '@/helpers/links';
 
 import useResetNotLoggedInData from '@/hooks/useResetNotLoggedInData';
 
-import { HOME_LINK } from '@/helpers/links';
-
 import Button from '@/components/Button';
+
+import { useClientStore } from '@/providers/client-store-provider';
+import { signup } from '@/services/requests/auth';
 
 import { SignupFormState } from '.';
 import { getSignupFormData, validateSignupFormAndAlert } from './helper';
+import style from './style.module.scss';
 
 interface Props {
   isLoadingSignup: boolean;

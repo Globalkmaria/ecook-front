@@ -1,10 +1,9 @@
 import { LabelHTMLAttributes, memo, useState } from 'react';
 
-import style from './style.module.scss';
-
 import { joinClassNames } from '@/utils/style';
 
 import { getListCheckboxInitialState } from './helper';
+import style from './style.module.scss';
 
 const Container = memo(function Container({
   children,

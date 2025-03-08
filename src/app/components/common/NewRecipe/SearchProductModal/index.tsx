@@ -1,27 +1,26 @@
 import { useEffect, useState } from 'react';
 
-import style from './style.module.scss';
-
-import { Product } from '@/services/requests/products/type';
-import { IngredientNewProduct } from '@/services/requests/recipes/type';
-import { getProducts, PRODUCT_TYPES } from '@/services/requests/products';
-
 import useModal from '@/hooks/useModal';
 
 import { Modal } from '@/components/Modal';
 
+import { NewRecipeIngredientState } from '@/app/components/common/NewRecipe';
 import IngredientInformationHeader from '@/app/sn/recipes/[recipeKey]/Recipe/IngredientList/IngredientInformation/IngredientInformationHeader';
 
-import { NewRecipeIngredientState } from '@/app/components/common/NewRecipe';
-import NewProduct from './NewProduct';
+import { getProducts, PRODUCT_TYPES } from '@/services/requests/products';
+import { Product } from '@/services/requests/products/type';
+import { IngredientNewProduct } from '@/services/requests/recipes/type';
+
 import ExistingProduct from './ExistingProduct';
-import { OnSelectProduct } from '../RecipeIngredients/RecipeIngredientsContent';
 import {
   getNewProductInitialState,
   getSelectedProductInitialState,
 } from './helper';
+import NewProduct from './NewProduct';
 import ProductSearchInput from './ProductSearchInput';
 import SearchProductConfirmButton from './SearchProductConfirmButton';
+import style from './style.module.scss';
+import { OnSelectProduct } from '../RecipeIngredients/RecipeIngredientsContent';
 
 interface Props {
   control: ReturnType<typeof useModal>;

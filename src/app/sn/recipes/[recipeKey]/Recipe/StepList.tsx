@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 
-import { RecipeDetail } from '@/services/requests/recipe/type';
-
 import Checkbox from '@/components/CheckboxList';
+
+import { RecipeDetail } from '@/services/requests/recipe/type';
 
 interface Props {
   state: [

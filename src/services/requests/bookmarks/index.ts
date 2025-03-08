@@ -1,12 +1,13 @@
-import { fetchAPI } from '../../api';
 import { AsyncError } from '@/services/helpers';
+
+import { GetBookmarksRes } from './type';
+import { fetchAPI } from '../../api';
 import { FetchResult } from '../../type';
 import { createAsyncErrorMessage, withSafeAsync } from '../../utils';
-import { GetBookmarksRes } from './type';
 
 export const getBookmarks = withSafeAsync(
   async (): FetchResult<GetBookmarksRes> => {
-    const response = await fetchAPI('/bookmarks');
+    const response = await fetchAPI<GetBookmarksRes>('/bookmarks');
 
     if (response.ok) return { ok: true, data: response.data };
 

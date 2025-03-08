@@ -1,20 +1,19 @@
-import { fetchAPI } from '@/services/api';
-
 import { lightTrim } from '@/utils/normalize';
 
+import { fetchAPI } from '@/services/api';
 import { AsyncError } from '@/services/helpers';
 
+import { RecipesBatchType, RecipesSearchType } from './helper';
 import { GetRecipesRes } from './type';
 import { FetchResult } from '../../type';
 import { createAsyncErrorMessage, withSafeAsync } from '../../utils';
-import { RecipesBatchType, RecipesSearchType } from './helper';
 
 export const getRecipes = withSafeAsync(
   async (
     query: string,
     type: RecipesSearchType,
   ): FetchResult<GetRecipesRes> => {
-    const response = await fetchAPI(
+    const response = await fetchAPI<GetRecipesRes>(
       `/recipes?q=${lightTrim(query)}&type=${type}`,
     );
 
@@ -39,7 +38,7 @@ export const getRecipesBatch = withSafeAsync(
     query: string[];
     type: RecipesBatchType;
   }): FetchResult<GetRecipesRes> => {
-    const response = await fetchAPI(`/recipes/batch`, {
+    const response = await fetchAPI<GetRecipesRes>(`/recipes/batch`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -69,7 +68,9 @@ export const createRecipe = withSafeAsync(
   ): FetchResult<{
     key: string;
   }> => {
-    const response = await fetchAPI('/recipes', {
+    const response = await fetchAPI<{
+      key: string;
+    }>('/recipes', {
       method: 'POST',
       body: data,
     });

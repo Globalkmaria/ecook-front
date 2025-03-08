@@ -1,11 +1,16 @@
-import { PantryBoxContentProps } from '@/app/sn/pantry/[pantryBoxKey]/PantryBoxContainer/PantryBoxInfo/PantryBoxContent';
-import { PANTRY_LINK } from '@/helpers/links';
-import useLogout from '@/hooks/useLogout';
-import { queryKeys } from '@/queries/helpers';
-import { deletePantryItem } from '@/services/requests/pantry/pantryItems';
-import { isUnauthorizedResponse } from '@/services/utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
+
+import { queryKeys } from '@/queries/helpers';
+
+import { PANTRY_LINK } from '@/helpers/links';
+
+import useLogout from '@/hooks/useLogout';
+
+import { PantryBoxContentProps } from '@/app/sn/pantry/[pantryBoxKey]/PantryBoxContainer/PantryBoxInfo/PantryBoxContent';
+
+import { deletePantryItem } from '@/services/requests/pantry/pantryItems';
+import { isUnauthorizedResponse } from '@/services/utils';
 
 export function useDeletePantryItem(pantryBoxKey: string) {
   const logout = useLogout();

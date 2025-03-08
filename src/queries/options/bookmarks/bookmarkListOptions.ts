@@ -1,12 +1,12 @@
 import { queryOptions } from '@tanstack/react-query';
 
-import { getBookmarks } from '@/services/requests/bookmarks';
+import { queryKeys } from '@/queries/helpers';
 
+import { getBookmarks } from '@/services/requests/bookmarks';
 import {
   isUnauthorizedResponse,
   UNAUTHORIZED_ERROR,
 } from '@/services/utils/authError';
-import { queryKeys } from '@/queries/helpers';
 
 interface Props {
   staleTime?: number;

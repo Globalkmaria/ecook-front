@@ -1,4 +1,5 @@
 import { joinClassNames } from '@/utils/style';
+
 import style from './style.module.scss';
 
 type ChipType = 'default' | 'warning' | 'info' | 'success';

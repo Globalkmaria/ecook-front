@@ -1,7 +1,9 @@
+import { queryOptions } from '@tanstack/react-query';
+
 import { queryKeys } from '@/queries/helpers';
+
 import { getIngredientsWithProducts } from '@/services/requests/ingredients';
 import { GetIngredientsWithProductsReq } from '@/services/requests/ingredients/type';
-import { queryOptions } from '@tanstack/react-query';
 
 interface Props {
   staleTime?: number;

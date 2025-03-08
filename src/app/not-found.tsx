@@ -1,11 +1,10 @@
-import style from './notFound.module.scss';
-
 import { HOME_LINK } from '@/helpers/links';
 
 import AnchorUnderline from '@/components/Anchor/AnchorUnderline';
 
 import Logo from './components/layout/Logo';
 import NavWrapper from './components/layout/Nav/NavWrapper';
+import style from './notFound.module.scss';
 
 export default function NotFound() {
   return (

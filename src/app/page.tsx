@@ -1,12 +1,10 @@
-import style from './style.module.scss';
-
-import HomeNav from './components/layout/HomeNav';
-
-import HomeHeader from './components/homePage/HomeHeader';
-import Footer from './components/layout/Footer';
 import Search from './components/common/Search';
-import Recommend from './components/homePage/Recommend';
+import HomeHeader from './components/homePage/HomeHeader';
 import Recent from './components/homePage/Recent';
+import Recommend from './components/homePage/Recommend';
+import Footer from './components/layout/Footer';
+import HomeNav from './components/layout/HomeNav';
+import style from './style.module.scss';
 
 export const revalidate = 86400; // 1 day
 

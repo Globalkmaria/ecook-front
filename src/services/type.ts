@@ -1,14 +1,14 @@
-export type FetchSuccessResult<T = undefined> = T extends undefined
+type FetchSuccessResult<T = undefined> = T extends undefined
   ? { ok: true }
   : { data: T; ok: true };
 
-type FetchErrorResult = {
+type FetchErrorResult<T> = {
   error?: string;
   ok: false;
-  data?: any;
+  data?: T;
   res?: Response;
 };
 
-export type FetchOutcome<T> = FetchSuccessResult<T> | FetchErrorResult;
+type FetchOutcome<T> = FetchSuccessResult<T> | FetchErrorResult<T>;
 
 export type FetchResult<T = undefined> = Promise<FetchOutcome<T>>;

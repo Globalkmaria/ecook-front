@@ -1,9 +1,10 @@
 import { AnchorHTMLAttributes, ReactNode } from 'react';
+
 import Link, { LinkProps } from 'next/link';
 
-import style from './AnchorUnderline.module.scss';
-
 import { joinClassNames } from '@/utils/style';
+
+import style from './AnchorUnderline.module.scss';
 
 export type AnchorUnderlineProps = {
   children?: ReactNode;

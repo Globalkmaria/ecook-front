@@ -1,7 +1,7 @@
-import style from './style.module.scss';
+import { joinClassNames } from '@/utils/style';
 
 import { ICONS, IconType } from './const';
-import { joinClassNames } from '@/utils/style';
+import style from './style.module.scss';
 
 export interface IconProps {
   icon: IconType;

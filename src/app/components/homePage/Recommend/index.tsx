@@ -1,7 +1,7 @@
 import { getHomeRecommendations } from '@/services/requests/recommend';
 
-import RecommendContainer from './RecommendContainer';
 import { transformRecommendRecipeData } from './helper';
+import RecommendContainer from './RecommendContainer';
 
 async function Recommend() {
   const recommendation = await getHomeRecommendations();

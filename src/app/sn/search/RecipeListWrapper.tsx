@@ -1,11 +1,10 @@
-import style from './style.module.scss';
-
-import { getRecipes } from '@/services/requests/recipes';
 import { RecipeSimple } from '@/services/requests/recipe/type';
+import { getRecipes } from '@/services/requests/recipes';
 import { checkSearchType } from '@/services/requests/recipes/helper';
 
-import RecipeList from './RecipeList';
 import { SearchParams } from './page';
+import RecipeList from './RecipeList';
+import style from './style.module.scss';
 
 interface Props {
   searchParamsData: SearchParams;
