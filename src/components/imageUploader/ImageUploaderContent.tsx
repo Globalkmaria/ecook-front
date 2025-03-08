@@ -122,6 +122,12 @@ function ImageUploaderContent({
 
   const onClick = () => inputRef.current?.click();
 
+  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      onClick();
+    }
+  };
+
   const onReset = () => {
     onChange(initialImg);
   };
@@ -143,6 +149,10 @@ function ImageUploaderContent({
           onDragOver={onDragOver}
           onDragLeave={onDragLeave}
           onDrop={onDrop}
+          role='button'
+          tabIndex={0}
+          onKeyDown={onKeyDown}
+          aria-label='Upload image'
         >
           <div className={style.message}>
             <span>{mainMessage}</span>
