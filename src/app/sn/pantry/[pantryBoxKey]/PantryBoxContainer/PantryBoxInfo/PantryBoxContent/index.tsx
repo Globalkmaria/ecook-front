@@ -1,5 +1,8 @@
 'use client';
 
+import { getSearchLink } from '@/helpers/links';
+
+import Anchor from '@/components/Anchor';
 import CustomImage from '@/components/CustomImage';
 
 import { getTotalQuantity } from './helper';
@@ -59,26 +62,41 @@ function PantryBoxInfo({
   totalQuantity: number;
 }) {
   return (
-    <div className={style['pantry-box__info']}>
-      <div className={style['box']}>
-        <span className={style['box__title']}>Total Quantity</span>
-        <span className={style['box__description']}>{totalQuantity}</span>
-      </div>
+    <div>
+      <div className={style['pantry-box__info']}>
+        <div className={style['box']}>
+          <span className={style['box__title']}>Total Quantity</span>
+          <span className={style['box__description']}>{totalQuantity}</span>
+        </div>
 
-      {pantryBox.productName && (
-        <>
-          <div className={style['box']}>
-            <span className={style['box__title']}>Product Brand</span>
-            <span className={style['box__description']}>{pantryBox.brand}</span>
-          </div>
-          <div className={style['box']}>
-            <span className={style['box__title']}>Purchased From</span>
-            <span className={style['box__description']}>
-              {pantryBox.purchasedFrom}
-            </span>
-          </div>
-        </>
-      )}
+        {pantryBox.productName && (
+          <>
+            <div className={style['box']}>
+              <span className={style['box__title']}>Product Brand</span>
+              <span className={style['box__description']}>
+                {pantryBox.brand}
+              </span>
+            </div>
+            <div className={style['box']}>
+              <span className={style['box__title']}>Purchased From</span>
+              <span className={style['box__description']}>
+                {pantryBox.purchasedFrom}
+              </span>
+            </div>
+          </>
+        )}
+      </div>
+      <div className={style['links']}>
+        <Anchor
+          variant='secondary'
+          href={getSearchLink('ingredient', pantryBox.ingredientName)}
+        >{`What Can I Make with This Ingredient?`}</Anchor>
+        {pantryBox.productName && (
+          <Anchor
+            href={getSearchLink('product', pantryBox.productName)}
+          >{`What Can I Make with This Product?`}</Anchor>
+        )}
+      </div>
     </div>
   );
 }
