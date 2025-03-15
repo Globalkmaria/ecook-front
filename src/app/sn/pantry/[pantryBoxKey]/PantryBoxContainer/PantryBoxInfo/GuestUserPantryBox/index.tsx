@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo } from 'react';
 
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 import { useShallow } from 'zustand/shallow';
 
@@ -31,11 +31,13 @@ function GuestUserPantryBox() {
 
   const requestIngredients = useMemo(
     () => mapPantryBoxesToReqData(pantryBoxes),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [pantryBoxKey],
   );
 
   useEffect(() => {
     if (!pantryBox) router.push(PANTRY_LINK);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pantryBox]);
 
   if (!pantryBoxKey || !pantryBox) return null;
@@ -80,7 +82,7 @@ function GuestUserPantryBoxContent({
     data: ingredientsInfo,
     isLoading,
     isError,
-  } = useQuery(
+  } = useSuspenseQuery(
     ingredientsWithProductsOptions({
       items: requestIngredients,
       enabled: !!Object.keys(requestIngredients).length,
@@ -93,6 +95,7 @@ function GuestUserPantryBoxContent({
       productKey: pantryBox.productKey,
       quantity: 1,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pantryBoxKey]);
 
   const onDelete = useCallback(
@@ -102,6 +105,7 @@ function GuestUserPantryBoxContent({
         pantryBoxItemKey: itemKey,
       });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [pantryBoxKey],
   );
 
@@ -123,6 +127,7 @@ function GuestUserPantryBoxContent({
         pantryBoxItemValue: fieldValue,
       });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [pantryBoxKey],
   );
 

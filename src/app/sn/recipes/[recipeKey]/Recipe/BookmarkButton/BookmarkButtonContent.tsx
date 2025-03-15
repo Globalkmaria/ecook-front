@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import { useShallow } from 'zustand/shallow';
 
@@ -59,23 +59,19 @@ function LoginBookmarkButton() {
     useAddBookmarkMutation();
   const { mutate: removeBookmark, isPending: isRemoveBookmarkLoading } =
     useRemoveBookmarkMutation();
-  const bookmarks = useQuery(
+  const bookmarks = useSuspenseQuery(
     bookmarkListOptions({
       enabled: true,
     }),
   );
 
-  if (bookmarks.isLoading) return <BookmarkButtonSkeleton />;
   if (isUnauthorizedError(bookmarks.error)) {
     logout();
     return null;
   }
 
   const disable =
-    !!bookmarks.error ||
-    bookmarks.isLoading ||
-    isAddBookmarkLoading ||
-    isRemoveBookmarkLoading;
+    !!bookmarks.error || isAddBookmarkLoading || isRemoveBookmarkLoading;
 
   const isSaved = bookmarks.data?.has(params.recipeKey);
   const icon: IconType = isSaved ? 'bookmarkFill' : 'bookmarkOutline';
@@ -106,7 +102,7 @@ function BookmarkIconButton({
   );
 }
 
-function BookmarkButtonSkeleton() {
+export function BookmarkButtonSkeleton() {
   return (
     <IconButton icon='bookmarkOutline' disabled className={style['button']} />
   );

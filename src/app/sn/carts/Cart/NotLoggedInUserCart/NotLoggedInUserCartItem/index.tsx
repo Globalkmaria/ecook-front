@@ -7,11 +7,9 @@ import { getNewPantryBox } from '@/stores/slices/pantry/helper';
 import { useClientStore } from '@/providers/client-store-provider';
 import { IngredientWithProduct } from '@/services/requests/ingredients/type';
 
-import style from './style.module.scss';
-import CartProduct, {
-  CartProductProps,
-  CartItemControl,
-} from '../../CartProduct';
+import CartItem from '../../CartItem';
+import CartProduct, { CartProductProps } from '../../CartProduct';
+import { CartItemControl } from '../../CartProduct/CartItemControl';
 
 interface CartItemProps {
   info: IngredientWithProduct;
@@ -51,25 +49,28 @@ function NotLoggedInUserCartItem({ info }: CartItemProps) {
 
       updateQuantity({ ingredientKey, productKey, quantity });
     },
-    [],
+    [removeCartItem, updateQuantity],
   );
 
-  const onIngredientQuantityChange = useCallback((quantity: number) => {
-    onQuantityChange({
-      ingredientKey,
-      quantity,
-    });
-  }, []);
+  const onIngredientQuantityChange = useCallback(
+    (quantity: number) => {
+      onQuantityChange({
+        ingredientKey,
+        quantity,
+      });
+    },
+    [ingredientKey, onQuantityChange],
+  );
 
   const onProductQuantityChange = useCallback(
     (productKey: string, quantity: number) => {
       onQuantityChange({
-        ingredientKey: ingredientKey,
+        ingredientKey,
         productKey,
         quantity,
       });
     },
-    [],
+    [onQuantityChange, ingredientKey],
   );
 
   const onAddPantryBox: CartProductProps['onAddPantryBox'] = (arg) => {
@@ -82,8 +83,7 @@ function NotLoggedInUserCartItem({ info }: CartItemProps) {
   };
 
   return (
-    <li className={style['cart-item']}>
-      <div className={style['ingredient']}>{info.ingredient.name}</div>
+    <CartItem title={info.ingredient.name}>
       {ingredientAndProductsQuantity.quantity && (
         <CartItemControl
           ingredientKey={ingredientKey}
@@ -102,7 +102,7 @@ function NotLoggedInUserCartItem({ info }: CartItemProps) {
           onAddPantryBox={onAddPantryBox}
         />
       ))}
-    </li>
+    </CartItem>
   );
 }
 

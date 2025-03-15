@@ -79,7 +79,7 @@ function NewRecipe({ initialData, onSubmit, pageTitle, mutationKey }: Props) {
     hours: initialData.hours,
     minutes: initialData.minutes,
   });
-  const tagsState = useState<NewRecipeTags>(initialData.tags);
+  const [tags, setTags] = useState<NewRecipeTags>(initialData.tags);
   const [img, setImg] = useState<ImgState>(initialData.img);
   const [ingredients, setIngredients] = useState<NewRecipeIngredientStates>(
     initialData.ingredients,
@@ -98,16 +98,19 @@ function NewRecipe({ initialData, onSubmit, pageTitle, mutationKey }: Props) {
   const disableButton = !isSubmittable || loading;
   const imgLoaderMode = initialData.img ? 'edit' : 'new';
 
-  const onTextInputChange = createInputHandler(setTextInputs);
+  const onTextInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(
+    (e) => createInputHandler(setTextInputs)(e),
+    [setTextInputs],
+  );
 
   const onChangeName: ChangeEventHandler<HTMLInputElement> = useCallback(
-    withTextLengthLimit(50, 'Title', onTextInputChange),
-    [],
+    (e) => withTextLengthLimit(50, 'Title', onTextInputChange)(e),
+    [onTextInputChange],
   );
 
   const onChangeDescription: ChangeEventHandler<HTMLInputElement> = useCallback(
-    withTextLengthLimit(300, 'Description', onTextInputChange),
-    [],
+    (e) => withTextLengthLimit(300, 'Description', onTextInputChange)(e),
+    [onTextInputChange],
   );
 
   const onFormSubmit = () =>
@@ -116,7 +119,7 @@ function NewRecipe({ initialData, onSubmit, pageTitle, mutationKey }: Props) {
       ingredients: getValidIngredients(ingredients),
       steps: getValidAndTrimmedSteps(steps),
       textInputs,
-      tags: tagsState[0],
+      tags,
     });
 
   return (
@@ -154,7 +157,8 @@ function NewRecipe({ initialData, onSubmit, pageTitle, mutationKey }: Props) {
           <h3>Tags</h3>
           <ChipListInput
             limitTextLength={70}
-            state={tagsState}
+            items={tags}
+            setItems={setTags}
             limit={5}
             limitReachedMessage={TAG_LIMIT_REACHED_MESSAGE}
           />

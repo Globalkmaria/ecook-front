@@ -68,7 +68,7 @@ export const createPantrySlice: StateCreator<
   [['zustand/devtools', never], ['zustand/immer', never]],
   [],
   PantryStore
-> = (set, get) => ({
+> = (set) => ({
   ...initialPantryState,
   resetPantry: () => set({ ...initialPantryState }),
   addPantryBox: (pantryBox) =>

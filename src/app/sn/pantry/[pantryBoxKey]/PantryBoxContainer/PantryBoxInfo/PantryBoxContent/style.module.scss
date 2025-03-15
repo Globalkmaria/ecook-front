@@ -33,6 +33,12 @@
   }
 }
 
+.links {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+}
+
 .box {
   display: flex;
   align-items: center;
@@ -90,4 +96,30 @@
 .item__quantity {
   display: flex;
   justify-content: space-between;
+}
+
+// Skeleton
+
+.skeleton {
+  &__pantry-box__title {
+    align-self: center;
+
+    height: 64px;
+    width: 200px;
+  }
+
+  &__box__description {
+    display: block;
+    height: 20px;
+    width: 100px;
+  }
+  &__add-button {
+    align-self: flex-end;
+    width: 117px;
+    height: 38px;
+  }
+
+  &__item {
+    height: 170px;
+  }
 }

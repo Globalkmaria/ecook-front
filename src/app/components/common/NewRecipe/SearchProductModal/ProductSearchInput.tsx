@@ -1,4 +1,4 @@
-import { ChangeEventHandler, KeyboardEventHandler } from 'react';
+import { ChangeEventHandler, KeyboardEventHandler, useCallback } from 'react';
 
 import { validateLengthAndExecute } from '@/utils/validation';
 
@@ -24,10 +24,10 @@ function ProductSearchInput({
   searchIngredient,
   setSelectedProduct,
 }: Props) {
-  const onSearchSubmit = () => {
+  const onSearchSubmit = useCallback(() => {
     searchIngredient();
     setSelectedProduct(null);
-  };
+  }, [searchIngredient, setSelectedProduct]);
 
   const onInputChange: ChangeEventHandler<HTMLInputElement> = (e) =>
     validateLengthAndExecute(

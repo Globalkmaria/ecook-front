@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 
 import useModal from '@/hooks/useModal';
 
@@ -59,7 +59,7 @@ function SearchProductModal({ control, onSelectProduct, ingredient }: Props) {
 
   const isProductSearched = !!searchedIngredient?.name;
 
-  const searchIngredient = async () => {
+  const searchIngredient = useCallback(async () => {
     if (!searchInput.trim()) {
       setSearchedIngredient(null);
       return;
@@ -79,10 +79,11 @@ function SearchProductModal({ control, onSelectProduct, ingredient }: Props) {
       name: searchInput,
       products: result.data.products,
     });
-  };
+  }, [searchInput]);
 
   useEffect(() => {
     searchIngredient();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -98,27 +99,14 @@ function SearchProductModal({ control, onSelectProduct, ingredient }: Props) {
           />
 
           <IngredientInformationHeader />
-
-          <ul className={style.list}>
-            {isProductSearched && (
-              <NewProduct
-                newProductState={newProduct}
-                setNewProduct={setNewProduct}
-                searchedIngredient={searchedIngredient}
-                selectedProduct={selectedProduct}
-                setSelectedProduct={setSelectedProduct}
-              />
-            )}
-            {searchedIngredient?.products?.map((product) => (
-              <ExistingProduct
-                key={product.id}
-                product={product}
-                selectedProduct={selectedProduct}
-                setSelectedProduct={setSelectedProduct}
-              />
-            ))}
-          </ul>
-
+          <Products
+            searchedIngredient={searchedIngredient}
+            selectedProduct={selectedProduct}
+            setSelectedProduct={setSelectedProduct}
+            newProduct={newProduct}
+            setNewProduct={setNewProduct}
+            isProductSearched={isProductSearched}
+          />
           <SearchProductConfirmButton
             selectedProduct={selectedProduct}
             onSelectProduct={onSelectProduct}
@@ -133,3 +121,45 @@ function SearchProductModal({ control, onSelectProduct, ingredient }: Props) {
 }
 
 export default SearchProductModal;
+
+interface ProductsProps {
+  isProductSearched: boolean;
+  newProduct: IngredientNewProduct;
+  setNewProduct: React.Dispatch<React.SetStateAction<IngredientNewProduct>>;
+  searchedIngredient: SearchedIngredientState;
+  selectedProduct: SelectedProductState;
+  setSelectedProduct: React.Dispatch<
+    React.SetStateAction<SelectedProductState>
+  >;
+}
+
+const Products = memo(function Products({
+  isProductSearched,
+  setNewProduct,
+  newProduct,
+  searchedIngredient,
+  selectedProduct,
+  setSelectedProduct,
+}: ProductsProps) {
+  return (
+    <ul className={style.list}>
+      {isProductSearched && (
+        <NewProduct
+          newProductState={newProduct}
+          setNewProduct={setNewProduct}
+          searchedIngredient={searchedIngredient}
+          setSelectedProduct={setSelectedProduct}
+          isSelected={selectedProduct?.productId === NEW_PRODUCT_ID}
+        />
+      )}
+      {searchedIngredient?.products?.map((product) => (
+        <ExistingProduct
+          key={product.id}
+          product={product}
+          isSelected={selectedProduct?.productId === product.id}
+          setSelectedProduct={setSelectedProduct}
+        />
+      ))}
+    </ul>
+  );
+});

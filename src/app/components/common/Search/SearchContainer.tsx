@@ -1,21 +1,16 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useRouter, useSearchParams } from 'next/navigation';
 
+import { joinClassNames } from '@/utils/style';
+
 import { getSearchLink } from '@/helpers/links';
 
-import useModal from '@/hooks/useModal';
-
-import { Dropbox, DropboxItem, DropboxWrapper } from '@/components/Dropbox';
 import Icon from '@/components/Icon';
 
-import {
-  SEARCH_MENU_ITEMS,
-  SEARCH_MENU_ITEMS_MAP,
-  SearchMenuValue,
-} from '@/const/searchMenu';
+import { SEARCH_MENU_ITEMS, SearchMenuValue } from '@/const/searchMenu';
 
 import { getSearchMenuItem, getSearchQuery } from './helper';
 import style from './style.module.scss';
@@ -53,6 +48,7 @@ function SearchContainer() {
 
   useEffect(() => {
     initSearchStates();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
   return (
@@ -86,40 +82,41 @@ interface SearchMenuProps {
 }
 
 function SearchMenu({ onMenuChange, selectedMenuItem }: SearchMenuProps) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  const { isOpen, onClose, onToggle } = useModal();
-
-  const menuArrow = isOpen ? <Icon icon='up' /> : <Icon icon='down' />;
-
-  const onMenuItemSelect = (value: SearchMenuValue) => {
-    onMenuChange(value);
-    onClose();
-  };
-
   return (
-    <DropboxWrapper ref={ref} className={style['menu']}>
-      <button type='button' className={style['menu__title']} onClick={onToggle}>
-        <span>{SEARCH_MENU_ITEMS_MAP[selectedMenuItem]}</span>
-        <span className={style.arrow}>{menuArrow}</span>
-      </button>
-      {isOpen && (
-        <Dropbox
-          containerRef={ref}
-          onCloseModal={onClose}
-          onMouseLeave={onClose}
-        >
-          {SEARCH_MENU_ITEMS.map((menuItem) => (
-            <DropboxItem
-              key={menuItem.value}
-              selected={selectedMenuItem === menuItem.value}
-              onClick={() => onMenuItemSelect(menuItem.value)}
-            >
-              <span>{menuItem.label}</span>
-            </DropboxItem>
-          ))}
-        </Dropbox>
-      )}
-    </DropboxWrapper>
+    <div className={style['search-menu']}>
+      {SEARCH_MENU_ITEMS.map((menuItem) => (
+        <SearchItem
+          key={menuItem.value}
+          onMenuItemSelect={onMenuChange}
+          menuItem={menuItem}
+          selected={selectedMenuItem === menuItem.value}
+        />
+      ))}
+    </div>
+  );
+}
+
+function SearchItem({
+  menuItem,
+  selected,
+  onMenuItemSelect,
+}: {
+  menuItem: (typeof SEARCH_MENU_ITEMS)[number];
+  selected: boolean;
+  onMenuItemSelect: (value: SearchMenuValue) => void;
+}) {
+  const textClassname = joinClassNames(
+    style['search-item__text'],
+    selected ? style['search-item__text--selected'] : '',
+  );
+  return (
+    <button
+      type='button'
+      className={style['search-item']}
+      onClick={() => onMenuItemSelect(menuItem.value)}
+    >
+      <Icon icon={menuItem.icon} />
+      <span className={textClassname}>{menuItem.label}</span>
+    </button>
   );
 }

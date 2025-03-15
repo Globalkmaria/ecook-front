@@ -21,7 +21,7 @@ function useLogout() {
     Promise.resolve().then(() => query.clear());
 
     router.push(LOGIN_LINK);
-  }, []);
+  }, [query, resetUser, router]);
 
   return handleLogout;
 }

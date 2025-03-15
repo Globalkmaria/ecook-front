@@ -48,7 +48,7 @@ export function Dropbox<T extends HTMLElement>({
 
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
-  }, []);
+  }, [onCloseModal, containerRef]);
 
   const classNames = joinClassNames(
     className,

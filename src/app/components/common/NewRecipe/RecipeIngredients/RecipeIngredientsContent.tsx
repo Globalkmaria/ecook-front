@@ -45,7 +45,7 @@ function RecipeIngredientsContent({ ingredients, setIngredients }: Props) {
       if (ingredients.length === 1) return;
       setIngredients(ingredients.filter((item) => item.id !== id));
     },
-    [ingredients, ingredients.length],
+    [ingredients, setIngredients],
   );
 
   const onSelectProduct: OnSelectProduct = ({ product, ingredient }) => {

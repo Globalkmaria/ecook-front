@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
 
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { useUpdateCartItemQuantityMutation } from '@/queries/hooks';
 import { useAddPantryBoxMutation } from '@/queries/hooks/pantry/boxes/useAddPantryBox';
@@ -18,7 +18,7 @@ import { getNewPantryBox } from './helper';
 function LoggedInUserCart() {
   const username = useClientStore((state) => state.user?.username);
   const logout = useLogout();
-  const { data, isLoading, isError, error } = useQuery(
+  const { data, isLoading, isError, error } = useSuspenseQuery(
     userCartOptions({
       username: username ?? '',
       enabled: !!username,
@@ -26,13 +26,16 @@ function LoggedInUserCart() {
   );
   const { mutate } = useUpdateCartItemQuantityMutation();
   const onQuantityChange: LoggedInUserCartItemProps['onQuantityChange'] =
-    useCallback(({ ingredientKey, productKey, quantity }) => {
-      mutate({
-        ingredientKey,
-        productKey,
-        quantity,
-      });
-    }, []);
+    useCallback(
+      ({ ingredientKey, productKey, quantity }) => {
+        mutate({
+          ingredientKey,
+          productKey,
+          quantity,
+        });
+      },
+      [mutate],
+    );
 
   const { mutate: addPantryBox } = useAddPantryBoxMutation();
   const onAddPantryBox: CartProductProps['onAddPantryBox'] = useCallback(
@@ -48,7 +51,7 @@ function LoggedInUserCart() {
         },
       });
     },
-    [],
+    [addPantryBox, onQuantityChange],
   );
 
   useEffect(() => {
@@ -56,7 +59,7 @@ function LoggedInUserCart() {
       logout();
       return;
     }
-  }, [error]);
+  }, [error, logout]);
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error fetching ingredients</div>;

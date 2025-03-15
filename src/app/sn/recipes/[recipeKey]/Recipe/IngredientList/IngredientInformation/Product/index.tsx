@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import { joinClassNames } from '@/utils/style';
 
 import { getSearchProductLink } from '@/helpers/links';
@@ -66,7 +68,7 @@ type ProductInfoItems = {
   value: string | null;
 }[];
 
-export function ProductInfoContent({
+export const ProductInfoContent = memo(function ProductInfoContent({
   product,
   ingredientName,
 }: ProductInfoContentProps) {
@@ -87,4 +89,4 @@ export function ProductInfoContent({
       ))}
     </div>
   );
-}
+});

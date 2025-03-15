@@ -14,7 +14,12 @@ import {
   IoMdRemove,
   IoMdAdd,
 } from 'react-icons/io';
-import { IoClose, IoInformationOutline, IoSearch } from 'react-icons/io5';
+import {
+  IoClose,
+  IoInformationOutline,
+  IoSearch,
+  IoText,
+} from 'react-icons/io5';
 import { MdLabelOutline, MdGridOn, MdOutlineEdit } from 'react-icons/md';
 import {
   PiBookBookmarkBold,
@@ -23,8 +28,11 @@ import {
   PiJar,
   PiShoppingCartBold,
 } from 'react-icons/pi';
+import { RiBarcodeLine, RiHashtag } from 'react-icons/ri';
 import { RxReset } from 'react-icons/rx';
+import { TbFridge } from 'react-icons/tb';
 
+// eslint-disable-next-line  @typescript-eslint/no-unused-vars
 const ICON_NAMES = [
   'basket',
   'info',
@@ -52,6 +60,10 @@ const ICON_NAMES = [
   'cart',
   'cabinet',
   'box',
+  'barcode',
+  'hashtag',
+  'abc',
+  'fridge',
 ] as const;
 
 export type IconType = (typeof ICON_NAMES)[number];
@@ -85,6 +97,10 @@ export const ICONS: {
   cart: <PiShoppingCartBold />,
   cabinet: <BiCabinet />,
   box: <GoInbox />,
+  barcode: <RiBarcodeLine />,
+  hashtag: <RiHashtag />,
+  abc: <IoText />,
+  fridge: <TbFridge />,
 };
 
 export const ICON_TITLES: { [key in IconType]: string } = {
@@ -114,4 +130,8 @@ export const ICON_TITLES: { [key in IconType]: string } = {
   cart: 'cart',
   cabinet: 'cabinet',
   box: 'box',
+  barcode: 'barcode',
+  hashtag: 'hashtag',
+  abc: 'text',
+  fridge: 'fridge',
 };

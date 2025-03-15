@@ -4,13 +4,10 @@ import Link from 'next/link';
 
 import { getProductLink } from '@/helpers/links';
 
-import Button from '@/components/Button';
 import CustomImage from '@/components/CustomImage';
 import Icon, { IconProps } from '@/components/Icon';
-import IconButton from '@/components/IconButton';
 
-import QuantityInput from '@/app/components/common/QuantityInput';
-
+import { CartItemControl, CartItemControlProps } from './CartItemControl';
 import style from './style.module.scss';
 
 export interface CartItemProduct {
@@ -50,7 +47,7 @@ function CartProduct({
     [onChange, product.key],
   );
   return (
-    <div key={product.key} className={style['cart-product']}>
+    <div className={style['cart-product']}>
       <div className={style['product']}>
         <Link href={productLink} className={style['product__link']}>
           <CustomImage
@@ -88,54 +85,7 @@ function CartProduct({
 
 export default memo(CartProduct);
 
-interface CartItemControlProps {
-  ingredientKey: string;
-  product?: CartItemProduct;
-  quantity: number;
-  onChange: (quantity: number) => void;
-  onAddPantryBox: (args: {
-    ingredientKey: string;
-    productKey?: string;
-    quantity: number;
-  }) => void;
-}
-
-export const CartItemControl = memo(function ItemControl({
-  quantity,
-  onChange,
-  product,
-  ingredientKey,
-  onAddPantryBox,
-}: CartItemControlProps) {
-  const onDelete = useCallback(() => onChange(0), []);
-
-  const onAddPantryBoxClick = () => {
-    onAddPantryBox({
-      ingredientKey,
-      productKey: product?.key,
-      quantity,
-    });
-  };
-
-  return (
-    <div className={style['item-control']}>
-      <div className={style['item-control__left']}>
-        <QuantityInput quantity={quantity} onChange={onChange} />
-        <Button onClick={onAddPantryBoxClick} variant='secondary'>
-          Move to pantry
-        </Button>
-      </div>
-      <IconButton
-        icon='trash'
-        className={style['delete-button']}
-        onClick={onDelete}
-      >
-        Delete
-      </IconButton>
-    </div>
-  );
-});
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const CONTENT_VALUES = ['name', 'brand', 'purchasedFrom'] as const;
 type ContentValues = (typeof CONTENT_VALUES)[number];
 

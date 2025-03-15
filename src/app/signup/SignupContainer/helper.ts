@@ -1,4 +1,4 @@
-import { initialSignupFormState, SignupFormState } from '.';
+import { SignupFormState } from '.';
 
 const validateUsername = (username: string) => {
   const regex = /^[a-zA-Z][a-zA-Z0-9_-]{4,100}$/;

@@ -1,6 +1,6 @@
 'use client';
 
-import { MouseEvent, ReactNode, useEffect, useRef } from 'react';
+import { memo, MouseEvent, ReactNode, useEffect, useRef } from 'react';
 
 import { joinClassNames } from '@/utils/style';
 
@@ -78,11 +78,7 @@ function Modal({
             className={`${style.header} ${needHeader ? '' : style['header--no-header']}`}
           >
             <h1 className={style.title}>{title}</h1>
-            {showCloseButton && (
-              <button type='button' onClick={onClose}>
-                <Icon icon='close' />
-              </button>
-            )}
+            {showCloseButton && <CloseButton onClick={onClose} />}
           </div>
           {children}
         </div>
@@ -96,3 +92,15 @@ export default Modal;
 export function ModalMessage({ children }: { children: ReactNode }) {
   return <p className={style.message}>{children}</p>;
 }
+
+const CloseButton = memo(function CloseButton({
+  onClick,
+}: {
+  onClick: () => void;
+}) {
+  return (
+    <button type='button' onClick={onClick}>
+      <Icon icon='close' />
+    </button>
+  );
+});

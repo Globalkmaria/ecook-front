@@ -5,7 +5,7 @@ import {
   GetIngredientsWithProductsRes,
 } from '@/services/requests/ingredients/type';
 
-import { PantryBoxesProps } from '../PantryBox';
+import { PantryBoxesProps } from '../PantryBoxes';
 
 export const mapPantryBoxesToReqData = (
   pantry: PantryState['pantry']['pantryBoxes'],

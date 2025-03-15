@@ -62,36 +62,36 @@
   }
 }
 
-// Search Menu
+// SearchMenu
 
-.menu {
-  width: 100px;
-
-  @media #{$mobile} {
-    width: 80px;
-  }
+.search-menu {
+  display: flex;
+  border: 1px solid $grey700;
+  border-radius: 5px;
+  padding: 2px;
+  margin: 0 5px;
 }
 
-.menu__title {
-  width: 100%;
-  padding: 5px 10px 5px 0px;
+.search-item {
+  padding: 4px;
   display: flex;
-  justify-content: flex-end;
-  font-weight: 500;
-  align-items: center;
-  gap: 5px;
-  color: $black;
+  border-right: 1px solid $grey700;
+
+  &:last-child {
+    border-right: none;
+  }
 
   &:hover {
-    color: $grey600;
+    background: $grey200;
   }
+}
+.search-item__text {
+  width: 0px;
+  overflow: hidden;
+  transition: all 0.5s;
 
-  @media #{$mobile} {
-    padding: 5px 5px 5px 0px;
-    font-size: 0.8rem;
-  }
-
-  .arrow {
-    font-weight: 400;
+  &--selected {
+    margin-left: 5px;
+    width: fit-content;
   }
 }

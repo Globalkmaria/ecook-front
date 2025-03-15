@@ -20,7 +20,8 @@ import style from './style.module.scss';
 interface Props {
   className?: string;
   placeholder?: string;
-  state: [string[], Dispatch<SetStateAction<string[]>>];
+  items: string[];
+  setItems: Dispatch<SetStateAction<string[]>>;
   limit?: number;
   limitTextLength?: number;
   limitReachedMessage?: string;
@@ -29,7 +30,8 @@ interface Props {
 function ChipListInput({
   className,
   placeholder,
-  state: [items, setItems],
+  items,
+  setItems,
   limit,
   limitTextLength,
   limitReachedMessage,

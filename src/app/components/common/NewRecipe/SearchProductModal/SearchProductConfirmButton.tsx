@@ -55,16 +55,15 @@ function SearchProductConfirmButton({
       );
       onClose();
       return;
-    } else {
-      // existing product
-
-      onSelectProduct(
-        getIngredientWithExistingProduct({
-          selectedProduct,
-        }),
-      );
-      onClose();
     }
+
+    // existing product
+    onSelectProduct(
+      getIngredientWithExistingProduct({
+        selectedProduct,
+      }),
+    );
+    onClose();
   };
 
   const confirmButtonTitle = selectedProduct

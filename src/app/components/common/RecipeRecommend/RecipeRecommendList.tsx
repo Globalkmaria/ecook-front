@@ -17,26 +17,22 @@ function RecipeRecommendList({
 }: RecipeRecommendListProps) {
   if (isError) return <Error />;
   if (!isLoading && !data) return null;
-  const Component = isLoading ? Loading : Cards;
+  if (isLoading) return <RecipeRecommendListSkeleton />;
 
-  return (
-    <ul className={style['list']}>
-      <Component data={data ?? []} />
-    </ul>
-  );
+  return <Cards data={data || []} />;
 }
 
 export default RecipeRecommendList;
 
 function Cards({ data }: { data: CardProps['data'][] }) {
   return (
-    <>
+    <ul className={style['list']}>
       {data.map((item, index) => (
         <li className={style['item']} key={index}>
           <Card data={item} key={index} />
         </li>
       ))}
-    </>
+    </ul>
   );
 }
 function Error() {
@@ -44,12 +40,12 @@ function Error() {
 }
 
 const array = Array.from({ length: 8 }, (_, i) => i);
-function Loading() {
+export function RecipeRecommendListSkeleton() {
   return (
-    <>
+    <ul className={style['list']}>
       {array.map((_, index) => (
         <CardLoading key={index} />
       ))}
-    </>
+    </ul>
   );
 }

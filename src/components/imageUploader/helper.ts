@@ -47,6 +47,7 @@ export const optimizeImageFile = async (file: File): Promise<File> => {
       });
     }
   } catch (err) {
+    console.error(err);
     alert('Error converting HEIC/HEIF image to JPEG');
   }
 
