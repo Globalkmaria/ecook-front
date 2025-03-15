@@ -26,9 +26,7 @@ export const pantryBoxRecommendOptions = ({
         options: { query },
       });
 
-      if (result.ok) {
-        return result.data;
-      }
+      if (result.ok) return result.data;
 
       throw new Error('Failed to fetch pantry box recommendations');
     },

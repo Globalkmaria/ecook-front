@@ -15,6 +15,10 @@
   animation: load 2.5s infinite;
 }
 
+.border {
+  border-radius: 8px;
+}
+
 @keyframes load {
   100% {
     background-position: -100% 0;

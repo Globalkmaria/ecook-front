@@ -91,3 +91,27 @@
   display: flex;
   justify-content: space-between;
 }
+
+// Skeleton
+
+.pantry-box__title-skeleton {
+  align-self: center;
+
+  height: 64px;
+  width: 200px;
+}
+
+.box__description-skeleton {
+  display: block;
+  height: 20px;
+  width: 100px;
+}
+.add-button-skeleton {
+  align-self: flex-end;
+  width: 117px;
+  height: 38px;
+}
+
+.item-skeleton {
+  height: 170px;
+}

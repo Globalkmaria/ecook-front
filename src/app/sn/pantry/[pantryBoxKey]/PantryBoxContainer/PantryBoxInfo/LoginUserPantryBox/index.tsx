@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react';
 
-import { useQuery } from '@tanstack/react-query';
-import { useParams, useRouter } from 'next/navigation';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { useParams } from 'next/navigation';
 
 import { useAddPantryItemMutation } from '@/queries/hooks/pantry/items/useAddPantryItem';
 import { useDeletePantryItem } from '@/queries/hooks/pantry/items/useDeletePantryItem';
@@ -26,7 +26,7 @@ function LoginUserPantryBox() {
   const logout = useLogout();
   const { pantryBoxKey } = useParams<PantryBoxPageParams>();
 
-  const { data, isError, isLoading, error } = useQuery(
+  const { data, isError, error } = useSuspenseQuery(
     pantryBoxOptions({ pantryBoxKey }),
   );
 
@@ -34,10 +34,10 @@ function LoginUserPantryBox() {
     if (isUnauthorizedError(error)) {
       logout();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error]);
 
   if (!pantryBoxKey) return null;
-  if (isLoading) return <div>Loading...</div>;
   if (data === null) return <NotFound />;
   if (isError || !data) return <div>Error</div>;
 
@@ -67,6 +67,7 @@ function LoginUserPantryBoxContent({
       },
       pantryBoxKey,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pantryBoxKey]);
 
   const onChange: PantryBoxItemsProps['onChange'] = useCallback(
@@ -84,6 +85,7 @@ function LoginUserPantryBoxContent({
         },
       });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [pantryBoxKey],
   );
   return (

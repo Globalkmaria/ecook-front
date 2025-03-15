@@ -1,5 +1,6 @@
 import RecipeRecommendList, {
   RecipeRecommendListProps,
+  RecipeRecommendListSkeleton,
 } from './RecipeRecommendList';
 import style from './style.module.scss';
 
@@ -15,3 +16,12 @@ function RecipeRecommend(prop: RecipeRecommendProps) {
 }
 
 export default RecipeRecommend;
+
+export function RecipeRecommendSkeleton() {
+  return (
+    <section className={style['recommend']}>
+      <h2 className={style['title']}>Explore related recipes</h2>
+      <RecipeRecommendListSkeleton />
+    </section>
+  );
+}
