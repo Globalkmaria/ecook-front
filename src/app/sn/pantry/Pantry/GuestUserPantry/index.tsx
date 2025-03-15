@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { ingredientsWithProductsOptions } from '@/queries/options/ingredients/ingredientsWithProductsOptions';
 
@@ -12,7 +12,7 @@ import { useClientStore } from '@/providers/client-store-provider';
 import { GetIngredientsWithProductsReq } from '@/services/requests/ingredients/type';
 
 import { getPantryBoxesViewData, mapPantryBoxesToReqData } from './helper';
-import PantryBoxes from '../PantryBox';
+import PantryBoxes from '../PantryBoxes';
 
 function GuestUserPantry() {
   const pantryBoxes = useClientStore((state) => state.pantry.pantryBoxes);
@@ -40,7 +40,7 @@ function GuestUserPantryBoxes({
     data: ingredientsInfo,
     isLoading,
     isError,
-  } = useQuery(
+  } = useSuspenseQuery(
     ingredientsWithProductsOptions({
       items: requestIngredients,
       enabled: !!Object.keys(requestIngredients).length,
