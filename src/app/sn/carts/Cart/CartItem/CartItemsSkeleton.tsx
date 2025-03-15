@@ -20,7 +20,7 @@ export default CartItemsSkeleton;
 function CartItemSkeleton() {
   return (
     <li className={style['cart-item']}>
-      <div className={style['ingredient-skeleton']}>
+      <div className={style['skeleton__ingredient']}>
         <Skeleton border />
       </div>
       <CartProductSkeleton />

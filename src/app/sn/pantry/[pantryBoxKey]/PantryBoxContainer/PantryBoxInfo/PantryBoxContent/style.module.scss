@@ -94,24 +94,26 @@
 
 // Skeleton
 
-.pantry-box__title-skeleton {
-  align-self: center;
+.skeleton {
+  &__pantry-box__title {
+    align-self: center;
 
-  height: 64px;
-  width: 200px;
-}
+    height: 64px;
+    width: 200px;
+  }
 
-.box__description-skeleton {
-  display: block;
-  height: 20px;
-  width: 100px;
-}
-.add-button-skeleton {
-  align-self: flex-end;
-  width: 117px;
-  height: 38px;
-}
+  &__box__description {
+    display: block;
+    height: 20px;
+    width: 100px;
+  }
+  &__add-button {
+    align-self: flex-end;
+    width: 117px;
+    height: 38px;
+  }
 
-.item-skeleton {
-  height: 170px;
+  &__item {
+    height: 170px;
+  }
 }
