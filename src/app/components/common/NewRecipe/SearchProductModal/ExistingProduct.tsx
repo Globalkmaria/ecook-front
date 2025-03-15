@@ -12,7 +12,7 @@ import style from './style.module.scss';
 
 interface ExistingProductProps {
   product: Product;
-  selectedProduct: SelectedProductState;
+  isSelected: boolean;
   setSelectedProduct: React.Dispatch<
     React.SetStateAction<SelectedProductState>
   >;
@@ -20,11 +20,11 @@ interface ExistingProductProps {
 
 function ExistingProduct({
   product,
-  selectedProduct,
+  isSelected,
   setSelectedProduct,
 }: ExistingProductProps) {
   const onClick = () => {
-    if (selectedProduct?.productId === product.id) {
+    if (isSelected) {
       setSelectedProduct(null);
       return;
     }
@@ -38,7 +38,27 @@ function ExistingProduct({
   };
 
   const id = product.id.toString();
-  const checked = selectedProduct?.productId === product.id;
+
+  return (
+    <>
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, jsx-a11y/no-noninteractive-element-interactions */}
+      <li className={style['product-container']} onClick={onClick}>
+        <input
+          className={style.checkbox}
+          type='checkbox'
+          id={id}
+          checked={isSelected}
+          onChange={onClick}
+        />
+        <Info product={product} />
+      </li>
+    </>
+  );
+}
+
+export default memo(ExistingProduct);
+
+const Info = memo(function Info({ product }: { product: Product }) {
   const img = product.img ? (
     <CustomImage
       src={product.img}
@@ -52,29 +72,15 @@ function ExistingProduct({
   );
 
   return (
-    <>
-      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, jsx-a11y/no-noninteractive-element-interactions */}
-      <li className={style['product-container']} onClick={onClick}>
-        <input
-          className={style.checkbox}
-          type='checkbox'
-          id={id}
-          checked={checked}
-          onChange={onClick}
+    <div className={style.product}>
+      <div className={style['img-box']}>{img}</div>
+
+      <div className={style['product__info']}>
+        <ProductInfoContent
+          product={product}
+          ingredientName={product.ingredient.name}
         />
-        <div className={style.product}>
-          <div className={style['img-box']}>{img}</div>
-
-          <div className={style['product__info']}>
-            <ProductInfoContent
-              product={product}
-              ingredientName={product.ingredient.name}
-            />
-          </div>
-        </div>
-      </li>
-    </>
+      </div>
+    </div>
   );
-}
-
-export default memo(ExistingProduct);
+});

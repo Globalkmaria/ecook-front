@@ -24,7 +24,7 @@ function RecipeIngredients({
         ...preIngredients,
         getNewIngredient(),
       ]),
-    [],
+    [setIngredients],
   );
 
   return (

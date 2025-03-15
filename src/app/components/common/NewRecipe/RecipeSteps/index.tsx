@@ -15,7 +15,7 @@ function RecipeSteps({ steps, setSteps }: Props) {
   const onAddStep = useCallback(
     () =>
       setSteps((preSteps) => [...preSteps, { id: getRandomId(), value: '' }]),
-    [],
+    [setSteps],
   );
 
   return (

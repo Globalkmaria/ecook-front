@@ -1,4 +1,4 @@
-import { ChangeEventHandler, MouseEventHandler, useRef } from 'react';
+import { ChangeEventHandler, memo, MouseEventHandler, useRef } from 'react';
 
 import Icon from '@/components/Icon';
 import ImageUploader from '@/components/imageUploader';
@@ -14,17 +14,17 @@ import {
 import style from './style.module.scss';
 
 interface NewProductProps {
-  selectedProduct: SelectedProductState;
   newProductState: IngredientNewProduct;
   setNewProduct: React.Dispatch<React.SetStateAction<IngredientNewProduct>>;
   searchedIngredient: SearchedIngredientState;
   setSelectedProduct: React.Dispatch<
     React.SetStateAction<SelectedProductState>
   >;
+  isSelected: boolean;
 }
 
 function NewProduct({
-  selectedProduct,
+  isSelected,
   newProductState,
   setNewProduct,
   searchedIngredient,
@@ -35,7 +35,7 @@ function NewProduct({
   const onCheckBoxClick = () => {
     if (!searchedIngredient) return;
 
-    if (selectedProduct?.productId === NEW_PRODUCT_ID) {
+    if (isSelected) {
       setSelectedProduct(null);
       return;
     }
@@ -48,20 +48,9 @@ function NewProduct({
     });
   };
 
-  const onInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const { name, value } = e.target;
-    setNewProduct((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const onNewProductImgChange = (img: File | string | null) => {
-    if (typeof img === 'string') return;
-    setNewProduct((prev) => ({ ...prev, img }));
-  };
-
   const onItemClick: MouseEventHandler = (e) => {
     const clickInsideContent = contentRef.current?.contains(e.target as Node);
-    if (clickInsideContent && selectedProduct?.productId === NEW_PRODUCT_ID)
-      return;
+    if (clickInsideContent && isSelected) return;
 
     onCheckBoxClick();
   };
@@ -74,55 +63,88 @@ function NewProduct({
           className={style.checkbox}
           type='checkbox'
           id={NEW_PRODUCT_ID}
-          checked={selectedProduct?.productId === NEW_PRODUCT_ID}
+          checked={isSelected}
           onChange={() => onCheckBoxClick()}
         />
-        <div className={style['new-product']}>
-          <h3>Add new product</h3>
-          <div ref={contentRef} className={style['content']}>
-            <div className={style['img-uploader']}>
-              <ImageUploader
-                imgValue={newProductState.img}
-                onChange={onNewProductImgChange}
-                mode='new'
-              />
-            </div>
-            <div className={style['input-container']}>
-              <Icon icon='labelFill' />
-              <span>{searchedIngredient?.name}</span>
-            </div>
-            <div className={style['input-container']}>
-              <Icon icon='label' />
-              <Input
-                placeholder='Product name'
-                name='name'
-                value={newProductState.name}
-                onChange={onInputChange}
-              />
-            </div>
-            <div className={style['input-container']}>
-              <Icon icon='product' />
-              <Input
-                placeholder='Brand'
-                name='brand'
-                value={newProductState.brand ?? ''}
-                onChange={onInputChange}
-              />
-            </div>
-            <div className={style['input-container']}>
-              <Icon icon='basket' />
-              <Input
-                placeholder='Purchased at'
-                name='purchasedFrom'
-                value={newProductState.purchasedFrom ?? ''}
-                onChange={onInputChange}
-              />
-            </div>
-          </div>
-        </div>
+        <Info
+          contentRef={contentRef}
+          newProductState={newProductState}
+          setNewProduct={setNewProduct}
+          searchedIngredientName={searchedIngredient?.name}
+        />
       </li>
     </>
   );
 }
 
-export default NewProduct;
+export default memo(NewProduct);
+
+interface InfoProps {
+  contentRef: React.RefObject<HTMLDivElement>;
+  newProductState: IngredientNewProduct;
+  setNewProduct: React.Dispatch<React.SetStateAction<IngredientNewProduct>>;
+  searchedIngredientName?: string;
+}
+
+const Info = memo(function Info({
+  contentRef,
+  newProductState,
+  setNewProduct,
+  searchedIngredientName,
+}: InfoProps) {
+  const onInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const { name, value } = e.target;
+    setNewProduct((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const onNewProductImgChange = (img: File | string | null) => {
+    if (typeof img === 'string') return;
+    setNewProduct((prev) => ({ ...prev, img }));
+  };
+
+  return (
+    <div className={style['new-product']}>
+      <h3>Add new product</h3>
+      <div ref={contentRef} className={style['content']}>
+        <div className={style['img-uploader']}>
+          <ImageUploader
+            imgValue={newProductState.img}
+            onChange={onNewProductImgChange}
+            mode='new'
+          />
+        </div>
+        <div className={style['input-container']}>
+          <Icon icon='labelFill' />
+          <span>{searchedIngredientName}</span>
+        </div>
+        <div className={style['input-container']}>
+          <Icon icon='label' />
+          <Input
+            placeholder='Product name'
+            name='name'
+            value={newProductState.name}
+            onChange={onInputChange}
+          />
+        </div>
+        <div className={style['input-container']}>
+          <Icon icon='product' />
+          <Input
+            placeholder='Brand'
+            name='brand'
+            value={newProductState.brand ?? ''}
+            onChange={onInputChange}
+          />
+        </div>
+        <div className={style['input-container']}>
+          <Icon icon='basket' />
+          <Input
+            placeholder='Purchased at'
+            name='purchasedFrom'
+            value={newProductState.purchasedFrom ?? ''}
+            onChange={onInputChange}
+          />
+        </div>
+      </div>
+    </div>
+  );
+});
