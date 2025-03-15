@@ -1,7 +1,8 @@
+import Skeleton from '@/components/Skeleton';
+
 import RecipeImgAndInfoCard from '@/app/components/common/RecipeImgAndInfoCard';
 
 import style from './style.module.scss';
-import Skeleton from '@/components/Skeleton';
 
 function SavedRecipeListSkeleton() {
   const list = Array.from({ length: 4 });

@@ -1,10 +1,11 @@
 'use client';
 
+import { Suspense } from 'react';
+
 import dynamic from 'next/dynamic';
 
-import style from './style.module.scss';
 import SavedRecipeListSkeleton from './SavedRecipeListSkeleton';
-import { Suspense } from 'react';
+import style from './style.module.scss';
 
 const SavedRecipeList = dynamic(() => import('./SavedRecipeList'), {
   ssr: false,

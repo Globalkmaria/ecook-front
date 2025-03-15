@@ -1,9 +1,13 @@
 'use client';
 
+import { Suspense } from 'react';
+
 import dynamic from 'next/dynamic';
 
+import { BookmarkButtonSkeleton } from './BookmarkButtonContent';
 const BookmarkButtonContent = dynamic(() => import('./BookmarkButtonContent'), {
   ssr: false,
+  loading: BookmarkButtonSkeleton,
 });
 
 interface Props {
@@ -11,7 +15,11 @@ interface Props {
 }
 
 function BookmarkButton({ recipeKey }: Props) {
-  return <BookmarkButtonContent recipeKey={recipeKey} />;
+  return (
+    <Suspense fallback={<BookmarkButtonSkeleton />}>
+      <BookmarkButtonContent recipeKey={recipeKey} />
+    </Suspense>
+  );
 }
 
 export default BookmarkButton;
