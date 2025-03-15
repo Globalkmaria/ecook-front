@@ -1,12 +1,12 @@
 import { memo, useCallback } from 'react';
 
-import style from './style.module.scss';
+import CartItem from '../CartItem';
 import CartProduct, {
   CartItemInfo,
   CartItemProduct,
   CartProductProps,
-  CartItemControl,
 } from '../CartProduct';
+import { CartItemControl } from '../CartProduct/CartItemControl';
 
 export interface LoggedInUserCartItemProps {
   item: Pick<CartItemInfo, 'ingredient'> & {
@@ -48,8 +48,7 @@ function LoggedInUserCartItem({
     [onQuantityChange, item.ingredient.key],
   );
   return (
-    <li className={style['cart-item']}>
-      <div className={style['ingredient']}>{item.ingredient.name}</div>
+    <CartItem title={item.ingredient.name}>
       {item.ingredient.quantity && (
         <CartItemControl
           ingredientKey={item.ingredient.key}
@@ -68,7 +67,7 @@ function LoggedInUserCartItem({
           onAddPantryBox={onAddPantryBox}
         />
       ))}
-    </li>
+    </CartItem>
   );
 }
 

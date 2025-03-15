@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { transformIngredientsForServer } from '@/queries/options/ingredients/helper';
 import { ingredientsWithProductsOptions } from '@/queries/options/ingredients/ingredientsWithProductsOptions';
@@ -21,7 +21,7 @@ function NotLoggedInUserCart() {
     data: ingredientsInfo,
     isLoading,
     isError,
-  } = useQuery(
+  } = useSuspenseQuery(
     ingredientsWithProductsOptions({
       items: requestIngredients,
       enabled: !!ingredientKeys.length,

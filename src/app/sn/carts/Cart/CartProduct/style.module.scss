@@ -58,3 +58,28 @@
   display: flex;
   gap: 10px;
 }
+
+.skeleton {
+  &__text {
+    width: 70px;
+    height: 19px;
+    margin-right: $font-size-10;
+  }
+
+  &__input {
+    width: 110px;
+    height: 38px;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  &__button {
+    width: 125px;
+    height: 38px;
+  }
+
+  &__delete {
+    width: 36px;
+    height: 38px;
+  }
+}
