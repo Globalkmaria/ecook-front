@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { useShallow } from 'zustand/shallow';
 
 import {
@@ -24,15 +24,17 @@ import style from './style.module.scss';
 function SavedRecipeList() {
   const isLoggedIn = useClientStore((state) => state.user.isLoggedIn);
 
-  return isLoggedIn ? <LoginContent /> : <NotLoggedInContent />;
+  return isLoggedIn ? <LoginContent /> : <GuestContent />;
 }
 
-function NotLoggedInContent() {
+export default SavedRecipeList;
+
+function GuestContent() {
   const bookmarks = useClientStore(useShallow((state) => state.bookmarks));
   const recipeKeys = getBookmarkedRecipes(bookmarks);
   const enabled = recipeKeys.length > 0;
 
-  const { data, error, isLoading } = useQuery(
+  const { data, error, isLoading } = useSuspenseQuery(
     recipesBatchOptions({
       query: recipeKeys,
       type: 'keys',
@@ -43,12 +45,10 @@ function NotLoggedInContent() {
   return <Content data={data} isLoading={isLoading} error={error} />;
 }
 
-export default SavedRecipeList;
-
 function LoginContent() {
   const username = useClientStore((state) => state.user?.username);
   const logout = useLogout();
-  const { data, error, isLoading } = useQuery(
+  const { data, error, isLoading } = useSuspenseQuery(
     userBookmarkedRecipesOptions({
       username: username ?? '',
       enabled: !!username,
@@ -72,9 +72,7 @@ interface ContentProps {
   error: Error | null;
 }
 
-function Content({ data, isLoading, error }: ContentProps) {
-  if (isLoading) return <ListSkeleton />;
-
+function Content({ data, error }: ContentProps) {
   if (error) return <ErrorMessage />;
 
   if (!data || !data.search.length) return <NoContent />;
@@ -97,19 +95,6 @@ function List({ recipes }: { recipes: RecipeSimple[] }) {
       {recipes.map((recipe) => (
         <li key={recipe.id}>
           <RecipeImgAndInfoCard.Card recipe={recipe} />
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-function ListSkeleton() {
-  const list = Array.from({ length: 4 });
-  return (
-    <ul className={style['list']}>
-      {list.map((_, index) => (
-        <li key={index}>
-          <RecipeImgAndInfoCard.Skeleton />
         </li>
       ))}
     </ul>
