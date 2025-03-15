@@ -107,7 +107,7 @@ export const CartItemControl = memo(function ItemControl({
   ingredientKey,
   onAddPantryBox,
 }: CartItemControlProps) {
-  const onDelete = useCallback(() => onChange(0), []);
+  const onDelete = useCallback(() => onChange(0), [onChange]);
 
   const onAddPantryBoxClick = () => {
     onAddPantryBox({
@@ -136,6 +136,7 @@ export const CartItemControl = memo(function ItemControl({
   );
 });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const CONTENT_VALUES = ['name', 'brand', 'purchasedFrom'] as const;
 type ContentValues = (typeof CONTENT_VALUES)[number];
 

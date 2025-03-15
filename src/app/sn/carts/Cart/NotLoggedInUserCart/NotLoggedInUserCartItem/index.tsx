@@ -51,25 +51,28 @@ function NotLoggedInUserCartItem({ info }: CartItemProps) {
 
       updateQuantity({ ingredientKey, productKey, quantity });
     },
-    [],
+    [removeCartItem, updateQuantity],
   );
 
-  const onIngredientQuantityChange = useCallback((quantity: number) => {
-    onQuantityChange({
-      ingredientKey,
-      quantity,
-    });
-  }, []);
+  const onIngredientQuantityChange = useCallback(
+    (quantity: number) => {
+      onQuantityChange({
+        ingredientKey,
+        quantity,
+      });
+    },
+    [ingredientKey, onQuantityChange],
+  );
 
   const onProductQuantityChange = useCallback(
     (productKey: string, quantity: number) => {
       onQuantityChange({
-        ingredientKey: ingredientKey,
+        ingredientKey,
         productKey,
         quantity,
       });
     },
-    [],
+    [onQuantityChange, ingredientKey],
   );
 
   const onAddPantryBox: CartProductProps['onAddPantryBox'] = (arg) => {

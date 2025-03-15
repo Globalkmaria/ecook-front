@@ -19,7 +19,7 @@ function useResetNotLoggedInData() {
     resetBookmarks();
     resetCart();
     resetPantry();
-  }, []);
+  }, [resetBookmarks, resetCart, resetPantry]);
 
   return resetNotLoggedInData;
 }

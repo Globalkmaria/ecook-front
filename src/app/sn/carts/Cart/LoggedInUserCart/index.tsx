@@ -26,13 +26,16 @@ function LoggedInUserCart() {
   );
   const { mutate } = useUpdateCartItemQuantityMutation();
   const onQuantityChange: LoggedInUserCartItemProps['onQuantityChange'] =
-    useCallback(({ ingredientKey, productKey, quantity }) => {
-      mutate({
-        ingredientKey,
-        productKey,
-        quantity,
-      });
-    }, []);
+    useCallback(
+      ({ ingredientKey, productKey, quantity }) => {
+        mutate({
+          ingredientKey,
+          productKey,
+          quantity,
+        });
+      },
+      [mutate],
+    );
 
   const { mutate: addPantryBox } = useAddPantryBoxMutation();
   const onAddPantryBox: CartProductProps['onAddPantryBox'] = useCallback(
@@ -48,7 +51,7 @@ function LoggedInUserCart() {
         },
       });
     },
-    [],
+    [addPantryBox, onQuantityChange],
   );
 
   useEffect(() => {
@@ -56,7 +59,7 @@ function LoggedInUserCart() {
       logout();
       return;
     }
-  }, [error]);
+  }, [error, logout]);
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error fetching ingredients</div>;

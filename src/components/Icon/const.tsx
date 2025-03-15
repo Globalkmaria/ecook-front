@@ -25,6 +25,7 @@ import {
 } from 'react-icons/pi';
 import { RxReset } from 'react-icons/rx';
 
+// eslint-disable-next-line  @typescript-eslint/no-unused-vars
 const ICON_NAMES = [
   'basket',
   'info',

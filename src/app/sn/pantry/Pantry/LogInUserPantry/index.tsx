@@ -19,7 +19,7 @@ function LogInUserPantry() {
     if (isUnauthorizedError(error)) {
       logout();
     }
-  }, [error]);
+  }, [error, logout]);
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error fetching ingredients</div>;

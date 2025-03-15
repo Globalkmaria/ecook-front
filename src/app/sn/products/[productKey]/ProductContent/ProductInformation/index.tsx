@@ -62,6 +62,7 @@ function ProductInformation({ product }: Props) {
 
 export default ProductInformation;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const CONTENT_VALUES = ['ingredientName', 'brand', 'purchasedFrom'] as const;
 type ContentValues = (typeof CONTENT_VALUES)[number];
 

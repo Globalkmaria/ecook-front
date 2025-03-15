@@ -27,7 +27,7 @@ function Ingredients({ ingredients, state }: Props) {
         ...prev,
         [index]: !prev[index],
       })),
-    [],
+    [setCheckedList],
   );
 
   return (

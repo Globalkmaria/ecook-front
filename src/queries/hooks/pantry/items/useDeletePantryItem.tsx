@@ -71,7 +71,7 @@ export function useDeletePantryItem(pantryBoxKey: string) {
       console.error(error);
       alert('Failed to delete pantry item.');
     },
-    onSettled: async (data) => {
+    onSettled: async () => {
       await queryClient.invalidateQueries({
         queryKey: queryKeys.pantry.boxes.box.detail(pantryBoxKey),
       });

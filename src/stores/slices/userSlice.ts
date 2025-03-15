@@ -32,7 +32,7 @@ export const createUserSlice: StateCreator<
   [['zustand/devtools', never], ['zustand/immer', never]],
   [],
   UserStore
-> = (set, get) => ({
+> = (set) => ({
   ...initialUserState,
   setUser: ({ username, img }: User) =>
     set(

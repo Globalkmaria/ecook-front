@@ -23,7 +23,7 @@ function useModal(initialState?: boolean): ModalHandlers {
       onClose,
       onToggle,
     }),
-    [isOpen],
+    [isOpen, onOpen, onClose, onToggle],
   );
 }
 

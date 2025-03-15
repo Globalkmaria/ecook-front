@@ -17,7 +17,7 @@ function StepList({ state, steps }: Props) {
 
   const onStepsToggle = useCallback(
     (id: number) => setCheckedSteps((prev) => ({ ...prev, [id]: !prev[id] })),
-    [],
+    [setCheckedSteps],
   );
 
   return (

@@ -7,20 +7,11 @@ import useModal from '@/hooks/useModal';
 import { Dropbox, DropboxStyleProps, DropboxWrapper } from './Dropbox';
 import IconButton from './IconButton';
 
-interface Props
-  extends DropboxStyleProps,
-    React.PropsWithChildren,
-    HTMLAttributes<HTMLDivElement> {
-  disabled?: boolean;
-}
+type Props = DropboxStyleProps &
+  React.PropsWithChildren &
+  HTMLAttributes<HTMLDivElement>;
 
-function MoreButton({
-  children,
-  vertical,
-  horizontal,
-  disabled,
-  ...resProps
-}: Props) {
+function MoreButton({ children, vertical, horizontal, ...resProps }: Props) {
   const { isOpen, onClose, onToggle } = useModal();
   const ref = useRef<HTMLDivElement>(null);
 
