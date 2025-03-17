@@ -38,6 +38,8 @@ export const getRecipesBatch = withSafeAsync(
     query: string[];
     type: RecipesBatchType;
   }): FetchResult<GetRecipesRes> => {
+    if (!query.length) return { ok: true, data: { search: [], recommend: [] } };
+
     const response = await fetchAPI<GetRecipesRes>(`/recipes/batch`, {
       method: 'POST',
       headers: {

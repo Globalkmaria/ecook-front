@@ -29,6 +29,6 @@ export const recipesBatchOptions = ({
       return result.data;
     },
     staleTime,
-    enabled: !!enabled,
+    enabled,
   });
 };
