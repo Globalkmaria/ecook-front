@@ -14,19 +14,34 @@ const TabContext = createContext<
   | undefined
 >(undefined);
 
-export function TabsContainer({
+export function useTabContext() {
+  const context = useContext(TabContext);
+  if (!context) {
+    throw new Error('useTabContext must be used within a TabsContainer');
+  }
+  return context;
+}
+
+export function TabsContainer({ children }: { children: React.ReactNode }) {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  return (
+    <TabContext.Provider value={{ selectedIndex, setSelectedIndex }}>
+      {children}
+    </TabContext.Provider>
+  );
+}
+
+export function TabGroup({
   children,
   className,
 }: {
   children: React.ReactNode;
   className?: string;
 }) {
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const joinedClassName = joinClassNames(style['tabs-container'], className);
   return (
-    <TabContext.Provider value={{ selectedIndex, setSelectedIndex }}>
-      <div className={joinedClassName}>{children}</div>
-    </TabContext.Provider>
+    <div className={joinClassNames(style['tab-group'], className)}>
+      {children}
+    </div>
   );
 }
 
@@ -38,10 +53,7 @@ interface TabProps {
 }
 
 export function Tab({ children, onClick, className, index }: TabProps) {
-  const tabContext = useContext(TabContext);
-  if (!tabContext) {
-    throw new Error('Tab must be used within a TabsContainer');
-  }
+  const tabContext = useTabContext();
 
   const selectedClass =
     tabContext.selectedIndex === index ? style['tab--selected'] : '';

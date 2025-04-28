@@ -9,6 +9,10 @@
 .header {
   display: flex;
   justify-content: space-between;
+
+  &__info {
+    display: flex;
+  }
 }
 
 .container {

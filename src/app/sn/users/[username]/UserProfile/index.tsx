@@ -7,6 +7,8 @@ import { profileOptions } from '@/queries/options';
 
 import { AvatarImg } from '@/components/Avatar';
 
+import CopyLinkButton from '@/app/components/common/CopyLinkButton';
+
 import { useClientStore } from '@/providers/client-store-provider';
 
 import style from './style.module.scss';
@@ -42,6 +44,9 @@ function UserProfile() {
           <span className={style.recipes}>{profile?.totalPosts}</span>
           {` recipes`}
         </span>
+        <div>
+          <CopyLinkButton />
+        </div>
       </div>
     </header>
   );

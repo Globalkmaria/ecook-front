@@ -5,6 +5,8 @@ import { notFound, useParams } from 'next/navigation';
 
 import { productOptions } from '@/queries/options';
 
+import CopyLinkButton from '@/app/components/common/CopyLinkButton';
+
 import style from './style.module.scss';
 import { ProductPageParams } from '../page';
 import AddToCart from './AddToCart';
@@ -24,6 +26,7 @@ function ProductContent() {
   return (
     <div className={style['container']}>
       <div className={style['header']}>
+        <CopyLinkButton />
         <AddToCart
           ingredientKey={product.ingredient.key}
           productKey={product.key}

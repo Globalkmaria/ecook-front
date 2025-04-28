@@ -1,0 +1,32 @@
+@use '@/styles/theme.scss' as *;
+
+.copy-link-button {
+  z-index: 9999;
+  position: fixed;
+  left: 50%;
+  bottom: 0px;
+  transform: translateY(150%) translateX(-50%);
+  background: $white;
+  border-radius: $borderRadiusS;
+  padding: 10px 20px;
+  box-shadow: $boxshadow1;
+
+  &--active {
+    animation: popup 3s ease-in-out;
+  }
+}
+
+@keyframes popup {
+  0% {
+    transform: translateY(150%) translateX(-50%);
+  }
+  25% {
+    transform: translateY(-60px) translateX(-50%);
+  }
+  75% {
+    transform: translateY(-60px) translateX(-50%);
+  }
+  100% {
+    transform: translateY(150%) translateX(-50%);
+  }
+}

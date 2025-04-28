@@ -16,13 +16,14 @@ import AnchorChips from '@/components/AnchorChip';
 import Avatar from '@/components/Avatar';
 import { getListCheckboxInitialState } from '@/components/CheckboxList/helper';
 import CustomImage from '@/components/CustomImage';
-import { Tab, TabsContainer } from '@/components/Tab';
+import { Tab, TabGroup, TabsContainer, useTabContext } from '@/components/Tab';
+
+import CopyLinkButton from '@/app/components/common/CopyLinkButton';
 
 import { RecipeDetail } from '@/services/requests/recipe/type';
 
-import Ingredients from './IngredientList';
-import { RECIPE_TABS, RecipeTab } from '../const';
 import BookmarkButton from './BookmarkButton';
+import Ingredients from './IngredientList';
 import StepList from './StepList';
 import style from './style.module.scss';
 import { RecipePageParams } from '../page';
@@ -47,7 +48,10 @@ function Recipe() {
         <Link href={userLink}>
           <Avatar user={recipe.user} />
         </Link>
-        <BookmarkButton recipeKey={recipe.key} />
+        <div className={style['header__info']}>
+          <CopyLinkButton />
+          <BookmarkButton recipeKey={recipe.key} />
+        </div>
       </div>
       <div className={style.container}>
         <div className={style['img-box']}>
@@ -79,7 +83,7 @@ function Recipe() {
           </div>
           <div className={style.time}>{time}</div>
 
-          <ContentBody recipe={recipe} />
+          <Content recipe={recipe} />
         </div>
       </div>
     </section>
@@ -88,34 +92,52 @@ function Recipe() {
 
 export default Recipe;
 
-function ContentBody({ recipe }: { recipe: RecipeDetail }) {
-  const [tab, setTab] = useState<RecipeTab>('Ingredients');
+function Content({ recipe }: { recipe: RecipeDetail }) {
+  return (
+    <div className={style['content__body']}>
+      <TabsContainer>
+        <ContentInfo recipe={recipe} />
+      </TabsContainer>
+    </div>
+  );
+}
+
+function ContentInfo({ recipe }: { recipe: RecipeDetail }) {
+  const { selectedIndex } = useTabContext();
   const stepsState = useState(getListCheckboxInitialState(recipe.steps));
   const ingredientsState = useState(
     getListCheckboxInitialState(recipe.ingredients),
   );
 
   return (
-    <div className={style['content__body']}>
-      <TabsContainer>
-        {RECIPE_TABS.map((item, index) => (
-          <Tab key={item} index={index} onClick={() => setTab(item)}>
-            {item}
+    <>
+      <TabGroup>
+        {TABS.map((item, index) => (
+          <Tab key={index} index={index}>
+            {item.label}
           </Tab>
         ))}
-      </TabsContainer>
-
+      </TabGroup>
       <div className={style.info}>
-        {tab === 'Ingredients' && (
+        {selectedIndex === 0 && (
           <Ingredients
             ingredients={recipe.ingredients}
             state={ingredientsState}
           />
         )}
-        {tab === 'Steps' && (
+        {selectedIndex === 1 && (
           <StepList state={stepsState} steps={recipe.steps} />
         )}
       </div>
-    </div>
+    </>
   );
 }
+
+const TABS = [
+  {
+    label: 'Ingredients',
+  },
+  {
+    label: 'Steps',
+  },
+];
