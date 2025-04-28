@@ -18,7 +18,7 @@ function CopyLinkButton() {
 
     setTimeout(() => {
       setShowMessage(false);
-    }, 2000);
+    }, 4000);
   };
 
   const joinedClassName = joinClassNames(
