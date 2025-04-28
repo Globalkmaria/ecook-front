@@ -6,6 +6,7 @@ import {
   FaRegTrashCan,
   FaBookmark,
   FaRegBookmark,
+  FaLink,
 } from 'react-icons/fa6';
 import { GoInbox } from 'react-icons/go';
 import {
@@ -64,6 +65,7 @@ const ICON_NAMES = [
   'hashtag',
   'abc',
   'fridge',
+  'link',
 ] as const;
 
 export type IconType = (typeof ICON_NAMES)[number];
@@ -101,6 +103,7 @@ export const ICONS: {
   hashtag: <RiHashtag />,
   abc: <IoText />,
   fridge: <TbFridge />,
+  link: <FaLink />,
 };
 
 export const ICON_TITLES: { [key in IconType]: string } = {
@@ -134,4 +137,5 @@ export const ICON_TITLES: { [key in IconType]: string } = {
   hashtag: 'hashtag',
   abc: 'text',
   fridge: 'fridge',
+  link: 'link',
 };

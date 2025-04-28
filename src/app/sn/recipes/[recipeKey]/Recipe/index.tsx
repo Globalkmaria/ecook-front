@@ -18,6 +18,8 @@ import { getListCheckboxInitialState } from '@/components/CheckboxList/helper';
 import CustomImage from '@/components/CustomImage';
 import { Tab, TabsContainer } from '@/components/Tab';
 
+import CopyLinkButton from '@/app/components/common/CopyLinkButton';
+
 import { RecipeDetail } from '@/services/requests/recipe/type';
 
 import Ingredients from './IngredientList';
@@ -47,7 +49,10 @@ function Recipe() {
         <Link href={userLink}>
           <Avatar user={recipe.user} />
         </Link>
-        <BookmarkButton recipeKey={recipe.key} />
+        <div className={style['header__info']}>
+          <CopyLinkButton />
+          <BookmarkButton recipeKey={recipe.key} />
+        </div>
       </div>
       <div className={style.container}>
         <div className={style['img-box']}>
