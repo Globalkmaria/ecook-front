@@ -11,6 +11,7 @@ import { useClientStore } from '@/providers/client-store-provider';
 
 import style from './style.module.scss';
 import { UserPageParams } from '../page';
+import CopyLinkButton from '@/app/components/common/CopyLinkButton';
 
 function UserProfile() {
   const params = useParams<UserPageParams>();
@@ -42,6 +43,9 @@ function UserProfile() {
           <span className={style.recipes}>{profile?.totalPosts}</span>
           {` recipes`}
         </span>
+        <div>
+          <CopyLinkButton />
+        </div>
       </div>
     </header>
   );
