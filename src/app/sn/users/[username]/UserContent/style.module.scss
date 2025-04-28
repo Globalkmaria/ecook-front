@@ -1,7 +1,7 @@
 @use '@/styles/theme.scss' as *;
 
 .tabs {
-  margin-top: 20px;
+  width: 100%;
   margin-bottom: 20px;
   display: flex;
   justify-content: center;
@@ -9,11 +9,23 @@
   font-size: $font-size-14;
 
   .tab {
+    padding-top: 20px;
     width: 150px;
     flex: 0 0 150px;
     display: flex;
     justify-content: center;
     gap: 10px;
+    border-top: 2px solid transparent;
+    border-bottom: none;
+
+    &--selected {
+      border-top: 2px solid $black;
+      border-bottom: none;
+    }
+
+    &:hover:not(&--selected) {
+      border-bottom: none;
+    }
 
     @media #{$mobile} {
       width: 50px;

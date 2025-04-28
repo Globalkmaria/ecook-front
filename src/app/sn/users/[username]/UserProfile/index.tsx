@@ -7,11 +7,12 @@ import { profileOptions } from '@/queries/options';
 
 import { AvatarImg } from '@/components/Avatar';
 
+import CopyLinkButton from '@/app/components/common/CopyLinkButton';
+
 import { useClientStore } from '@/providers/client-store-provider';
 
 import style from './style.module.scss';
 import { UserPageParams } from '../page';
-import CopyLinkButton from '@/app/components/common/CopyLinkButton';
 
 function UserProfile() {
   const params = useParams<UserPageParams>();

@@ -1,39 +1,49 @@
 'use client';
 
-import { useState } from 'react';
+import { joinClassNames } from '@/utils/style';
 
 import Icon from '@/components/Icon';
 import { IconType } from '@/components/Icon/const';
-import { Tab, TabsContainer } from '@/components/Tab';
+import { Tab, TabsContainer, useTabContext } from '@/components/Tab';
 
 import ProductList from './ProductList';
 import RecipeList from './RecipeList';
 import style from './style.module.scss';
 
 function UserContent() {
-  const [tabIndex, setTabIndex] = useState(0);
-  const handleTabChange = (index: number) => setTabIndex(index);
-
-  const CurrentList = TABS[tabIndex].Component;
   return (
     <section>
-      <TabsContainer className={style.tabs}>
+      <TabsContainer>
+        <UserContentBody />
+      </TabsContainer>
+    </section>
+  );
+}
+
+function UserContentBody() {
+  const { selectedIndex } = useTabContext();
+  const CurrentList = TABS[selectedIndex].Component;
+  return (
+    <>
+      <div className={style.tabs}>
         {TABS.map((tab, index) => (
           <Tab
-            className={style['tab']}
+            className={joinClassNames(
+              style['tab'],
+              selectedIndex === index ? style['tab--selected'] : '',
+            )}
             key={index}
             index={index}
-            onClick={() => handleTabChange(index)}
           >
             <Icon icon={tab.icon} />
             <span className={style['text']}>{tab.label}</span>
           </Tab>
         ))}
-      </TabsContainer>
+      </div>
       <div className={style.content}>
         <CurrentList />
       </div>
-    </section>
+    </>
   );
 }
 
