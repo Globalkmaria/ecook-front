@@ -1,5 +1,3 @@
-import { queryOptions } from '@tanstack/react-query';
-
 import { getRecipePageTag } from '@/actions/helpers';
 
 import { queryKeys } from '@/queries/helpers';
@@ -19,22 +17,21 @@ export const recipeOptions = ({
   initialData,
   staleTime = 86400000, // 24 hours , MS
   nextRevalidateTime = 86400, // 24 hours , S
-}: Props) =>
-  queryOptions({
-    queryKey: queryKeys.recipes.recipe.detail(key),
-    queryFn: async () => {
-      const result = await getRecipe(key, {
-        cache: 'force-cache',
-        next: {
-          revalidate: nextRevalidateTime,
-          tags: [getRecipePageTag(key)],
-        },
-      });
+}: Props) => ({
+  queryKey: queryKeys.recipes.recipe.detail(key),
+  queryFn: async () => {
+    const result = await getRecipe(key, {
+      cache: 'force-cache',
+      next: {
+        revalidate: nextRevalidateTime,
+        tags: [getRecipePageTag(key)],
+      },
+    });
 
-      if (!result.ok) throw new Error(result.error);
+    if (!result.ok) throw new Error('Failed to load recipe');
 
-      return result.data;
-    },
-    initialData,
-    staleTime,
-  });
+    return result.data;
+  },
+  initialData,
+  staleTime,
+});

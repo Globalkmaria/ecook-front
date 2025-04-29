@@ -1,7 +1,5 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
-
 import { mutationKeys } from '@/queries/helpers';
 import { useEditRecipeMutation } from '@/queries/hooks';
 import { recipeOptions } from '@/queries/options';
@@ -10,7 +8,9 @@ import Skeleton from '@/components/Skeleton';
 
 import NewRecipe from '@/app/components/common/NewRecipe';
 import { OnSubmitNewRecipe } from '@/app/components/common/NewRecipe';
+import { SuspenseQuery } from '@/app/components/common/SuspenseQuery';
 
+import { RecipeDetail } from '@/services/requests/recipe/type';
 import { NewRecipeDataServer } from '@/services/requests/recipes/type';
 
 import {
@@ -28,12 +28,40 @@ interface Props {
 }
 
 function RecipeEdit({ recipeKey, onCloseModal }: Props) {
-  const {
-    data: recipe,
-    isLoading: isLoadingRecipe,
-    error: recipeError,
-  } = useQuery(recipeOptions({ key: recipeKey }));
+  const Error = () => {
+    alert(GET_RECIPE_ERROR_MESSAGE);
+    onCloseModal();
+    return null;
+  };
 
+  return (
+    <SuspenseQuery
+      fallback={<Loading />}
+      errorFallback={Error}
+      {...recipeOptions({ key: recipeKey })}
+    >
+      {(recipe) => (
+        <RecipeEditBody
+          recipeKey={recipe.key}
+          onCloseModal={onCloseModal}
+          recipe={recipe}
+        />
+      )}
+    </SuspenseQuery>
+  );
+}
+
+export default RecipeEdit;
+
+type RecipeEditBodyProps = {
+  recipe: RecipeDetail;
+} & Props;
+
+function RecipeEditBody({
+  recipeKey,
+  onCloseModal,
+  recipe,
+}: RecipeEditBodyProps) {
   const { mutate, isPending: isPendingEditRecipe } = useEditRecipeMutation(
     recipeKey,
     onCloseModal,
@@ -50,19 +78,11 @@ function RecipeEdit({ recipeKey, onCloseModal }: Props) {
     mutate({ data: formData });
   };
 
-  if (isLoadingRecipe) return <Loading />;
-
-  if (recipeError) {
-    alert(GET_RECIPE_ERROR_MESSAGE);
-    onCloseModal();
-    return null;
-  }
-
-  if (!recipe) return <div>Recipe not found</div>;
-
   const initialData = getEditRecipeInitialValues(recipe);
 
   const mutationKey = mutationKeys.recipes.recipe.update(recipeKey);
+
+  if (!recipe) return <div>Recipe not found</div>;
   return (
     <div className={style.container}>
       <NewRecipe
@@ -74,8 +94,6 @@ function RecipeEdit({ recipeKey, onCloseModal }: Props) {
     </div>
   );
 }
-
-export default RecipeEdit;
 
 export const Loading = () => (
   <div className={style.loading}>

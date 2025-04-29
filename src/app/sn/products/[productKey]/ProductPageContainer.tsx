@@ -2,6 +2,7 @@ import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
+  queryOptions,
 } from '@tanstack/react-query';
 import { notFound } from 'next/navigation';
 
@@ -19,21 +20,26 @@ interface Props {
   productKey: string;
 }
 
-async function ProductPageContainer({ productKey }: Props) {
+function ProductPageContainer({ productKey }: Props) {
   if (!productKey) notFound();
 
   const queryClient = new QueryClient();
 
-  await Promise.all([
-    queryClient.prefetchQuery(productOptions({ key: productKey })),
-    queryClient.prefetchQuery(productRecommendOptions({ key: productKey })),
-    queryClient.prefetchQuery(
+  queryClient.prefetchQuery(
+    queryOptions(productOptions({ key: productKey, enabled: true })),
+  );
+  queryClient.prefetchQuery(
+    queryOptions(productRecommendOptions({ key: productKey, enabled: true })),
+  );
+  queryClient.prefetchQuery(
+    queryOptions(
       productsOptions({
         type: PRODUCT_TYPES.PRODUCT_KEY,
         q: productKey,
+        staleTime: 86400000, // 24 hours , MS
       }),
     ),
-  ]);
+  );
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

@@ -4,6 +4,7 @@ import { joinClassNames } from '@/utils/style';
 
 import style from './style.module.scss';
 import CustomImage, { CustomImageProps } from '../CustomImage';
+import Skeleton from '../Skeleton';
 
 export interface ImgCardProps {
   link: string;
@@ -65,10 +66,19 @@ function BottomOverlay({
   return <div className={joinedClassName}>{children}</div>;
 }
 
+function ImgCardSkeleton() {
+  return (
+    <div className={style['card']}>
+      <Skeleton className={style['img']} />
+    </div>
+  );
+}
+
 const ImgCard = {
   Container: ImgCardContainer,
   TopOverlay,
   BottomOverlay,
+  Skeleton: ImgCardSkeleton,
 };
 
 export default ImgCard;

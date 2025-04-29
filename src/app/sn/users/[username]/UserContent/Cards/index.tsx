@@ -11,6 +11,7 @@ import { getRecipeLink } from '@/helpers/links';
 
 import Chip, { ChipGroup } from '@/components/Chip';
 import CustomImage from '@/components/CustomImage';
+import Skeleton from '@/components/Skeleton';
 
 import { RecipeSimple } from '@/services/requests/recipe/type';
 
@@ -94,5 +95,43 @@ function Card({ recipe }: CardProps) {
         </div>
       </button>
     </li>
+  );
+}
+
+function CardSkeleton() {
+  return (
+    <li className={style.wrapper}>
+      <div className={style.card}>
+        <div className={style['img-box']}>
+          <div className={style['img-wrapper']}>
+            <Skeleton className={style['img-skeleton']} />
+          </div>
+        </div>
+
+        <div className={style.info}>
+          <div className={style['title-skeleton']}>
+            <Skeleton border />
+          </div>
+          <div className={style['time-skeleton']}>
+            <Skeleton border />
+          </div>
+          <div className={style['chip-skeleton-group']}>
+            {Array.from({ length: 3 }).map((_, index) => (
+              <Skeleton key={index} className={style['chip-skeleton']} border />
+            ))}
+          </div>
+        </div>
+      </div>
+    </li>
+  );
+}
+
+export function CardListSkeleton({ count = 4 }: { count?: number }) {
+  return (
+    <ul className={style.list}>
+      {Array.from({ length: count }).map((_, index) => (
+        <CardSkeleton key={index} />
+      ))}
+    </ul>
   );
 }

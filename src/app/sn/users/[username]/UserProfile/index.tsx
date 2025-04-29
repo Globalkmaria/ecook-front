@@ -1,15 +1,17 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
 import { notFound, useParams } from 'next/navigation';
 
 import { profileOptions } from '@/queries/options';
 
 import { AvatarImg } from '@/components/Avatar';
+import Skeleton from '@/components/Skeleton';
 
 import CopyLinkButton from '@/app/components/common/CopyLinkButton';
+import { SuspenseQuery } from '@/app/components/common/SuspenseQuery';
 
 import { useClientStore } from '@/providers/client-store-provider';
+import { Profile } from '@/services/requests/users/type';
 
 import style from './style.module.scss';
 import { UserPageParams } from '../page';
@@ -19,14 +21,24 @@ function UserProfile() {
   const username = useClientStore((state) => state.user.username);
   const isUserProfile = params.username === username;
 
-  const { data: profile, error } = useQuery(
-    profileOptions({
-      username: params.username,
-      enabled: isUserProfile,
-    }),
+  return (
+    <SuspenseQuery
+      {...profileOptions({
+        username: params.username,
+        enabled: isUserProfile,
+      })}
+      errorFallback={() => notFound()}
+      fallback={<UserProfileBodySkeleton />}
+    >
+      {(profile) => <UserProfileBody profile={profile} />}
+    </SuspenseQuery>
   );
+}
 
-  if (error || !profile) return notFound();
+export default UserProfile;
+
+function UserProfileBody({ profile }: { profile: Profile }) {
+  if (!profile) return notFound();
 
   const userImgInfo = {
     username: profile?.username ?? '',
@@ -52,4 +64,27 @@ function UserProfile() {
   );
 }
 
-export default UserProfile;
+function UserProfileBodySkeleton() {
+  return (
+    <header className={style.profile}>
+      <div className={style.avatar}>
+        <div className={style['avatar-skeleton']}>
+          <Skeleton />
+        </div>
+      </div>
+      <div className={style.info}>
+        <div>
+          <Skeleton className={style['username-skeleton']} border />
+        </div>
+        <div className={style['recipes-skeleton-wrapper']}>
+          <div>
+            <Skeleton className={style['recipes-skeleton']} border />
+          </div>
+        </div>
+        <div>
+          <Skeleton className={style['button-skeleton']} border />
+        </div>
+      </div>
+    </header>
+  );
+}

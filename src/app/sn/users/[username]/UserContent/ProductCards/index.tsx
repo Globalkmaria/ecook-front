@@ -7,11 +7,11 @@ import { Product } from '@/services/requests/products/type';
 import AddProductToCart from './AddProductToCart';
 import style from './style.module.scss';
 
-interface Props {
+export interface ProductCardsProps {
   products: Product[];
 }
 
-function ProductCards({ products }: Props) {
+function ProductCards({ products }: ProductCardsProps) {
   return (
     <ul className={style.list}>
       {products.map((product) => (
@@ -48,5 +48,17 @@ function Card({ product }: { product: Product }) {
         </ImgCard.BottomOverlay>
       </ImgCard.Container>
     </li>
+  );
+}
+
+export function ProductCardsSkeleton() {
+  return (
+    <ul className={style.list}>
+      {Array.from({ length: 5 }, (_, i) => (
+        <li key={i} className={style['card']}>
+          <ImgCard.Skeleton />
+        </li>
+      ))}
+    </ul>
   );
 }

@@ -1,5 +1,3 @@
-import { queryOptions } from '@tanstack/react-query';
-
 import { queryKeys } from '@/queries/helpers';
 
 import { getRecipes } from '@/services/requests/recipes';
@@ -17,16 +15,15 @@ export const recipesOptions = ({
   type,
   staleTime,
   enabled,
-}: RecipeListOptions) =>
-  queryOptions({
-    queryKey: queryKeys.recipes.list({ query, type }),
-    queryFn: async () => {
-      const result = await getRecipes(query, type);
+}: RecipeListOptions) => ({
+  queryKey: queryKeys.recipes.list({ query, type }),
+  queryFn: async () => {
+    const result = await getRecipes(query, type);
 
-      if (!result.ok) throw new Error(result.error);
+    if (!result.ok) throw new Error(result.error);
 
-      return result.data;
-    },
-    staleTime,
-    enabled: !!enabled,
-  });
+    return result.data;
+  },
+  staleTime,
+  enabled: !!enabled,
+});

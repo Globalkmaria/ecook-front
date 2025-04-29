@@ -1,5 +1,3 @@
-import { queryOptions } from '@tanstack/react-query';
-
 import { queryKeys } from '@/queries/helpers';
 
 import { getProducts } from '@/services/requests/products';
@@ -16,30 +14,30 @@ interface Props {
 
 export const productsOptions = ({
   initialData,
-  staleTime,
+  staleTime = 86400000, // 24 hours , MS
   type,
-  nextRevalidateTime,
+  nextRevalidateTime = 86400, // 24 hours , S
   q,
   enabled,
-}: Props) =>
-  queryOptions({
-    queryKey: queryKeys.products.list({ type, query: q }),
-    queryFn: async () => {
-      const result = await getProducts({
-        type,
-        q,
-        options: {
-          next: {
-            revalidate: nextRevalidateTime,
-          },
+}: Props) => ({
+  queryKey: queryKeys.products.list({ type, query: q }),
+  queryFn: async () => {
+    const result = await getProducts({
+      type,
+      q,
+      options: {
+        cache: 'force-cache',
+        next: {
+          revalidate: nextRevalidateTime,
         },
-      });
+      },
+    });
 
-      if (!result.ok) throw new Error(result.error);
+    if (!result.ok) throw new Error(result.error);
 
-      return result.data.products;
-    },
-    initialData,
-    staleTime,
-    enabled: !!enabled,
-  });
+    return result.data.products;
+  },
+  initialData,
+  staleTime,
+  enabled: !!enabled,
+});

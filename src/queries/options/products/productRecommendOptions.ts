@@ -1,5 +1,3 @@
-import { queryOptions } from '@tanstack/react-query';
-
 import { queryKeys } from '@/queries/helpers';
 
 import { getProductRecommendations } from '@/services/requests/product';
@@ -16,21 +14,20 @@ export const productRecommendOptions = ({
   staleTime = 86400000, // 24 hours , MS
   nextRevalidateTime = 86400, // 24 hours , S
   enabled = false,
-}: ProductRecommendOptions) =>
-  queryOptions({
-    queryKey: queryKeys.products.product.recommend(key),
-    queryFn: async () => {
-      const result = await getProductRecommendations(key, {
-        cache: 'force-cache',
-        next: {
-          revalidate: nextRevalidateTime,
-        },
-      });
+}: ProductRecommendOptions) => ({
+  queryKey: queryKeys.products.product.recommend(key),
+  queryFn: async () => {
+    const result = await getProductRecommendations(key, {
+      cache: 'force-cache',
+      next: {
+        revalidate: nextRevalidateTime,
+      },
+    });
 
-      if (!result.ok) throw new Error(result.error);
+    if (!result.ok) throw new Error(result.error);
 
-      return result.data;
-    },
-    staleTime,
-    enabled,
-  });
+    return result.data;
+  },
+  staleTime,
+  enabled,
+});

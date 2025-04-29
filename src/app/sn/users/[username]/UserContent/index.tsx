@@ -23,6 +23,7 @@ function UserContent() {
 function UserContentBody() {
   const { selectedIndex } = useTabContext();
   const CurrentList = TABS[selectedIndex].Component;
+
   return (
     <>
       <div className={style.tabs}>

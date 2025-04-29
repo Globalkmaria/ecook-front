@@ -2,6 +2,7 @@ import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
+  queryOptions,
 } from '@tanstack/react-query';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -69,28 +70,32 @@ async function UserPage({ params }: Props) {
 
   const queryClient = new QueryClient();
 
-  await Promise.all([
-    queryClient.prefetchQuery(
+  queryClient.prefetchQuery(
+    queryOptions(
       profileOptions({
         username,
         staleTime: 180000, // 3 minutes
       }),
     ),
-    queryClient.prefetchQuery(
+  );
+  queryClient.prefetchQuery(
+    queryOptions(
       recipesOptions({
         query: username,
         type: 'username',
         staleTime: 180000, // 3 minutes
       }),
     ),
-    queryClient.prefetchQuery(
+  );
+  queryClient.prefetchQuery(
+    queryOptions(
       productsOptions({
         type: PRODUCT_TYPES.USERNAME,
         q: username,
         staleTime: 180000, // 3 minutess
       }),
     ),
-  ]);
+  );
 
   return (
     <main className={style.wrapper}>
