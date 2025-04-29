@@ -10,7 +10,7 @@ import { useClientStore } from '@/providers/client-store-provider';
 import { GetRecipesRes } from '@/services/requests/recipes/type';
 
 import { UserPageParams } from '../page';
-import Cards from './Cards';
+import Cards, { CardListSkeleton } from './Cards';
 import NoContent from './NoContent';
 
 function RecipeList() {
@@ -25,6 +25,7 @@ function RecipeList() {
         type: 'username',
         enabled: isUserProfile,
       })}
+      fallback={<CardListSkeleton count={5} />}
       errorFallback={() => <p>Failed to get recipes.</p>}
     >
       {(data) => <RecipeListBody data={data} />}

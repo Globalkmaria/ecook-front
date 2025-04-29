@@ -5,6 +5,7 @@ import { notFound, useParams } from 'next/navigation';
 import { profileOptions } from '@/queries/options';
 
 import { AvatarImg } from '@/components/Avatar';
+import Skeleton from '@/components/Skeleton';
 
 import CopyLinkButton from '@/app/components/common/CopyLinkButton';
 import { SuspenseQuery } from '@/app/components/common/SuspenseQuery';
@@ -14,7 +15,6 @@ import { Profile } from '@/services/requests/users/type';
 
 import style from './style.module.scss';
 import { UserPageParams } from '../page';
-import Skeleton from '@/components/Skeleton';
 
 function UserProfile() {
   const params = useParams<UserPageParams>();
