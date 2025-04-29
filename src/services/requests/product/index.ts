@@ -8,9 +8,10 @@ import { RecommendRecipe } from '../recommend/type';
 
 export const getProduct = withSafeAsync(
   async (productKey: string, options?: RequestInit): FetchResult<Product> => {
-    const response = await fetchAPI<Product>(`/products/${productKey}`, {
-      ...options,
-    });
+    const response = await fetchAPI<Product>(
+      `/products/${productKey}`,
+      options,
+    );
 
     if (response.ok) return { ok: true, data: response.data };
 
@@ -31,8 +32,14 @@ export const getProductRecommendations = withSafeAsync(
       options,
     );
 
-    if (response.ok) return { ok: true, data: response.data };
+    if (response.ok) {
+      response.data.sort((a, b) => a.name.localeCompare(b.name));
 
+      return {
+        ok: true,
+        data: response.data,
+      };
+    }
     throw new AsyncError(
       createAsyncErrorMessage(response.res, 'Failed to fetch recommendations'),
       response.res,

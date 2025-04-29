@@ -20,7 +20,7 @@ function Cards({ data }: { data: CardProps['data'][] }) {
   return (
     <ul className={style['list']}>
       {data.map((item, index) => (
-        <li className={style['item']} key={index}>
+        <li className={style['item']} key={item.key}>
           <Card data={item} key={index} />
         </li>
       ))}
