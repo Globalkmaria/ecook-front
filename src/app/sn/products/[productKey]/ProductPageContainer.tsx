@@ -25,15 +25,18 @@ function ProductPageContainer({ productKey }: Props) {
 
   const queryClient = new QueryClient();
 
-  queryClient.prefetchQuery(queryOptions(productOptions({ key: productKey })));
   queryClient.prefetchQuery(
-    queryOptions(productRecommendOptions({ key: productKey })),
+    queryOptions(productOptions({ key: productKey, enabled: true })),
+  );
+  queryClient.prefetchQuery(
+    queryOptions(productRecommendOptions({ key: productKey, enabled: true })),
   );
   queryClient.prefetchQuery(
     queryOptions(
       productsOptions({
         type: PRODUCT_TYPES.PRODUCT_KEY,
         q: productKey,
+        staleTime: 86400000, // 24 hours , MS
       }),
     ),
   );

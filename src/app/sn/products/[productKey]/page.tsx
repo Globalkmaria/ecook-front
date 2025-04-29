@@ -19,7 +19,12 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const productKey = (await params).productKey;
 
-  const result = await getProduct(productKey);
+  const result = await getProduct(productKey, {
+    cache: 'force-cache',
+    next: {
+      revalidate: 86400, // 24 hours ,
+    },
+  });
 
   if (!result.ok) return {};
 

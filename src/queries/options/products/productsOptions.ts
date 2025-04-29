@@ -14,9 +14,9 @@ interface Props {
 
 export const productsOptions = ({
   initialData,
-  staleTime,
+  staleTime = 86400000, // 24 hours , MS
   type,
-  nextRevalidateTime,
+  nextRevalidateTime = 86400, // 24 hours , S
   q,
   enabled,
 }: Props) => ({
@@ -26,6 +26,7 @@ export const productsOptions = ({
       type,
       q,
       options: {
+        cache: 'force-cache',
         next: {
           revalidate: nextRevalidateTime,
         },
