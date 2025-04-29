@@ -72,17 +72,21 @@ async function UserPage({ params }: Props) {
 
   await Promise.all([
     queryClient.prefetchQuery(
-      profileOptions({
-        username,
-        staleTime: 180000, // 3 minutes
-      }),
+      queryOptions(
+        profileOptions({
+          username,
+          staleTime: 180000, // 3 minutes
+        }),
+      ),
     ),
     queryClient.prefetchQuery(
-      recipesOptions({
-        query: username,
-        type: 'username',
-        staleTime: 180000, // 3 minutes
-      }),
+      queryOptions(
+        recipesOptions({
+          query: username,
+          type: 'username',
+          staleTime: 180000, // 3 minutes
+        }),
+      ),
     ),
     queryClient.prefetchQuery(
       queryOptions(

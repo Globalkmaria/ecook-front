@@ -7,11 +7,11 @@ import { Product } from '@/services/requests/products/type';
 import AddProductToCart from './AddProductToCart';
 import style from './style.module.scss';
 
-interface Props {
+export interface ProductCardsProps {
   products: Product[];
 }
 
-function ProductCards({ products }: Props) {
+function ProductCards({ products }: ProductCardsProps) {
   return (
     <ul className={style.list}>
       {products.map((product) => (

@@ -1,34 +1,39 @@
-import { queryOptions, useQuery } from '@tanstack/react-query';
-import { notFound, useParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
 import { productsOptions } from '@/queries/options';
+
+import { SuspenseQuery } from '@/app/components/common/SuspenseQuery';
 
 import { useClientStore } from '@/providers/client-store-provider';
 import { PRODUCT_TYPES } from '@/services/requests/products';
 
 import { UserPageParams } from '../page';
 import NoContent from './NoContent';
-import ProductCards from './ProductCards';
+import ProductCards, { ProductCardsProps } from './ProductCards';
 
 function ProductList() {
   const params = useParams<UserPageParams>();
   const username = useClientStore((state) => state.user.username);
   const isUserProfile = params.username === username;
 
-  const { data, error } = useQuery(
-    queryOptions(
-      productsOptions({
+  return (
+    <SuspenseQuery
+      {...productsOptions({
         type: PRODUCT_TYPES.USERNAME,
         q: params.username || '',
         enabled: isUserProfile,
-      }),
-    ),
+      })}
+      errorFallback={() => <p>Failed to get products.</p>}
+    >
+      {(data) => <ProductListBody data={data} />}
+    </SuspenseQuery>
   );
+}
 
-  if (error) return notFound();
+export default ProductList;
+
+function ProductListBody({ data }: { data: ProductCardsProps['products'] }) {
   if (data?.length === 0) return <NoContent />;
 
   return <ProductCards products={data ?? []} />;
 }
-
-export default ProductList;
