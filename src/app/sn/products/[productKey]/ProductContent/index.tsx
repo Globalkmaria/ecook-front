@@ -1,26 +1,33 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
 import { notFound, useParams } from 'next/navigation';
 
 import { productOptions } from '@/queries/options';
 
 import CopyLinkButton from '@/app/components/common/CopyLinkButton';
+import { SuspenseQuery } from '@/app/components/common/SuspenseQuery';
 
+import { Product } from '@/services/requests/products/type';
+
+import AddToCart from './AddToCart';
 import style from './style.module.scss';
 import { ProductPageParams } from '../page';
-import AddToCart from './AddToCart';
 import OtherProducts from './OtherProducts';
 import ProductInformation from './ProductInformation';
 import ProductRecommend from './ProductRecommend';
 
 function ProductContent() {
-  const params = useParams<ProductPageParams>();
-  const { data: product, isError } = useQuery(
-    productOptions({ key: params.productKey }),
+  const { productKey } = useParams<ProductPageParams>();
+  return (
+    <SuspenseQuery {...productOptions({ key: productKey })}>
+      {(product) => <ProductContentBody product={product} />}
+    </SuspenseQuery>
   );
+}
 
-  if (isError) throw new Error('Failed to load product');
+export default ProductContent;
+
+function ProductContentBody({ product }: { product: Product }) {
   if (!product) return notFound();
 
   return (
@@ -38,5 +45,3 @@ function ProductContent() {
     </div>
   );
 }
-
-export default ProductContent;
