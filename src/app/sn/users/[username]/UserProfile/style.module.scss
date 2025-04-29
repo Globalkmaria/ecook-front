@@ -29,3 +29,32 @@
 .recipes {
   font-weight: 500;
 }
+
+// skeleton
+
+.avatar-skeleton {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.username-skeleton {
+  width: 120px;
+  height: 24px;
+}
+
+.recipes-skeleton-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.recipes-skeleton {
+  width: 60px;
+  height: 20px;
+}
+
+.button-skeleton {
+  width: 36px;
+  height: 36px;
+}
