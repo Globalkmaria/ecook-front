@@ -31,6 +31,7 @@ function ProductInformation({ product }: Props) {
           src={product.img}
           fill
           alt={product.name}
+          priority
         />
       </div>
       <div className={style['info']}>
