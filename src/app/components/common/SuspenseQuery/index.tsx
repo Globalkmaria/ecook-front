@@ -17,7 +17,7 @@ import style from './style.module.scss';
 // Default fallbacks
 // -----------------
 function DefaultLoading() {
-  return <p>Loading…</p>;
+  return <></>;
 }
 
 function DefaultErrorFallback({
