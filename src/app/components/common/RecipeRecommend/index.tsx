@@ -1,24 +1,22 @@
-import { useParams } from 'next/navigation';
+import { UseSuspenseQueryOptions } from '@tanstack/react-query';
 
-import { productRecommendOptions } from '@/queries/options';
-
-import { CardLoading } from '@/components/Card';
-
-import { ProductPageParams } from '@/app/sn/products/[productKey]/page';
+import { CardLoading, CardProps } from '@/components/Card';
 
 import { SuspenseQuery } from '../SuspenseQuery';
 import RecipeRecommendList from './RecipeRecommendList';
 import style from './style.module.scss';
 
-function RecipeRecommend() {
-  const params = useParams<ProductPageParams>();
-  const { productKey } = params;
+function RecipeRecommend({
+  queryOptions,
+}: {
+  queryOptions: UseSuspenseQueryOptions<CardProps['data'][]>;
+}) {
   return (
     <Container>
       <SuspenseQuery
         fallback={<ListSkeleton />}
         errorFallback={Error}
-        {...productRecommendOptions({ key: productKey })}
+        {...queryOptions}
       >
         {(data) => <RecipeRecommendList data={data} />}
       </SuspenseQuery>

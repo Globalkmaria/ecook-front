@@ -1,6 +1,5 @@
 'use client';
 
-import { useSuspenseQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
 import { pantryBoxRecommendOptions } from '@/queries/options/recommend/pantryBoxRecommendOptions';
@@ -22,10 +21,11 @@ function PantryBoxRecipeRecommend() {
     productKey: pantryBox?.productKey,
   };
 
-  const result = useSuspenseQuery(
-    pantryBoxRecommendOptions({ pantryBoxKey, query }),
+  return (
+    <RecipeRecommend
+      queryOptions={pantryBoxRecommendOptions({ pantryBoxKey, query })}
+    />
   );
-  return <RecipeRecommend {...result} />;
 }
 
 export default PantryBoxRecipeRecommend;
