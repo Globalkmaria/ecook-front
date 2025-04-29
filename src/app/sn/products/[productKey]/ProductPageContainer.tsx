@@ -20,27 +20,23 @@ interface Props {
   productKey: string;
 }
 
-async function ProductPageContainer({ productKey }: Props) {
+function ProductPageContainer({ productKey }: Props) {
   if (!productKey) notFound();
 
   const queryClient = new QueryClient();
 
-  await Promise.all([
-    queryClient.prefetchQuery(
-      queryOptions(productOptions({ key: productKey })),
+  queryClient.prefetchQuery(queryOptions(productOptions({ key: productKey })));
+  queryClient.prefetchQuery(
+    queryOptions(productRecommendOptions({ key: productKey })),
+  );
+  queryClient.prefetchQuery(
+    queryOptions(
+      productsOptions({
+        type: PRODUCT_TYPES.PRODUCT_KEY,
+        q: productKey,
+      }),
     ),
-    queryClient.prefetchQuery(
-      queryOptions(productRecommendOptions({ key: productKey })),
-    ),
-    queryClient.prefetchQuery(
-      queryOptions(
-        productsOptions({
-          type: PRODUCT_TYPES.PRODUCT_KEY,
-          q: productKey,
-        }),
-      ),
-    ),
-  ]);
+  );
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
