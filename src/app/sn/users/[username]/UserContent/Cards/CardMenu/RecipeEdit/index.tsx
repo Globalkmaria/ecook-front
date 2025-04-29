@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { queryOptions, useQuery } from '@tanstack/react-query';
 
 import { mutationKeys } from '@/queries/helpers';
 import { useEditRecipeMutation } from '@/queries/hooks';
@@ -32,7 +32,7 @@ function RecipeEdit({ recipeKey, onCloseModal }: Props) {
     data: recipe,
     isLoading: isLoadingRecipe,
     error: recipeError,
-  } = useQuery(recipeOptions({ key: recipeKey }));
+  } = useQuery(queryOptions(recipeOptions({ key: recipeKey })));
 
   const { mutate, isPending: isPendingEditRecipe } = useEditRecipeMutation(
     recipeKey,

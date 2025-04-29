@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 
-import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { notFound, useParams } from 'next/navigation';
 
@@ -19,6 +18,7 @@ import CustomImage from '@/components/CustomImage';
 import { Tab, TabGroup, TabsContainer, useTabContext } from '@/components/Tab';
 
 import CopyLinkButton from '@/app/components/common/CopyLinkButton';
+import { SuspenseQuery } from '@/app/components/common/SuspenseQuery';
 
 import { RecipeDetail } from '@/services/requests/recipe/type';
 
@@ -30,9 +30,16 @@ import { RecipePageParams } from '../page';
 
 function Recipe() {
   const { recipeKey } = useParams<RecipePageParams>();
-  const { data: recipe, isError } = useQuery(recipeOptions({ key: recipeKey }));
+  return (
+    <SuspenseQuery {...recipeOptions({ key: recipeKey })}>
+      {(recipe) => <RecipeBody recipe={recipe} />}
+    </SuspenseQuery>
+  );
+}
 
-  if (isError) throw new Error('Failed to load recipe');
+export default Recipe;
+
+function RecipeBody({ recipe }: { recipe?: RecipeDetail }) {
   if (!recipe) return notFound();
 
   const time = formatTime({
@@ -89,8 +96,6 @@ function Recipe() {
     </section>
   );
 }
-
-export default Recipe;
 
 function Content({ recipe }: { recipe: RecipeDetail }) {
   return (

@@ -2,6 +2,7 @@ import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
+  queryOptions,
 } from '@tanstack/react-query';
 import { notFound } from 'next/navigation';
 
@@ -16,8 +17,10 @@ async function RecipePageContainer({ recipeKey }: { recipeKey: string }) {
   const queryClient = new QueryClient();
 
   await Promise.all([
-    queryClient.prefetchQuery(recipeOptions({ key: recipeKey })),
-    queryClient.prefetchQuery(recipeRecommendOptions({ key: recipeKey })),
+    queryClient.prefetchQuery(queryOptions(recipeOptions({ key: recipeKey }))),
+    queryClient.prefetchQuery(
+      queryOptions(recipeRecommendOptions({ key: recipeKey })),
+    ),
   ]);
 
   return (
