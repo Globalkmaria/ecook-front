@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@next/third-parties": "^15.0.4",
-    "@tanstack/react-query": "^5.62.8",
-    "@tanstack/react-query-devtools": "^5.62.8",
+    "@tanstack/react-query": "^5.74.11",
+    "@tanstack/react-query-devtools": "^5.74.11",
     "browser-image-compression": "^2.0.2",
     "dayjs": "^1.11.13",
     "heic2any": "^0.0.4",
