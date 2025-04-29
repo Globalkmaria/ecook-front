@@ -9,7 +9,10 @@ import { PRODUCT_TYPES } from '@/services/requests/products';
 
 import { UserPageParams } from '../page';
 import NoContent from './NoContent';
-import ProductCards, { ProductCardsProps } from './ProductCards';
+import ProductCards, {
+  ProductCardsProps,
+  ProductCardsSkeleton,
+} from './ProductCards';
 
 function ProductList() {
   const params = useParams<UserPageParams>();
@@ -24,6 +27,7 @@ function ProductList() {
         enabled: isUserProfile,
       })}
       errorFallback={() => <p>Failed to get products.</p>}
+      fallback={<ProductCardsSkeleton />}
     >
       {(data) => <ProductListBody data={data} />}
     </SuspenseQuery>

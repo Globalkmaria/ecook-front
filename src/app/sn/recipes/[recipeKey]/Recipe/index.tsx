@@ -120,8 +120,8 @@ export function RecipeContentSkeleton() {
             <div className={style['chip-container']}>
               <div className={style['chip-container-skeleton']}>
                 {Array.from({ length: 3 }).map((_, index) => (
-                  <div className={style['chip-skeleton']}>
-                    <Skeleton key={index} border />
+                  <div className={style['chip-skeleton']} key={index}>
+                    <Skeleton border />
                   </div>
                 ))}
               </div>

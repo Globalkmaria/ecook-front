@@ -50,3 +50,15 @@ function Card({ product }: { product: Product }) {
     </li>
   );
 }
+
+export function ProductCardsSkeleton() {
+  return (
+    <ul className={style.list}>
+      {Array.from({ length: 5 }, (_, i) => (
+        <li key={i} className={style['card']}>
+          <ImgCard.Skeleton />
+        </li>
+      ))}
+    </ul>
+  );
+}
