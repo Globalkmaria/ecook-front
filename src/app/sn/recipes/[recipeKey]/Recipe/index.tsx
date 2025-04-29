@@ -99,7 +99,7 @@ export function RecipeContentSkeleton() {
   return (
     <section className={style.wrapper}>
       <div className={style.header}>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div>
           <Skeleton className={style['avatar-skeleton']} border />
         </div>
       </div>

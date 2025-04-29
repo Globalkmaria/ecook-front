@@ -37,7 +37,7 @@ export default RecipeList;
 
 function RecipeListBody({ data }: { data: GetRecipesRes }) {
   if (!data) return notFound();
-  if (data?.search?.length === 0) return <NoContent />;
+  if (!data?.search?.length) return <NoContent />;
 
   return <Cards recipes={data?.search ?? []} />;
 }

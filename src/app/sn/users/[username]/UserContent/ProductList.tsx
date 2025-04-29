@@ -37,7 +37,7 @@ function ProductList() {
 export default ProductList;
 
 function ProductListBody({ data }: { data: ProductCardsProps['products'] }) {
-  if (data?.length === 0) return <NoContent />;
+  if (!data?.length) return <NoContent />;
 
-  return <ProductCards products={data ?? []} />;
+  return <ProductCards products={data} />;
 }
