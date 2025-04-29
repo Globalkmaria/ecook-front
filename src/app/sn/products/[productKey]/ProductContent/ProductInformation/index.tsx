@@ -3,6 +3,7 @@ import { getSearchLink } from '@/helpers/links';
 import Anchor from '@/components/Anchor';
 import CustomImage from '@/components/CustomImage';
 import Icon, { IconProps } from '@/components/Icon';
+import Skeleton from '@/components/Skeleton';
 
 import { Product } from '@/services/requests/products/type';
 
@@ -61,6 +62,44 @@ function ProductInformation({ product }: Props) {
 }
 
 export default ProductInformation;
+
+export function ProductInformationSkeleton() {
+  return (
+    <section className={style.container}>
+      <div className={style['name-skeleton']}>
+        <Skeleton border />
+      </div>
+
+      <div>
+        <Skeleton className={style['img-skeleton']} border />
+      </div>
+
+      <div className={style.info}>
+        <div className={style.contents}>
+          {Array.from({ length: 3 }).map((_, index) => (
+            <div className={style.content} key={index}>
+              <div className={style['content-title-skeleton']}>
+                <Skeleton border />
+              </div>
+              <div className={style['content-description-skeleton']}>
+                <Skeleton border />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className={style.links}>
+        <div className={style['link-skeleton']}>
+          <Skeleton border />
+        </div>
+        <div className={style['link-skeleton']}>
+          <Skeleton border />
+        </div>
+      </div>
+    </section>
+  );
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const CONTENT_VALUES = ['ingredientName', 'brand', 'purchasedFrom'] as const;

@@ -13,13 +13,18 @@ import AddToCart from './AddToCart';
 import style from './style.module.scss';
 import { ProductPageParams } from '../page';
 import OtherProducts from './OtherProducts';
-import ProductInformation from './ProductInformation';
+import ProductInformation, {
+  ProductInformationSkeleton,
+} from './ProductInformation';
 import ProductRecommend from './ProductRecommend';
 
 function ProductContent() {
   const { productKey } = useParams<ProductPageParams>();
   return (
-    <SuspenseQuery {...productOptions({ key: productKey })}>
+    <SuspenseQuery
+      {...productOptions({ key: productKey })}
+      fallback={<ProductContentSkeleton />}
+    >
       {(product) => <ProductContentBody product={product} />}
     </SuspenseQuery>
   );
@@ -42,6 +47,17 @@ function ProductContentBody({ product }: { product: Product }) {
       <ProductInformation product={product} />
       <OtherProducts />
       <ProductRecommend />
+    </div>
+  );
+}
+
+function ProductContentSkeleton() {
+  return (
+    <div className={style['container']}>
+      <div className={style['header']}>
+        <div className={style['header-skeleton']} />
+      </div>
+      <ProductInformationSkeleton />
     </div>
   );
 }

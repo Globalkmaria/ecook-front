@@ -33,3 +33,15 @@ export default OtherProductList;
 function NoContent() {
   return <div>This is the only product with this ingredient!</div>;
 }
+
+export function OtherProductListSkeleton() {
+  return (
+    <ul className={style['list']}>
+      {Array.from({ length: 4 }, (_, index) => (
+        <li className={style['item']} key={index}>
+          <ImgCard.Skeleton />
+        </li>
+      ))}
+    </ul>
+  );
+}

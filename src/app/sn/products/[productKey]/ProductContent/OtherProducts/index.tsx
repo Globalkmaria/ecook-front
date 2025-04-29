@@ -6,7 +6,7 @@ import { SuspenseQuery } from '@/app/components/common/SuspenseQuery';
 
 import { PRODUCT_TYPES } from '@/services/requests/products';
 
-import OtherProductList from './OtherProductList';
+import OtherProductList, { OtherProductListSkeleton } from './OtherProductList';
 import style from './style.module.scss';
 import { ProductPageParams } from '../../page';
 
@@ -22,6 +22,7 @@ function OtherProducts() {
           type: PRODUCT_TYPES.PRODUCT_KEY,
         })}
         errorFallback={Error}
+        fallback={<OtherProductListSkeleton />}
       >
         {(products) => <OtherProductList products={products} />}
       </SuspenseQuery>
