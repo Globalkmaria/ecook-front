@@ -1,11 +1,11 @@
 import {
   dehydrate,
   HydrationBoundary,
-  QueryClient,
   queryOptions,
 } from '@tanstack/react-query';
 import { notFound } from 'next/navigation';
 
+import { getQueryClient } from '@/queries/get-query-client';
 import {
   productOptions,
   productRecommendOptions,
@@ -23,7 +23,7 @@ interface Props {
 function ProductPageContainer({ productKey }: Props) {
   if (!productKey) notFound();
 
-  const queryClient = new QueryClient();
+  const queryClient = getQueryClient();
 
   queryClient.prefetchQuery(
     queryOptions(productOptions({ key: productKey, enabled: true })),
