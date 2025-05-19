@@ -1,12 +1,12 @@
 import {
   dehydrate,
   HydrationBoundary,
-  QueryClient,
   queryOptions,
 } from '@tanstack/react-query';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import { getQueryClient } from '@/queries/get-query-client';
 import {
   productsOptions,
   recipesOptions,
@@ -68,7 +68,7 @@ async function UserPage({ params }: Props) {
   const { username } = await params;
   if (!username) return notFound();
 
-  const queryClient = new QueryClient();
+  const queryClient = getQueryClient();
 
   queryClient.prefetchQuery(
     queryOptions(
