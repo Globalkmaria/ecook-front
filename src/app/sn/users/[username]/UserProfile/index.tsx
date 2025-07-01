@@ -26,6 +26,7 @@ function UserProfile() {
       {...profileOptions({
         username: params.username,
         enabled: isUserProfile,
+        staleTime: 1000 * 60 * 60, // 1 hour
       })}
       errorFallback={() => notFound()}
       fallback={<UserProfileBodySkeleton />}
