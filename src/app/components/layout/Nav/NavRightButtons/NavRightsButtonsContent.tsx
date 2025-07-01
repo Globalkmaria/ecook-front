@@ -62,17 +62,27 @@ function LoggedInMenu() {
   return (
     <div className={style['right-buttons']}>
       <Links />
-      <Anchor href={NEW_RECIPE_LINK} className={style.new}>
+      <Anchor
+        href={NEW_RECIPE_LINK}
+        className={style.new}
+        title='Add new recipe'
+      >
         <Icon icon='add' className={style['new__icon']} />
         <span className={style['new__text']}>New recipes</span>
       </Anchor>
       <div className={style.profile}>
-        <Link href={getUserLink(user.username ?? '')}>
+        <Link
+          href={getUserLink(user.username ?? '')}
+          title='Profile'
+          aria-label='Profile'
+        >
           <AvatarImg user={userImgInfo} size={48} hoverable />
         </Link>
         <DropboxWrapper ref={ref}>
           <Dropbox className={style['profile-dropbox']} containerRef={ref}>
-            <DropboxItem onClick={onLogout}>Logout</DropboxItem>
+            <DropboxItem onClick={onLogout} title='logout' aria-label='logout'>
+              Logout
+            </DropboxItem>
           </Dropbox>
         </DropboxWrapper>
       </div>
@@ -84,10 +94,17 @@ function NotLoggedInMenu() {
   return (
     <div className={style['right-buttons']}>
       <Links />
-      <Anchor variant='secondary' href={SIGNUP_LINK}>
+      <Anchor
+        variant='secondary'
+        href={SIGNUP_LINK}
+        title='Sign up'
+        aria-label='Sign up'
+      >
         Sign up
       </Anchor>
-      <Anchor href={LOGIN_LINK}>Login</Anchor>
+      <Anchor href={LOGIN_LINK} title='login' aria-label='login'>
+        Login
+      </Anchor>
     </div>
   );
 }
@@ -95,13 +112,28 @@ function NotLoggedInMenu() {
 function Links() {
   return (
     <>
-      <Anchor variant='secondary' href={CARTS_LINK}>
+      <Anchor
+        variant='secondary'
+        href={CARTS_LINK}
+        title='Shopping cart'
+        aria-label='Shopping cart'
+      >
         <Icon icon='cart' />
       </Anchor>
-      <Anchor variant='secondary' href={PANTRY_LINK}>
+      <Anchor
+        variant='secondary'
+        href={PANTRY_LINK}
+        title='Pantry'
+        aria-label='Pantry'
+      >
         <Icon icon='cabinet' />
       </Anchor>
-      <Anchor variant='secondary' href={BOOKMARKS_LINK}>
+      <Anchor
+        variant='secondary'
+        href={BOOKMARKS_LINK}
+        title='Bookmarks'
+        aria-label='Bookmarks'
+      >
         <Icon icon='book' />
       </Anchor>
     </>
