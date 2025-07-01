@@ -66,7 +66,13 @@ function SearchContainer() {
           onMenuChange={onMenuChange}
           selectedMenuItem={selectedMenuItem}
         />
-        <button type='button' className={style.button} onClick={onSearch}>
+        <button
+          type='button'
+          className={style.button}
+          onClick={onSearch}
+          title='Search'
+          aria-label='Search'
+        >
           <Icon icon='search' />
         </button>
       </div>
@@ -114,6 +120,8 @@ function SearchItem({
       type='button'
       className={style['search-item']}
       onClick={() => onMenuItemSelect(menuItem.value)}
+      title={menuItem.label}
+      aria-label={menuItem.label}
     >
       <Icon icon={menuItem.icon} />
       <span className={textClassname}>{menuItem.label}</span>
