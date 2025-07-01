@@ -74,7 +74,6 @@ async function UserPage({ params }: Props) {
     queryOptions(
       profileOptions({
         username,
-        staleTime: 180000, // 3 minutes
       }),
     ),
   );
@@ -83,7 +82,6 @@ async function UserPage({ params }: Props) {
       recipesOptions({
         query: username,
         type: 'username',
-        staleTime: 180000, // 3 minutes
       }),
     ),
   );
@@ -92,7 +90,6 @@ async function UserPage({ params }: Props) {
       productsOptions({
         type: PRODUCT_TYPES.USERNAME,
         q: username,
-        staleTime: 180000, // 3 minutess
       }),
     ),
   );
