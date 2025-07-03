@@ -22,6 +22,7 @@ import { RecipeDetail } from '@/services/requests/recipe/type';
 import BookmarkButton from './BookmarkButton';
 import { RecipePageParams } from '../page';
 import RecipeContent from './RecipeContent';
+import RecipeSchema from './RecipeSchema';
 import style from './style.module.scss';
 
 function Recipe() {
@@ -31,7 +32,12 @@ function Recipe() {
       {...recipeOptions({ key: recipeKey })}
       fallback={<RecipeContentSkeleton />}
     >
-      {(recipe) => <RecipeBody recipe={recipe} />}
+      {(recipe) => (
+        <>
+          <RecipeBody recipe={recipe} />
+          <RecipeSchema recipe={recipe} />
+        </>
+      )}
     </SuspenseQuery>
   );
 }
