@@ -1,6 +1,7 @@
 import { getHomeRecipes } from '@/services/requests/home';
 
 import Recipe from './Recipe';
+import RecipeListSchema from './RecipeListSchema';
 import style from './style.module.scss';
 
 async function Recent() {
@@ -15,6 +16,7 @@ async function Recent() {
           <Recipe key={recipe.key} recipe={recipe} idx={idx} />
         ))}
       </div>
+      <RecipeListSchema items={recipes.data} />
     </section>
   );
 }

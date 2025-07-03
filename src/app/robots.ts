@@ -7,6 +7,10 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/search',
     },
-    sitemap: 'https://www.ecook.online/sitemap.xml',
+    sitemap: [
+      'https://www.ecook.online/sitemap.xml',
+      'https://www.ecook.online/sn/recipes/sitemap.xml',
+      'https://www.ecook.online/sn/search/sitemap.xml',
+    ],
   };
 }
