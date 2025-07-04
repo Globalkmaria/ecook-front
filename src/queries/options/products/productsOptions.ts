@@ -7,6 +7,7 @@ interface Props {
   q: string;
   initialData?: Product[];
   staleTime?: number;
+  gcTime?: number;
   type: ProductQueryTypes;
   enabled?: boolean;
   nextRevalidateTime?: number;
@@ -15,6 +16,7 @@ interface Props {
 export const productsOptions = ({
   initialData,
   staleTime = 86400000, // 24 hours , MS
+  gcTime = 86400000, // 24 hours , MS
   type,
   nextRevalidateTime = 86400, // 24 hours , S
   q,
@@ -39,5 +41,6 @@ export const productsOptions = ({
   },
   initialData,
   staleTime,
+  gcTime,
   enabled: !!enabled,
 });
