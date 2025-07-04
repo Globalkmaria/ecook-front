@@ -8,12 +8,14 @@ interface RecipeListOptions {
   type: RecipesSearchType;
   staleTime?: number;
   enabled?: boolean;
+  gcTime?: number;
 }
 
 export const recipesOptions = ({
   query,
   type,
   staleTime,
+  gcTime,
   enabled,
 }: RecipeListOptions) => ({
   queryKey: queryKeys.recipes.list({ query, type }),
@@ -25,5 +27,6 @@ export const recipesOptions = ({
     return result.data;
   },
   staleTime,
+  gcTime,
   enabled: !!enabled,
 });

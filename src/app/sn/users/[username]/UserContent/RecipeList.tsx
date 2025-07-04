@@ -24,7 +24,8 @@ function RecipeList() {
         query: params.username,
         type: 'username',
         enabled: isUserProfile,
-        staleTime: 1000 * 60 * 60, // 1 hour
+        staleTime: isUserProfile ? 0 : 1000 * 60 * 60, // 1 hour
+        gcTime: isUserProfile ? 0 : 1000 * 60 * 60, // 1 hour
       })}
       fallback={<CardListSkeleton count={5} />}
       errorFallback={() => <p>Failed to get recipes.</p>}

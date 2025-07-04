@@ -25,6 +25,8 @@ function ProductList() {
         type: PRODUCT_TYPES.USERNAME,
         q: params.username || '',
         enabled: isUserProfile,
+        staleTime: isUserProfile ? 0 : 1000 * 60 * 60, // 1 hour
+        gcTime: isUserProfile ? 0 : 1000 * 60 * 60, // 1 hour
       })}
       errorFallback={() => <p>Failed to get products.</p>}
       fallback={<ProductCardsSkeleton />}

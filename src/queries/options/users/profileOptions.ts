@@ -6,12 +6,14 @@ interface ProfileOptions {
   username: string;
   enabled?: boolean;
   staleTime?: number;
+  gcTime?: number;
 }
 
 export const profileOptions = ({
   username,
   enabled,
   staleTime,
+  gcTime,
 }: ProfileOptions) => ({
   queryKey: queryKeys.users.user.profile(username),
   queryFn: async () => {
@@ -23,4 +25,5 @@ export const profileOptions = ({
   },
   enabled,
   staleTime,
+  gcTime,
 });
