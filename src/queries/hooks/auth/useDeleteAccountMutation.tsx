@@ -36,9 +36,7 @@ export const useDeleteAccountMutation = () => {
     },
     onSuccess: () => {
       // Set temporary token to allow goodbye page access
-      if (typeof window !== 'undefined') {
-        sessionStorage.setItem('account_deleted', Date.now().toString());
-      }
+      sessionStorage.setItem('account_deleted', Date.now().toString());
 
       resetUser();
       query.clear();

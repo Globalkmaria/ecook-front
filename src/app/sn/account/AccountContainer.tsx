@@ -16,7 +16,8 @@ function AccountContainer() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!user.isLoggedIn) {
+    const deletionToken = sessionStorage.getItem('account_deleted');
+    if (!user.isLoggedIn && !deletionToken) {
       router.push(LOGIN_LINK);
     }
   }, [user.isLoggedIn, router]);
