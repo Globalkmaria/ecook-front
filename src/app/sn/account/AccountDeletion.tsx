@@ -103,56 +103,55 @@ function AccountDeletion() {
       {/* Password Confirmation Modal */}
       {confirmModal.isOpen && (
         <Modal
+          closeOnOutSideClick={false}
           onClose={handleCancel}
           title='Confirm Account Deletion'
           backgroundType='light'
         >
-          <form onSubmit={handleConfirmDelete}>
-            <div className={style.modalContent}>
-              <div className={style.passwordSection}>
-                <p>
-                  To confirm account deletion, please enter your password below:
-                </p>
-                <Input
-                  type='password'
-                  placeholder='Optional: Enter your password'
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  autoComplete='current-password'
-                  aria-label='Password confirmation'
-                  disabled={isPending}
-                />
-              </div>
+          <form onSubmit={handleConfirmDelete} className={style.modalContent}>
+            <div className={style.passwordSection}>
+              <p>
+                To confirm account deletion, please enter your password below :
+              </p>
+              <Input
+                type='password'
+                placeholder='Please enter your password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoComplete='current-password'
+                aria-label='Password confirmation'
+                disabled={isPending}
+              />
+            </div>
 
-              <div className={style.deleteReasonSection}>
-                <p>Please enter the reason for deleting your account.</p>
-                <Input
-                  type='text'
-                  placeholder='Enter the reason'
-                  value={deleteReason}
-                  onChange={(e) => setDeleteReason(e.target.value)}
-                  aria-label='Delete reason'
-                  disabled={isPending}
-                />
-              </div>
-              <div className={style.modalActions}>
-                <Button
-                  type='button'
-                  variant='secondary'
-                  onClick={handleCancel}
-                  disabled={isPending}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  type='submit'
-                  variant='danger'
-                  disabled={isPending || !password.trim()}
-                  aria-label='Confirm delete account'
-                >
-                  {isPending ? 'Deleting Account...' : 'Delete My Account'}
-                </Button>
-              </div>
+            <div className={style.deleteReasonSection}>
+              <p>Please enter the reason for deleting your account.</p>
+              <Input
+                type='text'
+                placeholder='Optional: Enter the reason'
+                value={deleteReason}
+                onChange={(e) => setDeleteReason(e.target.value)}
+                aria-label='Delete reason'
+                disabled={isPending}
+              />
+            </div>
+            <div className={style.modalActions}>
+              <Button
+                type='button'
+                variant='secondary'
+                onClick={handleCancel}
+                disabled={isPending}
+              >
+                Cancel
+              </Button>
+              <Button
+                type='submit'
+                variant='danger'
+                disabled={isPending || !password.trim()}
+                aria-label='Confirm delete account'
+              >
+                {isPending ? 'Deleting Account...' : 'Delete My Account'}
+              </Button>
             </div>
           </form>
         </Modal>

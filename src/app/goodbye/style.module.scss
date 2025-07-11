@@ -1,0 +1,141 @@
+@use '@/styles/theme.scss' as *;
+
+//layout
+
+.layout-container {
+  position: relative;
+  min-height: 100vh;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  min-width: 300px;
+}
+
+.layout-header {
+  display: flex;
+  width: 100%;
+  margin: 20px;
+}
+
+.layout-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+//page
+.page {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.container {
+  max-width: 600px;
+  width: 100%;
+}
+
+.content {
+  background: $white;
+  border-radius: 16px;
+  padding: 48px 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+  @media (max-width: 768px) {
+    padding: 32px 24px;
+  }
+}
+
+.header {
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: $font-size-28;
+  font-weight: 600;
+  color: $grey900;
+  margin-bottom: 16px;
+
+  @media (max-width: 768px) {
+    font-size: $font-size-24;
+  }
+}
+
+.icon {
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+
+.messageSection {
+  margin-bottom: 40px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid $grey200;
+}
+
+.subtitle {
+  font-size: $font-size-24;
+  font-weight: 500;
+  color: $grey800;
+  margin-bottom: 16px;
+
+  @media (max-width: 768px) {
+    font-size: $font-size-20;
+  }
+}
+
+.description {
+  font-size: $font-size-16;
+  line-height: 1.6;
+  color: $grey600;
+  margin-bottom: 0;
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 32px;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: center;
+
+    a {
+      width: 100%;
+      max-width: 200px;
+    }
+  }
+}
+
+.footer {
+  padding-top: 24px;
+  border-top: 1px solid $grey200;
+}
+
+.footerText {
+  font-size: $font-size-14;
+  color: $grey600;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.link {
+  color: $cyan500;
+  text-decoration: none;
+  font-weight: 500;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
