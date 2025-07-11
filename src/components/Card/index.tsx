@@ -1,10 +1,12 @@
 import { ImageProps } from 'next/image';
 import Link from 'next/link';
 
-import { getRecipeLink, getUserLink } from '@/helpers/links';
+import { getRecipeLink } from '@/helpers/links';
+
+import { RecipeDetail } from '@/services/requests/recipe/type';
 
 import style from './style.module.scss';
-import Avatar from '../Avatar';
+import AvatarLink from '../Avatar/AvatarLink';
 import CustomImage from '../CustomImage';
 import Skeleton from '../Skeleton';
 
@@ -12,10 +14,7 @@ interface Data {
   name: string;
   key: string;
   img: string;
-  user: {
-    username: string;
-    img?: string | null;
-  };
+  user: RecipeDetail['user'];
 }
 
 export interface CardProps {
@@ -24,15 +23,12 @@ export interface CardProps {
 }
 
 function Card({ data, imageProps }: CardProps) {
-  const userLink = getUserLink(data.user.username);
   const recipeLink = getRecipeLink(data.key);
 
   return (
     <div className={style['card']}>
       <div className={style['top-overlay']}>
-        <Link href={userLink} className={style['avatar']}>
-          <Avatar user={data.user} />
-        </Link>
+        <AvatarLink user={data.user} />
       </div>
       <Link scroll={false} href={recipeLink} className={style['img-link']}>
         <CustomImage

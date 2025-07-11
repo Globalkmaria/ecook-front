@@ -26,7 +26,6 @@ export interface RecipeDetail {
   ingredients: Ingredient[];
   tags: { id: string; name: string }[];
   user: {
-    id: string;
     username: string;
     img: string | null;
     isDeleted: boolean;
