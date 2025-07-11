@@ -4,10 +4,15 @@ import { HOME_LINK } from '@/helpers/links';
 
 import style from './style.module.scss';
 
-function Logo() {
+interface LogoProps {
+  theme?: 'light' | 'dark';
+}
+
+function Logo({ theme = 'light' }: LogoProps) {
+  const titleClassName = `${style.title} ${theme === 'light' ? style.light : style.dark}`;
   return (
     <Link href={HOME_LINK} className={style.logo}>
-      <h1 className={style.title}>E-COOK</h1>
+      <h1 className={titleClassName}>E-COOK</h1>
     </Link>
   );
 }
