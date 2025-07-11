@@ -1,6 +1,7 @@
 import { fetchAPI } from '@/services/api';
 import { AsyncError } from '@/services/helpers';
 
+import { DeleteAccountParams } from './type';
 import { FetchResult } from '../../type';
 import { createAsyncErrorMessage, withSafeAsync } from '../../utils';
 import { User } from '../users/type';
@@ -61,3 +62,28 @@ export const logout = withSafeAsync(async (): FetchResult => {
     response.res,
   );
 });
+
+export const deleteAccount = withSafeAsync(
+  async (props: DeleteAccountParams): FetchResult => {
+    const response = await fetchAPI<{ message: string }>(
+      '/auth/delete-account',
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(props),
+      },
+    );
+
+    if (response.ok)
+      return {
+        ok: true,
+      };
+
+    throw new AsyncError(
+      createAsyncErrorMessage(response.res, 'Failed to delete account'),
+      response.res,
+    );
+  },
+);

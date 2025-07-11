@@ -17,6 +17,7 @@ function AccountDeletion() {
   const warningModal = useModal();
   const confirmModal = useModal();
   const [password, setPassword] = useState('');
+  const [deleteReason, setDeleteReason] = useState('');
   const { mutate: deleteAccount, isPending } = useDeleteAccountMutation();
 
   const handleInitialDelete = () => {
@@ -28,20 +29,25 @@ function AccountDeletion() {
     confirmModal.onOpen();
   };
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     if (!password.trim()) {
       alert('Please enter your password to confirm account deletion.');
       return;
     }
 
-    deleteAccount();
+    deleteAccount({
+      password: password.trim(),
+      reason: deleteReason.trim(),
+    });
     confirmModal.onClose();
-    setPassword('');
   };
 
   const handleCancel = () => {
-    confirmModal.onClose();
     setPassword('');
+    setDeleteReason('');
+    confirmModal.onClose();
   };
 
   return (
@@ -101,41 +107,54 @@ function AccountDeletion() {
           title='Confirm Account Deletion'
           backgroundType='light'
         >
-          <div className={style.modalContent}>
-            <ModalMessage>
-              To confirm account deletion, please enter your password below:
-            </ModalMessage>
+          <form onSubmit={handleConfirmDelete}>
+            <div className={style.modalContent}>
+              <div className={style.passwordSection}>
+                <p>
+                  To confirm account deletion, please enter your password below:
+                </p>
+                <Input
+                  type='password'
+                  placeholder='Optional: Enter your password'
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  autoComplete='current-password'
+                  aria-label='Password confirmation'
+                  disabled={isPending}
+                />
+              </div>
 
-            <div className={style.passwordSection}>
-              <Input
-                type='password'
-                placeholder='Enter your password'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                autoComplete='current-password'
-                aria-label='Password confirmation'
-                disabled={isPending}
-              />
+              <div className={style.deleteReasonSection}>
+                <p>Please enter the reason for deleting your account.</p>
+                <Input
+                  type='text'
+                  placeholder='Enter the reason'
+                  value={deleteReason}
+                  onChange={(e) => setDeleteReason(e.target.value)}
+                  aria-label='Delete reason'
+                  disabled={isPending}
+                />
+              </div>
+              <div className={style.modalActions}>
+                <Button
+                  type='button'
+                  variant='secondary'
+                  onClick={handleCancel}
+                  disabled={isPending}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  type='submit'
+                  variant='danger'
+                  disabled={isPending || !password.trim()}
+                  aria-label='Confirm delete account'
+                >
+                  {isPending ? 'Deleting Account...' : 'Delete My Account'}
+                </Button>
+              </div>
             </div>
-
-            <div className={style.modalActions}>
-              <Button
-                variant='secondary'
-                onClick={handleCancel}
-                disabled={isPending}
-              >
-                Cancel
-              </Button>
-              <Button
-                variant='danger'
-                onClick={handleConfirmDelete}
-                disabled={isPending || !password.trim()}
-                aria-label='Confirm delete account'
-              >
-                {isPending ? 'Deleting Account...' : 'Delete My Account'}
-              </Button>
-            </div>
-          </div>
+          </form>
         </Modal>
       )}
     </section>

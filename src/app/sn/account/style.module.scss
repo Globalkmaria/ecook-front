@@ -104,7 +104,8 @@
   margin-top: 8px;
 }
 
-.passwordSection {
+.passwordSection,
+.deleteReasonSection {
   display: flex;
   flex-direction: column;
   gap: 8px;
