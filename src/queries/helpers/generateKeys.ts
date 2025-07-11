@@ -141,4 +141,8 @@ export const mutationKeys = {
       ],
     },
   },
+  auth: {
+    all: () => ['auth'],
+    deleteAccount: () => [...mutationKeys.auth.all(), 'deleteAccount'],
+  },
 } as const;

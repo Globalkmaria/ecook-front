@@ -1,16 +1,15 @@
 'use client';
 
-import Link from 'next/link';
 import { notFound, useParams } from 'next/navigation';
 
 import { recipeOptions } from '@/queries/options';
 
 import { formatTime } from '@/utils/time';
 
-import { getSearchTagLink, getUserLink } from '@/helpers/links';
+import { getSearchTagLink } from '@/helpers/links';
 
 import AnchorChips from '@/components/AnchorChip';
-import Avatar from '@/components/Avatar';
+import AvatarLink from '@/components/Avatar/AvatarLink';
 import CustomImage from '@/components/CustomImage';
 import Skeleton from '@/components/Skeleton';
 
@@ -52,14 +51,10 @@ function RecipeBody({ recipe }: { recipe?: RecipeDetail }) {
     minutes: recipe.minutes,
   });
 
-  const userLink = getUserLink(recipe.user.username);
-
   return (
     <section className={style.wrapper}>
       <div className={style['header']}>
-        <Link href={userLink}>
-          <Avatar user={recipe.user} />
-        </Link>
+        <AvatarLink user={recipe.user} />
         <div className={style['header__info']}>
           <CopyLinkButton />
           <BookmarkButton recipeKey={recipe.key} />

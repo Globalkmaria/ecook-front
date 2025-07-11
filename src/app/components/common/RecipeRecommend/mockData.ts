@@ -8,6 +8,7 @@ export const RECIPE_RECOMMEND_LIST_MOCK_DATA: CardProps['data'][] = [
     user: {
       img: '/img/bg2.png',
       username: 'User 1',
+      isDeleted: false,
     },
   },
   {
@@ -17,6 +18,7 @@ export const RECIPE_RECOMMEND_LIST_MOCK_DATA: CardProps['data'][] = [
     user: {
       img: '/img/bg2.png',
       username: 'User 2',
+      isDeleted: false,
     },
   },
   {
@@ -26,6 +28,7 @@ export const RECIPE_RECOMMEND_LIST_MOCK_DATA: CardProps['data'][] = [
     user: {
       img: '/img/bg2.png',
       username: 'User 3',
+      isDeleted: false,
     },
   },
   {
@@ -35,6 +38,7 @@ export const RECIPE_RECOMMEND_LIST_MOCK_DATA: CardProps['data'][] = [
     user: {
       img: '/img/bg2.png',
       username: 'User 4',
+      isDeleted: false,
     },
   },
   {
@@ -44,6 +48,7 @@ export const RECIPE_RECOMMEND_LIST_MOCK_DATA: CardProps['data'][] = [
     user: {
       img: '/img/bg2.png',
       username: 'User 5',
+      isDeleted: false,
     },
   },
   {
@@ -53,6 +58,7 @@ export const RECIPE_RECOMMEND_LIST_MOCK_DATA: CardProps['data'][] = [
     user: {
       img: '/img/bg2.png',
       username: 'User 6',
+      isDeleted: false,
     },
   },
 ];

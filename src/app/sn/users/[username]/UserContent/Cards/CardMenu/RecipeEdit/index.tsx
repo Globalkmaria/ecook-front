@@ -1,5 +1,7 @@
 'use client';
 
+import { useMemo } from 'react';
+
 import { mutationKeys } from '@/queries/helpers';
 import { useEditRecipeMutation } from '@/queries/hooks';
 import { recipeOptions } from '@/queries/options';
@@ -78,7 +80,10 @@ function RecipeEditBody({
     mutate({ data: formData });
   };
 
-  const initialData = getEditRecipeInitialValues(recipe);
+  const initialData = useMemo(
+    () => getEditRecipeInitialValues(recipe),
+    [recipe],
+  );
 
   const mutationKey = mutationKeys.recipes.recipe.update(recipeKey);
 

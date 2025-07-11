@@ -26,7 +26,7 @@ export const getEditRecipeInitialValues = (
   minutes: recipe.minutes === 0 ? '' : recipe.minutes.toString(),
   img: recipe.img,
   ingredients: recipe.ingredients.map((item) => ({
-    id: item.id,
+    id: getRandomId(),
     quantity: item.quantity,
     ingredientId: item.ingredientId,
     ingredientName: item.name,

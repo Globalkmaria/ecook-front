@@ -7,7 +7,9 @@ function Nav() {
   return (
     <nav className={style.wrapper}>
       <div className={style.container}>
-        <Logo />
+        <div className={style.logo}>
+          <Logo />
+        </div>
 
         <div className={style.search}>
           <Search />

@@ -40,7 +40,9 @@ function UserProfile() {
 export default UserProfile;
 
 function UserProfileBody({ profile }: { profile: Profile }) {
-  if (!profile) return notFound();
+  if (!profile) {
+    notFound();
+  }
 
   const userImgInfo = {
     username: profile?.username ?? '',

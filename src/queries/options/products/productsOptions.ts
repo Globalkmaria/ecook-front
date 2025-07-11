@@ -18,9 +18,9 @@ export const productsOptions = ({
   staleTime = 86400000, // 24 hours , MS
   gcTime = 86400000, // 24 hours , MS
   type,
-  nextRevalidateTime = 86400, // 24 hours , S
   q,
   enabled,
+  nextRevalidateTime = 86400, // 24 hours , S
 }: Props) => ({
   queryKey: queryKeys.products.list({ type, query: q }),
   queryFn: async () => {
