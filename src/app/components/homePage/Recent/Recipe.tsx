@@ -50,7 +50,7 @@ function Recipe({ recipe, idx }: Props) {
           <div className={style.information__text}>
             <ChipGroup>
               {recipe.tags.map((tag) => (
-                <Chip key={tag.id}>{tag.name}</Chip>
+                <Chip key={tag.name}>{tag.name}</Chip>
               ))}
             </ChipGroup>
           </div>

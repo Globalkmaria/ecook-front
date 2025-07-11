@@ -88,7 +88,7 @@ function Card({ recipe }: CardProps) {
           <div className={style.chip}>
             <ChipGroup>
               {recipe.tags.map((tag) => (
-                <Chip key={tag.id}>{tag.name}</Chip>
+                <Chip key={tag.name}>{tag.name}</Chip>
               ))}
             </ChipGroup>
           </div>
