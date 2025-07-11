@@ -20,6 +20,7 @@ interface Props {
   title?: string;
   id?: string;
   backgroundType?: 'light' | 'dark';
+  closeOnOutSideClick?: boolean;
 }
 
 function Modal({
@@ -31,15 +32,22 @@ function Modal({
   showCloseButton = true,
   id,
   backgroundType,
+  closeOnOutSideClick = true,
 }: Props) {
   const modalBackground = useRef<HTMLDivElement>(null);
   const modalContent = useRef<HTMLDivElement>(null);
   const needHeader = !!title.length || showCloseButton;
-  useEscapeKey({ onClose, target: modalBackground, portalId: wrapperId });
+  useEscapeKey({
+    onClose,
+    target: modalBackground,
+    portalId: wrapperId,
+    closeOnOutSideClick,
+  });
   useHideScroll({ isOpen });
 
   const onClick = (e: MouseEvent<HTMLDivElement>) => {
     if (
+      closeOnOutSideClick &&
       !modalContent.current?.contains(e.target as Node) &&
       modalBackground.current?.contains(e.target as Node)
     ) {
