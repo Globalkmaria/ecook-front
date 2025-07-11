@@ -1,7 +1,5 @@
 'use client';
 
-import { useEffect } from 'react';
-
 import { notFound, useParams } from 'next/navigation';
 
 import { profileOptions } from '@/queries/options';
