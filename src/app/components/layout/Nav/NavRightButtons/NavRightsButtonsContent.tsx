@@ -16,6 +16,7 @@ import {
   BOOKMARKS_LINK,
   CARTS_LINK,
   PANTRY_LINK,
+  ACCOUNT_LINK,
 } from '@/helpers/links';
 
 import Anchor from '@/components/Anchor';
@@ -59,6 +60,10 @@ function LoggedInMenu() {
     router.push(HOME_LINK);
   };
 
+  const onAccountSettings = () => {
+    router.push(ACCOUNT_LINK);
+  };
+
   return (
     <div className={style['right-buttons']}>
       <Links />
@@ -82,6 +87,13 @@ function LoggedInMenu() {
           <Dropbox className={style['profile-dropbox']} containerRef={ref}>
             <DropboxItem onClick={onLogout} title='logout' aria-label='logout'>
               Logout
+            </DropboxItem>
+            <DropboxItem
+              onClick={onAccountSettings}
+              title='Account Settings'
+              aria-label='Account Settings'
+            >
+              Settings
             </DropboxItem>
           </Dropbox>
         </DropboxWrapper>

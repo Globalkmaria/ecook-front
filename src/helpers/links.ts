@@ -38,3 +38,5 @@ export const BOOKMARKS_LINK = `/sn/bookmarks`;
 export const CARTS_LINK = `/sn/carts`;
 
 export const PANTRY_LINK = `/sn/pantry`;
+
+export const ACCOUNT_LINK = `/sn/account`;
