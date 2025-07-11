@@ -20,7 +20,7 @@ export const productsOptions = ({
   type,
   q,
   enabled,
-  nextRevalidateTime = 0, // 0 seconds
+  nextRevalidateTime = 86400, // 24 hours , S
 }: Props) => ({
   queryKey: queryKeys.products.list({ type, query: q }),
   queryFn: async () => {
