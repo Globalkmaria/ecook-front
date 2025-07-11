@@ -19,6 +19,7 @@ import {
   checkRequiredFieldsFilled,
 } from './helper';
 import style from './style.module.scss';
+import { useMemo } from 'react';
 
 export type EditRecipeData = Omit<NewRecipeDataServer, 'img'>;
 
@@ -78,7 +79,10 @@ function RecipeEditBody({
     mutate({ data: formData });
   };
 
-  const initialData = getEditRecipeInitialValues(recipe);
+  const initialData = useMemo(
+    () => getEditRecipeInitialValues(recipe),
+    [recipe],
+  );
 
   const mutationKey = mutationKeys.recipes.recipe.update(recipeKey);
 

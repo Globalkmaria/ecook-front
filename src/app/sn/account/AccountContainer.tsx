@@ -19,7 +19,7 @@ function AccountContainer() {
     if (!user.isLoggedIn) {
       router.push(LOGIN_LINK);
     }
-  }, []);
+  }, [user.isLoggedIn, router]);
 
   if (!user.isLoggedIn) {
     return null;

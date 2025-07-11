@@ -42,11 +42,9 @@ function UserProfile() {
 export default UserProfile;
 
 function UserProfileBody({ profile }: { profile: Profile }) {
-  useEffect(() => {
-    if (!profile) notFound();
-  }, [profile]);
-
-  if (!profile) return null;
+  if (!profile) {
+    notFound();
+  }
 
   const userImgInfo = {
     username: profile?.username ?? '',
