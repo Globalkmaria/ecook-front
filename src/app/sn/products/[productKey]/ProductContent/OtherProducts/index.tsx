@@ -20,6 +20,7 @@ function OtherProducts() {
         {...productsOptions({
           q: productKey,
           type: PRODUCT_TYPES.PRODUCT_KEY,
+          nextRevalidateTime: 24 * 60 * 60, // 24 hours , S
         })}
         errorFallback={Error}
         fallback={<OtherProductListSkeleton />}
