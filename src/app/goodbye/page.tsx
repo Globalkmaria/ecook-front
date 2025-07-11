@@ -17,9 +17,7 @@ function GoodbyePage() {
   const hasProcessedToken = useRef(false);
 
   useEffect(() => {
-    if (hasProcessedToken.current) {
-      return;
-    }
+    if (hasProcessedToken.current) return;
 
     const deletionToken = sessionStorage.getItem('account_deleted');
     if (!deletionToken) {
