@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import { notFound, useParams } from 'next/navigation';
 
 import { profileOptions } from '@/queries/options';
@@ -40,7 +42,11 @@ function UserProfile() {
 export default UserProfile;
 
 function UserProfileBody({ profile }: { profile: Profile }) {
-  if (!profile) return notFound();
+  useEffect(() => {
+    if (!profile) notFound();
+  }, [profile]);
+
+  if (!profile) return null;
 
   const userImgInfo = {
     username: profile?.username ?? '',
