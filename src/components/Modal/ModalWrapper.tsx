@@ -14,14 +14,15 @@ function ModalWrapper({ children, wrapperId }: Props) {
   );
 
   useEffect(() => {
-    const element =
-      (wrapperId && document.getElementById(wrapperId)) ||
-      document.getElementById('modal-root');
+    if (typeof window === 'undefined') return;
 
-    if (element) {
+    const targetId = wrapperId || 'modal-root';
+    const element = document.getElementById(targetId);
+
+    if (element && element !== containerElement) {
       setContainerElement(element);
     }
-  }, [wrapperId]);
+  }, [wrapperId, containerElement]);
 
   if (typeof window === 'undefined' || !containerElement) {
     return null;
