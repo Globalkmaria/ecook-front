@@ -46,7 +46,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const result = await getProfile(username);
 
-  if (!result.ok) return {};
+  if (!result.ok) {
+    return {
+      title: 'User Not Found - E-COOK',
+      description: 'The requested user could not be found.',
+    };
+  }
 
   const data = result.data;
   return {
@@ -68,15 +73,29 @@ async function UserPage({ params }: Props) {
   const { username } = await params;
   if (!username) return notFound();
 
+  // Check if user exists before prefetching queries
+  const profileResult = await getProfile(username);
+  if (!profileResult.ok) {
+    // If user not found (404), trigger not-found page
+    if (profileResult.res?.status === 404) {
+      notFound();
+    }
+    // For other errors, continue but don't prefetch profile
+  }
+
   const queryClient = getQueryClient();
 
-  queryClient.prefetchQuery(
-    queryOptions(
-      profileOptions({
-        username,
-      }),
-    ),
-  );
+  // Only prefetch profile if it exists
+  if (profileResult.ok) {
+    queryClient.prefetchQuery(
+      queryOptions(
+        profileOptions({
+          username,
+        }),
+      ),
+    );
+  }
+
   queryClient.prefetchQuery(
     queryOptions(
       recipesOptions({

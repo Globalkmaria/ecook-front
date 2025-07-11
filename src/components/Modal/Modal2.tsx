@@ -19,11 +19,13 @@ interface Props {
   closeOnOutSideClick?: boolean;
 }
 
+const defaultOnClose = () => {};
+
 function Modal2({
   children,
   wrapperId,
   isOpen = true,
-  onClose = () => {},
+  onClose = defaultOnClose,
   closeOnOutSideClick = true,
   title = '',
   id,

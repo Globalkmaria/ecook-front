@@ -22,6 +22,7 @@ import {
   IoText,
 } from 'react-icons/io5';
 import { MdLabelOutline, MdGridOn, MdOutlineEdit } from 'react-icons/md';
+import { PiHandWavingBold } from 'react-icons/pi';
 import {
   PiBookBookmarkBold,
   PiJarLabelLight,
@@ -66,6 +67,7 @@ const ICON_NAMES = [
   'abc',
   'fridge',
   'link',
+  'handWave',
 ] as const;
 
 export type IconType = (typeof ICON_NAMES)[number];
@@ -104,6 +106,7 @@ export const ICONS: {
   abc: <IoText />,
   fridge: <TbFridge />,
   link: <FaLink />,
+  handWave: <PiHandWavingBold />,
 };
 
 export const ICON_TITLES: { [key in IconType]: string } = {
@@ -138,4 +141,5 @@ export const ICON_TITLES: { [key in IconType]: string } = {
   abc: 'text',
   fridge: 'fridge',
   link: 'link',
+  handWave: 'handWave',
 };

@@ -2,9 +2,9 @@ import Link from 'next/link';
 
 import { formatTime } from '@/utils/time';
 
-import { getRecipeLink, getUserLink } from '@/helpers/links';
+import { getRecipeLink } from '@/helpers/links';
 
-import Avatar from '@/components/Avatar';
+import AvatarLink from '@/components/Avatar/AvatarLink';
 import Chip, { ChipGroup } from '@/components/Chip';
 import CustomImage from '@/components/CustomImage';
 import Skeleton from '@/components/Skeleton';
@@ -20,14 +20,11 @@ interface Props {
 function Card({ recipe }: Props) {
   const time = formatTime({ hours: recipe.hours, minutes: recipe.minutes });
   const recipeLink = getRecipeLink(recipe.key);
-  const userLink = getUserLink(recipe.user.username);
 
   return (
     <div className={style['wrapper']}>
       <div className={style['top-overlay']}>
-        <Link href={userLink} className={style['avatar']}>
-          <Avatar user={recipe.user} />
-        </Link>
+        <AvatarLink user={recipe.user} />
       </div>
 
       <Link href={recipeLink} className={style.card}>
@@ -49,7 +46,7 @@ function Card({ recipe }: Props) {
 
           <ChipGroup>
             {recipe.tags.map((tag) => (
-              <Chip key={tag.id}>{tag.name}</Chip>
+              <Chip key={tag.name}>{tag.name}</Chip>
             ))}
           </ChipGroup>
         </div>
