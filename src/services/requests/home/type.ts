@@ -1,7 +1,5 @@
 import { RecipeSimple } from '../recipe/type';
 
-export type HomeRecipe = RecipeSimple & {
-  user: { username: string };
-};
+export type HomeRecipe = RecipeSimple;
 
 export type GetHomeRecipesRes = HomeRecipe[];

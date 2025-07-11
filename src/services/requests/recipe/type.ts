@@ -12,6 +12,7 @@ export interface RecipeSimple {
   user: {
     username: string;
     img: string | null;
+    isDeleted: boolean;
   };
 }
 
@@ -24,7 +25,12 @@ export interface RecipeDetail {
   img: string;
   ingredients: Ingredient[];
   tags: { id: string; name: string }[];
-  user: { id: string; username: string; img: string | null };
+  user: {
+    id: string;
+    username: string;
+    img: string | null;
+    isDeleted: boolean;
+  };
   key: string;
 }
 
