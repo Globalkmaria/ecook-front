@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -14,13 +14,20 @@ import style from './style.module.scss';
 
 function GoodbyePage() {
   const router = useRouter();
+  const hasProcessedToken = useRef(false);
+
   useEffect(() => {
+    if (hasProcessedToken.current) {
+      return;
+    }
+
     const deletionToken = sessionStorage.getItem('account_deleted');
     if (!deletionToken) {
       router.replace(HOME_LINK);
       return;
     }
 
+    hasProcessedToken.current = true;
     sessionStorage.removeItem('account_deleted');
   }, []);
 
