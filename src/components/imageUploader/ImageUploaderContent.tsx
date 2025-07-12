@@ -192,18 +192,13 @@ function ImageUploaderContent({
       />
       {mode === 'edit' && (
         <EditCloseButton
-          imgValue={imgValue}
           src={src}
           onRemoveImage={onRemoveImage}
           onReset={onReset}
         />
       )}
       {mode === 'new' && (
-        <NewCloseButton
-          imgValue={imgValue}
-          src={src}
-          onRemoveImage={onRemoveImage}
-        />
+        <NewCloseButton src={src} onRemoveImage={onRemoveImage} />
       )}
 
       {error && <p className={style.error}>{error}</p>}
@@ -215,16 +210,15 @@ type ButtonProps = {
   onRemoveImage: () => void;
   onReset: () => void;
   src: string | null;
-} & Pick<ImageUploaderContentProps, 'imgValue'>;
+};
 
 type NewCloseButtonProps = Omit<ButtonProps, 'onReset'>;
 
-function NewCloseButton({ imgValue, src, onRemoveImage }: NewCloseButtonProps) {
-  if (!imgValue) return null;
-
+function NewCloseButton({ src, onRemoveImage }: NewCloseButtonProps) {
+  if (!src) return null;
   return (
     <div className={style.preview}>
-      <Image src={src || ''} alt='Selected' className={style.img} fill />
+      <Image src={src} alt='Selected' className={style.img} fill />
       <button className={style['close-btn']} onClick={onRemoveImage}>
         <Icon icon='close' />
       </button>
@@ -232,17 +226,12 @@ function NewCloseButton({ imgValue, src, onRemoveImage }: NewCloseButtonProps) {
   );
 }
 
-function EditCloseButton({
-  imgValue,
-  src,
-  onRemoveImage,
-  onReset,
-}: ButtonProps) {
+function EditCloseButton({ src, onRemoveImage, onReset }: ButtonProps) {
   return (
     <>
-      {imgValue ? (
+      {src ? (
         <div className={style.preview}>
-          <Image src={src || ''} alt='Selected' className={style.img} fill />
+          <Image src={src} alt='Selected' className={style.img} fill />
           <button className={style['close-btn']} onClick={onRemoveImage}>
             <Icon icon='close' />
           </button>
