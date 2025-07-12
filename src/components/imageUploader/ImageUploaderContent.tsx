@@ -9,6 +9,8 @@ import React, {
   useTransition,
 } from 'react';
 
+import Image from 'next/image';
+
 import { joinClassNames } from '@/utils/style';
 
 import Icon from '@/components/Icon';
@@ -71,40 +73,43 @@ function ImageUploaderContent({
       ? 'Drop the image here.'
       : 'Drag and drop an image or click to select.';
 
-  const validateAndReadFile = async (file: File): Promise<void> => {
-    setError(null);
+  const validateAndReadFile = useCallback(
+    async (file: File): Promise<void> => {
+      setError(null);
 
-    if (!allowedFileTypes.includes(file.type)) {
-      setError(getInvalidFileFormatMessage(allowedFileTypes));
-      return;
-    }
-
-    if (file.size > maxSize) {
-      setError(`File size exceeds the ${maxSizeMB} MB limit.`);
-      return;
-    }
-
-    startTransition(async () => {
-      try {
-        const optimizedImage = await optimizeImageFile(
-          file,
-          optimizeImageOptions?.maxSizeMB,
-          optimizeImageOptions?.maxWidthOrHeight,
-        );
-        onChange(optimizedImage);
-      } catch (error) {
-        setError('Failed to optimize image. Please try again.');
-        console.error('Image optimization failed:', error);
+      if (!allowedFileTypes.includes(file.type)) {
+        setError(getInvalidFileFormatMessage(allowedFileTypes));
+        return;
       }
-    });
-  };
+
+      if (file.size > maxSize) {
+        setError(`File size exceeds the ${maxSizeMB} MB limit.`);
+        return;
+      }
+
+      startTransition(async () => {
+        try {
+          const optimizedImage = await optimizeImageFile(
+            file,
+            optimizeImageOptions?.maxSizeMB,
+            optimizeImageOptions?.maxWidthOrHeight,
+          );
+          onChange(optimizedImage);
+        } catch (error) {
+          setError('Failed to optimize image. Please try again.');
+          console.error('Image optimization failed:', error);
+        }
+      });
+    },
+    [allowedFileTypes, maxSize, maxSizeMB, optimizeImageOptions, onChange],
+  );
 
   const onImageChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
       if (file) validateAndReadFile(file);
     },
-    [],
+    [validateAndReadFile],
   );
 
   const onDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
@@ -117,13 +122,16 @@ function ImageUploaderContent({
     setDragging(false);
   }, []);
 
-  const onDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setDragging(false);
+  const onDrop = useCallback(
+    (e: React.DragEvent<HTMLDivElement>) => {
+      e.preventDefault();
+      setDragging(false);
 
-    const file = e.dataTransfer.files?.[0];
-    if (file) validateAndReadFile(file);
-  }, []);
+      const file = e.dataTransfer.files?.[0];
+      if (file) validateAndReadFile(file);
+    },
+    [validateAndReadFile],
+  );
 
   const onRemoveImage = useCallback(() => {
     cleanupImageUrl(imgValue);
@@ -216,7 +224,7 @@ function NewCloseButton({ imgValue, src, onRemoveImage }: NewCloseButtonProps) {
 
   return (
     <div className={style.preview}>
-      <img src={src || ''} alt='Selected' className={style.img} />
+      <Image src={src || ''} alt='Selected' className={style.img} fill />
       <button className={style['close-btn']} onClick={onRemoveImage}>
         <Icon icon='close' />
       </button>
@@ -234,7 +242,7 @@ function EditCloseButton({
     <>
       {imgValue ? (
         <div className={style.preview}>
-          <img src={src || ''} alt='Selected' className={style.img} />
+          <Image src={src || ''} alt='Selected' className={style.img} fill />
           <button className={style['close-btn']} onClick={onRemoveImage}>
             <Icon icon='close' />
           </button>
