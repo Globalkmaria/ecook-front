@@ -23,32 +23,43 @@ export const getInvalidFileFormatMessage = (formats: string[]): string => {
   return `Invalid file format. Only ${getArrayAndWithBeVerbMessage(formattedFormats)} allowed.`;
 };
 
-export const optimizeImageFile = async (file: File): Promise<File> => {
+export const optimizeImageFile = async (
+  file: File,
+  maxSizeMB: number = 0.3,
+  maxWidthOrHeight: number = 500,
+): Promise<File> => {
   let formattedFile = file;
 
   try {
     if (file.type === 'image/heic') {
       const blob = await heic2any({
         blob: file,
-        toType: 'image/png',
+        toType: 'image/webp',
         quality: 0.8,
       });
 
-      formattedFile = new File([blob as Blob], `${file.name}.png`, {
-        type: 'image/png',
+      const fileName = file.name.replace(/\.[^/.]+$/, '');
+      formattedFile = new File([blob as Blob], `${fileName}.webp`, {
+        type: 'image/webp',
       });
     }
 
-    if (formattedFile.size > 1024 * 600) {
-      formattedFile = await imageCompression(formattedFile, {
-        maxSizeMB: 0.6, // Limit file size in MB
-        maxWidthOrHeight: 700, // Limit max width/height
-        useWebWorker: true, // Optional: faster compression
+    formattedFile = await imageCompression(formattedFile, {
+      maxSizeMB,
+      maxWidthOrHeight,
+      useWebWorker: true,
+      fileType: 'image/webp',
+    });
+
+    if (!formattedFile.name.endsWith('.webp')) {
+      const fileName = formattedFile.name.replace(/\.[^/.]+$/, '');
+      formattedFile = new File([formattedFile], `${fileName}.webp`, {
+        type: 'image/webp',
       });
     }
   } catch (err) {
     console.error(err);
-    alert('Error converting HEIC/HEIF image to JPEG');
+    alert('Error converting image to WebP format');
   }
 
   return formattedFile;
