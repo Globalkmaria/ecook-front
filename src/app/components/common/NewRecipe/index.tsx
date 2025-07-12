@@ -11,6 +11,7 @@ import { withTextLengthLimit } from '@/utils/validation';
 
 import Button from '@/components/Button';
 import ImageUploader from '@/components/imageUploader';
+import { ImageFileType } from '@/components/imageUploader/helper';
 import { ChipListInput, Input } from '@/components/Input';
 
 import {
@@ -30,7 +31,7 @@ import RecipeTime from './RecipeTime';
 import style from './style.module.scss';
 
 export interface NewRecipeSubmitProps {
-  img: File | string | null;
+  img: ImageFileType;
   ingredients: NewRecipeIngredientStates;
   steps: Step[];
   textInputs: TextInputs;
@@ -58,7 +59,7 @@ export type NewRecipeInitialData = Omit<
   ingredients: NewRecipeIngredientStates;
 };
 
-export type ImgState = File | string | null;
+export type ImgState = ImageFileType;
 
 interface Props {
   initialData: NewRecipeInitialData;
@@ -172,6 +173,10 @@ function NewRecipe({ initialData, onSubmit, pageTitle, mutationKey }: Props) {
               imgValue={img}
               initialImg={initialData.img}
               mode={imgLoaderMode}
+              optimizeImageOptions={{
+                maxSizeMB: 0.35,
+                maxWidthOrHeight: 500,
+              }}
             />
           </div>
         </div>

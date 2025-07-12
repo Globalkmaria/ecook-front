@@ -1,12 +1,11 @@
 'use client';
 
 import React, {
+  useEffect,
   useState,
-  ChangeEventHandler,
-  DragEventHandler,
+  useCallback,
   useRef,
   memo,
-  useEffect,
   useTransition,
 } from 'react';
 
@@ -16,8 +15,11 @@ import Icon from '@/components/Icon';
 
 import {
   getFileInfoMessage,
-  getInvalidFileFormatMessage,
+  ImageFileType,
   optimizeImageFile,
+  getInvalidFileFormatMessage,
+  getUrlFromImageValue,
+  cleanupImageUrl,
 } from './helper';
 import style from './style.module.scss';
 
@@ -29,8 +31,6 @@ const ALLOWED_FILE_TYPES = [
   'image/heic',
 ];
 
-export type ImageFileType = File | string | null;
-
 export interface ImageUploaderContentProps {
   className?: string;
   maxSizeMB?: number;
@@ -39,6 +39,10 @@ export interface ImageUploaderContentProps {
   initialImg?: string | null;
   onChange: (img: ImageFileType) => void;
   mode?: 'edit' | 'new';
+  optimizeImageOptions?: {
+    maxSizeMB?: number;
+    maxWidthOrHeight?: number;
+  };
 }
 
 function ImageUploaderContent({
@@ -49,18 +53,14 @@ function ImageUploaderContent({
   onChange,
   initialImg = null,
   mode = 'edit',
+  optimizeImageOptions,
 }: ImageUploaderContentProps) {
   const [isLoading, startTransition] = useTransition();
   const [dragging, setDragging] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const src = imgValue
-    ? typeof imgValue === 'string'
-      ? imgValue
-      : URL.createObjectURL(imgValue)
-    : undefined;
-
+  const src = getUrlFromImageValue(imgValue);
   const maxSize = maxSizeMB * 1024 * 1024;
   const containerClassName = joinClassNames(style.container, className);
   const infoMessage = getFileInfoMessage(maxSizeMB, allowedFileTypes);
@@ -85,60 +85,74 @@ function ImageUploaderContent({
     }
 
     startTransition(async () => {
-      const formattedFile = await optimizeImageFile(file);
-      onChange(formattedFile);
+      try {
+        const optimizedImage = await optimizeImageFile(
+          file,
+          optimizeImageOptions?.maxSizeMB,
+          optimizeImageOptions?.maxWidthOrHeight,
+        );
+        onChange(optimizedImage);
+      } catch (error) {
+        setError('Failed to optimize image. Please try again.');
+        console.error('Image optimization failed:', error);
+      }
     });
   };
 
-  const onImageChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const file = e.target.files?.[0];
-    if (file) validateAndReadFile(file);
-  };
+  const onImageChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (file) validateAndReadFile(file);
+    },
+    [],
+  );
 
-  const onDragOver: DragEventHandler<HTMLDivElement> = (e) => {
+  const onDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setDragging(true);
-  };
+  }, []);
 
-  const onDragLeave: DragEventHandler<HTMLDivElement> = (e) => {
+  const onDragLeave = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setDragging(false);
-  };
+  }, []);
 
-  const onDrop: DragEventHandler<HTMLDivElement> = (e) => {
+  const onDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setDragging(false);
 
     const file = e.dataTransfer.files?.[0];
     if (file) validateAndReadFile(file);
-  };
+  }, []);
 
-  const onRemoveImage = () => {
+  const onRemoveImage = useCallback(() => {
+    cleanupImageUrl(imgValue);
     onChange(null);
     setError(null);
 
     if (inputRef.current) inputRef.current.value = '';
-  };
+  }, [imgValue, onChange]);
 
-  const onClick = () => inputRef.current?.click();
+  const onClick = useCallback(() => inputRef.current?.click(), []);
 
-  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      onClick();
-    }
-  };
+  const onKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        onClick();
+      }
+    },
+    [onClick],
+  );
 
-  const onReset = () => {
+  const onReset = useCallback(() => {
     onChange(initialImg);
-  };
+  }, [initialImg, onChange]);
 
   useEffect(() => {
     return () => {
-      if (src) {
-        URL.revokeObjectURL(src);
-      }
+      cleanupImageUrl(imgValue);
     };
-  }, [src]);
+  }, [imgValue]);
 
   return (
     <div className={containerClassName}>
@@ -192,7 +206,7 @@ function ImageUploaderContent({
 type ButtonProps = {
   onRemoveImage: () => void;
   onReset: () => void;
-  src?: string;
+  src: string | null;
 } & Pick<ImageUploaderContentProps, 'imgValue'>;
 
 type NewCloseButtonProps = Omit<ButtonProps, 'onReset'>;
@@ -202,7 +216,7 @@ function NewCloseButton({ imgValue, src, onRemoveImage }: NewCloseButtonProps) {
 
   return (
     <div className={style.preview}>
-      <img src={src} alt='Selected' className={style.img} />
+      <img src={src || ''} alt='Selected' className={style.img} />
       <button className={style['close-btn']} onClick={onRemoveImage}>
         <Icon icon='close' />
       </button>
@@ -220,7 +234,7 @@ function EditCloseButton({
     <>
       {imgValue ? (
         <div className={style.preview}>
-          <img src={src} alt='Selected' className={style.img} />
+          <img src={src || ''} alt='Selected' className={style.img} />
           <button className={style['close-btn']} onClick={onRemoveImage}>
             <Icon icon='close' />
           </button>

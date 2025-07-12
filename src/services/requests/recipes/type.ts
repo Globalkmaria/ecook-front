@@ -1,3 +1,5 @@
+import { ImageFileType } from '@/components/imageUploader/helper';
+
 import { RecipeSimple } from '../recipe/type';
 
 export type GetRecipesRes = {
@@ -11,7 +13,7 @@ export interface IngredientNewProduct {
   brand: string | null;
   purchasedFrom: string | null;
   link: string | null;
-  img: File | null;
+  img: ImageFileType;
 }
 
 export interface NewRecipeIngredient {
@@ -28,7 +30,7 @@ export interface NewRecipeData {
   hours: string;
   minutes: string;
   steps: string[];
-  img: File | null;
+  img: ImageFileType;
   ingredients: NewRecipeIngredient[];
   tags: string[];
 }

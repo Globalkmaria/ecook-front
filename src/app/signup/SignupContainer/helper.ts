@@ -1,3 +1,5 @@
+import { getFileFromImageValue } from '@/components/imageUploader/helper';
+
 import { SignupFormState } from '.';
 
 const validateUsername = (username: string) => {
@@ -25,7 +27,18 @@ const checkRequiredFieldsAreFilled = (form: SignupFormState) =>
 
 export const getSignupFormData = (form: SignupFormState) => {
   const formData = new FormData();
-  Object.entries(form).forEach(([key, value]) => formData.append(key, value));
+
+  Object.entries(form).forEach(([key, value]) => {
+    if (key === 'img') {
+      const fileImg = getFileFromImageValue(value);
+      if (fileImg) {
+        formData.append(key, fileImg);
+      }
+    } else {
+      formData.append(key, value);
+    }
+  });
+
   return formData;
 };
 
