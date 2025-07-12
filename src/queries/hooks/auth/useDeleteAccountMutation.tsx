@@ -27,6 +27,14 @@ export const useDeleteAccountMutation = () => {
 
       if (response.ok) return;
 
+      if (response.res?.status === 400) {
+        throw new Error('Please check your password and try again.');
+      }
+
+      if (response.res?.status === 403) {
+        throw new Error('You are not authorized to delete this account.');
+      }
+
       if (isUnauthorizedResponse(response.res)) {
         logout();
         throw new Error('Please log in to use this feature.');
@@ -44,8 +52,6 @@ export const useDeleteAccountMutation = () => {
       router.push(GOODBYE_LINK);
     },
     onError: (error) => alert(error.message),
-    retry: 1,
-    retryDelay: 1000, // 1 seconds
   });
 
   return result;
