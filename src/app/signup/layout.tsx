@@ -38,7 +38,7 @@ function Nav() {
     <nav className={style['nav']}>
       <div className={style['img-container']}>
         <Image
-          src='/img/bg1.png'
+          src='/img/bg1.webp'
           alt='E-COOK'
           fill
           className={style.img}

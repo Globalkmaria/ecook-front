@@ -1,7 +1,10 @@
+'use client';
+
 import { ChangeEventHandler, memo, MouseEventHandler, useRef } from 'react';
 
 import Icon from '@/components/Icon';
 import ImageUploader from '@/components/imageUploader';
+import { ImageFileType } from '@/components/imageUploader/helper';
 import { Input } from '@/components/Input';
 
 import { IngredientNewProduct } from '@/services/requests/recipes/type';
@@ -97,7 +100,7 @@ const Info = memo(function Info({
     setNewProduct((prev) => ({ ...prev, [name]: value }));
   };
 
-  const onNewProductImgChange = (img: File | string | null) => {
+  const onNewProductImgChange = (img: ImageFileType) => {
     if (typeof img === 'string') return;
     setNewProduct((prev) => ({ ...prev, img }));
   };
@@ -111,6 +114,10 @@ const Info = memo(function Info({
             imgValue={newProductState.img}
             onChange={onNewProductImgChange}
             mode='new'
+            optimizeImageOptions={{
+              maxSizeMB: 0.3,
+              maxWidthOrHeight: 400,
+            }}
           />
         </div>
         <div className={style['input-container']}>

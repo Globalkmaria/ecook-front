@@ -36,8 +36,11 @@ export async function generateStaticParams() {
   const result = await getHomeRecipes();
   if (!result.ok) return [];
 
-  const users = new Set(result.data.map((recipe) => recipe.user.username));
-
+  const users = new Set(
+    result.data
+      .filter((recipe) => !recipe.user.isDeleted)
+      .map((recipe) => recipe.user.username),
+  );
   return [...users].map((username) => ({ username }));
 }
 

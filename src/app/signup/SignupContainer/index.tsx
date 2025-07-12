@@ -9,6 +9,7 @@ import { createInputHandler } from '@/utils/createInputHandler';
 import { LOGIN_LINK } from '@/helpers/links';
 
 import ImageUploader from '@/components/imageUploader';
+import { ImageFileType } from '@/components/imageUploader/helper';
 import { Input } from '@/components/Input';
 
 import SignupSubmitButton from './SignupSubmitButton';
@@ -20,7 +21,7 @@ export interface SignupFormState {
   email: string;
   password: string;
   name: string;
-  img: File | null;
+  img: ImageFileType;
 }
 
 export const initialSignupFormState: SignupFormState = {
@@ -40,9 +41,8 @@ function SignupContainer() {
 
   const onChange = createInputHandler(setForm);
 
-  const onImgChange = useCallback((img: File | string | null) => {
-    if (typeof img === 'string') return;
-
+  const onImgChange = useCallback((img: ImageFileType) => {
+    // Accept both File objects and ImageWithUrl objects
     setForm((prev) => ({ ...prev, img }));
   }, []);
 
@@ -62,6 +62,10 @@ function SignupContainer() {
                 onChange={onImgChange}
                 imgValue={form.img}
                 mode='new'
+                optimizeImageOptions={{
+                  maxSizeMB: 0.1,
+                  maxWidthOrHeight: 300,
+                }}
               />
             </div>
             <span className={style['helper-text']}>* Image is optional</span>

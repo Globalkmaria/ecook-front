@@ -1,5 +1,7 @@
 import { getRandomId } from '@/utils/generateId';
 
+import { getFileFromImageValue } from '@/components/imageUploader/helper';
+
 import {
   NewRecipeIngredientState,
   NewRecipeInitialData,
@@ -35,12 +37,14 @@ export const appendProductImgsToFormData = (
   ingredients: NewRecipeSubmitProps['ingredients'],
   formData: FormData,
 ): FormData => {
-  ingredients.forEach(
-    ({ newProduct }) =>
-      newProduct &&
-      newProduct.img &&
-      formData.append(`img_${newProduct.id}`, newProduct.img),
-  );
+  ingredients.forEach(({ newProduct }) => {
+    if (newProduct && newProduct.img) {
+      const fileImg = getFileFromImageValue(newProduct.img);
+      if (fileImg) {
+        formData.append(`img_${newProduct.id}`, fileImg);
+      }
+    }
+  });
 
   return formData;
 };
@@ -49,8 +53,8 @@ export const appendRecipeImgToFormData = (
   img: NewRecipeSubmitProps['img'],
   formData: FormData,
 ): FormData => {
-  const isNewImg = !!(img && typeof img !== 'string');
-  if (isNewImg) formData.append('img', img);
+  const fileImg = getFileFromImageValue(img);
+  if (fileImg) formData.append('img', fileImg);
 
   return formData;
 };

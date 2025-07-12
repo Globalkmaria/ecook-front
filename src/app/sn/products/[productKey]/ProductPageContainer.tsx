@@ -12,6 +12,7 @@ import {
   productsOptions,
 } from '@/queries/options';
 
+import { getProduct } from '@/services/requests/product';
 import { PRODUCT_TYPES } from '@/services/requests/products';
 
 import ProductContent from './ProductContent';
@@ -20,8 +21,12 @@ interface Props {
   productKey: string;
 }
 
-function ProductPageContainer({ productKey }: Props) {
+async function ProductPageContainer({ productKey }: Props) {
   if (!productKey) notFound();
+
+  const result = await getProduct(productKey);
+
+  if (!result.ok) notFound();
 
   const queryClient = getQueryClient();
 
