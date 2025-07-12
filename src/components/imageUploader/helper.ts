@@ -1,10 +1,10 @@
-import imageCompression from 'browser-image-compression';
-import heic2any from 'heic2any';
-
 import {
   getArrayAndWithBeVerbMessage,
   getArrayOrMessage,
 } from '@/utils/message';
+
+// Helper function to check if we're in a browser environment
+const isBrowser = typeof window !== 'undefined';
 
 export const getFileInfoMessage = (
   maxSizeMB: number,
@@ -37,11 +37,17 @@ export const optimizeImageFile = async (
   maxSizeMB?: number,
   maxWidthOrHeight?: number,
 ): Promise<ImageWithUrl> => {
+  // Guard against server-side execution
+  if (!isBrowser) {
+    throw new Error('Image optimization is only available in the browser');
+  }
+
   let formattedFile = file;
 
   try {
     // Convert HEIC files to WebP
     if (file.type === 'image/heic') {
+      const heic2any = (await import('heic2any')).default;
       const blob = await heic2any({
         blob: file,
         toType: 'image/webp',
@@ -54,6 +60,8 @@ export const optimizeImageFile = async (
       });
     }
 
+    const imageCompression = (await import('browser-image-compression'))
+      .default;
     formattedFile = await imageCompression(formattedFile, {
       maxSizeMB: maxSizeMB || 0.3,
       maxWidthOrHeight: maxWidthOrHeight || 500,
@@ -70,7 +78,7 @@ export const optimizeImageFile = async (
   } catch (error) {
     console.error('Error optimizing image:', error);
     return {
-      url: URL.createObjectURL(file),
+      url: isBrowser ? URL.createObjectURL(file) : '',
       file: file,
       isOptimized: false,
     };
@@ -79,6 +87,11 @@ export const optimizeImageFile = async (
 
 const fileToDataUrl = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
+    if (!isBrowser) {
+      reject(new Error('FileReader is only available in the browser'));
+      return;
+    }
+
     const reader = new FileReader();
     reader.onload = () => resolve(reader.result as string);
     reader.onerror = reject;
@@ -116,7 +129,7 @@ export const getUrlFromImageValue = (
   }
 
   if (imgValue instanceof File) {
-    return URL.createObjectURL(imgValue);
+    return isBrowser ? URL.createObjectURL(imgValue) : '';
   }
 
   return null;
@@ -124,6 +137,8 @@ export const getUrlFromImageValue = (
 
 // Cleanup function for blob URLs
 export const cleanupImageUrl = (imgValue: ImageFileType): void => {
+  if (!isBrowser) return;
+
   if (
     typeof imgValue === 'object' &&
     imgValue &&

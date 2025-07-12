@@ -1,3 +1,5 @@
+'use client';
+
 import { ChangeEventHandler, memo, MouseEventHandler, useRef } from 'react';
 
 import Icon from '@/components/Icon';
