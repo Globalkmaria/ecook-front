@@ -1,5 +1,7 @@
 'use client';
 
+import { useCallback } from 'react';
+
 import { useRouter } from 'next/navigation';
 
 import { mutationKeys } from '@/queries/helpers';
@@ -25,21 +27,24 @@ function NewRecipeContainer() {
   const { mutate, isPending, isSuccess } = useCreateRecipe();
 
   const mutationKey = mutationKeys.recipes.create();
-  const onSubmit = async (data: NewRecipeSubmitProps) => {
-    if (isPending || isSuccess) return;
-    if (!username) {
-      router.replace(LOGIN_LINK);
-      return;
-    }
+  const onSubmit = useCallback(
+    async (data: NewRecipeSubmitProps) => {
+      if (isPending || isSuccess) return;
+      if (!username) {
+        router.replace(LOGIN_LINK);
+        return;
+      }
 
-    if (!validateNewRecipeData(data)) {
-      alert('Please fill in all required fields');
-      return;
-    }
+      if (!validateNewRecipeData(data)) {
+        alert('Please fill in all required fields');
+        return;
+      }
 
-    const formData = getNewRecipeSubmitFormData(data);
-    mutate(formData);
-  };
+      const formData = getNewRecipeSubmitFormData(data);
+      mutate(formData);
+    },
+    [isPending, isSuccess, username, router, mutate],
+  );
 
   const initialData = getNewRecipeInitialData();
 

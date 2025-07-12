@@ -114,14 +114,17 @@ function NewRecipe({ initialData, onSubmit, pageTitle, mutationKey }: Props) {
     [onTextInputChange],
   );
 
-  const onFormSubmit = () =>
-    onSubmit({
-      img,
-      ingredients: getValidIngredients(ingredients),
-      steps: getValidAndTrimmedSteps(steps),
-      textInputs,
-      tags,
-    });
+  const onFormSubmit = useCallback(
+    () =>
+      onSubmit({
+        img,
+        ingredients: getValidIngredients(ingredients),
+        steps: getValidAndTrimmedSteps(steps),
+        textInputs,
+        tags,
+      }),
+    [onSubmit, img, ingredients, steps, textInputs, tags],
+  );
 
   return (
     <div className={style.container}>
