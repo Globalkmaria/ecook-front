@@ -26,7 +26,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
   });
 
-  if (!result.ok) return {};
+  if (!result.ok)
+    return {
+      title: 'Product Not Found - E-COOK',
+      description: 'The requested product could not be found.',
+    };
 
   const product = result.data;
   return {

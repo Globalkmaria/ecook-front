@@ -33,7 +33,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const result = await getRecipe(recipeKey);
 
-  if (!result.ok) return {};
+  if (!result.ok)
+    return {
+      title: 'Recipe Not Found - E-COOK',
+      description: 'The requested recipe could not be found.',
+    };
 
   const recipe = result.data;
   return {
