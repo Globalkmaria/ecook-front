@@ -18,12 +18,10 @@ import style from './style.module.scss';
 function SearchContainer() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [searchQuery, setSearchQuery] = useState(
-    getSearchQuery(searchParams.get('q')),
-  );
-  const [selectedMenuItem, setSelectedMenuItem] = useState<SearchMenuValue>(
-    getSearchMenuItem(searchParams.get('type')),
-  );
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedMenuItem, setSelectedMenuItem] =
+    useState<SearchMenuValue>('name');
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setSearchQuery(e.target.value);
@@ -31,7 +29,8 @@ function SearchContainer() {
   const onSearch = () => {
     if (!searchQuery.trim()) return;
 
-    router.push(getSearchLink(selectedMenuItem, searchQuery));
+    const searchUrl = getSearchLink(selectedMenuItem, searchQuery);
+    router.push(searchUrl);
   };
 
   const onMenuChange = (menuItem: SearchMenuValue) =>
@@ -41,14 +40,11 @@ function SearchContainer() {
     if (e.key === 'Enter') onSearch();
   };
 
-  const initSearchStates = () => {
-    setSearchQuery(getSearchQuery(searchParams.get('q')));
-    setSelectedMenuItem(getSearchMenuItem(searchParams.get('type')));
-  };
-
   useEffect(() => {
-    initSearchStates();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (typeof window !== 'undefined') {
+      setSearchQuery(getSearchQuery(searchParams.get('q')));
+      setSelectedMenuItem(getSearchMenuItem(searchParams.get('type')));
+    }
   }, [searchParams]);
 
   return (
