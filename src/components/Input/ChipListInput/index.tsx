@@ -51,7 +51,7 @@ function ChipListInput({
   };
 
   const addItem = (value: string) => {
-    if (limit && items.length > limit) {
+    if (limit && items.length >= limit) {
       alert(limitReachedMessage ?? 'Tag limit reached');
       return;
     }
@@ -76,12 +76,14 @@ function ChipListInput({
     const value = event.currentTarget.value;
 
     if (key === 'Enter' && value.trim().length) {
+      event.preventDefault();
       addItem(value);
       setInputValue('');
       return;
     }
 
     if (key === ' ' && value.trim().length) {
+      event.preventDefault();
       addItem(value);
       setInputValue('');
       return;
@@ -95,10 +97,23 @@ function ChipListInput({
 
   const focusInput = () => inputRef.current?.focus();
 
+  const handleContainerKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      focusInput();
+    }
+  };
+
   return (
     <>
-      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
-      <div className={joinedClassName} onClick={focusInput}>
+      <div
+        role='button'
+        aria-label='chip list input'
+        className={joinedClassName}
+        onClick={focusInput}
+        onKeyDown={handleContainerKeyDown}
+        tabIndex={0}
+      >
         {[...items].map((item) => (
           <div key={item} className={style.chip}>
             <Chip>
