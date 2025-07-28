@@ -29,18 +29,23 @@ export const validateMinutes = (value: string) => {
 };
 
 export const daysPassedSince = (inputDate: string) => {
-  const today = dayjs();
-  return today.diff(dayjs(inputDate), 'day') || 0;
+  const today = getTodayDayJs();
+  const diff = today.diff(dayjs(inputDate), 'day');
+
+  return diff > 0 ? diff : 0;
 };
 
 export const dayLeftUntil = (inputDate: string) => {
-  const today = dayjs();
+  const today = getTodayDayJs();
   const targetDate = dayjs(inputDate);
 
-  return targetDate.diff(today, 'day') || 0;
+  const diff = targetDate.diff(today, 'day');
+
+  return diff > 0 ? diff : 0;
 };
 
 export const getToday = () => dayjs().format('YYYY-MM-DD');
+const getTodayDayJs = () => dayjs(getToday());
 
 export const getDateAfterToday = (days: number) =>
   dayjs().add(days, 'day').format('YYYY-MM-DD');
