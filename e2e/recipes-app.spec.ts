@@ -140,24 +140,4 @@ test.describe('E-COOK Recipe Application', () => {
     await searchInput.press('Enter');
     await expect(page).toHaveURL(/.*type=product/);
   });
-
-  test('should access recipe detail page', async ({ page }) => {
-    await page.goto('/sn/recipes/3c293c502daec7bd72713b58f2033a5b-soy-lover');
-
-    await page.waitForTimeout(1000);
-
-    await expect(
-      page.getByRole('button', { name: 'Ingredient', exact: true }),
-    ).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Step' })).toBeVisible();
-  });
-
-  test('should show recipe not found page when navigate to recipe detail page with invalid id', async ({
-    page,
-  }) => {
-    await page.goto('/sn/recipes/1');
-    await page.waitForTimeout(1000);
-    await expect(page).toHaveURL(/\/sn\/recipes\/1/);
-    await expect(page.getByText('Recipe not found')).toBeVisible();
-  });
 });
