@@ -1,14 +1,20 @@
 {
   "name": "recipes",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next lint && next build",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed"
   },
   "dependencies": {
     "@next/third-parties": "^15.0.4",
@@ -28,6 +34,12 @@
     "zustand": "^5.0.1"
   },
   "devDependencies": {
+    "@jest/globals": "^30.0.5",
+    "@playwright/test": "^1.54.1",
+    "@testing-library/jest-dom": "^6.6.4",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/jest": "^30.0.0",
     "@types/node": "^22.9.0",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -43,9 +55,12 @@
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-react-hooks": "^5.2.0",
     "husky": "^8.0.3",
+    "jest": "^30.0.5",
+    "jest-environment-jsdom": "^30.0.5",
     "lint-staged": "^16.1.2",
     "prettier": "^3.3.3",
     "sass": "^1.78.0",
+    "ts-jest": "^29.4.0",
     "typescript": "^5.6.2"
   }
 }

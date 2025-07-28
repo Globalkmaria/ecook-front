@@ -6,6 +6,12 @@ import {
 // Helper function to check if we're in a browser environment
 const isBrowser = typeof window !== 'undefined';
 
+// Cache for dynamically imported modules
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let imageCompressionModule: any = null;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let heic2anyModule: any = null;
+
 export const getFileInfoMessage = (
   maxSizeMB: number,
   formats: string[],
@@ -47,8 +53,11 @@ export const optimizeImageFile = async (
   try {
     // Convert HEIC files to WebP
     if (file.type === 'image/heic') {
-      const heic2any = (await import('heic2any')).default;
-      const blob = await heic2any({
+      if (!heic2anyModule) {
+        heic2anyModule = (await import('heic2any')).default;
+      }
+
+      const blob = await heic2anyModule({
         blob: file,
         toType: 'image/webp',
         quality: 0.8,
@@ -60,9 +69,12 @@ export const optimizeImageFile = async (
       });
     }
 
-    const imageCompression = (await import('browser-image-compression'))
-      .default;
-    formattedFile = await imageCompression(formattedFile, {
+    if (!imageCompressionModule) {
+      imageCompressionModule = (await import('browser-image-compression'))
+        .default;
+    }
+
+    formattedFile = await imageCompressionModule(formattedFile, {
       maxSizeMB: maxSizeMB || 0.3,
       maxWidthOrHeight: maxWidthOrHeight || 500,
       useWebWorker: true,

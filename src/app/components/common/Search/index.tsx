@@ -1,15 +1,16 @@
-import { Suspense } from 'react';
+'use client';
+
+import dynamic from 'next/dynamic';
 
 import Skeleton from '@/components/Skeleton';
 
-import SearchContainer from './SearchContainer';
+const SearchContainer = dynamic(() => import('./SearchContainer'), {
+  ssr: false,
+  loading: () => <Skeleton />,
+});
 
 function Search() {
-  return (
-    <Suspense fallback={<Skeleton />}>
-      <SearchContainer />
-    </Suspense>
-  );
+  return <SearchContainer />;
 }
 
 export default Search;

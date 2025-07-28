@@ -1,6 +1,6 @@
 import { joinClassNames } from '@/utils/style';
 
-import { ICONS, IconType } from './const';
+import { ICON_TITLES, ICONS, IconType } from './const';
 import style from './style.module.scss';
 
 export interface IconProps {
@@ -13,7 +13,15 @@ function Icon({ icon, className }: IconProps) {
     ? joinClassNames(style.icon, className)
     : style.icon;
 
-  return <div className={joinedClassName}>{ICONS[icon]}</div>;
+  return (
+    <div
+      title={ICON_TITLES[icon]}
+      aria-label={ICON_TITLES[icon]}
+      className={joinedClassName}
+    >
+      {ICONS[icon]}
+    </div>
+  );
 }
 
 export default Icon;

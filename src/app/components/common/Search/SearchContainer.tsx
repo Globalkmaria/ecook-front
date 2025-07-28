@@ -18,11 +18,12 @@ import style from './style.module.scss';
 function SearchContainer() {
   const router = useRouter();
   const searchParams = useSearchParams();
+
   const [searchQuery, setSearchQuery] = useState(
-    getSearchQuery(searchParams.get('q')),
+    getSearchQuery(searchParams.get('q')) || '',
   );
   const [selectedMenuItem, setSelectedMenuItem] = useState<SearchMenuValue>(
-    getSearchMenuItem(searchParams.get('type')),
+    getSearchMenuItem(searchParams.get('type')) || 'name',
   );
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -31,7 +32,8 @@ function SearchContainer() {
   const onSearch = () => {
     if (!searchQuery.trim()) return;
 
-    router.push(getSearchLink(selectedMenuItem, searchQuery));
+    const searchUrl = getSearchLink(selectedMenuItem, searchQuery);
+    router.push(searchUrl);
   };
 
   const onMenuChange = (menuItem: SearchMenuValue) =>
@@ -41,14 +43,9 @@ function SearchContainer() {
     if (e.key === 'Enter') onSearch();
   };
 
-  const initSearchStates = () => {
+  useEffect(() => {
     setSearchQuery(getSearchQuery(searchParams.get('q')));
     setSelectedMenuItem(getSearchMenuItem(searchParams.get('type')));
-  };
-
-  useEffect(() => {
-    initSearchStates();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
   return (
