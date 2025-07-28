@@ -3,6 +3,7 @@ import React, { ReactElement } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render, RenderOptions } from '@testing-library/react';
 
+// Create a test query client with disabled retries and caching for faster tests
 const createTestQueryClient = () =>
   new QueryClient({
     defaultOptions: {
@@ -33,4 +34,4 @@ const customRender = (
 ) => render(ui, { wrapper: AllTheProviders, ...options });
 
 export * from '@testing-library/react';
-export { customRender as render, createTestQueryClient };
+export { customRender as render };

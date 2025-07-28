@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 import {
   formatHours,
   formatMinutes,
@@ -10,7 +12,6 @@ import {
   getDateAfterToday,
   formateDate,
 } from '@/utils/time';
-import dayjs from 'dayjs';
 
 describe('Time Utilities', () => {
   describe('formatTimeUnit', () => {
