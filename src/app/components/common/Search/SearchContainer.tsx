@@ -19,9 +19,12 @@ function SearchContainer() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedMenuItem, setSelectedMenuItem] =
-    useState<SearchMenuValue>('name');
+  const [searchQuery, setSearchQuery] = useState(
+    getSearchQuery(searchParams.get('q')) || '',
+  );
+  const [selectedMenuItem, setSelectedMenuItem] = useState<SearchMenuValue>(
+    getSearchMenuItem(searchParams.get('type')) || 'name',
+  );
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setSearchQuery(e.target.value);
@@ -41,10 +44,8 @@ function SearchContainer() {
   };
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setSearchQuery(getSearchQuery(searchParams.get('q')));
-      setSelectedMenuItem(getSearchMenuItem(searchParams.get('type')));
-    }
+    setSearchQuery(getSearchQuery(searchParams.get('q')));
+    setSelectedMenuItem(getSearchMenuItem(searchParams.get('type')));
   }, [searchParams]);
 
   return (
