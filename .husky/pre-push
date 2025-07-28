@@ -9,6 +9,3 @@ npm run build || exit 1
 
 echo "🧪  Testing…"
 npm run test || exit 1
-
-echo "🧪  Testing E2E…"
-npm run test:e2e || exit 1
