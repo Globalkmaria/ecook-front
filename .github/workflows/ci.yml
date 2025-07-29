@@ -30,6 +30,11 @@ jobs:
       - name: 🧪  Test
         run: npm run test
 
+      - name: 🧹  Clear cache
+        run: |
+          rm -rf .next
+          npm cache clean --force
+
       - name: 🏗️  Build
         run: npm run build
         env:
