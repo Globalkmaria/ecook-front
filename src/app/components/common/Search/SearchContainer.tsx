@@ -8,6 +8,8 @@ import { joinClassNames } from '@/utils/style';
 
 import { getSearchLink } from '@/helpers/links';
 
+import { useAnalytics } from '@/hooks/useAnalytics';
+
 import Icon from '@/components/Icon';
 
 import { SEARCH_MENU_ITEMS, SearchMenuValue } from '@/const/searchMenu';
@@ -16,6 +18,7 @@ import { getSearchMenuItem, getSearchQuery } from './helper';
 import style from './style.module.scss';
 
 function SearchContainer() {
+  const { trackRecipeSearch } = useAnalytics();
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -33,6 +36,7 @@ function SearchContainer() {
     if (!searchQuery.trim()) return;
 
     const searchUrl = getSearchLink(selectedMenuItem, searchQuery);
+    trackRecipeSearch(searchQuery);
     router.push(searchUrl);
   };
 
