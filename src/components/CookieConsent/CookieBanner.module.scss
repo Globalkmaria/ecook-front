@@ -1,0 +1,126 @@
+@use '@/styles/theme' as *;
+
+.overlay {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2px);
+  animation: slideUp 0.3s ease-out;
+}
+
+.banner {
+  background: $white;
+  border-top: 1px solid $grey300;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 100%;
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+}
+
+.text {
+  flex: 1;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  color: $grey900;
+  margin: 0 0 8px 0;
+}
+
+.description {
+  font-size: 14px;
+  color: $grey700;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.button {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  min-width: 100px;
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.buttonPrimary {
+  background: $black;
+  color: $white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  
+  &:hover {
+    background: $grey800;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.buttonSecondary {
+  background: $grey200;
+  color: $grey700;
+  
+  &:hover {
+    background: $grey300;
+    color: $grey800;
+  }
+}
+
+.buttonOutline {
+  background: transparent;
+  color: $grey700;
+  border: 1px solid $grey400;
+  
+  &:hover {
+    background: $grey100;
+    border-color: $grey500;
+    color: $grey800;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

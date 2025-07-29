@@ -1,9 +1,11 @@
-import { GoogleAnalytics } from '@next/third-parties/google';
 import { Metadata, Viewport } from 'next';
 
+import ConditionalAnalytics from '@/components/ConditionalAnalytics';
+import CookieConsent from '@/components/CookieConsent/CookieConsent';
 import OrganizationSchema from '@/components/seo/OrganizationSchema';
 
 import { ECOOK_LOGO_URL } from '@/const/contLinks';
+import { CookieConsentProvider } from '@/contexts/CookieConsentContext';
 import Providers from '@/providers';
 
 import '@/styles/global.scss';
@@ -71,16 +73,19 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <Providers>
-          <div className={style.layout_container}>
-            {children}
-            {modal}
-            <div id='modal-root' />
-          </div>
-        </Providers>
-        <OrganizationSchema />
+        <CookieConsentProvider>
+          <Providers>
+            <div className={style.layout_container}>
+              {children}
+              {modal}
+              <div id='modal-root' />
+            </div>
+          </Providers>
+          <OrganizationSchema />
+          <CookieConsent />
+          <ConditionalAnalytics />
+        </CookieConsentProvider>
       </body>
-      <GoogleAnalytics gaId='G-P19WFDWFQH' />
     </html>
   );
 }
