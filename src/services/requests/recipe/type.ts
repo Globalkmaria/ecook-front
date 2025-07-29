@@ -31,6 +31,7 @@ export interface RecipeDetail {
     isDeleted: boolean;
   };
   key: string;
+  createdAt: string;
 }
 
 export interface RecipeIngredient {
