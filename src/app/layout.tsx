@@ -1,9 +1,11 @@
-import { GoogleAnalytics } from '@next/third-parties/google';
 import { Metadata, Viewport } from 'next';
 
+import ConditionalAnalytics from '@/components/ConditionalAnalytics';
+import CookieConsent from '@/components/CookieConsent/CookieConsent';
 import OrganizationSchema from '@/components/seo/OrganizationSchema';
 
 import { ECOOK_LOGO_URL } from '@/const/contLinks';
+import { CookieConsentProvider } from '@/contexts/CookieConsentContext';
 import Providers from '@/providers';
 
 import '@/styles/global.scss';
@@ -69,18 +71,26 @@ export default function RootLayout({
           href='https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Libre+Bodoni:wght@400..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap'
           rel='stylesheet'
         />
+        <script
+          async
+          src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1333816916423265'
+          crossOrigin='anonymous'
+        ></script>
       </head>
       <body>
-        <Providers>
-          <div className={style.layout_container}>
-            {children}
-            {modal}
-            <div id='modal-root' />
-          </div>
-        </Providers>
-        <OrganizationSchema />
+        <CookieConsentProvider>
+          <Providers>
+            <div className={style.layout_container}>
+              {children}
+              {modal}
+              <div id='modal-root' />
+            </div>
+          </Providers>
+          <OrganizationSchema />
+          <CookieConsent />
+          <ConditionalAnalytics />
+        </CookieConsentProvider>
       </body>
-      <GoogleAnalytics gaId='G-P19WFDWFQH' />
     </html>
   );
 }

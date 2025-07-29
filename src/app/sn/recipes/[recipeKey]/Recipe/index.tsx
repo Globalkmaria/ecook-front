@@ -9,6 +9,8 @@ import { formatTime } from '@/utils/time';
 
 import { getSearchTagLink } from '@/helpers/links';
 
+import { useAnalytics } from '@/hooks/useAnalytics';
+
 import AnchorChips from '@/components/AnchorChip';
 import AvatarLink from '@/components/Avatar/AvatarLink';
 import CustomImage from '@/components/CustomImage';
@@ -27,7 +29,9 @@ import RecipeSchema from './RecipeSchema';
 import style from './style.module.scss';
 
 function Recipe() {
+  const { trackRecipeView } = useAnalytics();
   const { recipeKey } = useParams<RecipePageParams>();
+  trackRecipeView(recipeKey);
   return (
     <SuspenseQuery
       {...recipeOptions({ key: recipeKey })}

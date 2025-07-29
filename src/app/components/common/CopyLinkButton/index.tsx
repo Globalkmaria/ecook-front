@@ -2,17 +2,20 @@ import { useState } from 'react';
 
 import { joinClassNames } from '@/utils/style';
 
+import { useAnalytics } from '@/hooks/useAnalytics';
+
 import IconButton from '@/components/IconButton';
 
 import style from './style.module.scss';
 
 function CopyLinkButton() {
+  const { trackRecipeShare } = useAnalytics();
   const [showMessage, setShowMessage] = useState(false);
 
   const handleClick = async () => {
     const url = window.location.href;
     await navigator.clipboard.writeText(url);
-
+    trackRecipeShare(url, 'link');
     if (showMessage) return;
     setShowMessage(true);
 

@@ -4,7 +4,6 @@ import { baseUrl } from '@/const/baseUrl';
 import { RecipeDetail } from '@/services/requests/recipe/type';
 
 export default function RecipeSchema({ recipe }: { recipe: RecipeDetail }) {
-  console.log('RecipeSchema', recipe);
   const totalMinutes = recipe.hours * 60 + recipe.minutes;
 
   const recipeIngredients = recipe.ingredients.map(

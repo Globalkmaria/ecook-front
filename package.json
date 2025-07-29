@@ -1,10 +1,10 @@
 {
   "name": "recipes",
-  "version": "1.8.1",
+  "version": "1.9.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next lint && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
@@ -14,7 +14,8 @@
     "test:coverage": "jest --coverage",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "test:e2e:headed": "playwright test --headed"
+    "test:e2e:headed": "playwright test --headed",
+    "check": "npm run lint && npm run build"
   },
   "dependencies": {
     "@next/third-parties": "^15.0.4",
