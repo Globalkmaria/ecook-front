@@ -4,6 +4,7 @@ import { notFound, useParams } from 'next/navigation';
 
 import { recipeOptions } from '@/queries/options';
 
+import { generateRecipeBreadcrumbs } from '@/utils/seo';
 import { formatTime } from '@/utils/time';
 
 import { getSearchTagLink } from '@/helpers/links';
@@ -11,6 +12,7 @@ import { getSearchTagLink } from '@/helpers/links';
 import AnchorChips from '@/components/AnchorChip';
 import AvatarLink from '@/components/Avatar/AvatarLink';
 import CustomImage from '@/components/CustomImage';
+import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import Skeleton from '@/components/Skeleton';
 
 import CopyLinkButton from '@/app/components/common/CopyLinkButton';
@@ -35,6 +37,7 @@ function Recipe() {
         <>
           <RecipeBody recipe={recipe} />
           <RecipeSchema recipe={recipe} />
+          <BreadcrumbSchema items={generateRecipeBreadcrumbs(recipe)} />
         </>
       )}
     </SuspenseQuery>
