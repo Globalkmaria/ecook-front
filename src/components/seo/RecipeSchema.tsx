@@ -3,13 +3,19 @@ import Script from 'next/script';
 import { baseUrl } from '@/const/baseUrl';
 import { RecipeDetail } from '@/services/requests/recipe/type';
 
-export default function RecipeSchema({ recipe }: { recipe: RecipeDetail }) {
-  console.log('RecipeSchema', recipe);
+interface RecipeSchemaProps {
+  recipe: RecipeDetail;
+}
+
+export default function RecipeSchema({ recipe }: RecipeSchemaProps) {
+  console.log(recipe.createdAt);
   const totalMinutes = recipe.hours * 60 + recipe.minutes;
+  const totalTimeISO = `PT${totalMinutes}M`;
 
   const recipeIngredients = recipe.ingredients.map(
     (ingredient) => `${ingredient.quantity} ${ingredient.name}`,
   );
+
   const recipeInstructions = recipe.steps.map((step, index) => ({
     '@type': 'HowToStep',
     name: `Step ${index + 1}`,
@@ -17,7 +23,7 @@ export default function RecipeSchema({ recipe }: { recipe: RecipeDetail }) {
     position: index + 1,
   }));
 
-  const schema = {
+  const recipeSchema = {
     '@context': 'https://schema.org',
     '@type': 'Recipe',
     name: recipe.name,
@@ -29,9 +35,9 @@ export default function RecipeSchema({ recipe }: { recipe: RecipeDetail }) {
       ...(recipe.user.img && { image: recipe.user.img }),
     },
     datePublished: new Date(recipe.createdAt).toISOString(),
-    prepTime: `PT${Math.ceil(totalMinutes * 0.3)}M`,
-    cookTime: `PT${Math.ceil(totalMinutes * 0.7)}M`,
-    totalTime: `PT${totalMinutes}M`,
+    prepTime: totalTimeISO,
+    cookTime: totalTimeISO,
+    totalTime: totalTimeISO,
     recipeCategory:
       recipe.tags.length > 0 ? recipe.tags[0].name : 'Main Course',
     recipeCuisine: 'International',
@@ -51,7 +57,7 @@ export default function RecipeSchema({ recipe }: { recipe: RecipeDetail }) {
       id={`recipe-schema-${recipe.key}`}
       type='application/ld+json'
       strategy='afterInteractive'
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(recipeSchema) }}
     />
   );
 }

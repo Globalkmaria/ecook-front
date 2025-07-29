@@ -1,6 +1,9 @@
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { Metadata, Viewport } from 'next';
 
+import OrganizationSchema from '@/components/seo/OrganizationSchema';
+
+import { ECOOK_LOGO_URL } from '@/const/contLinks';
 import Providers from '@/providers';
 
 import '@/styles/global.scss';
@@ -32,7 +35,7 @@ export const metadata: Metadata = {
       'Got a recipe everyone loves? Share your creation with the E-COOK community and inspire food lovers everywhere!',
     images: [
       {
-        url: 'https://velog.velcdn.com/images/tjdgus0528/post/47e62a5c-e808-40ab-8eb0-850849f08100/image.png',
+        url: ECOOK_LOGO_URL,
         width: 1200,
         height: 630,
       },
@@ -75,6 +78,7 @@ export default function RootLayout({
             <div id='modal-root' />
           </div>
         </Providers>
+        <OrganizationSchema />
       </body>
       <GoogleAnalytics gaId='G-P19WFDWFQH' />
     </html>
