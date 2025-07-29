@@ -8,7 +8,6 @@ interface RecipeSchemaProps {
 }
 
 export default function RecipeSchema({ recipe }: RecipeSchemaProps) {
-  console.log(recipe.createdAt);
   const totalMinutes = recipe.hours * 60 + recipe.minutes;
   const totalTimeISO = `PT${totalMinutes}M`;
 
