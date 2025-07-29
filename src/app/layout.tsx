@@ -71,6 +71,11 @@ export default function RootLayout({
           href='https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Libre+Bodoni:wght@400..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap'
           rel='stylesheet'
         />
+        <script
+          async
+          src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1333816916423265'
+          crossOrigin='anonymous'
+        ></script>
       </head>
       <body>
         <CookieConsentProvider>
