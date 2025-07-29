@@ -6,8 +6,6 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 
 import { useCookieConsent } from '@/contexts/CookieConsentContext';
 
-const GA_ID = 'G-P19WFDWFQH';
-
 export const COOKIE_CHANGE_EVENT = 'cookieConsentChanged';
 
 export default function ConditionalAnalytics() {
@@ -46,5 +44,7 @@ export default function ConditionalAnalytics() {
     return null;
   }
 
-  return <GoogleAnalytics gaId={GA_ID} />;
+  const gaId = process.env.NEXT_PUBLIC_GA_ID || '';
+
+  return <GoogleAnalytics gaId={gaId} />;
 }
