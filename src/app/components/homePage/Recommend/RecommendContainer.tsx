@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import Link from 'next/link';
 
-import { getSearchTagLink } from '@/helpers/links';
+import { getSearchIngredientLink, getSearchTagLink } from '@/helpers/links';
 
 import Card from '@/components/Card';
 import { Tab2, TabsContainer2 } from '@/components/Tab2';
@@ -58,6 +58,8 @@ function RecipeList({
   recipes: RecipeRecommendations[number]['recipes'][string];
   type: string;
 }) {
+  const link =
+    type === 'tag' ? getSearchTagLink(type) : getSearchIngredientLink(type);
   return (
     <ul className={style['recommend-list']}>
       {recipes?.map((recipe) => (
@@ -69,7 +71,7 @@ function RecipeList({
         </li>
       ))}
       <li className={style['item']}>
-        <SeeMoreLink link={getSearchTagLink(type)} />
+        <SeeMoreLink link={link} />
       </li>
     </ul>
   );
