@@ -16,6 +16,8 @@ export interface IngredientNewProduct {
   img: ImageFileType;
 }
 
+export type IngredientNewProductServer = Omit<IngredientNewProduct, 'img'>;
+
 export interface NewRecipeIngredient {
   quantity: string;
   ingredientId: string | null;
@@ -40,7 +42,7 @@ export interface NewRecipeIngredientServer {
   quantity: string;
   ingredientId: string | null;
   productId: string | null;
-  newProduct: IngredientNewProduct | null;
+  newProduct: IngredientNewProductServer | null;
 }
 
 export interface NewRecipeDataServer {

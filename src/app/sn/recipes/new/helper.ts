@@ -69,7 +69,15 @@ const getIngredients = (
     name: item.ingredientName,
     quantity: item.quantity,
     ingredientId: item.productId,
-    newProduct: item.newProduct,
+    newProduct: item.newProduct
+      ? {
+          id: item.newProduct?.id,
+          name: item.newProduct?.name,
+          brand: item.newProduct?.brand,
+          purchasedFrom: item.newProduct?.purchasedFrom,
+          link: item.newProduct?.link,
+        }
+      : null,
     productId: item.productId,
   }));
 
