@@ -15,7 +15,7 @@
   grid-template-columns: 100px 1fr max-content;
   align-items: center;
 
-  @media #{$tablet} {
+  @media #{$laptop} {
     grid-template-columns: 100px 1fr;
     grid-row-gap: 20px;
   }
@@ -33,9 +33,9 @@
   flex-grow: 1;
   display: flex;
   margin: 0 20px;
-  font-size: 0.7rem;
+  font-size: 1rem;
 
-  @media #{$tablet} {
+  @media #{$laptop} {
     margin: 0;
     grid-area: 2 / 1 / 3 / 3;
   }
@@ -48,7 +48,7 @@
 
 .right-buttons-containers {
   justify-self: end;
-  font-size: 0.7rem;
+  font-size: 1rem;
 
   @media #{$mobile} {
     grid-area: 2 / 1 / 3 / 2;
