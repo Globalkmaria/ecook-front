@@ -11,6 +11,7 @@ import { Tab2, TabsContainer2 } from '@/components/Tab2';
 
 import { RecipeRecommendations } from '@/services/requests/recommend/type';
 
+import { getSeeMoreLink } from './helper';
 import style from './style.module.scss';
 
 function RecommendContainer({
@@ -26,7 +27,7 @@ function RecommendContainer({
   const onTabChange = (newTab: string) => {
     setTab(newTab);
   };
-
+  const link = getSeeMoreLink(title, selectedTag);
   return (
     <section>
       <div className={style['header']}>
@@ -41,10 +42,7 @@ function RecommendContainer({
           </TabsContainer2>
         </div>
       </div>
-      <RecipeList
-        recipes={groupedRecipesByType[selectedTag]}
-        type={selectedTag}
-      />
+      <RecipeList link={link} recipes={groupedRecipesByType[selectedTag]} />
     </section>
   );
 }
@@ -53,13 +51,11 @@ export default RecommendContainer;
 
 function RecipeList({
   recipes,
-  type,
+  link,
 }: {
   recipes: RecipeRecommendations[number]['recipes'][string];
-  type: string;
+  link: string;
 }) {
-  const link =
-    type === 'tag' ? getSearchTagLink(type) : getSearchIngredientLink(type);
   return (
     <ul className={style['recommend-list']}>
       {recipes?.map((recipe) => (

@@ -1,3 +1,5 @@
+import { getSearchTagLink, getSearchIngredientLink } from '@/helpers/links';
+
 import { RecipeRecommendations } from '@/services/requests/recommend/type';
 
 export const transformRecommendRecipeData = (data: RecipeRecommendations) => {
@@ -10,4 +12,11 @@ export const transformRecommendRecipeData = (data: RecipeRecommendations) => {
   }));
 
   return result;
+};
+
+export const getSeeMoreLink = (type: string, query: string) => {
+  const link = type.toLowerCase().includes('tag')
+    ? getSearchTagLink(query)
+    : getSearchIngredientLink(query);
+  return link;
 };
