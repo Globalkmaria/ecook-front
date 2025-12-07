@@ -1,6 +1,6 @@
 {
   "name": "recipes",
-  "version": "1.9.2",
+  "version": "1.9.3",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -26,7 +26,7 @@
     "heic2any": "^0.0.4",
     "immer": "^10.1.1",
     "mysql2": "^3.11.2",
-    "next": "^15.1.6",
+    "next": "^15.1.9",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-error-boundary": "^5.0.0",
