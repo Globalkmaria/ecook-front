@@ -1,10 +1,5 @@
 # E-COOK
 
-Project Link : <https://www.ecook.online>
-
-- Test ID : testme
-- PW : Helloworld1!
-
 ## Table of Contents
 
 - [About](#about)
